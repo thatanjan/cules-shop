@@ -4,6 +4,7 @@ import typeDefs from './user.types'
 
 import registerUserMutation from './register.mutation'
 import loginUserMutation from './login.mutation'
+import becomeSellerMutation from './becomeSeller.mutation'
 
 const resolver = {
 	Query: {
@@ -16,5 +17,6 @@ export const userTypeDefs = [typeDefs]
 export const userResolvers = merge(
 	registerUserMutation,
 	loginUserMutation,
-	resolver
+	resolver,
+	becomeSellerMutation
 )
