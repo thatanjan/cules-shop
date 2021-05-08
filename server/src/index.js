@@ -1,8 +1,10 @@
 import mongoose from 'mongoose'
 import express from 'express'
-import { gql, ApolloServer } from 'apollo-server-express'
+import { ApolloServer } from 'apollo-server-express'
 import dotenv from 'dotenv'
-import cors from 'cors'
+
+import typeDefs from 'graphql/typeDefs'
+import resolvers from 'graphql/resolvers'
 
 dotenv.config()
 
@@ -25,20 +27,6 @@ mongoose
 		// eslint-disable-next-line
 		console.log(error)
 	})
-
-app.use(cors())
-
-const typeDefs = gql`
-	type Query {
-		hello: String
-	}
-`
-
-const resolvers = {
-	Query: {
-		hello: () => 'hello world',
-	},
-}
 
 const server = new ApolloServer({ typeDefs, resolvers })
 
