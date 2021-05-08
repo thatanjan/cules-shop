@@ -18,9 +18,17 @@ const types = gql`
 		confirmPassword: String!
 	}
 
+	type ValidationErrorMessage {
+		email: String
+		name: String
+		password: String
+		confirmPassword: String
+	}
+
 	type Response {
 		token: String
 		errorMessage: String
+		validationError: ValidationErrorMessage
 	}
 `
 
