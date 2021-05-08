@@ -8,5 +8,21 @@
 		"ecmaVersion": 12,
 		"sourceType": "module"
 	},
-	"rules": {}
+	"rules": {
+		"import/extensions": [
+			"error",
+			"always",
+			{
+				"js": "never"
+			}
+		]
+	},
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [".js"],
+				"moduleDirectory": ["node_modules", "src/"]
+			}
+		}
+	}
 }
