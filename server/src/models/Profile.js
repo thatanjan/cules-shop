@@ -18,10 +18,6 @@ const schema = {
 		postal: stringDefault,
 		address: stringDefault,
 	},
-	date: {
-		type: Date,
-		default: Date.now,
-	},
 	user: {
 		type: objectId,
 		required: true,
