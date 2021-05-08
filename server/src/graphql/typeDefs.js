@@ -2,19 +2,20 @@ import { gql } from 'apollo-server-express'
 
 import { userTypeDefs } from 'graphql/User/user'
 
-const Query = gql`
+const typeDefs = gql`
 	type Query {
 		_empty: String
 		hello: String
 	}
-`
 
-const Mutation = gql`
 	type Mutation {
 		_empty: String
 	}
+
+	type SuccessResponse {
+		success: Boolean
+		errorMessage: String
+	}
 `
 
-const typeDefs = [Query, Mutation, ...userTypeDefs]
-
-export default typeDefs
+export default [typeDefs, ...userTypeDefs]
