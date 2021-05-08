@@ -1,5 +1,7 @@
 import merge from 'lodash/merge'
 
-const resolvers = merge()
+import { userResolvers } from 'graphql/User/user'
+
+const resolvers = merge(userResolvers)
 
 export default resolvers
