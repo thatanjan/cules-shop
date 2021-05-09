@@ -8,6 +8,7 @@ const schema = new Schema({
 		type: objectId,
 		required: true,
 		ref: 'user',
+		unique: true,
 	},
 	company: {
 		type: String,
