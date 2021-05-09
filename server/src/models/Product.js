@@ -1,4 +1,7 @@
 import { Schema, createConnection } from 'mongoose'
+import { config } from 'dotenv'
+
+config()
 
 const objectId = Schema.Types.ObjectId
 
