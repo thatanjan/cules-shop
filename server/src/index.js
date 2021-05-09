@@ -37,7 +37,33 @@ app.use(
 	})
 )
 
-const server = new ApolloServer({ typeDefs, resolvers })
+app.use((err, req, _, next) => {
+	if (err.name === 'UnauthorizedError') {
+		req.UnauthorizedError = err.message
+	}
+
+	next()
+})
+
+const server = new ApolloServer({
+	typeDefs,
+	resolvers,
+	context: ctx => {
+		const {
+			req: { user, UnauthorizedError },
+		} = ctx
+
+		if (user) {
+			return { ...ctx, user }
+		}
+
+		if (UnauthorizedError) {
+			return { error: UnauthorizedError }
+		}
+
+		return ctx
+	},
+})
 
 server.applyMiddleware({ app })
 
