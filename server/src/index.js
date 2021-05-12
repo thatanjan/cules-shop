@@ -1,11 +1,14 @@
 import mongoose from 'mongoose'
 import express from 'express'
-import { ApolloServer } from 'apollo-server-express'
+import { ApolloServer, makeExecutableSchema } from 'apollo-server-express'
 import dotenv from 'dotenv'
+import { applyMiddleware } from 'graphql-middleware'
 import jwt from 'express-jwt'
 
 import typeDefs from 'graphql/typeDefs'
 import resolvers from 'graphql/resolvers'
+
+import permissions from 'config/permission'
 
 dotenv.config()
 
@@ -46,8 +49,13 @@ app.use((err, req, _, next) => {
 })
 
 const server = new ApolloServer({
-	typeDefs,
-	resolvers,
+	schema: applyMiddleware(
+		makeExecutableSchema({
+			typeDefs,
+			resolvers,
+		}),
+		permissions
+	),
 	context: ctx => {
 		const {
 			req: { user, UnauthorizedError },
