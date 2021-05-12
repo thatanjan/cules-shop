@@ -1,4 +1,4 @@
-const theErrorMessage = errorMessage => {
+const theErrorMessage = (errorMessage = 'Sorry, something went wrong') => {
 	if (
 		errorMessage instanceof Error ||
 		(errorMessage === 'object' && errorMessage.message)
