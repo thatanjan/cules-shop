@@ -4,6 +4,7 @@ import { compare } from 'bcryptjs'
 import sendErrorMessage from 'utils/errorMessage'
 import validateLoginInput from 'validation/login'
 import User from 'models/User'
+import Seller from 'models/Seller'
 
 export const validationErrorMessage = errors => ({
 	validationError: errors,
@@ -34,7 +35,15 @@ const resolver = {
 
 				const { _id } = user
 
-				const token = jwt.sign({ id: _id }, process.env.SECRET_KEY, {
+				const payload = { id: _id }
+
+				const seller = await Seller.findOne({ user: _id }, '_id')
+
+				if (seller) {
+					payload.sellerID = seller._id
+				}
+
+				const token = jwt.sign(payload, process.env.SECRET_KEY, {
 					expiresIn: '7d',
 				})
 
