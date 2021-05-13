@@ -2,9 +2,12 @@ import jwt from 'jsonwebtoken'
 import { hash } from 'bcryptjs'
 
 import sendErrorMessage from 'utils/errorMessage'
+
 import validateRegisterInput from 'validation/register'
+
 import User from 'models/User'
 import Profile from 'models/Profile'
+import Cart from 'models/Cart'
 
 const createUser = async ({ name, email, password }) => {
 	try {
@@ -21,9 +24,12 @@ const createUser = async ({ name, email, password }) => {
 
 		const newUserID = newUser._id
 
+		const cart = new Cart({ user: newUserID })
+
 		profile.user = newUserID
 
 		profile.save()
+		cart.save()
 
 		return newUser.save()
 	} catch (error) {
