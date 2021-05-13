@@ -3,13 +3,13 @@ import Product from 'models/Product'
 
 const resolver = {
 	Mutation: {
-		createProduct: async (_, { Input }, { user: { id } }) => {
+		createProduct: async (_, { Input }, { user: { sellerID } }) => {
 			try {
-				const product = new Product({ ...Input, seller: id })
+				const product = new Product({ ...Input, seller: sellerID })
 
 				await product.save()
 
-				return true
+				return { success: true }
 			} catch (__) {
 				return sendErrorMessage()
 			}
