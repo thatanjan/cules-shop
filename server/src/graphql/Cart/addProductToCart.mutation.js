@@ -13,6 +13,7 @@ const resolvers = {
 					{ user: id },
 					{
 						$push: { products: { id: productID, quantity } },
+						$inc: { totalQuantity: quantity },
 					}
 				)
 
