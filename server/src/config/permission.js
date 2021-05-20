@@ -15,6 +15,18 @@ const isSeller = rule()(async (_, __, { user: { id } }) => {
 	}
 })
 
+const isAuthenticated = rule()(async (_, __, { user, error }) => {
+	if (error) {
+		return new Error(error)
+	}
+
+	if (!user) {
+		return false
+	}
+
+	return true
+})
+
 const doesProductExist = rule()(async (_, { Input: { ProductID } }) => {
 	try {
 		const product = await Product.findById(ProductID, 'name')
