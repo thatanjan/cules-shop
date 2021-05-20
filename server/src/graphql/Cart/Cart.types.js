@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express'
 
 const typeDefs = gql`
 	extend type Mutation {
-		addProductToCart(Input: AddProductToCartInput): Success!
+		addProductToCart(Input: AddProductToCartInput): SuccessResponse!
 	}
 
 	input AddProductToCartInput {
