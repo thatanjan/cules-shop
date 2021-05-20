@@ -75,6 +75,6 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app })
 
-const port = process.env.PORT || 9000
+const port = process.env.PORT || 8000
 
 app.listen({ port }, () => console.log(`server is running at ${port}`))
