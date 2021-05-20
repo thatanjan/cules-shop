@@ -14,6 +14,10 @@ const schema = new Schema({
 	name: { ...stringRequired, unique: true },
 	shortDescription: stringRequired,
 	description: stringRequired,
+	price: {
+		type: Number,
+		required: true,
+	},
 	quantity: {
 		type: Number,
 		required: true,
