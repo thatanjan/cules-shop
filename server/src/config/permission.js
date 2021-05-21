@@ -4,7 +4,10 @@ import Seller from 'models/Seller'
 
 import { somethingWentWrong, sendShieldError } from 'utils/shieldError'
 
-import { canProductBeAddedToCart } from './productPermissions'
+import {
+	canProductBeAddedToCart,
+	canProductQuantityBeModified,
+} from './productPermissions'
 
 const isSeller = rule()(async (_, __, { user: { id } }) => {
 	try {
@@ -35,6 +38,7 @@ export default shield(
 		Mutation: {
 			becomeSeller: and(isSeller),
 			addProductToCart: and(isAuthenticated, canProductBeAddedToCart),
+			modifyQuantity: and(isAuthenticated, canProductQuantityBeModified),
 		},
 	},
 	{
