@@ -2,7 +2,7 @@ import { and, rule, shield } from 'graphql-shield'
 
 import Seller from 'models/Seller'
 
-import { canProductBeAddedToCart } from './productPermissions'
+import somethingWentWrong from 'utils/somethingWentWrong'
 
 const isSeller = rule()(async (_, __, { user: { id } }) => {
 	try {
@@ -12,7 +12,7 @@ const isSeller = rule()(async (_, __, { user: { id } }) => {
 
 		return true
 	} catch (___) {
-		return new Error('Sorry something went wrong')
+		return somethingWentWrong()
 	}
 })
 

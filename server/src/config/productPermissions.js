@@ -3,6 +3,8 @@ import { rule } from 'graphql-shield'
 import Product from 'models/Product'
 import Cart from 'models/Cart'
 
+import somethingWentWrong from 'utils/somethingWentWrong'
+
 const doesProductExist = rule()(async (_, { Input: { productID } }) => {
 	try {
 		const product = await Product.findById(productID, 'name')
@@ -11,7 +13,7 @@ const doesProductExist = rule()(async (_, { Input: { productID } }) => {
 
 		return true
 	} catch (__) {
-		return new Error('Sorry something went wrong')
+		return somethingWentWrong()
 	}
 })
 
@@ -38,7 +40,7 @@ const canProductBeAddedToCart = rule()(
 
 			return true
 		} catch (__) {
-			return new Error('Sorry something went wrong')
+			return somethingWentWrong()
 		}
 	}
 )
