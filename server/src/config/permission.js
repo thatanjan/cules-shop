@@ -27,9 +27,9 @@ const isAuthenticated = rule()(async (_, __, { user, error }) => {
 	return true
 })
 
-const doesProductExist = rule()(async (_, { Input: { ProductID } }) => {
+const doesProductExist = rule()(async (_, { Input: { productID } }) => {
 	try {
-		const product = await Product.findById(ProductID, 'name')
+		const product = await Product.findById(productID, 'name')
 
 		if (!product) return new Error('No product found')
 
@@ -38,6 +38,23 @@ const doesProductExist = rule()(async (_, { Input: { ProductID } }) => {
 		return new Error('Sorry something went wrong')
 	}
 })
+
+const canProductBeAddedToCart = rule()(
+	async (_, { Input: { productID, quantity } }) => {
+		try {
+			const product = await Product.findById(productID, 'quantity')
+
+			if (!product) return new Error('No product found')
+
+			if (quantity > product.quantity)
+				return new Error('Not enough product exist on stock')
+
+			return true
+		} catch (__) {
+			return new Error('Sorry something went wrong')
+		}
+	}
+)
 
 export default shield({
 	Mutation: {
