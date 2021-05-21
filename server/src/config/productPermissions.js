@@ -3,7 +3,7 @@ import { rule } from 'graphql-shield'
 import Product from 'models/Product'
 import Cart from 'models/Cart'
 
-import somethingWentWrong from 'utils/somethingWentWrong'
+import somethingWentWrong from 'utils/shieldError'
 
 const doesProductExist = rule()(async (_, { Input: { productID } }) => {
 	try {

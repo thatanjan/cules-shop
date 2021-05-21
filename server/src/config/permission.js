@@ -2,7 +2,7 @@ import { and, rule, shield } from 'graphql-shield'
 
 import Seller from 'models/Seller'
 
-import somethingWentWrong from 'utils/somethingWentWrong'
+import somethingWentWrong from 'utils/shieldError'
 
 const isSeller = rule()(async (_, __, { user: { id } }) => {
 	try {
