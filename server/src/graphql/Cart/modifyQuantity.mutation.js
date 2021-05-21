@@ -1,5 +1,6 @@
 import Cart from 'models/Cart'
-import Product from 'models/Product'
+
+import sendErrorMessage from 'utils/errorMessage'
 
 export const modifyTypes = {
 	INCREASE: 'increase',
@@ -13,20 +14,29 @@ const resolver = {
 			{ Input: { type, amount, productID } },
 			{ user: { id } }
 		) => {
-			const { DECREASE, INCREASE } = modifyTypes
+			let updateAmount = 0
+
+			switch (type) {
+				case modifyTypes.DECREASE:
+					updateAmount = amount * -1
+					break
+
+				default:
+					updateAmount = amount
+			}
 
 			const modifyQuantity = await Cart.updateOne(
 				{ user: id },
 				{
 					$inc: {
-						totalQuantity: type === INCREASE ? amount : amount * -1,
-						'products.$[product].quantity': type === INCREASE ? amount : amount * -1,
+						totalQuantity: updateAmount,
+						'products.$[product].quantity': updateAmount,
 					},
 				},
 				{ arrayFilters: [{ 'product.id': { $eq: productID } }] }
 			)
 
-			console.log(modifyQuantity)
+			if (!modifyQuantity.nModified) return sendErrorMessage()
 
 			return { success: true }
 		},
