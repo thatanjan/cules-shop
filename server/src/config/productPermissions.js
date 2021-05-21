@@ -3,13 +3,13 @@ import { rule } from 'graphql-shield'
 import Product from 'models/Product'
 import Cart from 'models/Cart'
 
-import somethingWentWrong from 'utils/shieldError'
+import { somethingWentWrong, sendShieldError } from 'utils/shieldError'
 
 const doesProductExist = rule()(async (_, { Input: { productID } }) => {
 	try {
 		const product = await Product.findById(productID, 'name')
 
-		if (!product) return new Error('No product found')
+		if (!product) return sendShieldError('No product found')
 
 		return true
 	} catch (__) {
@@ -22,7 +22,7 @@ const canProductBeAddedToCart = rule()(
 		try {
 			const product = await Product.findById(productID, 'quantity')
 
-			if (!product) return new Error('No product found')
+			if (!product) return sendShieldError('No product found')
 
 			const userCart = await Cart.findOne(
 				{ user: id },
@@ -33,10 +33,10 @@ const canProductBeAddedToCart = rule()(
 				}
 			)
 
-			if (userCart.products.length) return new Error('Product already exist')
+			if (userCart.products.length) return sendShieldError('Product already exist')
 
 			if (quantity > product.quantity)
-				return new Error('Not enough product exist on stock')
+				return sendShieldError('Not enough product exist on stock')
 
 			return true
 		} catch (__) {

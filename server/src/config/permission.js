@@ -2,13 +2,13 @@ import { and, rule, shield } from 'graphql-shield'
 
 import Seller from 'models/Seller'
 
-import somethingWentWrong from 'utils/shieldError'
+import { somethingWentWrong, sendShieldError } from 'utils/shieldError'
 
 const isSeller = rule()(async (_, __, { user: { id } }) => {
 	try {
 		const result = await Seller.findOne({ user: id })
 
-		if (result) return new Error('Sorry, You are already a Seller')
+		if (result) return sendShieldError('Sorry, You are already a Seller')
 
 		return true
 	} catch (___) {
