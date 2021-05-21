@@ -2,6 +2,7 @@ import { and, rule, shield } from 'graphql-shield'
 
 import Seller from 'models/Seller'
 import Product from 'models/Product'
+import Cart from 'models/Cart'
 
 const isSeller = rule()(async (_, __, { user: { id } }) => {
 	try {
@@ -40,11 +41,22 @@ const doesProductExist = rule()(async (_, { Input: { productID } }) => {
 })
 
 const canProductBeAddedToCart = rule()(
-	async (_, { Input: { productID, quantity } }) => {
+	async (_, { Input: { productID, quantity } }, { user: { id } }) => {
 		try {
 			const product = await Product.findById(productID, 'quantity')
 
 			if (!product) return new Error('No product found')
+
+			const userCart = await Cart.findOne(
+				{ user: id },
+				{
+					products: {
+						$elemMatch: { id: { $eq: productID } },
+					},
+				}
+			)
+
+			if (userCart.products.length) return new Error('Product already exist')
 
 			if (quantity > product.quantity)
 				return new Error('Not enough product exist on stock')
@@ -59,5 +71,6 @@ const canProductBeAddedToCart = rule()(
 export default shield({
 	Mutation: {
 		becomeSeller: and(isSeller),
+		addProductToCart: and(isAuthenticated, canProductBeAddedToCart),
 	},
 })
