@@ -4,6 +4,8 @@ import Seller from 'models/Seller'
 
 import { somethingWentWrong, sendShieldError } from 'utils/shieldError'
 
+import { canProductBeAddedToCart } from './productPermissions'
+
 const isSeller = rule()(async (_, __, { user: { id } }) => {
 	try {
 		const result = await Seller.findOne({ user: id })
@@ -28,9 +30,14 @@ const isAuthenticated = rule()(async (_, __, { user, error }) => {
 	return true
 })
 
-export default shield({
-	Mutation: {
-		becomeSeller: and(isSeller),
-		addProductToCart: and(isAuthenticated, canProductBeAddedToCart),
+export default shield(
+	{
+		Mutation: {
+			becomeSeller: and(isSeller),
+			addProductToCart: and(isAuthenticated, canProductBeAddedToCart),
+		},
 	},
-})
+	{
+		allowExternalErrors: true,
+	}
+)
