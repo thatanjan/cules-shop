@@ -7,7 +7,7 @@ import { somethingWentWrong, sendShieldError } from 'utils/shieldError'
 import {
 	canProductBeAddedToCart,
 	canProductQuantityBeModified,
-} from './productPermissions'
+} from './cartPermissions'
 
 const isSeller = rule()(async (_, __, { user: { id } }) => {
 	try {
