@@ -3,6 +3,8 @@ import React from 'react'
 import Head from 'next/head'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
+import AppLayout from 'components/Layouts/AppLayout'
+
 export default function MyApp(props: AppProps) {
 	const { Component, pageProps } = props
 
@@ -25,7 +27,9 @@ export default function MyApp(props: AppProps) {
 			</Head>
 
 			<CssBaseline />
-			<Component {...pageProps} />
+			<AppLayout>
+				<Component {...pageProps} />
+			</AppLayout>
 		</>
 	)
 }
