@@ -39,6 +39,7 @@ export default shield(
 			becomeSeller: and(isSeller),
 			addProductToCart: and(isAuthenticated, canProductBeAddedToCart),
 			modifyQuantity: and(isAuthenticated, canProductQuantityBeModified),
+			removeProductFromCart: and(isAuthenticated),
 		},
 	},
 	{
