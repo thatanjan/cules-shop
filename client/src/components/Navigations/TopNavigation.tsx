@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import Typography from '@material-ui/core/Typography'
 
+import ClearIcon from '@material-ui/icons/Clear'
 import PersonIcon from '@material-ui/icons/Person'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import SearchIcon from '@material-ui/icons/Search'
@@ -16,10 +17,11 @@ import MuiLink from 'components/Links/MuiLink'
 type CallBack = (val: boolean) => boolean
 
 interface Props {
+	showSearchBar: boolean
 	setShowSearchBar: (callBack: CallBack) => void
 }
 
-const TopNavigation = ({ setShowSearchBar }: Props) => {
+const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
@@ -47,7 +49,7 @@ const TopNavigation = ({ setShowSearchBar }: Props) => {
 						</Box>
 
 						<IconButton onClick={() => setShowSearchBar((prev: boolean) => !prev)}>
-							<SearchIcon />
+							{showSearchBar ? <ClearIcon /> : <SearchIcon />}
 						</IconButton>
 
 						<IconButton>

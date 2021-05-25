@@ -24,7 +24,7 @@ const AppLayout = ({ children }: Props) => {
 				elevation={0}
 				square
 			>
-				<TopNavigation {...{ setShowSearchBar }} />
+				<TopNavigation {...{ setShowSearchBar, showSearchBar }} />
 
 				{showSearchBar && <SearchBar {...{ mounted: showSearchBar }} />}
 
