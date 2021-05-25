@@ -26,7 +26,7 @@ const AppLayout = ({ children }: Props) => {
 			>
 				<TopNavigation {...{ setShowSearchBar }} />
 
-				{showSearchBar && <SearchBar />}
+				{showSearchBar && <SearchBar {...{ mounted: showSearchBar }} />}
 
 				{children}
 			</Paper>
