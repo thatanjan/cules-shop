@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import InputBase from '@material-ui/core/InputBase'
 import Paper from '@material-ui/core/Paper'
 import Collapse from '@material-ui/core/Collapse'
@@ -12,6 +12,9 @@ interface Props {
 }
 
 const SearchBar = ({ mounted }: Props) => {
+	const [input, setInput] = useState('')
+	console.log(input)
+
 	const placeholder = 'Search your products'
 	return (
 		<Collapse in={mounted}>
@@ -24,7 +27,8 @@ const SearchBar = ({ mounted }: Props) => {
 				<InputBase
 					sx={{ ml: 1, flex: 1 }}
 					placeholder={placeholder}
-					inputProps={{ 'aria-label': placeholder }}
+					inputProps={{ 'aria-label': placeholder, value: input }}
+					onChange={e => setInput(e.target.value)}
 				/>
 
 				<IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
@@ -33,7 +37,11 @@ const SearchBar = ({ mounted }: Props) => {
 
 				<Divider sx={{ height: 28, m: 0.5 }} orientation='vertical' />
 
-				<IconButton sx={{ p: '10px' }} aria-label='clear text'>
+				<IconButton
+					sx={{ p: '10px' }}
+					aria-label='clear text'
+					onClick={() => setInput('')}
+				>
 					<ClearIcon />
 				</IconButton>
 			</Paper>
