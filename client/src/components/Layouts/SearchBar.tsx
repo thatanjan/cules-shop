@@ -21,7 +21,6 @@ const SearchBar = ({ mounted }: Props) => {
 			<Paper
 				component='form'
 				sx={{ p: '.5rem 1rem', display: 'flex', alignItems: 'center' }}
-				elevation={0}
 				square
 			>
 				<InputBase
