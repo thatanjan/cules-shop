@@ -13,9 +13,13 @@ import SearchIcon from '@material-ui/icons/Search'
 import { APP_TITLE } from 'variables/global'
 import MuiLink from 'components/Links/MuiLink'
 
-interface Props {}
+type CallBack = (val: boolean) => boolean
 
-const TopNavigation = (props: Props) => {
+interface Props {
+	setShowSearchBar: (callBack: CallBack) => void
+}
+
+const TopNavigation = ({ setShowSearchBar }: Props) => {
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
@@ -42,7 +46,7 @@ const TopNavigation = (props: Props) => {
 							</MuiLink>
 						</Box>
 
-						<IconButton>
+						<IconButton onClick={() => setShowSearchBar((prev: boolean) => !prev)}>
 							<SearchIcon />
 						</IconButton>
 

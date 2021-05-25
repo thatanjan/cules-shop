@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Paper from '@material-ui/core/Paper'
 import dynamic from 'next/dynamic'
 
@@ -11,6 +11,8 @@ interface Props {
 }
 
 const AppLayout = ({ children }: Props) => {
+	const [showSearchBar, setShowSearchBar] = useState(false)
+
 	return (
 		<>
 			<Paper
@@ -22,8 +24,10 @@ const AppLayout = ({ children }: Props) => {
 				elevation={0}
 				square
 			>
-				<TopNavigation />
-				<SearchBar />
+				<TopNavigation {...{ setShowSearchBar }} />
+
+				{showSearchBar && <SearchBar />}
+
 				{children}
 			</Paper>
 		</>
