@@ -1,9 +1,13 @@
 import type { AppProps } from 'next/app'
 import React from 'react'
 import Head from 'next/head'
+
+import { ThemeProvider } from '@material-ui/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 import AppLayout from 'components/Layouts/AppLayout'
+
+import darkTheme from 'themes/darkTheme'
 
 export default function MyApp(props: AppProps) {
 	const { Component, pageProps } = props
@@ -26,10 +30,12 @@ export default function MyApp(props: AppProps) {
 				/>
 			</Head>
 
-			<CssBaseline />
-			<AppLayout>
-				<Component {...pageProps} />
-			</AppLayout>
+			<ThemeProvider theme={darkTheme}>
+				<CssBaseline />
+				<AppLayout>
+					<Component {...pageProps} />
+				</AppLayout>
+			</ThemeProvider>
 		</>
 	)
 }
