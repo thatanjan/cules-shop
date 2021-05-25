@@ -2,6 +2,10 @@ import React from 'react'
 import InputBase from '@material-ui/core/InputBase'
 import Paper from '@material-ui/core/Paper'
 import Collapse from '@material-ui/core/Collapse'
+import Divider from '@material-ui/core/Divider'
+import IconButton from '@material-ui/core/IconButton'
+import SearchIcon from '@material-ui/icons/Search'
+import ClearIcon from '@material-ui/icons/Clear'
 
 interface Props {
 	mounted: boolean
@@ -22,6 +26,16 @@ const SearchBar = ({ mounted }: Props) => {
 					placeholder={placeholder}
 					inputProps={{ 'aria-label': placeholder }}
 				/>
+
+				<IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
+					<SearchIcon />
+				</IconButton>
+
+				<Divider sx={{ height: 28, m: 0.5 }} orientation='vertical' />
+
+				<IconButton sx={{ p: '10px' }} aria-label='clear text'>
+					<ClearIcon />
+				</IconButton>
 			</Paper>
 		</Collapse>
 	)
