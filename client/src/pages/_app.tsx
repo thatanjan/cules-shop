@@ -8,6 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import AppLayout from 'components/Layouts/AppLayout'
 
 import darkTheme from 'themes/darkTheme'
+import { APP_TITLE } from 'variables/global'
 
 export default function MyApp(props: AppProps) {
 	const { Component, pageProps } = props
@@ -23,7 +24,7 @@ export default function MyApp(props: AppProps) {
 	return (
 		<>
 			<Head>
-				<title>Cules Shop</title>
+				<title>{APP_TITLE}</title>
 				<meta
 					name='viewport'
 					content='minimum-scale=1, initial-scale=1, width=device-width'
