@@ -6,6 +6,10 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import Typography from '@material-ui/core/Typography'
 
+import PersonIcon from '@material-ui/icons/Person'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import SearchIcon from '@material-ui/icons/Search'
+
 import { APP_TITLE } from 'variables/global'
 import MuiLink from 'components/Links/MuiLink'
 
@@ -37,6 +41,18 @@ const TopNavigation = (props: Props) => {
 								{APP_TITLE}
 							</MuiLink>
 						</Box>
+
+						<IconButton>
+							<SearchIcon />
+						</IconButton>
+
+						<IconButton>
+							<PersonIcon />
+						</IconButton>
+
+						<IconButton>
+							<ShoppingCartIcon />
+						</IconButton>
 					</Toolbar>
 				</AppBar>
 			</Box>
