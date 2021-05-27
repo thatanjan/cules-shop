@@ -1,6 +1,7 @@
-import { createTheme } from '@material-ui/core/styles'
+import { createTheme, responsiveFontSizes } from '@material-ui/core/styles'
 
-const theme = createTheme({
+// eslint-disable-next-line
+let theme = createTheme({
 	palette: {
 		mode: 'dark',
 		primary: {
@@ -18,5 +19,7 @@ const theme = createTheme({
 		},
 	},
 })
+
+theme = responsiveFontSizes(theme)
 
 export default theme
