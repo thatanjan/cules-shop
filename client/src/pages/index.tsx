@@ -1,9 +1,13 @@
 import React from 'react'
 
-const an = 12
+import BannerSlideShow from 'components/Banner/BannerSlideShow'
 
 const Index = () => {
-	return <div>hello world</div>
+	return (
+		<>
+			<BannerSlideShow />
+		</>
+	)
 }
 
 export default Index
