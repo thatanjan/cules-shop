@@ -10,6 +10,8 @@ import AppLayout from 'components/Layouts/AppLayout'
 import darkTheme from 'themes/darkTheme'
 import { APP_TITLE } from 'variables/global'
 
+import '../../styles/globals.css'
+
 export default function MyApp(props: AppProps) {
 	const { Component, pageProps } = props
 
