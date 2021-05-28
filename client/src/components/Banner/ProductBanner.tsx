@@ -12,7 +12,7 @@ export default function MediaControlCard() {
 	const theme = useTheme()
 
 	return (
-		<Card sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
+		<Card sx={{ display: 'flex', flexDirection: 'row-reverse', m: '1rem' }}>
 			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
 				<CardContent sx={{ flex: '1 0 auto' }}>
 					<Typography component='h1' variant='h5'>
