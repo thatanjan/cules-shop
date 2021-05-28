@@ -1,15 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { nanoid } from 'nanoid'
 
-import 'swiper/swiper.min.css'
-import 'swiper/components/pagination/pagination.min.css'
-import 'swiper/components/navigation/navigation.min.css'
-
-SwiperCore.use([Autoplay, Pagination, Navigation])
 
 const useStyles = makeStyles({
 	swiperContainer: {
