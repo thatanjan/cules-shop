@@ -34,7 +34,7 @@ export default function MediaControlCard() {
 				</CardContent>
 			</Box>
 
-			<CardMedia sx={{ width: '100%', padding: '0 1rem' }}>
+			<CardMedia sx={{ width: '100%', padding: '0 1rem', m: 'auto' }}>
 				<Image
 					src='/products/product.png'
 					width={1920}
