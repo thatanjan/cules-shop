@@ -1,20 +1,27 @@
 import React from 'react'
+import SwiperCore, {
+	Keyboard,
+	Scrollbar,
+	Autoplay,
+	Pagination,
+	Navigation,
+} from 'swiper/core'
 
 import BannerSlideShow from 'components/Banner/BannerSlideShow'
-import ProductBanner from 'components/Banner/ProductBanner'
-import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core'
+import ProductBannerSlideShow from 'components/Banner/ProductBannerSlideShow'
 
 import 'swiper/swiper.min.css'
 import 'swiper/components/pagination/pagination.min.css'
 import 'swiper/components/navigation/navigation.min.css'
+import 'swiper/components/scrollbar/scrollbar.min.css'
 
-SwiperCore.use([Autoplay, Pagination, Navigation])
+SwiperCore.use([Keyboard, Scrollbar, Autoplay, Pagination, Navigation])
 
 const Index = () => {
 	return (
 		<>
 			<BannerSlideShow />
-			<ProductBanner />
+			<ProductBannerSlideShow />
 		</>
 	)
 }
