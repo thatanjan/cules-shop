@@ -31,10 +31,16 @@ const ProductPreview = () => {
 					subheader='Head Phones'
 					subheaderTypographyProps={{
 						color: 'secondary',
+						variant: 'body2',
+						component: 'h4',
+					}}
+					titleTypographyProps={{
+						variant: 'body1',
+						component: 'h3',
 					}}
 				/>
 				<CardContent>
-					<Typography variant='h5' color='secondary'>
+					<Typography component='h5' variant='subtitle2' color='secondary'>
 						$100
 					</Typography>
 				</CardContent>
