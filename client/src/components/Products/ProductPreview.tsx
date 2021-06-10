@@ -4,17 +4,18 @@ import CardHeader from '@material-ui/core/CardHeader'
 import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box'
 
 const ProductPreview = () => {
 	return (
-		<Card sx={{ m: '1rem auto', width: '90%' }}>
-			<CardHeader
-				title='Lenovo Lp2'
-				subheader='Head Phones'
-				subheaderTypographyProps={{
-					color: 'secondary',
-				}}
-			/>
+		<Card
+			sx={{
+				m: '1rem auto',
+				width: '90%',
+				display: 'grid',
+				gridTemplateColumns: 'repeat(2, 1fr)',
+			}}
+		>
 			<CardMedia sx={{ width: '100%', padding: '0 1rem', m: 'auto' }}>
 				<Image
 					src='/products/product.png'
@@ -24,11 +25,20 @@ const ProductPreview = () => {
 				/>
 			</CardMedia>
 
-			<CardContent>
-				<Typography variant='h5' color='secondary'>
-					$100
-				</Typography>
-			</CardContent>
+			<Box>
+				<CardHeader
+					title='Lenovo Lp2'
+					subheader='Head Phones'
+					subheaderTypographyProps={{
+						color: 'secondary',
+					}}
+				/>
+				<CardContent>
+					<Typography variant='h5' color='secondary'>
+						$100
+					</Typography>
+				</CardContent>
+			</Box>
 		</Card>
 	)
 }
