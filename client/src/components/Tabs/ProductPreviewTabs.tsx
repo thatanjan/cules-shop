@@ -4,13 +4,15 @@ import Tab from '@material-ui/core/Tab'
 import Box from '@material-ui/core/Box'
 import { nanoid } from 'nanoid'
 
+import ProductPreviewSlideShow from 'components/Products/ProductPreviewSlideShow'
+
 interface TabPanelProps {
 	children?: React.ReactNode
 	index: number
 	value: number
 }
 
-const tabNames = ['featured', 'on Sale', 'top rated']
+export const tabNames = ['featured', 'on Sale', 'top rated']
 
 function TabPanel(props: TabPanelProps) {
 	const { children, value, index, ...other } = props
@@ -57,9 +59,9 @@ const ProductPreviewTabs = () => {
 				</Tabs>
 			</Box>
 
-			{tabNames.map((tab, index) => (
+			{tabNames.map((_, index) => (
 				<TabPanel {...{ value, index, key: nanoid() }}>
-					<h1>Item tab</h1>
+					<ProductPreviewSlideShow />
 				</TabPanel>
 			))}
 		</Box>
