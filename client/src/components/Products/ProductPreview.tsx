@@ -12,8 +12,6 @@ const ProductPreview = () => {
 			sx={{
 				m: '1rem auto',
 				width: '90%',
-				display: 'grid',
-				gridTemplateColumns: 'repeat(2, 1fr)',
 			}}
 		>
 			<CardMedia sx={{ width: '100%', padding: '0 1rem', m: 'auto' }}>
@@ -40,7 +38,7 @@ const ProductPreview = () => {
 					}}
 				/>
 				<CardContent>
-					<Typography component='h5' variant='subtitle2' color='secondary'>
+					<Typography component='h5' variant='subtitle1' color='secondary'>
 						$100
 					</Typography>
 				</CardContent>
