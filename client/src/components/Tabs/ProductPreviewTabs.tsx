@@ -1,7 +1,6 @@
 import React from 'react'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import { nanoid } from 'nanoid'
 
@@ -24,11 +23,7 @@ function TabPanel(props: TabPanelProps) {
 			aria-labelledby={`simple-tab-${index}`}
 			{...other}
 		>
-			{value === index && (
-				<Box sx={{ p: 3 }}>
-					<Typography>{children}</Typography>
-				</Box>
-			)}
+			{value === index && children}
 		</div>
 	)
 }
@@ -61,15 +56,12 @@ const ProductPreviewTabs = () => {
 					))}
 				</Tabs>
 			</Box>
-			<TabPanel value={value} index={0}>
-				Item One
-			</TabPanel>
-			<TabPanel value={value} index={1}>
-				Item Two
-			</TabPanel>
-			<TabPanel value={value} index={2}>
-				Item Three
-			</TabPanel>
+
+			{tabNames.map((tab, index) => (
+				<TabPanel {...{ value, index, key: nanoid() }}>
+					<h1>Item tab</h1>
+				</TabPanel>
+			))}
 		</Box>
 	)
 }
