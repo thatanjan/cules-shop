@@ -27,7 +27,7 @@ const BannerSlideShow = () => {
 					enabled: true,
 				}}
 				breakpoints={{
-					'400': {
+					'300': {
 						slidesPerView: 2,
 						slidesPerGroup: 2,
 					},
