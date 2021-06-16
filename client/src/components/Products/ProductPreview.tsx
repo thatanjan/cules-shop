@@ -6,15 +6,27 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
-const ProductPreview = () => {
+export interface Props {
+	twoColumn?: boolean
+}
+
+const ProductPreview = ({ twoColumn }: Props) => {
 	return (
 		<Card
 			sx={{
 				m: '1rem auto',
 				width: '90%',
+				display: twoColumn && 'flex',
 			}}
 		>
-			<CardMedia sx={{ width: '100%', padding: '0 1rem', m: 'auto' }}>
+			<CardMedia
+				sx={{
+					width: '100%',
+					padding: '0 1rem',
+					m: 'auto',
+					flexBasis: twoColumn && '30%',
+				}}
+			>
 				<Image
 					src='/products/product.png'
 					width={1920}
@@ -23,7 +35,7 @@ const ProductPreview = () => {
 				/>
 			</CardMedia>
 
-			<Box>
+			<Box sx={{ flexGrow: 1 }}>
 				<CardHeader
 					title='Lenovo Lp2'
 					subheader='Head Phones'
