@@ -3,6 +3,8 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Box from '@material-ui/core/Box'
 
+import ProductPreviewSlideShow from '../Products/SingleCategoryProductPreviewSlideShow'
+
 function a11yProps(index: number) {
 	return {
 		id: `simple-tab-${index}`,
@@ -12,10 +14,9 @@ function a11yProps(index: number) {
 
 interface Props {
 	tabName: string
-	Content: React.FunctionComponent
 }
 
-const SingleCategoryTab = ({ tabName, Content }: Props) => {
+const SingleCategoryTab = ({ tabName }: Props) => {
 	return (
 		<Box sx={{ width: '100%' }}>
 			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -24,7 +25,7 @@ const SingleCategoryTab = ({ tabName, Content }: Props) => {
 				</Tabs>
 			</Box>
 
-			<Content />
+			<ProductPreviewSlideShow twoColumn />
 		</Box>
 	)
 }
