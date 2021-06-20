@@ -11,6 +11,8 @@ import BannerSlideShow from 'components/Banner/BannerSlideShow'
 import ProductBannerSlideShow from 'components/Banner/ProductBannerSlideShow'
 import ProductSlideShow from 'components/Products/ProductPreviewSlideShow'
 import ProductPreviewTabs from 'components/Tabs/ProductPreviewTabs'
+import SingleCategoryTab from 'components/Tabs/SingleCategoryTab'
+import HomeAccordion from 'components/Accordions/HomePageAccordions/HomeAccordion'
 
 import 'swiper/swiper.min.css'
 import 'swiper/components/pagination/pagination.min.css'
@@ -26,6 +28,8 @@ const Index = () => {
 			<ProductBannerSlideShow />
 			<ProductSlideShow />
 			<ProductPreviewTabs />
+			<SingleCategoryTab tabName='Television' Content={<ProductSlideShow />} />
+			<HomeAccordion />
 		</>
 	)
 }
