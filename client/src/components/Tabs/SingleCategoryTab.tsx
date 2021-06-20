@@ -25,7 +25,7 @@ const SingleCategoryTab = ({ tabName }: Props) => {
 				</Tabs>
 			</Box>
 
-			<ProductPreviewSlideShow twoColumn />
+			<ProductPreviewSlideShow />
 		</Box>
 	)
 }
