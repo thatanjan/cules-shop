@@ -3,6 +3,7 @@ import Paper from '@material-ui/core/Paper'
 import dynamic from 'next/dynamic'
 
 import TopNavigation from 'components/Navigations/TopNavigation'
+import Footer from 'components/Footer/Footer'
 
 const SearchBar = dynamic(() => import('./SearchBar'))
 
@@ -29,6 +30,8 @@ const AppLayout = ({ children }: Props) => {
 				{showSearchBar && <SearchBar {...{ mounted: showSearchBar }} />}
 
 				{children}
+
+				<Footer />
 			</Paper>
 		</>
 	)
