@@ -1,14 +1,14 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { nanoid } from 'nanoid'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 
 import useSmallerThanSM from 'hooks/mediaQueries/useSmallerThanSM'
 
 import ProductPreview from './ProductPreview'
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme: Theme) => ({
 	swiperContainer: {
 		paddingBottom: '1.5rem',
 		'& .swiper-pagination-bullet': {
@@ -17,9 +17,12 @@ export const useStyles = makeStyles({
 	},
 	swiperSlideStyle: {
 		display: 'grid',
-		gridTemplateColumns: '1fr 1fr',
+		gridTemplateColumns: 'repeat(2, 1fr)',
+		[theme.breakpoints.up('lg')]: {
+			gridTemplateColumns: 'repeat(4, 1fr)',
+		},
 	},
-})
+}))
 
 const SlideShow = () => {
 	const { swiperContainer, swiperSlideStyle } = useStyles()
