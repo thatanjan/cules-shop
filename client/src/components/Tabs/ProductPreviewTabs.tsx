@@ -4,6 +4,8 @@ import Tab from '@material-ui/core/Tab'
 import Box from '@material-ui/core/Box'
 import { nanoid } from 'nanoid'
 
+import useLargerThanMD from 'hooks/mediaQueries/useLargerThanMD'
+
 import ProductPreviewSlideShow from 'components/Products/ProductPreviewSlideShow'
 
 interface TabPanelProps {
@@ -44,8 +46,10 @@ const ProductPreviewTabs = () => {
 		setValue(newValue)
 	}
 
+	const largerThanMD = useLargerThanMD()
+
 	return (
-		<Box sx={{ width: '100%' }}>
+		<Box sx={{ width: '100%', padding: largerThanMD ? '0 4rem' : '' }}>
 			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 				<Tabs value={value} onChange={handleChange}>
 					{tabNames.map((tab, index) => (
