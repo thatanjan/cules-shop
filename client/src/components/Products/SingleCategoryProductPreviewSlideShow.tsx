@@ -2,6 +2,9 @@ import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { nanoid } from 'nanoid'
 import { makeStyles } from '@material-ui/core/styles'
+import clsx from 'clsx'
+
+import useSmallerThanSM from 'hooks/mediaQueries/useSmallerThanSM'
 
 import ProductPreview from './ProductPreview'
 
@@ -12,10 +15,17 @@ export const useStyles = makeStyles({
 			background: 'white',
 		},
 	},
+	swiperSlideStyle: {
+		display: 'grid',
+		gridTemplateColumns: '1fr 1fr',
+	},
 })
 
 const SlideShow = () => {
-	const { swiperContainer } = useStyles()
+	const { swiperContainer, swiperSlideStyle } = useStyles()
+
+	const isSmallerThanSM = useSmallerThanSM()
+
 	return (
 		<>
 			<Swiper
@@ -29,13 +39,16 @@ const SlideShow = () => {
 				pagination={{
 					clickable: true,
 				}}
-				loop
 				navigation
+				loop
 				className={swiperContainer}
 			>
 				{[1, 2, 3, 4, 5].map(() => (
-					<SwiperSlide key={nanoid()}>
-						{[1, 2, 3, 4, 5].map(() => (
+					<SwiperSlide
+						key={nanoid()}
+						className={clsx(!isSmallerThanSM && swiperSlideStyle)}
+					>
+						{[1, 2, 3, 4].map(() => (
 							<ProductPreview twoColumn />
 						))}
 					</SwiperSlide>
