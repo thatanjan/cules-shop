@@ -5,6 +5,9 @@ import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
+import Grid from '@material-ui/core/Grid'
+import IconButton from '@material-ui/core/IconButton'
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
 export interface Props {
 	twoColumn?: boolean
@@ -49,10 +52,23 @@ const ProductPreview = ({ twoColumn }: Props) => {
 						component: 'h3',
 					}}
 				/>
-				<CardContent>
-					<Typography component='h5' variant='subtitle1' color='secondary'>
-						$100
-					</Typography>
+				<CardContent
+					component={Grid}
+					container
+					alignItems='center'
+					justifyContent='space-between'
+				>
+					<Grid item>
+						<Typography component='h5' variant='subtitle1' color='secondary'>
+							$100
+						</Typography>
+					</Grid>
+
+					<Grid item>
+						<IconButton>
+							<AddShoppingCartIcon />
+						</IconButton>
+					</Grid>
 				</CardContent>
 			</Box>
 		</Card>
