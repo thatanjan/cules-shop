@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
 import dynamic from 'next/dynamic'
 
 import TopNavigation from 'components/Navigations/TopNavigation'
@@ -29,7 +30,11 @@ const AppLayout = ({ children }: Props) => {
 
 				{showSearchBar && <SearchBar {...{ mounted: showSearchBar }} />}
 
-				{children}
+				<Grid container justifyContent='center'>
+					<Grid item xs={12} md={10}>
+						{children}
+					</Grid>
+				</Grid>
 
 				<Footer />
 			</Paper>
