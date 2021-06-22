@@ -33,6 +33,7 @@ const SlideShow = () => {
 		<>
 			<Swiper
 				slidesPerView={1}
+				slidesPerColumn={4}
 				slidesPerColumnFill='row'
 				centeredSlides={false}
 				slidesPerGroupSkip={1}
