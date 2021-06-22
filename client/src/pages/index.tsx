@@ -8,9 +8,7 @@ import SwiperCore, {
 } from 'swiper/core'
 
 import ProductBannerSlideShow from 'components/Banner/ProductBannerSlideShow'
-import ProductSlideShow from 'components/Products/ProductPreviewSlideShow'
 import ProductPreviewTabs from 'components/Tabs/ProductPreviewTabs'
-import SingleCategoryTab from 'components/Tabs/SingleCategoryTab'
 import HomeAccordion from 'components/Accordions/HomePageAccordions/HomeAccordion'
 
 import 'swiper/swiper.min.css'
@@ -24,9 +22,8 @@ const Index = () => {
 	return (
 		<>
 			<ProductBannerSlideShow />
-			<ProductSlideShow />
-			<ProductPreviewTabs />
-			<SingleCategoryTab tabName='Television' Content={<ProductSlideShow />} />
+			<ProductPreviewTabs tabNames={['featured', 'on Sale', 'top rated']} />
+			<ProductPreviewTabs tabNames={['Television']} />
 			<HomeAccordion />
 		</>
 	)
