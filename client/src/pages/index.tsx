@@ -7,7 +7,6 @@ import SwiperCore, {
 	Navigation,
 } from 'swiper/core'
 
-import BannerSlideShow from 'components/Banner/BannerSlideShow'
 import ProductBannerSlideShow from 'components/Banner/ProductBannerSlideShow'
 import ProductSlideShow from 'components/Products/ProductPreviewSlideShow'
 import ProductPreviewTabs from 'components/Tabs/ProductPreviewTabs'
@@ -24,7 +23,6 @@ SwiperCore.use([Keyboard, Scrollbar, Autoplay, Pagination, Navigation])
 const Index = () => {
 	return (
 		<>
-			<BannerSlideShow />
 			<ProductBannerSlideShow />
 			<ProductSlideShow />
 			<ProductPreviewTabs />
