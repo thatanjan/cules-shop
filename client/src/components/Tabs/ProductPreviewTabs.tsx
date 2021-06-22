@@ -14,8 +14,6 @@ interface TabPanelProps {
 	value: number
 }
 
-export const tabNames = ['featured', 'on Sale', 'top rated']
-
 function TabPanel(props: TabPanelProps) {
 	const { children, value, index, ...other } = props
 
@@ -39,7 +37,11 @@ function a11yProps(index: number) {
 	}
 }
 
-const ProductPreviewTabs = () => {
+interface Props {
+	tabNames: Array<string>
+}
+
+const ProductPreviewTabs = ({ tabNames }: Props) => {
 	const [value, setValue] = React.useState(0)
 
 	const handleChange = (_: React.SyntheticEvent, newValue: number) => {
@@ -65,7 +67,7 @@ const ProductPreviewTabs = () => {
 
 			{tabNames.map((_, index) => (
 				<TabPanel {...{ value, index, key: nanoid() }}>
-					<ProductPreviewSlideShow />
+					<ProductPreviewSlideShow singleTab={tabNames.length === 1} />
 				</TabPanel>
 			))}
 		</Box>
