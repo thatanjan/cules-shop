@@ -33,6 +33,7 @@ const SlideShow = () => {
 		<>
 			<Swiper
 				slidesPerView={1}
+				slidesPerColumnFill='row'
 				centeredSlides={false}
 				slidesPerGroupSkip={1}
 				grabCursor
@@ -43,19 +44,25 @@ const SlideShow = () => {
 					clickable: true,
 				}}
 				navigation
-				loop
 				className={swiperContainer}
+				breakpoints={{
+					'600': {
+						slidesPerView: 2,
+						slidesPerColumn: 3,
+					},
+					'1280': {
+						slidesPerView: 3,
+						slidesPerColumn: 3,
+					},
+				}}
 			>
-				{[1, 2, 3, 4, 5].map(() => (
-					<SwiperSlide
-						key={nanoid()}
-						className={clsx(!isSmallerThanSM && swiperSlideStyle)}
-					>
-						{[1, 2, 3, 4].map(() => (
+				{Array(20)
+					.fill(0)
+					.map(() => (
+						<SwiperSlide key={nanoid()}>
 							<ProductPreview twoColumn />
-						))}
-					</SwiperSlide>
-				))}
+						</SwiperSlide>
+					))}
 			</Swiper>
 		</>
 	)
