@@ -14,12 +14,17 @@ export const useStyles = makeStyles({
 	},
 })
 
-const BannerSlideShow = () => {
+interface Props {
+	singleTab: boolean | undefined
+}
+
+const ProductSlideShow = ({ singleTab }: Props) => {
 	const { swiperContainer } = useStyles()
 	return (
 		<>
 			<Swiper
 				slidesPerView={1}
+				slidesPerColumn={singleTab ? 4 : 1}
 				centeredSlides={false}
 				slidesPerGroupSkip={1}
 				slidesPerColumnFill='row'
@@ -52,7 +57,7 @@ const BannerSlideShow = () => {
 			>
 				{[1, 2, 3, 4, 5].map(() => (
 					<SwiperSlide key={nanoid()}>
-						<ProductPreview />
+						<ProductPreview twoColumn={singleTab} />
 					</SwiperSlide>
 				))}
 			</Swiper>
@@ -60,4 +65,4 @@ const BannerSlideShow = () => {
 	)
 }
 
-export default BannerSlideShow
+export default ProductSlideShow
