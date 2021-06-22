@@ -22,6 +22,7 @@ const BannerSlideShow = () => {
 				slidesPerView={1}
 				centeredSlides={false}
 				slidesPerGroupSkip={1}
+				slidesPerColumnFill='row'
 				grabCursor
 				keyboard={{
 					enabled: true,
@@ -34,6 +35,12 @@ const BannerSlideShow = () => {
 					'600': {
 						slidesPerView: 3,
 						slidesPerGroup: 3,
+						slidesPerColumn: 2,
+					},
+					'960': {
+						slidesPerView: 4,
+						slidesPerGroup: 4,
+						slidesPerColumn: 2,
 					},
 				}}
 				pagination={{
