@@ -4,7 +4,7 @@ import Tab from '@material-ui/core/Tab'
 import Box from '@material-ui/core/Box'
 import { nanoid } from 'nanoid'
 
-import useLargerThanMD from 'hooks/mediaQueries/useLargerThanMD'
+import useLargerThanLG from 'hooks/mediaQueries/useLargerThanLG'
 
 import ProductPreviewSlideShow from 'components/Products/ProductPreviewSlideShow'
 
@@ -48,10 +48,10 @@ const ProductPreviewTabs = ({ tabNames }: Props) => {
 		setValue(newValue)
 	}
 
-	const largerThanMD = useLargerThanMD()
+	const largerThanLG = useLargerThanLG()
 
 	return (
-		<Box sx={{ width: '100%', padding: largerThanMD ? '0 4rem' : '' }}>
+		<Box sx={{ width: '100%', padding: largerThanLG ? '0 4rem' : '' }}>
 			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 				<Tabs value={value} onChange={handleChange}>
 					{tabNames.map((tab, index) => (
