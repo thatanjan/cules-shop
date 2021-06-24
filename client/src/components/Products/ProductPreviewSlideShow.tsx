@@ -18,48 +18,51 @@ interface Props {
 	singleTab: boolean | undefined
 }
 
+const singleTabBreakpointStyle = {
+	'500': {
+		slidesPerView: 2,
+		slidesPerGroup: 2,
+	},
+	'700': {
+		slidesPerView: 3,
+		slidesPerGroup: 3,
+	},
+	'800': {
+		slidesPerColumn: 2,
+	},
+	'1400': {
+		slidesPerView: 4,
+		slidesPerColumn: 2,
+		slidesPerGroup: 4,
+	},
+}
+
 const ProductSlideShow = ({ singleTab }: Props) => {
 	const { swiperContainer } = useStyles()
 	return (
 		<>
 			<Swiper
 				slidesPerView={1}
-				slidesPerColumn={singleTab ? 4 : 1}
-				centeredSlides={false}
-				slidesPerGroupSkip={1}
 				slidesPerColumnFill='row'
+				centeredSlides={false}
 				grabCursor
 				keyboard={{
 					enabled: true,
 				}}
-				breakpoints={{
-					'300': {
-						slidesPerView: 2,
-						slidesPerGroup: 2,
-					},
-					'600': {
-						slidesPerView: 3,
-						slidesPerGroup: 3,
-						slidesPerColumn: 2,
-					},
-					'960': {
-						slidesPerView: 4,
-						slidesPerGroup: 4,
-						slidesPerColumn: 2,
-					},
-				}}
+				breakpoints={singleTab ? singleTabBreakpointStyle : {}}
 				pagination={{
 					clickable: true,
 				}}
-				loop
 				navigation
 				className={swiperContainer}
 			>
-				{[1, 2, 3, 4, 5].map(() => (
-					<SwiperSlide key={nanoid()}>
-						<ProductPreview twoColumn={singleTab} />
-					</SwiperSlide>
-				))}
+				{Array(20)
+					.fill(0)
+					.map(() => (
+						<SwiperSlide key={nanoid()}>
+							<ProductPreview twoColumn={singleTab} />
+						</SwiperSlide>
+					))}
 			</Swiper>
 		</>
 	)
