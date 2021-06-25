@@ -29,6 +29,8 @@ const singleTabBreakpointStyle = {
 	},
 	'800': {
 		slidesPerColumn: 2,
+		slidesPerView: 3,
+		slidesPerGroup: 3,
 	},
 	'1400': {
 		slidesPerView: 4,
@@ -49,7 +51,22 @@ const ProductSlideShow = ({ singleTab }: Props) => {
 				keyboard={{
 					enabled: true,
 				}}
-				breakpoints={singleTab ? singleTabBreakpointStyle : {}}
+				breakpoints={
+					singleTab
+						? singleTabBreakpointStyle
+						: {
+								'0': { slidesPerView: 2, slidesPerGroup: 2 },
+								'450': { slidesPerView: 3, slidesPerGroup: 3 },
+								'800': {
+									slidesPerView: 4,
+									slidesPerGroup: 4,
+								},
+								'1400': {
+									slidesPerView: 5,
+									slidesPerGroup: 5,
+								},
+						  }
+				}
 				pagination={{
 					clickable: true,
 				}}
