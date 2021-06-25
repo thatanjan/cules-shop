@@ -39,7 +39,7 @@ const AppLayout = ({ children }: Props) => {
 				{route === '/' && <BannerSlideShow />}
 
 				<Grid container justifyContent='center'>
-					<Grid item xs={12} md={11}>
+					<Grid item xs={12} md={11} lg={9}>
 						{children}
 					</Grid>
 				</Grid>
