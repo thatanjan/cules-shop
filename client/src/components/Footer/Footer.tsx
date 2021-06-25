@@ -15,6 +15,7 @@ const Footer = () => {
 				display: 'grid',
 				placeItems: 'center',
 			}}
+			component='footer'
 		>
 			<Typography
 				variant='h2'
