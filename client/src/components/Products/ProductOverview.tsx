@@ -7,6 +7,10 @@ import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import { nanoid } from 'nanoid'
 
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import AddIcon from '@material-ui/icons/Add'
@@ -64,6 +68,17 @@ const ProductOverview = () => {
 						Compare
 					</Button>
 				</Box>
+
+				<List>
+					{Array(5)
+						.fill(0)
+						.map((_, index) => (
+							<ListItem key={nanoid()}>
+								<Typography sx={{ marginRight: '1rem' }}>{index + 1}.</Typography>
+								<ListItemText primary='I dont for now' />
+							</ListItem>
+						))}
+				</List>
 
 				<Typography variant='h3' sx={{ marginTop: '3rem' }}>
 					$400
