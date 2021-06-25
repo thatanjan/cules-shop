@@ -12,6 +12,8 @@ const Footer = () => {
 				height: FOOTER_HEIGHT,
 				position: 'sticky',
 				top: '100%',
+				display: 'grid',
+				placeItems: 'center',
 			}}
 		>
 			<Typography
