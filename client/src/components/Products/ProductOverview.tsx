@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Image from 'next/image'
 import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
+import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
 
+import AddIcon from '@material-ui/icons/Add'
+import RemoveIcon from '@material-ui/icons/Remove'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import CompareIcon from '@material-ui/icons/Compare'
 
 const ProductOverview = () => {
+	const [quantity, setQuantity] = useState(0)
 	return (
 		<Grid container>
 			<Grid item xs={12}>
@@ -57,6 +63,24 @@ const ProductOverview = () => {
 						Compare
 					</Button>
 				</Box>
+
+				<Typography variant='h3'>$400</Typography>
+
+				<ButtonGroup>
+					<IconButton color='primary' component='span'>
+						<AddIcon />
+					</IconButton>
+					<TextField
+						variant='filled'
+						label='Quantity'
+						value={quantity}
+						size='small'
+					/>
+
+					<IconButton color='primary' component='span'>
+						<RemoveIcon />
+					</IconButton>
+				</ButtonGroup>
 			</Grid>
 		</Grid>
 	)
