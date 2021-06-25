@@ -2,9 +2,18 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
+export const FOOTER_HEIGHT = '15rem'
+
 const Footer = () => {
 	return (
-		<Box sx={{ padding: '3rem 0' }}>
+		<Box
+			sx={{
+				padding: '3rem 0',
+				height: FOOTER_HEIGHT,
+				position: 'sticky',
+				top: '100%',
+			}}
+		>
 			<Typography
 				variant='h2'
 				align='center'
