@@ -67,7 +67,11 @@ const ProductOverview = () => {
 				<Typography variant='h3'>$400</Typography>
 
 				<ButtonGroup>
-					<IconButton color='primary' component='span'>
+					<IconButton
+						color='primary'
+						component='span'
+						onClick={() => setQuantity(prev => prev + 1)}
+					>
 						<AddIcon />
 					</IconButton>
 					<TextField
@@ -77,7 +81,12 @@ const ProductOverview = () => {
 						size='small'
 					/>
 
-					<IconButton color='primary' component='span'>
+					<IconButton
+						color='primary'
+						component='span'
+						disabled={quantity <= 0}
+						onClick={() => setQuantity(prev => prev - 1)}
+					>
 						<RemoveIcon />
 					</IconButton>
 				</ButtonGroup>
