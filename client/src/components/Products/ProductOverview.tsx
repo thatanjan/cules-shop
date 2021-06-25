@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
@@ -100,6 +101,15 @@ const ProductOverview = () => {
 						<RemoveIcon />
 					</IconButton>
 				</ButtonGroup>
+
+				<Button
+					sx={{ textTransform: 'capitalize', marginTop: '2rem', padding: '0.8rem' }}
+					variant='contained'
+					startIcon={<AddShoppingCartIcon />}
+					fullWidth
+				>
+					add to cart
+				</Button>
 			</Grid>
 		</Grid>
 	)
