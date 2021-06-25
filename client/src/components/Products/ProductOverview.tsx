@@ -68,7 +68,9 @@ const ProductOverview = () => {
 					$400
 				</Typography>
 
-				<ButtonGroup sx={{ marginTop: '1rem' }}>
+				<ButtonGroup
+					sx={{ marginTop: '1rem', background: 'rgba(255, 255, 255, 0.09)' }}
+				>
 					<IconButton
 						color='primary'
 						component='span'
@@ -82,6 +84,11 @@ const ProductOverview = () => {
 						label='Quantity'
 						value={quantity}
 						size='small'
+						InputProps={{
+							sx: {
+								borderRadius: '0',
+							},
+						}}
 					/>
 
 					<IconButton
