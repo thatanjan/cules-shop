@@ -64,9 +64,11 @@ const ProductOverview = () => {
 					</Button>
 				</Box>
 
-				<Typography variant='h3'>$400</Typography>
+				<Typography variant='h3' sx={{ marginTop: '3rem' }}>
+					$400
+				</Typography>
 
-				<ButtonGroup>
+				<ButtonGroup sx={{ marginTop: '1rem' }}>
 					<IconButton
 						color='primary'
 						component='span'
@@ -74,6 +76,7 @@ const ProductOverview = () => {
 					>
 						<AddIcon />
 					</IconButton>
+
 					<TextField
 						variant='filled'
 						label='Quantity'
