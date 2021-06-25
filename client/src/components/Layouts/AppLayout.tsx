@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
 import TopNavigation from 'components/Navigations/TopNavigation'
-import Footer, { FOOTER_HEIGHT } from 'components/Footer/Footer'
+import Footer from 'components/Footer/Footer'
 
 const SearchBar = dynamic(() => import('./SearchBar'))
 const BannerSlideShow = dynamic(
@@ -38,11 +38,7 @@ const AppLayout = ({ children }: Props) => {
 
 				{route === '/' && <BannerSlideShow />}
 
-				<Grid
-					container
-					justifyContent='center'
-					sx={{ marginBottom: FOOTER_HEIGHT }}
-				>
+				<Grid container justifyContent='center'>
 					<Grid item xs={11} md={10} lg={9}>
 						{children}
 					</Grid>
