@@ -32,9 +32,17 @@ const ProductReviewForm = () => {
 				variant='standard'
 				fullWidth
 				onChange={e => setDescription(e.target.value)}
+				sx={{
+					marginBottom: '.5rem',
+				}}
 			/>
 
-			<Button type='submit' disabled={!description} variant='contained'>
+			<Button
+				type='submit'
+				disabled={!description}
+				variant='contained'
+				size='small'
+			>
 				Submit
 			</Button>
 		</Box>
