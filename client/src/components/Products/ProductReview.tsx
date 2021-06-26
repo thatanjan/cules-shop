@@ -1,9 +1,10 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import Rating from '@material-ui/core/Rating'
 import { nanoid } from 'nanoid'
 import Divider from '@material-ui/core/Divider'
+
+import CustomRating from 'components/Ratings/CustomRating'
 
 const ReviewStarDistribution = () => {
 	return (
@@ -22,7 +23,7 @@ const ReviewStarDistribution = () => {
 						}}
 					>
 						<Grid item xs={4}>
-							<Rating name='read-only' value={index + 1} readOnly />
+							<CustomRating name='read-only' value={index + 1} readOnly />
 						</Grid>
 						<Grid item xs={6}>
 							<Divider />
