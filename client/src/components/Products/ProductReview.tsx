@@ -7,6 +7,8 @@ import Divider from '@material-ui/core/Divider'
 import CustomRating from 'components/Ratings/CustomRating'
 import ProductReviewForm from 'components/Forms/ProductReviewForm'
 
+import ProductReviewList from 'components/Reviews/ReviewList'
+
 const ReviewStarDistribution = () => {
 	return (
 		<>
@@ -58,6 +60,11 @@ const ProductReview = () => {
 					Review “Powerbank 1130 mAh Blue”
 				</Typography>
 				<ProductReviewForm />
+			</Grid>
+
+			<Grid item xs={12}>
+				<Typography variant='h4'>Customer Reviews</Typography>
+				<ProductReviewList />{' '}
 			</Grid>
 		</Grid>
 	)
