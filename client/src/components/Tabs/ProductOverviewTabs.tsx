@@ -58,6 +58,7 @@ const ProductOverviewTabs = () => {
 					onChange={handleChange}
 					indicatorColor='primary'
 					centered
+					variant='scrollable'
 				>
 					{tabNames.map((tab, index) => (
 						<Tab
