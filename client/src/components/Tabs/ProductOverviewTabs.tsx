@@ -5,6 +5,8 @@ import Box from '@material-ui/core/Box'
 import { nanoid } from 'nanoid'
 import { useTheme } from '@material-ui/core/styles'
 
+import ProductSpecification from 'components/Products/ProductSpecification'
+
 interface TabPanelProps {
 	children?: React.ReactNode
 	index: number
@@ -36,6 +38,8 @@ function a11yProps(index: number) {
 
 const tabNames = ['Accessories', 'Description', 'specification', 'reviews']
 
+const tabChildrens = [null, null, ProductSpecification]
+
 const ProductOverviewTabs = () => {
 	const [value, setValue] = React.useState(0)
 	const theme = useTheme()
@@ -59,19 +63,22 @@ const ProductOverviewTabs = () => {
 				</Tabs>
 			</Box>
 
-			{tabNames.map((_, index) => (
-				<TabPanel {...{ value, index, key: nanoid() }}>
-					<Box
-						sx={{
-							border: `1px solid ${theme.palette.primary.main}`,
-							borderRadius: '0.5rem',
-							padding: '1rem',
-						}}
-					>
-						This will have tabs
-					</Box>
-				</TabPanel>
-			))}
+			{tabNames.map((_, index) => {
+				const TabChildren = tabChildrens[index]
+				return (
+					<TabPanel {...{ value, index, key: nanoid() }}>
+						<Box
+							sx={{
+								border: `1px solid ${theme.palette.primary.main}`,
+								borderRadius: '0.5rem',
+								padding: '1rem',
+							}}
+						>
+							{TabChildren && <TabChildren />}
+						</Box>
+					</TabPanel>
+				)
+			})}
 		</Box>
 	)
 }
