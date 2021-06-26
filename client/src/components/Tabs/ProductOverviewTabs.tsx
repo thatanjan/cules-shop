@@ -38,14 +38,9 @@ function a11yProps(index: number) {
 	}
 }
 
-const tabNames = ['Accessories', 'Description', 'specification', 'reviews']
+const tabNames = ['Description', 'specification', 'reviews']
 
-const tabChildrens = [
-	null,
-	ProductDescription,
-	ProductSpecification,
-	ProductReview,
-]
+const tabChildrens = [ProductDescription, ProductSpecification, ProductReview]
 
 const ProductOverviewTabs = () => {
 	const [value, setValue] = React.useState(0)
@@ -58,7 +53,12 @@ const ProductOverviewTabs = () => {
 	return (
 		<Box sx={{ width: '100%' }}>
 			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-				<Tabs value={value} onChange={handleChange} indicatorColor='primary'>
+				<Tabs
+					value={value}
+					onChange={handleChange}
+					indicatorColor='primary'
+					centered
+				>
 					{tabNames.map((tab, index) => (
 						<Tab
 							key={nanoid()}
