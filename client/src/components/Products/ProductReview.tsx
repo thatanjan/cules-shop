@@ -5,6 +5,7 @@ import { nanoid } from 'nanoid'
 import Divider from '@material-ui/core/Divider'
 
 import CustomRating from 'components/Ratings/CustomRating'
+import ProductReviewForm from 'components/Forms/ProductReviewForm'
 
 const ReviewStarDistribution = () => {
 	return (
@@ -54,6 +55,10 @@ const ProductReview = () => {
 
 			<Grid item xs={12}>
 				<Typography>Be the first to review “Powerbank 1130 mAh Blue”</Typography>
+			</Grid>
+
+			<Grid item xs={12}>
+				<ProductReviewForm />
 			</Grid>
 		</Grid>
 	)
