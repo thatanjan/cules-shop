@@ -39,7 +39,7 @@ const ProductReviewForm = () => {
 
 			<Button
 				type='submit'
-				disabled={!description}
+				disabled={!description || !ratingValue}
 				variant='contained'
 				size='small'
 			>
