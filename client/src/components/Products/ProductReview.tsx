@@ -41,8 +41,8 @@ const ReviewStarDistribution = () => {
 
 const ProductReview = () => {
 	return (
-		<Grid container>
-			<Grid item xs={12}>
+		<Grid container spacing={5}>
+			<Grid item xs={12} md={6}>
 				<Typography variant='h6' sx={{ margin: '1.5rem 0' }}>
 					Based on X reviews
 				</Typography>
@@ -53,11 +53,10 @@ const ProductReview = () => {
 				<ReviewStarDistribution />
 			</Grid>
 
-			<Grid item xs={12}>
-				<Typography>Be the first to review “Powerbank 1130 mAh Blue”</Typography>
-			</Grid>
-
-			<Grid item xs={12}>
+			<Grid item xs={12} md={6}>
+				<Typography variant='h6' sx={{ margin: '1.5rem 0' }}>
+					Review “Powerbank 1130 mAh Blue”
+				</Typography>
 				<ProductReviewForm />
 			</Grid>
 		</Grid>
