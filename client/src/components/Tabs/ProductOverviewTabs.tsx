@@ -7,6 +7,7 @@ import { useTheme } from '@material-ui/core/styles'
 
 import ProductSpecification from 'components/Products/ProductSpecification'
 import ProductDescription from 'components/Products/ProductDescription'
+import ProductReview from 'components/Products/ProductReview'
 
 interface TabPanelProps {
 	children?: React.ReactNode
@@ -39,7 +40,12 @@ function a11yProps(index: number) {
 
 const tabNames = ['Accessories', 'Description', 'specification', 'reviews']
 
-const tabChildrens = [null, ProductDescription, ProductSpecification]
+const tabChildrens = [
+	null,
+	ProductDescription,
+	ProductSpecification,
+	ProductReview,
+]
 
 const ProductOverviewTabs = () => {
 	const [value, setValue] = React.useState(0)
