@@ -6,6 +6,7 @@ import { nanoid } from 'nanoid'
 import { useTheme } from '@material-ui/core/styles'
 
 import ProductSpecification from 'components/Products/ProductSpecification'
+import ProductDescription from 'components/Products/ProductDescription'
 
 interface TabPanelProps {
 	children?: React.ReactNode
@@ -38,7 +39,7 @@ function a11yProps(index: number) {
 
 const tabNames = ['Accessories', 'Description', 'specification', 'reviews']
 
-const tabChildrens = [null, null, ProductSpecification]
+const tabChildrens = [null, ProductDescription, ProductSpecification]
 
 const ProductOverviewTabs = () => {
 	const [value, setValue] = React.useState(0)
