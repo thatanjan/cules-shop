@@ -9,7 +9,6 @@ import SwiperCore, {
 
 import ProductBannerSlideShow from 'components/Banner/ProductBannerSlideShow'
 import ProductPreviewTabs from 'components/Tabs/ProductPreviewTabs'
-import HomeAccordion from 'components/Accordions/HomePageAccordions/HomeAccordion'
 
 import 'swiper/swiper.min.css'
 import 'swiper/components/pagination/pagination.min.css'
@@ -24,7 +23,6 @@ const Index = () => {
 			<ProductBannerSlideShow />
 			<ProductPreviewTabs tabNames={['featured', 'on Sale', 'top rated']} />
 			<ProductPreviewTabs tabNames={['Television']} />
-			<HomeAccordion />
 		</>
 	)
 }
