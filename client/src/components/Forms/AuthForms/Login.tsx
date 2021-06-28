@@ -37,21 +37,35 @@ const Login = () => {
 			>
 				{({ submitForm, isSubmitting }) => (
 					<Form>
-						<Field component={TextField} name='email' type='email' label='Email' />
+						<br />
+						<br />
+						<Field
+							component={TextField}
+							name='email'
+							type='email'
+							label='Email'
+							variant='standard'
+							fullWidth
+						/>
+						<br />
 						<br />
 						<Field
 							component={TextField}
 							type='password'
 							label='Password'
 							name='password'
+							variant='standard'
+							fullWidth
 						/>
 						{isSubmitting && <LinearProgress />}
+						<br />
 						<br />
 						<Button
 							variant='contained'
 							color='primary'
 							disabled={isSubmitting}
 							onClick={submitForm}
+							size='small'
 						>
 							Submit
 						</Button>
