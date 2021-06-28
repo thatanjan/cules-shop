@@ -12,7 +12,7 @@ interface Values {
 
 const Login = () => {
 	return (
-		<Box sx={{ minHeight: '100vh' }}>
+		<Box sx={{ minHeight: '70vh' }}>
 			<Formik
 				initialValues={{
 					email: '',
@@ -38,8 +38,6 @@ const Login = () => {
 			>
 				{({ submitForm, isSubmitting }) => (
 					<Form>
-						<br />
-						<br />
 						<Field
 							component={TextField}
 							name='email'
