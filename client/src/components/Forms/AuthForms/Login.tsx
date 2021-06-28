@@ -2,6 +2,7 @@ import React from 'react'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import Button from '@material-ui/core/Button'
+import Box from '@material-ui/core/Box'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
 interface Values {
@@ -11,7 +12,7 @@ interface Values {
 
 const Login = () => {
 	return (
-		<>
+		<Box sx={{ minHeight: '100vh' }}>
 			<Formik
 				initialValues={{
 					email: '',
@@ -72,7 +73,7 @@ const Login = () => {
 					</Form>
 				)}
 			</Formik>
-		</>
+		</Box>
 	)
 }
 
