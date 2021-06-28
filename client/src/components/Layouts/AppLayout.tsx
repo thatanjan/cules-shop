@@ -8,6 +8,8 @@ import AppAccordion from 'components/Accordions/AppAccordions/AppAccordion'
 import TopNavigation from 'components/Navigations/TopNavigation'
 import Footer from 'components/Footer/Footer'
 
+import useLargerThanMD from 'hooks/mediaQueries/useLargerThanMD'
+
 const SearchBar = dynamic(() => import('./SearchBar'))
 const BannerSlideShow = dynamic(
 	() => import('components/Banner/BannerSlideShow')
@@ -21,6 +23,8 @@ const AppLayout = ({ children }: Props) => {
 	const [showSearchBar, setShowSearchBar] = useState(false)
 
 	const { route } = useRouter()
+
+	const largerThanMD = useLargerThanMD()
 
 	return (
 		<>
@@ -47,7 +51,7 @@ const AppLayout = ({ children }: Props) => {
 
 				<AppAccordion />
 
-				<Footer />
+				{largerThanMD && <Footer />}
 			</Paper>
 		</>
 	)
