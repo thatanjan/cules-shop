@@ -4,11 +4,8 @@ import Grid from '@material-ui/core/Grid'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
-import AppAccordion from 'components/Accordions/AppAccordions/AppAccordion'
 import TopNavigation from 'components/Navigations/TopNavigation'
 import Footer from 'components/Footer/Footer'
-
-import useLargerThanMD from 'hooks/mediaQueries/useLargerThanMD'
 
 const SearchBar = dynamic(() => import('./SearchBar'))
 const BannerSlideShow = dynamic(
@@ -23,8 +20,6 @@ const AppLayout = ({ children }: Props) => {
 	const [showSearchBar, setShowSearchBar] = useState(false)
 
 	const { route } = useRouter()
-
-	const largerThanMD = useLargerThanMD()
 
 	return (
 		<>
@@ -49,9 +44,7 @@ const AppLayout = ({ children }: Props) => {
 					</Grid>
 				</Grid>
 
-				<AppAccordion />
-
-				{largerThanMD && <Footer />}
+				<Footer />
 			</Paper>
 		</>
 	)
