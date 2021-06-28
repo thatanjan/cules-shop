@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
+import MuiLink from 'components/Links/MuiLink'
+
 interface Values {
 	email: string
 	password: string
@@ -69,6 +71,17 @@ const Login = () => {
 						>
 							Submit
 						</Button>
+
+						<MuiLink
+							MuiComponent={Button}
+							href='/authentication/register'
+							variant='contained'
+							color='primary'
+							disabled={isSubmitting}
+							fullWidth
+						>
+							Create New Account
+						</MuiLink>
 					</Form>
 				)}
 			</Formik>
