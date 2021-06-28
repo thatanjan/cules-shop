@@ -29,6 +29,13 @@ const Login = () => {
 					) {
 						errors.email = 'Invalid email address'
 					}
+
+					if (!values.password) {
+						errors.password = 'Password is required'
+					} else if (values.password.length < 6) {
+						errors.password = 'Invalid Password'
+					}
+
 					return errors
 				}}
 				onSubmit={(values, { setSubmitting }) => {
