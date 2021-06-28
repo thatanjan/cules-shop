@@ -11,7 +11,7 @@ import { nanoid } from 'nanoid'
 
 import MuiLink from 'components/Links/MuiLink'
 
-import HomeAccordionData from './HomeAccordionsData'
+import AppAccordionData from './AppAccordionsData'
 
 const useStyles = makeStyles({
 	expandIconStyle: {
@@ -21,11 +21,11 @@ const useStyles = makeStyles({
 	},
 })
 
-const HomeAccordion = () => {
+const AppAccordion = () => {
 	const { expandIconStyle } = useStyles()
 	return (
 		<>
-			{HomeAccordionData.map(({ name, linkData }) => (
+			{AppAccordionData.map(({ name, linkData }) => (
 				<Accordion key={nanoid()}>
 					<AccordionSummary
 						className={expandIconStyle}
@@ -53,4 +53,4 @@ const HomeAccordion = () => {
 	)
 }
 
-export default HomeAccordion
+export default AppAccordion
