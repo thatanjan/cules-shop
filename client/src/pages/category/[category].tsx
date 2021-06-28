@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box'
 import { nanoid } from 'nanoid'
 
 import ProductPreview from 'components/Products/ProductPreview'
+import CategoryPagination from 'components/Paginations/CategoryPagination'
 
 interface Props {
 	category: string
@@ -77,6 +78,8 @@ const Category = ({ category }: Props) => {
 						</Grid>
 					))}
 			</Grid>
+
+			<CategoryPagination />
 		</>
 	)
 }
