@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
+import AppAccordion from 'components/Accordions/AppAccordions/AppAccordion'
 import TopNavigation from 'components/Navigations/TopNavigation'
 import Footer from 'components/Footer/Footer'
 
@@ -43,6 +44,8 @@ const AppLayout = ({ children }: Props) => {
 						{children}
 					</Grid>
 				</Grid>
+
+				<AppAccordion />
 
 				<Footer />
 			</Paper>
