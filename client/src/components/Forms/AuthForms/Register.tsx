@@ -4,6 +4,7 @@ import { TextField } from 'formik-material-ui'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import LinearProgress from '@material-ui/core/LinearProgress'
+import Typography from '@material-ui/core/Typography'
 
 import MuiLink from 'components/Links/MuiLink'
 
@@ -102,6 +103,11 @@ const Login = () => {
 							sx={{ marginBottom: '1rem' }}
 						/>
 
+						<Typography sx={{ marginBottom: '1rem' }}>
+							Your personal data will be used to support your experience throughout
+							this website, to manage access to your account, and for other purposes
+							described in our privacy policy.
+						</Typography>
 						{isSubmitting && <LinearProgress />}
 
 						<Button
