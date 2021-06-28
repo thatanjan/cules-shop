@@ -7,6 +7,9 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import Box from '@material-ui/core/Box'
+import { nanoid } from 'nanoid'
+
+import ProductPreview from 'components/Products/ProductPreview'
 
 interface Props {
 	category: string
@@ -64,6 +67,16 @@ const Category = ({ category }: Props) => {
 	return (
 		<>
 			<Header {...{ category }} />
+
+			<Grid container>
+				{Array(40)
+					.fill(0)
+					.map(() => (
+						<Grid item xs={6} sm={4} lg={3} key={nanoid()}>
+							<ProductPreview />
+						</Grid>
+					))}
+			</Grid>
 		</>
 	)
 }
