@@ -2,10 +2,23 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
+import List from '@material-ui/core/List'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItem from '@material-ui/core/ListItem'
+import { nanoid } from 'nanoid'
+
+import CheckIcon from '@material-ui/icons/Check'
 
 import Register from 'components/Forms/AuthForms/Register'
 
 interface Props {}
+
+const benefits = [
+	'Speed your way through checkout',
+	'Track your orders easily',
+	'Keep a record of all your purchases',
+]
 
 const LoginPage = (props: Props) => {
 	return (
@@ -23,6 +36,21 @@ const LoginPage = (props: Props) => {
 				</Typography>
 
 				<Register />
+
+				<Typography variant='h5' sx={{ margin: '2rem 0 1rem' }}>
+					Sign up today and you will be able to :
+				</Typography>
+
+				<List>
+					{benefits.map(item => (
+						<ListItem key={nanoid()}>
+							<ListItemIcon>
+								<CheckIcon />
+							</ListItemIcon>
+							<ListItemText primary={item} />
+						</ListItem>
+					))}
+				</List>
 			</Grid>
 		</Grid>
 	)
