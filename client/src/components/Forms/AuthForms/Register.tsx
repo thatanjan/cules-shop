@@ -17,7 +17,7 @@ interface Values {
 
 const Login = () => {
 	return (
-		<Box sx={{ minHeight: '70vh' }}>
+		<Box>
 			<Formik
 				initialValues={{
 					email: '',
@@ -108,6 +108,7 @@ const Login = () => {
 							this website, to manage access to your account, and for other purposes
 							described in our privacy policy.
 						</Typography>
+
 						{isSubmitting && <LinearProgress />}
 
 						<Button
