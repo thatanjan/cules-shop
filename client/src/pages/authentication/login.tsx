@@ -17,7 +17,9 @@ const LoginPage = (props: Props) => {
 
 				<Divider />
 
-				<Typography>Welcome back! Sign in to your account. </Typography>
+				<Typography sx={{ margin: '1rem 0' }}>
+					Welcome back! Sign in to your account.{' '}
+				</Typography>
 
 				<Login />
 			</Grid>
