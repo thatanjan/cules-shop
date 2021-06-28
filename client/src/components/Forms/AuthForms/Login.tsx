@@ -59,12 +59,13 @@ const Login = () => {
 						{isSubmitting && <LinearProgress />}
 						<br />
 						<br />
+
 						<Button
 							variant='contained'
 							color='primary'
 							disabled={isSubmitting}
 							onClick={submitForm}
-							size='small'
+							fullWidth
 						>
 							Submit
 						</Button>
