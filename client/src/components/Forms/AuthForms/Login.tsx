@@ -59,8 +59,6 @@ const Login = () => {
 							fullWidth
 						/>
 						{isSubmitting && <LinearProgress />}
-						<br />
-						<br />
 
 						<Button
 							variant='contained'
@@ -68,6 +66,7 @@ const Login = () => {
 							disabled={isSubmitting}
 							onClick={submitForm}
 							fullWidth
+							sx={{ margin: '1rem 0', marginBottom: '.5rem' }}
 						>
 							Submit
 						</Button>
