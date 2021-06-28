@@ -12,6 +12,7 @@ const LoginPage = (props: Props) => {
 			<Typography variant='h3' sx={{ margin: '1rem 0' }}>
 				Login
 			</Typography>
+
 			<Divider />
 
 			<Typography>Welcome back! Sign in to your account. </Typography>
@@ -21,4 +22,4 @@ const LoginPage = (props: Props) => {
 	)
 }
 
-export default Login
+export default LoginPage
