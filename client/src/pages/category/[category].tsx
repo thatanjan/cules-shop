@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import Box from '@material-ui/core/Box'
+import Divider from '@material-ui/core/Divider'
 import { nanoid } from 'nanoid'
 
 import ProductPreview from 'components/Products/ProductPreview'
@@ -80,6 +81,8 @@ const Category = ({ category }: Props) => {
 			</Grid>
 
 			<CategoryPagination />
+
+			<Divider sx={{ margin: '3rem 0' }} />
 		</>
 	)
 }
