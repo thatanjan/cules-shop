@@ -8,8 +8,10 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import MuiLink from 'components/Links/MuiLink'
 
 interface Values {
+	name: string
 	email: string
 	password: string
+	confirmPassword: string
 }
 
 const Login = () => {
@@ -19,15 +21,36 @@ const Login = () => {
 				initialValues={{
 					email: '',
 					password: '',
+					name: '',
+					confirmPassword: '',
 				}}
 				validate={values => {
 					const errors: Partial<Values> = {}
-					if (!values.email) {
+
+					const { name, email, password, confirmPassword } = values
+
+					if (!name) {
+						errors.name = 'Name is required'
+					} else if (name.length < 6) {
+						errors.name = 'Name should be at least 6 character long'
+					}
+
+					if (!email) {
 						errors.email = 'Required'
 					} else if (
 						!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
 					) {
 						errors.email = 'Invalid email address'
+					}
+
+					if (!password) {
+						errors.password = 'Password is required'
+					} else if (password.length < 6) {
+						errors.password = 'Invalid Password'
+					}
+
+					if (password !== confirmPassword) {
+						errors.confirmPassword = "Passwords doesn't match"
 					}
 					return errors
 				}}
@@ -73,7 +96,7 @@ const Login = () => {
 							component={TextField}
 							type='password'
 							label='Confirm Password'
-							name='confirmpassword'
+							name='confirmPassword'
 							variant='standard'
 							fullWidth
 							sx={{ marginBottom: '1rem' }}
