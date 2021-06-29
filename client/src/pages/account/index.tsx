@@ -9,7 +9,12 @@ interface Props {}
 const AccountPage = (props: Props) => {
 	return (
 		<>
-			<Grid container justifyContent='center' alignItems='center'>
+			<Grid
+				container
+				justifyContent='center'
+				alignItems='center'
+				sx={{ justifyContent: { md: 'start' } }}
+			>
 				<Grid item xs={6} sm={5} md={4} lg={3} xl={2}>
 					<AccountAvatar />
 				</Grid>
