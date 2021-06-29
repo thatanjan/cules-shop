@@ -26,12 +26,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 				display: 'grid',
 				placeItems: 'center',
 			},
-			// [theme.breakpoints.up('md')]: {
-			// 	width: '13rem',
-			// },
-			// [theme.breakpoints.up('lg')]: {
-			// 	width: '16rem',
-			// },
 		},
 	},
 }))
