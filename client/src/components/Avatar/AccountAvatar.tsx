@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Image from 'next/image'
 import clsx from 'clsx'
@@ -8,13 +8,10 @@ interface Props {
 	small?: boolean
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
 	container: {
 		'& img': {
 			borderRadius: '100%',
-		},
-		'& > div': {
-			width: '100%',
 		},
 	},
 	smallAvatarStyle: {
@@ -22,13 +19,28 @@ const useStyles = makeStyles({
 			width: '3rem',
 		},
 	},
-})
+	breakpointStyles: {
+		'& > div': {
+			width: '100%',
+			[theme.breakpoints.down('md')]: {
+				display: 'grid',
+				placeItems: 'center',
+			},
+			// [theme.breakpoints.up('md')]: {
+			// 	width: '13rem',
+			// },
+			// [theme.breakpoints.up('lg')]: {
+			// 	width: '16rem',
+			// },
+		},
+	},
+}))
 
 const AccountAvatar = ({ small }: Props) => {
-	const { container, smallAvatarStyle } = useStyles()
+	const { container, smallAvatarStyle, breakpointStyles } = useStyles()
 
 	return (
-		<Box className={clsx(container, small && smallAvatarStyle)}>
+		<Box className={clsx(container, small ? smallAvatarStyle : breakpointStyles)}>
 			<Image
 				src='/ts.jpg'
 				layout='responsive'

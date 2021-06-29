@@ -11,16 +11,24 @@ const AccountPage = (props: Props) => {
 		<>
 			<Grid
 				container
-				justifyContent='center'
 				alignItems='center'
-				sx={{ justifyContent: { md: 'start' } }}
+				sx={{
+					justifyContent: { xs: 'center', sm: 'start' },
+					background: 'cyan',
+					maxWidth: '50rem',
+				}}
 			>
-				<Grid item xs={6} sm={5} md={4} lg={3} xl={2}>
+				<Grid item xs={6} sm={4}>
 					<AccountAvatar />
 				</Grid>
 
 				<Grid item xs={12} sm={6} sx={{ marginTop: { xs: '1rem', sm: 0 } }}>
-					<Typography variant='h2' component='h1' align='center'>
+					<Typography
+						variant='h2'
+						component='h1'
+						align='center'
+						sx={{ textAlign: { md: 'start' } }}
+					>
 						Taylor swift
 					</Typography>
 				</Grid>
