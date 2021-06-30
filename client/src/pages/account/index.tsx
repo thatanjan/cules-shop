@@ -1,9 +1,13 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+import Box from '@material-ui/core/Box'
 
 import AccountData from 'components/Account/AccountData'
 import AccountAvatar from 'components/Avatar/AccountAvatar'
+
+import MuiLink from 'components/Links/MuiLink'
 
 interface Props {}
 
@@ -27,6 +31,12 @@ const AccountPage = (props: Props) => {
 					<Typography variant='h2' component='h1' align='center'>
 						Taylor swift
 					</Typography>
+
+					<Box sx={{ display: 'grid', placeItems: 'center' }}>
+						<MuiLink MuiComponent={Button} href='/account/edit' variant='contained'>
+							Edit Profile
+						</MuiLink>
+					</Box>
 				</Grid>
 			</Grid>
 
