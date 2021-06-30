@@ -34,6 +34,7 @@ const ProductQuantity = (props: Props) => {
 							borderRadius: '0',
 						},
 					}}
+					onChange={event => setQuantity(parseInt(event.target.value, 10))}
 				/>
 
 				<IconButton
