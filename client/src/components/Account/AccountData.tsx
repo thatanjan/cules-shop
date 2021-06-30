@@ -8,7 +8,13 @@ const AccountData = () => {
 			{Array(10)
 				.fill(0)
 				.map(() => (
-					<Grid container item sx={{ marginBottom: '.5rem' }} key={nanoid()}>
+					<Grid
+						container
+						item
+						justifyContent='center'
+						sx={{ marginBottom: '.5rem' }}
+						key={nanoid()}
+					>
 						<Grid item xs={3}>
 							Name
 						</Grid>
