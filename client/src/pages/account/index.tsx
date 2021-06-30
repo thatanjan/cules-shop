@@ -32,7 +32,7 @@ const AccountPage = (props: Props) => {
 						Taylor swift
 					</Typography>
 
-					<Box sx={{ display: 'grid', placeItems: 'center' }}>
+					<Box sx={{ display: 'grid', placeItems: 'center', marginTop: '1rem' }}>
 						<MuiLink MuiComponent={Button} href='/account/edit' variant='contained'>
 							Edit Profile
 						</MuiLink>
