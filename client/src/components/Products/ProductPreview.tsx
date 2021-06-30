@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
 const ProductQuantity = dynamic(() => import('./ProductQuantity'))
+const DeleteFromCart = dynamic(() => import('components/Cart/DeleteFromCart'))
 
 export interface Props {
 	twoColumn?: boolean
@@ -67,6 +68,12 @@ const ProductPreview = ({ twoColumn, cartPage }: Props) => {
 							$100
 						</Typography>
 					</Grid>
+
+					{cartPage && (
+						<Grid item>
+							<DeleteFromCart />
+						</Grid>
+					)}
 
 					<Grid item>
 						{cartPage ? (
