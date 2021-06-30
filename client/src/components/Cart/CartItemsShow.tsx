@@ -3,6 +3,8 @@ import Grid from '@material-ui/core/Grid'
 
 import ProductPreview from 'components/Products/ProductPreview'
 
+import Pagination from 'components/Paginations/Pagination'
+
 interface Props {}
 
 const CartItemsShow = (props: Props) => {
@@ -28,6 +30,7 @@ const CartItemsShow = (props: Props) => {
 						</Grid>
 					))}
 			</Grid>
+			<Pagination getRedirectLink={(value: number) => `/cart?query=${value}`} />
 		</>
 	)
 }
