@@ -12,7 +12,17 @@ const CartItemsShow = (props: Props) => {
 				{Array(10)
 					.fill(0)
 					.map(() => (
-						<Grid item md={3}>
+						<Grid
+							item
+							xs={6}
+							md={3}
+							sx={{
+								'@media only screen and (max-width: 350px)': {
+									flexBasis: '100%',
+									maxWidth: '100%',
+								},
+							}}
+						>
 							<ProductPreview cartPage />
 						</Grid>
 					))}
