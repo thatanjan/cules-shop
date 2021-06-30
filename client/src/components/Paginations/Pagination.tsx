@@ -3,16 +3,16 @@ import Pagination from '@material-ui/core/Pagination'
 import Stack from '@material-ui/core/Stack'
 import { useRouter } from 'next/router'
 
-interface Props {}
+interface Props {
+	getRedirectLink: (value: number) => string
+}
 
-const CategoryPagination = (props: Props) => {
-	const {
-		push,
-		query: { category },
-	} = useRouter()
+const CategoryPagination = ({ getRedirectLink }: Props) => {
+	const { push } = useRouter()
 
 	const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
-		push(`/category/${category}?page=${value}`)
+		const redirectLink = getRedirectLink(value)
+		push(redirectLink)
 	}
 
 	return (

@@ -80,7 +80,9 @@ const Category = ({ category }: Props) => {
 					))}
 			</Grid>
 
-			<CategoryPagination />
+			<CategoryPagination
+				getRedirectLink={(value: number) => `/category/${category}?page=${value}`}
+			/>
 
 			<Divider sx={{ margin: '3rem 0' }} />
 		</>
