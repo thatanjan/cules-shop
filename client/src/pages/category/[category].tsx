@@ -11,7 +11,7 @@ import Divider from '@material-ui/core/Divider'
 import { nanoid } from 'nanoid'
 
 import ProductPreview from 'components/Products/ProductPreview'
-import CategoryPagination from 'components/Paginations/CategoryPagination'
+import CategoryPagination from 'components/Paginations/Pagination'
 
 interface Props {
 	category: string
