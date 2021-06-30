@@ -15,6 +15,7 @@ const CartItemsShow = (props: Props) => {
 						<Grid
 							item
 							xs={6}
+							sm={4}
 							md={3}
 							sx={{
 								'@media only screen and (max-width: 350px)': {
