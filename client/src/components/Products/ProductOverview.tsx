@@ -1,25 +1,20 @@
-import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Image from 'next/image'
 import Typography from '@material-ui/core/Typography'
-import TextField from '@material-ui/core/TextField'
-import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { nanoid } from 'nanoid'
 
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
-import AddIcon from '@material-ui/icons/Add'
-import RemoveIcon from '@material-ui/icons/Remove'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import CompareIcon from '@material-ui/icons/Compare'
 
+import ProductQuantity from './ProductQuantity'
+
 const ProductOverview = () => {
-	const [quantity, setQuantity] = useState(0)
 	return (
 		<Grid container>
 			<Grid item xs={12}>
@@ -84,38 +79,7 @@ const ProductOverview = () => {
 					$400
 				</Typography>
 
-				<ButtonGroup
-					sx={{ marginTop: '1rem', background: 'rgba(255, 255, 255, 0.09)' }}
-				>
-					<IconButton
-						color='primary'
-						component='span'
-						onClick={() => setQuantity(prev => prev + 1)}
-					>
-						<AddIcon />
-					</IconButton>
-
-					<TextField
-						variant='filled'
-						label='Quantity'
-						value={quantity}
-						size='small'
-						InputProps={{
-							sx: {
-								borderRadius: '0',
-							},
-						}}
-					/>
-
-					<IconButton
-						color='primary'
-						component='span'
-						disabled={quantity <= 0}
-						onClick={() => setQuantity(prev => prev - 1)}
-					>
-						<RemoveIcon />
-					</IconButton>
-				</ButtonGroup>
+				<ProductQuantity />
 
 				<Button
 					sx={{ textTransform: 'capitalize', marginTop: '2rem', padding: '0.8rem' }}
