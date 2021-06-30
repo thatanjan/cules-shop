@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
@@ -9,11 +10,14 @@ import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
+const ProductQuantity = dynamic(() => import('./ProductQuantity'))
+
 export interface Props {
 	twoColumn?: boolean
+	cartPage?: boolean
 }
 
-const ProductPreview = ({ twoColumn }: Props) => {
+const ProductPreview = ({ twoColumn, cartPage }: Props) => {
 	return (
 		<Card
 			sx={{
@@ -65,9 +69,13 @@ const ProductPreview = ({ twoColumn }: Props) => {
 					</Grid>
 
 					<Grid item>
-						<IconButton>
-							<AddShoppingCartIcon />
-						</IconButton>
+						{cartPage ? (
+							<ProductQuantity />
+						) : (
+							<IconButton>
+								<AddShoppingCartIcon />
+							</IconButton>
+						)}
 					</Grid>
 				</CardContent>
 			</Box>
