@@ -8,6 +8,20 @@ import CartTotal from 'components/Cart/CartTotal'
 
 interface Props {}
 
+interface CustomButtonProps {
+	children: React.ReactNode
+}
+
+const CustomButton = ({ children }: CustomButtonProps) => {
+	return (
+		<Grid item xs={12} sm={5} sx={{ marginBottom: '.5rem' }}>
+			<Button variant='contained' fullWidth>
+				{children}
+			</Button>
+		</Grid>
+	)
+}
+
 const CartPage = (props: Props) => {
 	return (
 		<div>
@@ -23,16 +37,8 @@ const CartPage = (props: Props) => {
 				</Grid>
 
 				<Grid item container xs={12} justifyContent='space-between'>
-					<Grid item xs={12} sx={{ marginBottom: '.5rem' }}>
-						<Button variant='contained' fullWidth>
-							Update cart
-						</Button>
-					</Grid>
-					<Grid item xs={12} sx={{ marginBottom: '.5rem' }}>
-						<Button variant='contained' fullWidth>
-							Procced to checkout
-						</Button>
-					</Grid>
+					<CustomButton>Update Cart</CustomButton>
+					<CustomButton>Procced to checkout</CustomButton>
 				</Grid>
 			</Grid>
 		</div>
