@@ -1,6 +1,7 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
 import CartItemsShow from 'components/Cart/CartItemsShow'
 import CartTotal from 'components/Cart/CartTotal'
@@ -19,6 +20,19 @@ const CartPage = (props: Props) => {
 			<Grid container>
 				<Grid item xs={12}>
 					<CartTotal />
+				</Grid>
+
+				<Grid item container xs={12} justifyContent='space-between'>
+					<Grid item xs={12} sx={{ marginBottom: '.5rem' }}>
+						<Button variant='contained' fullWidth>
+							Update cart
+						</Button>
+					</Grid>
+					<Grid item xs={12} sx={{ marginBottom: '.5rem' }}>
+						<Button variant='contained' fullWidth>
+							Procced to checkout
+						</Button>
+					</Grid>
 				</Grid>
 			</Grid>
 		</div>
