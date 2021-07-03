@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import dynamic from 'next/dynamic'
 import AppBar from '@material-ui/core/AppBar'
 import Box from '@material-ui/core/Box'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -14,6 +15,8 @@ import SearchIcon from '@material-ui/icons/Search'
 import { APP_TITLE } from 'variables/global'
 import MuiLink from 'components/Links/MuiLink'
 
+const Drawer = dynamic(() => import('components/Drawers/AppDrawer'))
+
 type CallBack = (val: boolean) => boolean
 
 interface Props {
@@ -22,6 +25,7 @@ interface Props {
 }
 
 const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
+	const [open, setOpen] = useState(false)
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
@@ -32,9 +36,12 @@ const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 							color='inherit'
 							aria-label='open drawer'
 							sx={{ mr: 2 }}
+							onClick={() => setOpen(prev => !prev)}
 						>
 							<MenuIcon />
 						</IconButton>
+
+						{open && <Drawer {...{ open, setOpen }} />}
 
 						<Box sx={{ flexGrow: 1 }}>
 							<MuiLink
