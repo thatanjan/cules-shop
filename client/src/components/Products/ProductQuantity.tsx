@@ -14,7 +14,11 @@ const ProductQuantity = (props: Props) => {
 	return (
 		<>
 			<ButtonGroup
-				sx={{ marginTop: '1rem', background: 'rgba(255, 255, 255, 0.09)' }}
+				sx={{
+					marginTop: '1rem',
+					background: 'rgba(255, 255, 255, 0.09)',
+					'& .MuiTextField-root > label': { display: 'none' },
+				}}
 			>
 				<IconButton
 					color='primary'
