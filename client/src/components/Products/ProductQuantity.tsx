@@ -24,6 +24,7 @@ const ProductQuantity = (props: Props) => {
 					color='primary'
 					component='span'
 					onClick={() => setQuantity(prev => prev + 1)}
+					size='small'
 				>
 					<AddIcon />
 				</IconButton>
@@ -45,6 +46,7 @@ const ProductQuantity = (props: Props) => {
 					color='primary'
 					component='span'
 					disabled={quantity <= 0}
+					size='small'
 					onClick={() => setQuantity(prev => prev - 1)}
 				>
 					<RemoveIcon />
