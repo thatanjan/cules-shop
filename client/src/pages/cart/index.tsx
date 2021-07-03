@@ -38,7 +38,7 @@ const CartPage = (props: Props) => {
 			<CartItemsShow />
 
 			<Grid container>
-				<Grid item xs={12} md={6}>
+				<Grid item xs={12} md={8} lg={6} sx={{ maxWidth: '50rem' }}>
 					<CoupnInput />
 				</Grid>
 				<Grid item container xs={12} lg={6} justifyContent='flex-end'>
