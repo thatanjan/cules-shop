@@ -15,7 +15,13 @@ interface CustomButtonProps {
 
 const CustomButton = ({ children }: CustomButtonProps) => {
 	return (
-		<Grid item xs={12} sm={5} md={12} sx={{ marginBottom: '.5rem' }}>
+		<Grid
+			item
+			xs={12}
+			sm={5}
+			md={12}
+			sx={{ marginBottom: '.5rem', marginLeft: '1rem' }}
+		>
 			<Button variant='contained' fullWidth>
 				{children}
 			</Button>
@@ -36,7 +42,7 @@ const CartPage = (props: Props) => {
 				<Grid item xs={12} md={6}>
 					<CoupnInput />
 				</Grid>
-				<Grid item container xs={12} md={6} justifyContent='space-between'>
+				<Grid item container xs={12} md={6} justifyContent='flex-end'>
 					<CustomButton>Update Cart</CustomButton>
 					<CustomButton>Procced to checkout</CustomButton>
 				</Grid>
