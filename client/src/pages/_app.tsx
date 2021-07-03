@@ -1,6 +1,9 @@
 import type { AppProps } from 'next/app'
 import React from 'react'
 import Head from 'next/head'
+import { Provider as ReduxStoreProvider } from 'react-redux'
+
+import ReduxStore from 'redux/stores/mainStore'
 
 import { ThemeProvider } from '@material-ui/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -33,12 +36,14 @@ export default function MyApp(props: AppProps) {
 				/>
 			</Head>
 
-			<ThemeProvider theme={darkTheme}>
-				<CssBaseline />
-				<AppLayout>
-					<Component {...pageProps} />
-				</AppLayout>
-			</ThemeProvider>
+			<ReduxStoreProvider store={ReduxStore}>
+				<ThemeProvider theme={darkTheme}>
+					<CssBaseline />
+					<AppLayout>
+						<Component {...pageProps} />
+					</AppLayout>
+				</ThemeProvider>
+			</ReduxStoreProvider>
 		</>
 	)
 }
