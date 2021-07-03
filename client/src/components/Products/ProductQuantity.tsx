@@ -37,6 +37,9 @@ const ProductQuantity = (props: Props) => {
 					InputProps={{
 						sx: {
 							borderRadius: '0',
+							'& input': {
+								textAlign: 'center',
+							},
 						},
 					}}
 					onChange={event => setQuantity(parseInt(event.target.value, 10))}
