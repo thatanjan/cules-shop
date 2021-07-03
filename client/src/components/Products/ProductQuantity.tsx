@@ -39,6 +39,7 @@ const ProductQuantity = (props: Props) => {
 							borderRadius: '0',
 							'& input': {
 								textAlign: 'center',
+								padding: '0.5rem',
 							},
 						},
 					}}
