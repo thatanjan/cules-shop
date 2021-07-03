@@ -37,11 +37,18 @@ const CartPage = (props: Props) => {
 
 			<CartItemsShow />
 
-			<Grid container>
+			<Grid container sx={{ marginTop: '1rem' }}>
 				<Grid item xs={12} md={8} lg={6} sx={{ maxWidth: '50rem' }}>
 					<CoupnInput />
 				</Grid>
-				<Grid item container xs={12} lg={6} justifyContent='flex-end'>
+				<Grid
+					item
+					container
+					xs={12}
+					lg={6}
+					justifyContent='flex-end'
+					alignItems='center'
+				>
 					<CustomButton>Update Cart</CustomButton>
 					<CustomButton>Procced to checkout</CustomButton>
 				</Grid>
