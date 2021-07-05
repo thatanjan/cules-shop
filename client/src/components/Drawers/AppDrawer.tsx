@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState } from 'react'
 import Box from '@material-ui/core/Box'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import List from '@material-ui/core/List'
@@ -21,36 +21,39 @@ const data = {
 	subCategories: ['laptop', 'desktop', 'monitor'],
 }
 
-const DrawerList = () => {
+const DrawerListItem = ({ name, subCategories }: typeof data) => {
 	const [openNest, setOpenNest] = useState(false)
+	return (
+		<>
+			<ListItem button onClick={() => setOpenNest(prev => !prev)}>
+				<ListItemText primary={name} />
+				{openNest ? <ExpandLess /> : <ExpandMore />}
+			</ListItem>
+
+			{openNest && (
+				<Collapse in={openNest} timeout='auto' unmountOnExit>
+					{subCategories &&
+						subCategories.map(item => (
+							<List component='div' disablePadding>
+								<ListItem button>
+									<ListItemText primary={item} />
+								</ListItem>
+							</List>
+						))}
+				</Collapse>
+			)}
+		</>
+	)
+}
+
+const DrawerList = () => {
 	return (
 		<Box>
 			<List>
 				{Array(10)
 					.fill(data)
-					.map(({ name, subCategories }) => (
-						<Fragment key={nanoid()}>
-							<ListItem button>
-								<ListItemText
-									primary={name}
-									onClick={() => setOpenNest(prev => !prev)}
-								/>
-								{openNest ? <ExpandLess /> : <ExpandMore />}
-							</ListItem>
-
-							{openNest && (
-								<Collapse in={openNest} timeout='auto' unmountOnExit>
-									{subCategories &&
-										subCategories.map(item => (
-											<List component='div' disablePadding>
-												<ListItem button>
-													<ListItemText primary={item} />
-												</ListItem>
-											</List>
-										))}
-								</Collapse>
-							)}
-						</Fragment>
+					.map((item: typeof data) => (
+						<DrawerListItem {...item} key={nanoid()} />
 					))}
 			</List>
 		</Box>
