@@ -35,7 +35,7 @@ const DrawerListItem = ({ name, subCategories }: typeof data) => {
 					{subCategories &&
 						subCategories.map(item => (
 							<List component='div' disablePadding>
-								<ListItem button>
+								<ListItem button sx={{ pl: 4 }}>
 									<ListItemText primary={item} />
 								</ListItem>
 							</List>
