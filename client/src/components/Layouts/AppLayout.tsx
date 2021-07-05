@@ -34,7 +34,7 @@ const AppLayout = ({ children }: Props) => {
 			>
 				<TopNavigation {...{ setShowSearchBar, showSearchBar }} />
 
-				{showSearchBar && <SearchBar {...{ mounted: showSearchBar }} />}
+				{showSearchBar && <SearchBar />}
 
 				{route === '/' && <BannerSlideShow />}
 
