@@ -67,6 +67,11 @@ const AppDrawer = ({ open, setOpen }: Props) => {
 				open={open}
 				onOpen={() => setOpen(true)}
 				onClose={() => setOpen(false)}
+				PaperProps={{
+					sx: {
+						width: { xs: '70vw', sm: '60vw', md: '50vw', xl: '20vw', lg: '40vw' },
+					},
+				}}
 			>
 				<DrawerList />
 			</SwipeableDrawer>
