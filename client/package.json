@@ -15,6 +15,8 @@
 		"@material-ui/core": "next",
 		"@material-ui/icons": "^5.0.0-alpha.34",
 		"@reduxjs/toolkit": "^1.6.0",
+		"@stripe/react-stripe-js": "^1.4.1",
+		"@stripe/stripe-js": "^1.15.1",
 		"clsx": "^1.1.1",
 		"formik": "^2.2.9",
 		"formik-material-ui": "^3.0.1",
