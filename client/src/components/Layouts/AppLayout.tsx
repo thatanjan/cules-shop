@@ -7,6 +7,8 @@ import { useRouter } from 'next/router'
 import TopNavigation from 'components/Navigations/TopNavigation'
 import Footer from 'components/Footer/Footer'
 
+import useLargerThanMD from 'hooks/mediaQueries/useLargerThanMD'
+
 const SearchBar = dynamic(() => import('./SearchBar'))
 const BannerSlideShow = dynamic(
 	() => import('components/Banner/BannerSlideShow')
@@ -18,6 +20,7 @@ interface Props {
 
 const AppLayout = ({ children }: Props) => {
 	const [showSearchBar, setShowSearchBar] = useState(false)
+	const largerThanMD = useLargerThanMD()
 
 	const { route } = useRouter()
 
@@ -34,7 +37,7 @@ const AppLayout = ({ children }: Props) => {
 			>
 				<TopNavigation {...{ setShowSearchBar, showSearchBar }} />
 
-				{showSearchBar && <SearchBar />}
+				{showSearchBar && !largerThanMD && <SearchBar />}
 
 				{route === '/' && <BannerSlideShow />}
 
