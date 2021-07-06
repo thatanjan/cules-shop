@@ -18,6 +18,7 @@ import MuiLink from 'components/Links/MuiLink'
 import useLargerThanMD from 'hooks/mediaQueries/useLargerThanMD'
 
 const Drawer = dynamic(() => import('components/Drawers/AppDrawer'))
+const SearchBar = dynamic(() => import('./TopNavigationSearchBar'))
 
 type CallBack = (val: boolean) => boolean
 
@@ -64,6 +65,8 @@ const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 								{showSearchBar ? <ClearIcon /> : <SearchIcon />}
 							</IconButton>
 						)}
+
+						{largerThanMD && <SearchBar />}
 
 						<IconButton>
 							<PersonIcon />
