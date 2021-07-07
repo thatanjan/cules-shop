@@ -22,4 +22,13 @@ let theme = createTheme({
 
 theme = responsiveFontSizes(theme)
 
+theme.components.MuiButton = {
+	...theme.components.MuiButton,
+	styleOverrides: {
+		root: {
+			[theme.breakpoints.down('sm')]: { padding: '.4rem 2rem' },
+		},
+	},
+}
+
 export default theme
