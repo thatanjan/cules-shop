@@ -6,6 +6,7 @@ import {
 	useStripe,
 	useElements,
 } from '@stripe/react-stripe-js'
+import Button from '@material-ui/core/Button'
 
 const CheckoutForm = () => {
 	const stripe = useStripe()
@@ -36,9 +37,14 @@ const CheckoutForm = () => {
 					},
 				}}
 			/>
-			<button type='submit' disabled={!stripe || !elements}>
+			<Button
+				variant='contained'
+				type='submit'
+				disabled={!stripe || !elements}
+				sx={{ margin: '1.5rem 0' }}
+			>
 				Pay
-			</button>
+			</Button>
 		</form>
 	)
 }
