@@ -11,10 +11,10 @@ const ShippingFormContainer = (props: Props) => {
 	const [differentAddress, setDifferent] = useState(true)
 	return (
 		<>
-			<Typography variant='h3' component='h2'>
-				Shipping Details
+			<Typography variant='h4' component='h2' sx={{ margin: '1rem 0' }}>
+				New Shipping Address
 			</Typography>
-			<Divider />
+			<Divider sx={{ marginBottom: '1rem' }} />
 
 			{differentAddress && <ShippingForm />}
 		</>
