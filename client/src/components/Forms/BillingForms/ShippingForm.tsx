@@ -80,6 +80,7 @@ const ShippingForm = () => {
 						name='firstName'
 						type='text'
 						label='First Name'
+						required
 					/>
 
 					<CustomField
@@ -87,6 +88,7 @@ const ShippingForm = () => {
 						name='secondName'
 						type='text'
 						label='Second Name'
+						required
 					/>
 
 					<CustomField
@@ -94,6 +96,7 @@ const ShippingForm = () => {
 						name='streetAddress1'
 						type='text'
 						label='Street Address 1'
+						required
 					/>
 
 					<CustomField
@@ -101,6 +104,7 @@ const ShippingForm = () => {
 						name='streetAddress2'
 						type='text'
 						label='Street Address 2'
+						required
 					/>
 
 					<CustomField
@@ -108,6 +112,7 @@ const ShippingForm = () => {
 						name='cityTown'
 						type='text'
 						label='City / Town'
+						required
 					/>
 
 					<CustomField
@@ -124,6 +129,7 @@ const ShippingForm = () => {
 						name='email'
 						type='email'
 						label='Email'
+						required
 					/>
 
 					<CustomField
