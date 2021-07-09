@@ -139,6 +139,8 @@ const ShippingForm = () => {
 						color='primary'
 						disabled={isSubmitting}
 						onClick={submitForm}
+						sx={{ margin: '1rem 0', padding: { sm: { padding: '1rem' } } }}
+						fullWidth
 					>
 						Done
 					</Button>
