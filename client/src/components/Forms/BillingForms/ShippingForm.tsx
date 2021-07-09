@@ -20,7 +20,14 @@ const ShippingForm = () => {
 		<Formik
 			initialValues={{
 				email: '',
-				password: '',
+				firstName: '',
+				secondName: '',
+				country: '',
+				streetAddress1: '',
+				streetAddress2: '',
+				cityTown: '',
+				state: '',
+				zip: '',
 			}}
 			validate={values => {
 				const errors: Partial<Values> = {}
@@ -42,7 +49,55 @@ const ShippingForm = () => {
 		>
 			{({ submitForm, isSubmitting }) => (
 				<Form>
+					<Field
+						component={TextField}
+						name='firstName'
+						type='text'
+						label='First Name'
+					/>
+					<br />
+
+					<Field
+						component={TextField}
+						name='secondName'
+						type='text'
+						label='Second Name'
+					/>
+
+					<br />
+					<Field
+						component={TextField}
+						name='streetAddress1'
+						type='text'
+						label='Street Address 1'
+					/>
+
+					<br />
+					<Field
+						component={TextField}
+						name='streetAddress2'
+						type='text'
+						label='Street Address 2'
+					/>
+
+					<br />
+					<Field
+						component={TextField}
+						name='cityTown'
+						type='text'
+						label='City / Town'
+					/>
+
+					<br />
+					<Field component={TextField} name='state' type='text' label='State' />
+
+					<br />
+					<Field component={TextField} name='zip' type='text' label='Zip' />
+
+					<br />
+
 					<Field component={TextField} name='email' type='email' label='Email' />
+
 					<br />
 					<Field
 						component={TextField}
@@ -51,6 +106,7 @@ const ShippingForm = () => {
 						name='password'
 					/>
 					{isSubmitting && <LinearProgress />}
+
 					<br />
 					<Button
 						variant='contained'
