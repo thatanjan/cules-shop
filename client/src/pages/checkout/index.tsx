@@ -58,12 +58,6 @@ const CheckoutPage = (props: Props) => {
 					</Grid>
 				</Grid>
 
-				<Grid item>
-					<FormGroup>
-						<FormControlLabel control={<Checkbox />} label='Use different address' />
-					</FormGroup>
-				</Grid>
-
 				<Grid item xs={12}>
 					<ShippingFormContainer />
 				</Grid>
