@@ -37,6 +37,7 @@ const CustomField = ({
 			type={type || 'text'}
 			sx={{ marginBottom: '1rem' }}
 			fullWidth
+			variant='standard'
 		/>
 	)
 }
