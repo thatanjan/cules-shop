@@ -34,8 +34,8 @@ const CheckoutPage = (props: Props) => {
 				Checkout
 			</Typography>
 
-			<Grid container>
-				<Grid item xs={12} sx={{ margin: '1rem 0' }}>
+			<Grid container spacing={3}>
+				<Grid item xs={12} md={6} sx={{ margin: '1rem 0' }}>
 					<Typography variant='h3' color='secondary' sx={{ marginBottom: '1rem' }}>
 						Shipping Address
 					</Typography>
@@ -56,13 +56,13 @@ const CheckoutPage = (props: Props) => {
 							Anjan Shomodder
 						</Grid>
 					</Grid>
+
+					<Grid item xs={12}>
+						<ShippingFormContainer />
+					</Grid>
 				</Grid>
 
-				<Grid item xs={12}>
-					<ShippingFormContainer />
-				</Grid>
-
-				<Grid item xs={12}>
+				<Grid item xs={12} md={6}>
 					<CheckoutForm />
 				</Grid>
 			</Grid>
