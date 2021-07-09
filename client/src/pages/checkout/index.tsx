@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
@@ -6,9 +6,7 @@ import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 
-import {
-	useClearShippingAddress,
-} from 'redux/hooks/useCheckoutHooks'
+import { useClearShippingAddress } from 'redux/hooks/useCheckoutHooks'
 
 import CheckoutForm from 'components/Forms/CheckoutForm'
 import ShippingFormContainer from 'components/Forms/BillingForms/ShippingFormContainer'
@@ -16,9 +14,7 @@ import ShippingFormContainer from 'components/Forms/BillingForms/ShippingFormCon
 interface Props {}
 
 const CheckoutPage = (props: Props) => {
-	const [differentAddress, setDifferentAddress] = useState(false)
 	const clearShippingAddress = useClearShippingAddress()
-
 
 	useEffect(() => {
 		return () => {
@@ -64,22 +60,13 @@ const CheckoutPage = (props: Props) => {
 
 				<Grid item>
 					<FormGroup>
-						<FormControlLabel
-							control={
-								<Checkbox
-									onChange={event => setDifferentAddress(event.target.checked)}
-								/>
-							}
-							label='Use different address'
-						/>
+						<FormControlLabel control={<Checkbox />} label='Use different address' />
 					</FormGroup>
 				</Grid>
 
-				{differentAddress && (
-					<Grid item xs={12}>
-						<ShippingFormContainer />
-					</Grid>
-				)}
+				<Grid item xs={12}>
+					<ShippingFormContainer />
+				</Grid>
 
 				<Grid item xs={12}>
 					<CheckoutForm />
