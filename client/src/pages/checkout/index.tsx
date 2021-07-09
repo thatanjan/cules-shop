@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
 
 import CheckoutForm from 'components/Forms/CheckoutForm'
 import ShippingFormContainer from 'components/Forms/BillingForms/ShippingFormContainer'
@@ -9,6 +12,7 @@ import ShippingFormContainer from 'components/Forms/BillingForms/ShippingFormCon
 interface Props {}
 
 const CheckoutPage = (props: Props) => {
+	const [differentAddress, setDifferentAddress] = useState(false)
 	return (
 		<>
 			<Typography align='center' variant='h3' component='h1'>
@@ -37,6 +41,19 @@ const CheckoutPage = (props: Props) => {
 							Anjan Shomodder
 						</Grid>
 					</Grid>
+				</Grid>
+
+				<Grid item xs={12}>
+					<FormGroup>
+						<FormControlLabel
+							control={
+								<Checkbox
+									onChange={event => setDifferentAddress(event.target.checked)}
+								/>
+							}
+							label='Use different address'
+						/>
+					</FormGroup>
 				</Grid>
 
 				<Grid item xs={12}>
