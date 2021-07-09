@@ -132,12 +132,6 @@ const ShippingForm = () => {
 						required
 					/>
 
-					<CustomField
-						component={TextField}
-						type='password'
-						label='Password'
-						name='password'
-					/>
 					{isSubmitting && <LinearProgress />}
 
 					<Button
