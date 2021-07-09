@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { Values as ShippingValues } from 'components/Forms/BillingForms/ShippingForm'
 
@@ -23,9 +23,13 @@ const initialState: InitialState = {
 export const drawerSlice = createSlice({
 	name: 'drawer',
 	initialState,
-	reducers: {},
+	reducers: {
+		setShippingAddress: (state, { payload }: PayloadAction<ShippingValues>) => {
+			state.shippingValues = payload
+		},
+	},
 })
 
-export const {} = drawerSlice.actions
+export const { setShippingAddress } = drawerSlice.actions
 
 export default drawerSlice.reducer
