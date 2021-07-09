@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { TextField } from 'formik-material-ui'
 
-import useSetShippingAddress from 'redux/hooks/checkout/useSetShippingAddress'
+import { useSetShippingAddress } from 'redux/hooks/useCheckoutHooks'
 
 export interface Values {
 	firstName: string
