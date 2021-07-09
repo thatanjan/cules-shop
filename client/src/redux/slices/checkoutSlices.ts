@@ -4,6 +4,7 @@ import { Values as ShippingValues } from 'components/Forms/BillingForms/Shipping
 
 interface InitialState {
 	shippingValues: ShippingValues
+	showDifferentAddressForm: boolean
 }
 
 const initialState: InitialState = {
@@ -18,6 +19,7 @@ const initialState: InitialState = {
 		state: '',
 		zip: '',
 	},
+	showDifferentAddressForm: false,
 }
 
 export const checkoutSlice = createSlice({
@@ -28,10 +30,16 @@ export const checkoutSlice = createSlice({
 			state.shippingValues = payload
 		},
 		clearShippingAddress: () => initialState,
+		toggleShowDifferentAddressForm: state => {
+			state.showDifferentAddressForm = !state.showDifferentAddressForm
+		},
 	},
 })
 
-export const { setShippingAddress, clearShippingAddress } =
-	checkoutSlice.actions
+export const {
+	setShippingAddress,
+	clearShippingAddress,
+	toggleShowDifferentAddressForm,
+} = checkoutSlice.actions
 
 export default checkoutSlice.reducer
