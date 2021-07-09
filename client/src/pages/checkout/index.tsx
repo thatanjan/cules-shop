@@ -15,7 +15,13 @@ const CheckoutPage = (props: Props) => {
 	const [differentAddress, setDifferentAddress] = useState(false)
 	return (
 		<>
-			<Typography align='center' variant='h3' component='h1'>
+			<Typography
+				align='center'
+				variant='h3'
+				component='h1'
+				sx={{ marginBottom: '1rem' }}
+				color='primary'
+			>
 				Checkout
 			</Typography>
 
