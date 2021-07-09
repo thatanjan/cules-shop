@@ -20,8 +20,8 @@ const initialState: InitialState = {
 	},
 }
 
-export const drawerSlice = createSlice({
-	name: 'drawer',
+export const checkoutSlice = createSlice({
+	name: 'checkout',
 	initialState,
 	reducers: {
 		setShippingAddress: (state, { payload }: PayloadAction<ShippingValues>) => {
@@ -30,6 +30,6 @@ export const drawerSlice = createSlice({
 	},
 })
 
-export const { setShippingAddress } = drawerSlice.actions
+export const { setShippingAddress } = checkoutSlice.actions
 
-export default drawerSlice.reducer
+export default checkoutSlice.reducer
