@@ -27,9 +27,13 @@ export const checkoutSlice = createSlice({
 		setShippingAddress: (state, { payload }: PayloadAction<ShippingValues>) => {
 			state.shippingValues = payload
 		},
+		clearShippingAddress: state => {
+			state = initialState
+		},
 	},
 })
 
-export const { setShippingAddress } = checkoutSlice.actions
+export const { setShippingAddress, clearShippingAddress } =
+	checkoutSlice.actions
 
 export default checkoutSlice.reducer
