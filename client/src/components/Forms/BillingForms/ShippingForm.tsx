@@ -81,7 +81,6 @@ const ShippingForm = () => {
 						type='text'
 						label='First Name'
 					/>
-					<br />
 
 					<CustomField
 						component={TextField}
@@ -90,7 +89,6 @@ const ShippingForm = () => {
 						label='Second Name'
 					/>
 
-					<br />
 					<CustomField
 						component={TextField}
 						name='streetAddress1'
@@ -98,7 +96,6 @@ const ShippingForm = () => {
 						label='Street Address 1'
 					/>
 
-					<br />
 					<CustomField
 						component={TextField}
 						name='streetAddress2'
@@ -106,7 +103,6 @@ const ShippingForm = () => {
 						label='Street Address 2'
 					/>
 
-					<br />
 					<CustomField
 						component={TextField}
 						name='cityTown'
@@ -114,7 +110,6 @@ const ShippingForm = () => {
 						label='City / Town'
 					/>
 
-					<br />
 					<CustomField
 						component={TextField}
 						name='state'
@@ -122,10 +117,7 @@ const ShippingForm = () => {
 						label='State'
 					/>
 
-					<br />
 					<CustomField component={TextField} name='zip' type='text' label='Zip' />
-
-					<br />
 
 					<CustomField
 						component={TextField}
@@ -134,7 +126,6 @@ const ShippingForm = () => {
 						label='Email'
 					/>
 
-					<br />
 					<CustomField
 						component={TextField}
 						type='password'
@@ -143,7 +134,6 @@ const ShippingForm = () => {
 					/>
 					{isSubmitting && <LinearProgress />}
 
-					<br />
 					<Button
 						variant='contained'
 						color='primary'
