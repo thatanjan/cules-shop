@@ -1,4 +1,5 @@
-import { Formik, Form, Field } from 'formik'
+import React from 'react'
+import { Formik, Form, Field, FieldAttributes } from 'formik'
 import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { TextField } from 'formik-material-ui'
@@ -13,6 +14,31 @@ interface Values {
 	cityTown: string
 	state: string
 	zip: string
+}
+
+interface CustomFieldProps extends FieldAttributes<any> {
+	component?: React.ComponentType
+	name: string
+	label: string
+	type?: string
+}
+
+const CustomField = ({
+	component,
+	label,
+	type,
+	name,
+	...props
+}: CustomFieldProps) => {
+	return (
+		<Field
+			{...{ name, label, ...props }}
+			component={component || TextField}
+			type={type || 'text'}
+			sx={{ marginBottom: '1rem' }}
+			fullWidth
+		/>
+	)
 }
 
 const ShippingForm = () => {
@@ -49,7 +75,7 @@ const ShippingForm = () => {
 		>
 			{({ submitForm, isSubmitting }) => (
 				<Form>
-					<Field
+					<CustomField
 						component={TextField}
 						name='firstName'
 						type='text'
@@ -57,7 +83,7 @@ const ShippingForm = () => {
 					/>
 					<br />
 
-					<Field
+					<CustomField
 						component={TextField}
 						name='secondName'
 						type='text'
@@ -65,7 +91,7 @@ const ShippingForm = () => {
 					/>
 
 					<br />
-					<Field
+					<CustomField
 						component={TextField}
 						name='streetAddress1'
 						type='text'
@@ -73,7 +99,7 @@ const ShippingForm = () => {
 					/>
 
 					<br />
-					<Field
+					<CustomField
 						component={TextField}
 						name='streetAddress2'
 						type='text'
@@ -81,7 +107,7 @@ const ShippingForm = () => {
 					/>
 
 					<br />
-					<Field
+					<CustomField
 						component={TextField}
 						name='cityTown'
 						type='text'
@@ -89,17 +115,27 @@ const ShippingForm = () => {
 					/>
 
 					<br />
-					<Field component={TextField} name='state' type='text' label='State' />
+					<CustomField
+						component={TextField}
+						name='state'
+						type='text'
+						label='State'
+					/>
 
 					<br />
-					<Field component={TextField} name='zip' type='text' label='Zip' />
+					<CustomField component={TextField} name='zip' type='text' label='Zip' />
 
 					<br />
 
-					<Field component={TextField} name='email' type='email' label='Email' />
+					<CustomField
+						component={TextField}
+						name='email'
+						type='email'
+						label='Email'
+					/>
 
 					<br />
-					<Field
+					<CustomField
 						component={TextField}
 						type='password'
 						label='Password'
