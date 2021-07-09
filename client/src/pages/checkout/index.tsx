@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
+
+import {
+	useClearShippingAddress,
+} from 'redux/hooks/useCheckoutHooks'
 
 import CheckoutForm from 'components/Forms/CheckoutForm'
 import ShippingFormContainer from 'components/Forms/BillingForms/ShippingFormContainer'
@@ -13,6 +17,15 @@ interface Props {}
 
 const CheckoutPage = (props: Props) => {
 	const [differentAddress, setDifferentAddress] = useState(false)
+	const clearShippingAddress = useClearShippingAddress()
+
+
+	useEffect(() => {
+		return () => {
+			clearShippingAddress()
+		}
+	}, [])
+
 	return (
 		<>
 			<Typography
