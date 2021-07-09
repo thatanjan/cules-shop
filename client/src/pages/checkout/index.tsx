@@ -56,9 +56,11 @@ const CheckoutPage = (props: Props) => {
 					</FormGroup>
 				</Grid>
 
-				<Grid item xs={12}>
-					<ShippingFormContainer />
-				</Grid>
+				{differentAddress && (
+					<Grid item xs={12}>
+						<ShippingFormContainer />
+					</Grid>
+				)}
 
 				<Grid item xs={12}>
 					<CheckoutForm />
