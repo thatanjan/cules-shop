@@ -4,7 +4,9 @@ import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { TextField } from 'formik-material-ui'
 
-interface Values {
+import useSetShippingAddress from 'redux/hooks/checkout/useSetShippingAddress'
+
+export interface Values {
 	firstName: string
 	secondName: string
 	email: string
@@ -43,6 +45,8 @@ const CustomField = ({
 }
 
 const ShippingForm = () => {
+	const setShippingAddress = useSetShippingAddress()
+
 	return (
 		<Formik
 			initialValues={{
@@ -70,7 +74,7 @@ const ShippingForm = () => {
 			onSubmit={(values, { setSubmitting }) => {
 				setTimeout(() => {
 					setSubmitting(false)
-					console.log(values)
+					setShippingAddress(values)
 				}, 500)
 			}}
 		>
