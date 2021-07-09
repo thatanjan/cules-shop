@@ -1,5 +1,8 @@
 import { useAppDispatch } from 'redux/hooks/appHooks'
-import { setShippingAddress } from 'redux/slices/checkoutSlices'
+import {
+	setShippingAddress,
+	clearShippingAddress,
+} from 'redux/slices/checkoutSlices'
 import { Values } from 'components/Forms/BillingForms/ShippingForm'
 
 export const useSetShippingAddress = () => {
@@ -7,3 +10,6 @@ export const useSetShippingAddress = () => {
 
 	return (values: Values) => dispatch(setShippingAddress(values))
 }
+
+export const useClearShippingAddress = () => () =>
+	useAppDispatch()(clearShippingAddress())
