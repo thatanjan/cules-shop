@@ -8,7 +8,7 @@ interface InitialState {
 const initialState: InitialState = { loggedIn: false, userID: '' }
 
 export const userSlice = createSlice({
-	name: 'drawer',
+	name: 'user',
 	initialState,
 	reducers: {
 		login: (state, { payload }: PayloadAction<string>) => {
