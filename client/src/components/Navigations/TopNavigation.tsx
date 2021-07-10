@@ -53,7 +53,6 @@ const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 								MuiComponent={Typography}
 								href='/'
 								sx={{ display: 'inline' }}
-								component='h1'
 								variant='h5'
 							>
 								{APP_TITLE}
