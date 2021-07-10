@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface InitialState {
 	loggedIn: boolean
@@ -10,9 +10,14 @@ const initialState: InitialState = { loggedIn: false, userID: '' }
 export const userSlice = createSlice({
 	name: 'drawer',
 	initialState,
-	reducers: {},
+	reducers: {
+		login: (state, { payload }: PayloadAction<string>) => {
+			state.loggedIn = true
+			state.userID = payload
+		},
+	},
 })
 
-export const {} = userSlice.actions
+export const { login } = userSlice.actions
 
 export default userSlice.reducer
