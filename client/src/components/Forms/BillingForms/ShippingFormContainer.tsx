@@ -6,6 +6,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import dynamic from 'next/dynamic'
 
+import { CheckoutPageTitle } from 'pages/checkout/index'
+
 import { useAppSelector } from 'redux/hooks/appHooks'
 import { useToggleShowDifferentAddressForm } from 'redux/hooks/useCheckoutHooks'
 
@@ -22,9 +24,7 @@ const ShippingFormContainer = (props: Props) => {
 
 	return (
 		<>
-			<Typography variant='h4' component='h2' sx={{ margin: '1rem 0' }}>
-				New Shipping Address
-			</Typography>
+			<CheckoutPageTitle>New Shipping Address</CheckoutPageTitle>
 
 			<FormGroup>
 				<FormControlLabel

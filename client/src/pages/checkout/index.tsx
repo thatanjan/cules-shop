@@ -2,9 +2,6 @@ import React, { useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
-import FormGroup from '@material-ui/core/FormGroup'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
 
 import { useClearShippingAddress } from 'redux/hooks/useCheckoutHooks'
 
@@ -12,6 +9,19 @@ import CheckoutForm from 'components/Forms/CheckoutForm'
 import ShippingFormContainer from 'components/Forms/BillingForms/ShippingFormContainer'
 
 interface Props {}
+
+interface CheckoutPageTitleProps {
+	children: React.ReactNode
+}
+
+export const CheckoutPageTitle = ({ children }: CheckoutPageTitleProps) => (
+	<>
+		<Typography variant='h4' color='secondary' sx={{ marginBottom: '1rem' }}>
+			{children}
+		</Typography>
+		<Divider />
+	</>
+)
 
 const CheckoutPage = (props: Props) => {
 	const clearShippingAddress = useClearShippingAddress()
@@ -36,10 +46,7 @@ const CheckoutPage = (props: Props) => {
 
 			<Grid container spacing={3}>
 				<Grid item xs={12} md={6} sx={{ margin: '1rem 0' }}>
-					<Typography variant='h3' color='secondary' sx={{ marginBottom: '1rem' }}>
-						Shipping Address
-					</Typography>
-					<Divider />
+					<CheckoutPageTitle>Shipping Address</CheckoutPageTitle>
 
 					<Grid container sx={{ margin: '1rem 0' }}>
 						<Grid item xs={12} sx={{ marginBottom: '1rem' }}>
