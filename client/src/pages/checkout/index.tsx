@@ -40,7 +40,7 @@ const CheckoutPage = (props: Props) => {
 				align='center'
 				variant='h3'
 				component='h1'
-				sx={{ marginBottom: '1rem' }}
+				sx={{ marginBottom: '4rem', marginTop: '2rem' }}
 				color='primary'
 			>
 				Checkout
