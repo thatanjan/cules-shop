@@ -76,7 +76,11 @@ const CheckoutPage = (props: Props) => {
 					xs={12}
 					md={5}
 					component={Paper}
-					sx={{ padding: '1rem', margin: { xs: '1rem 0', md: 0 } }}
+					sx={{
+						padding: '1rem',
+						margin: { xs: '1rem 0', md: 0 },
+						alignSelf: 'flex-start',
+					}}
 				>
 					<CartTotal />
 					<CheckoutForm />
