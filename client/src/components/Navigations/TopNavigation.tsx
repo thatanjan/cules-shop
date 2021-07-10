@@ -15,7 +15,10 @@ import SearchIcon from '@material-ui/icons/Search'
 import { APP_TITLE } from 'variables/global'
 import MuiLink from 'components/Links/MuiLink'
 
+import useLargerThanMD from 'hooks/mediaQueries/useLargerThanMD'
+
 const Drawer = dynamic(() => import('components/Drawers/AppDrawer'))
+const SearchBar = dynamic(() => import('./TopNavigationSearchBar'))
 
 type CallBack = (val: boolean) => boolean
 
@@ -26,6 +29,8 @@ interface Props {
 
 const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 	const [open, setOpen] = useState(false)
+	const largerThanMD = useLargerThanMD()
+
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
@@ -55,9 +60,13 @@ const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 							</MuiLink>
 						</Box>
 
-						<IconButton onClick={() => setShowSearchBar((prev: boolean) => !prev)}>
-							{showSearchBar ? <ClearIcon /> : <SearchIcon />}
-						</IconButton>
+						{!largerThanMD && (
+							<IconButton onClick={() => setShowSearchBar((prev: boolean) => !prev)}>
+								{showSearchBar ? <ClearIcon /> : <SearchIcon />}
+							</IconButton>
+						)}
+
+						{largerThanMD && <SearchBar />}
 
 						<IconButton>
 							<PersonIcon />

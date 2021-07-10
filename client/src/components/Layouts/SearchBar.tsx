@@ -7,44 +7,39 @@ import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
 import ClearIcon from '@material-ui/icons/Clear'
 
-interface Props {
-	mounted: boolean
-}
+interface Props {}
 
-const SearchBar = ({ mounted }: Props) => {
+const SearchBar = () => {
 	const [input, setInput] = useState('')
-	console.log(input)
 
 	const placeholder = 'Search your products'
 	return (
-		<Collapse in={mounted}>
-			<Paper
-				component='form'
-				sx={{ p: '.5rem 1rem', display: 'flex', alignItems: 'center' }}
-				square
+		<Paper
+			component='form'
+			sx={{ p: '.5rem 1rem', display: 'flex', alignItems: 'center' }}
+			square
+		>
+			<InputBase
+				sx={{ ml: 1, flex: 1 }}
+				placeholder={placeholder}
+				inputProps={{ 'aria-label': placeholder, value: input }}
+				onChange={e => setInput(e.target.value)}
+			/>
+
+			<IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
+				<SearchIcon />
+			</IconButton>
+
+			<Divider sx={{ height: 28, m: 0.5 }} orientation='vertical' />
+
+			<IconButton
+				sx={{ p: '10px' }}
+				aria-label='clear text'
+				onClick={() => setInput('')}
 			>
-				<InputBase
-					sx={{ ml: 1, flex: 1 }}
-					placeholder={placeholder}
-					inputProps={{ 'aria-label': placeholder, value: input }}
-					onChange={e => setInput(e.target.value)}
-				/>
-
-				<IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
-					<SearchIcon />
-				</IconButton>
-
-				<Divider sx={{ height: 28, m: 0.5 }} orientation='vertical' />
-
-				<IconButton
-					sx={{ p: '10px' }}
-					aria-label='clear text'
-					onClick={() => setInput('')}
-				>
-					<ClearIcon />
-				</IconButton>
-			</Paper>
-		</Collapse>
+				<ClearIcon />
+			</IconButton>
+		</Paper>
 	)
 }
 
