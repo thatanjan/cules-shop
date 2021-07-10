@@ -22,6 +22,7 @@
 		"formik-material-ui": "^3.0.1",
 		"graphql": "^15.5.1",
 		"graphql-request": "^3.4.0",
+		"js-cookie": "^2.2.1",
 		"nanoid": "^3.1.23",
 		"next": "10.2.2",
 		"react": "17.0.2",
