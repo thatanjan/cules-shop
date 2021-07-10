@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import Paper from '@material-ui/core/Paper'
 import Divider from '@material-ui/core/Divider'
 
 import { useClearShippingAddress } from 'redux/hooks/useCheckoutHooks'
 
 import CheckoutForm from 'components/Forms/CheckoutForm'
+import CartTotal from 'components/Cart/CartTotal'
 import ShippingFormContainer from 'components/Forms/BillingForms/ShippingFormContainer'
 
 interface Props {}
@@ -44,7 +46,7 @@ const CheckoutPage = (props: Props) => {
 				Checkout
 			</Typography>
 
-			<Grid container spacing={3}>
+			<Grid container justifyContent='space-between'>
 				<Grid item xs={12} md={6} sx={{ margin: '1rem 0' }}>
 					<CheckoutPageTitle>Shipping Address</CheckoutPageTitle>
 
@@ -69,7 +71,14 @@ const CheckoutPage = (props: Props) => {
 					</Grid>
 				</Grid>
 
-				<Grid item xs={12} md={6}>
+				<Grid
+					item
+					xs={12}
+					md={5}
+					component={Paper}
+					sx={{ padding: '1rem', margin: { xs: '1rem 0', md: 0 } }}
+				>
+					<CartTotal />
 					<CheckoutForm />
 				</Grid>
 			</Grid>
