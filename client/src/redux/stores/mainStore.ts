@@ -2,9 +2,10 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 
 import drawerReducer from 'redux/slices/drawerSlice'
 import checkoutReducer from 'redux/slices/checkoutSlices'
+import userReducer from 'redux/slices/userSlice'
 
 const store = configureStore({
-	reducer: { drawer: drawerReducer, checkout: checkoutReducer },
+	reducer: { drawer: drawerReducer, checkout: checkoutReducer, user: userReducer },
 })
 
 export default store
