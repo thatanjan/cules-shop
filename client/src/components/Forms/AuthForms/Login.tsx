@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
+import createRequest from 'graphql/createRequest'
+import { loginMutation } from 'graphql/mutations/authMutations'
+
 import MuiLink from 'components/Links/MuiLink'
+
+import { LoginOutput } from 'interfaces/authentication'
 
 interface Values {
 	email: string
@@ -13,6 +18,40 @@ interface Values {
 }
 
 const Login = () => {
+	const [AlertMessage, setAlertMessage] = useState('')
+
+	const login = async (values: Values) => {
+		try {
+			const {
+				login: { errorMessage, token },
+			}: LoginOutput = await createRequest({
+				key: loginMutation,
+				values,
+			})
+
+			if (errorMessage) {
+				setAlertMessage(errorMessage)
+
+				setTimeout(() => {
+					setAlertMessage('')
+				}, 3000)
+
+				return false
+			}
+
+			console.log(token)
+
+			// if (loginSuccessful) {
+			// 	push('/')
+			// 	return true
+			// }
+		} catch (err: any) {
+			return err
+		}
+
+		return true
+	}
+
 	return (
 		<Box sx={{ minHeight: '70vh' }}>
 			<Formik
@@ -40,8 +79,8 @@ const Login = () => {
 				}}
 				onSubmit={(values, { setSubmitting }) => {
 					setTimeout(() => {
+						login(values)
 						setSubmitting(false)
-						alert(JSON.stringify(values, null, 2))
 					}, 500)
 				}}
 			>
