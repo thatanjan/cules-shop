@@ -15,10 +15,7 @@ export const userSlice = createSlice({
 			state.loggedIn = true
 			state.userID = payload
 		},
-		logout: state => {
-			state.loggedIn = false
-			state.userID = ''
-		},
+		logout: () => initialState,
 	},
 })
 

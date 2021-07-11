@@ -30,16 +30,20 @@ export const checkoutSlice = createSlice({
 			state.shippingValues = payload
 		},
 		clearShippingAddress: () => initialState,
+		resetState: () => initialState,
 		toggleShowDifferentAddressForm: state => {
 			state.showDifferentAddressForm = !state.showDifferentAddressForm
 		},
 	},
 })
 
+console.log(checkoutSlice)
+
 export const {
 	setShippingAddress,
 	clearShippingAddress,
 	toggleShowDifferentAddressForm,
+	resetState,
 } = checkoutSlice.actions
 
 export default checkoutSlice.reducer

@@ -9,9 +9,12 @@ export const drawerSlice = createSlice({
 		toggleDrawer: state => {
 			state.isOpen = !state.isOpen
 		},
+		resetState: state => {
+			state.isOpen = false
+		},
 	},
 })
 
-export const { toggleDrawer } = drawerSlice.actions
+export const { toggleDrawer, resetState } = drawerSlice.actions
 
 export default drawerSlice.reducer
