@@ -1,3 +1,5 @@
+import Cookie from 'js-cookie'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
@@ -5,8 +7,7 @@ import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
-import createRequest from 'graphql/createRequest'
-import { loginMutation } from 'graphql/mutations/authMutations'
+import { TOKEN_NAME } from 'variables/global'
 
 import MuiLink from 'components/Links/MuiLink'
 
@@ -23,6 +24,7 @@ const Login = () => {
 	const [AlertMessage, setAlertMessage] = useState('')
 
 	const [login] = useLoginMutation()
+	const { push } = useRouter()
 
 	return (
 		<Box sx={{ minHeight: '70vh' }}>
@@ -56,7 +58,11 @@ const Login = () => {
 						},
 					} = (await login(values)) as { data: LoginOutput }
 
-					console.log(token)
+					if (token) {
+						Cookie.set(TOKEN_NAME, token)
+						push('/')
+						return true
+					}
 				}}
 			>
 				{({ submitForm, isSubmitting }) => (
