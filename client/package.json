@@ -5,7 +5,9 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"start": "next start"
+		"start": "next start",
+		"dev-server": "yarn --cwd ../server dev",
+		"both-dev": "concurrently \"yarn run dev-server\" \"yarn run dev \""
 	},
 	"dependencies": {
 		"@emotion/cache": "latest",

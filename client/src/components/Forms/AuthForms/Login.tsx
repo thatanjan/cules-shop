@@ -12,6 +12,8 @@ import MuiLink from 'components/Links/MuiLink'
 
 import { LoginOutput } from 'interfaces/authentication'
 
+import { useLoginMutation } from 'redux/api/auth/userAuth'
+
 interface Values {
 	email: string
 	password: string
@@ -20,37 +22,39 @@ interface Values {
 const Login = () => {
 	const [AlertMessage, setAlertMessage] = useState('')
 
-	const login = async (values: Values) => {
-		try {
-			const {
-				login: { errorMessage, token },
-			}: LoginOutput = await createRequest({
-				key: loginMutation,
-				values,
-			})
+	const [login] = useLoginMutation()
 
-			if (errorMessage) {
-				setAlertMessage(errorMessage)
+	// const login = async (values: Values) => {
+	// 	try {
+	// 		const {
+	// 			login: { errorMessage, token },
+	// 		}: LoginOutput = await createRequest({
+	// 			key: loginMutation,
+	// 			values,
+	// 		})
 
-				setTimeout(() => {
-					setAlertMessage('')
-				}, 3000)
+	// 		if (errorMessage) {
+	// 			setAlertMessage(errorMessage)
 
-				return false
-			}
+	// 			setTimeout(() => {
+	// 				setAlertMessage('')
+	// 			}, 3000)
 
-			console.log(token)
+	// 			return false
+	// 		}
 
-			// if (loginSuccessful) {
-			// 	push('/')
-			// 	return true
-			// }
-		} catch (err: any) {
-			return err
-		}
+	// 		console.log(token)
 
-		return true
-	}
+	// 		// if (loginSuccessful) {
+	// 		// 	push('/')
+	// 		// 	return true
+	// 		// }
+	// 	} catch (err: any) {
+	// 		return err
+	// 	}
+
+	// 	return true
+	// }
 
 	return (
 		<Box sx={{ minHeight: '70vh' }}>
@@ -78,8 +82,9 @@ const Login = () => {
 					return errors
 				}}
 				onSubmit={(values, { setSubmitting }) => {
-					setTimeout(() => {
-						login(values)
+					setTimeout(async () => {
+						const data = await login(values)
+						console.log(data)
 						setSubmitting(false)
 					}, 500)
 				}}

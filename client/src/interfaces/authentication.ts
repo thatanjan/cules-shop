@@ -11,7 +11,7 @@ interface Output {
 	validationError: Error
 }
 
-export interface LoginOutput extends Error {
+export interface LoginOutput {
 	login: Output
 }
 

@@ -4,8 +4,15 @@ import drawerReducer from 'redux/slices/drawerSlice'
 import checkoutReducer from 'redux/slices/checkoutSlices'
 import userReducer from 'redux/slices/userSlice'
 
+import userAuthApi from 'redux/api/auth/userAuth'
+
 const store = configureStore({
-	reducer: { drawer: drawerReducer, checkout: checkoutReducer, user: userReducer },
+	reducer: {
+		drawer: drawerReducer,
+		checkout: checkoutReducer,
+		user: userReducer,
+		userAuthApi,
+	},
 })
 
 export default store
