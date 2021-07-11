@@ -24,38 +24,6 @@ const Login = () => {
 
 	const [login] = useLoginMutation()
 
-	// const login = async (values: Values) => {
-	// 	try {
-	// 		const {
-	// 			login: { errorMessage, token },
-	// 		}: LoginOutput = await createRequest({
-	// 			key: loginMutation,
-	// 			values,
-	// 		})
-
-	// 		if (errorMessage) {
-	// 			setAlertMessage(errorMessage)
-
-	// 			setTimeout(() => {
-	// 				setAlertMessage('')
-	// 			}, 3000)
-
-	// 			return false
-	// 		}
-
-	// 		console.log(token)
-
-	// 		// if (loginSuccessful) {
-	// 		// 	push('/')
-	// 		// 	return true
-	// 		// }
-	// 	} catch (err: any) {
-	// 		return err
-	// 	}
-
-	// 	return true
-	// }
-
 	return (
 		<Box sx={{ minHeight: '70vh' }}>
 			<Formik
@@ -81,12 +49,14 @@ const Login = () => {
 
 					return errors
 				}}
-				onSubmit={(values, { setSubmitting }) => {
-					setTimeout(async () => {
-						const data = await login(values)
-						console.log(data)
-						setSubmitting(false)
-					}, 500)
+				onSubmit={async (values, { setSubmitting }) => {
+					const {
+						data: {
+							login: { token },
+						},
+					} = (await login(values)) as { data: LoginOutput }
+
+					console.log(token)
 				}}
 			>
 				{({ submitForm, isSubmitting }) => (
