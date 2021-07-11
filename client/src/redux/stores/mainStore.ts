@@ -1,4 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
+import { setupListeners } from '@reduxjs/toolkit/query'
 
 import drawerReducer from 'redux/slices/drawerSlice'
 import checkoutReducer from 'redux/slices/checkoutSlices'
@@ -11,9 +12,13 @@ const store = configureStore({
 		drawer: drawerReducer,
 		checkout: checkoutReducer,
 		user: userReducer,
-		userAuthApi,
+		[userAuthApi.reducerPath]: userAuthApi.reducer,
 	},
+	middleware: getDefaultMiddleware =>
+		getDefaultMiddleware().concat(userAuthApi.middleware),
 })
+
+setupListeners(store.dispatch)
 
 export default store
 
