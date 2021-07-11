@@ -67,6 +67,8 @@ const Login = () => {
 
 					if (errorMessage) {
 						setAlertMessage(errorMessage)
+
+						setTimeout(() => setAlertMessage(''), 3000)
 					}
 				}}
 			>
