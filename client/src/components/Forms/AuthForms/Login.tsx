@@ -6,6 +6,7 @@ import { TextField } from 'formik-material-ui'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import LinearProgress from '@material-ui/core/LinearProgress'
+import Alert from '@material-ui/core/Alert'
 
 import { TOKEN_NAME } from 'variables/global'
 
@@ -21,7 +22,7 @@ interface Values {
 }
 
 const Login = () => {
-	const [AlertMessage, setAlertMessage] = useState('')
+	const [alertMessage, setAlertMessage] = useState('')
 
 	const [login] = useLoginMutation()
 	const { push } = useRouter()
@@ -54,7 +55,7 @@ const Login = () => {
 				onSubmit={async (values, { setSubmitting }) => {
 					const {
 						data: {
-							login: { token },
+							login: { token, errorMessage },
 						},
 					} = (await login(values)) as { data: LoginOutput }
 
@@ -62,6 +63,10 @@ const Login = () => {
 						Cookie.set(TOKEN_NAME, token)
 						push('/')
 						return true
+					}
+
+					if (errorMessage) {
+						setAlertMessage(errorMessage)
 					}
 				}}
 			>
@@ -111,6 +116,19 @@ const Login = () => {
 					</Form>
 				)}
 			</Formik>
+
+			{alertMessage && (
+				<Alert
+					variant='filled'
+					severity='error'
+					sx={{ marginTop: '1rem' }}
+					onClose={() => {
+						setAlertMessage('')
+					}}
+				>
+					{alertMessage}
+				</Alert>
+			)}
 		</Box>
 	)
 }
