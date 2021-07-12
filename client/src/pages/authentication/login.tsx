@@ -4,6 +4,8 @@ import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
 
+import checkValidJWT from 'utils/auth/checkValidJWT'
+
 import Login from 'components/Forms/AuthForms/Login'
 
 interface Props {}
@@ -31,7 +33,15 @@ const LoginPage = (props: Props) => {
 export default LoginPage
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-	const { cookies } = req
+	const {
+		cookies: { jwt },
+	} = req
 
-	if (!cookies.jwt) return { props: {} }
+	if (!jwt) return { props: {} }
+
+	const isValid = await checkValidJWT(jwt)
+
+	if (isValid) return { redirect: { destination: '/', permanent: false } }
+
+	return { props: {} }
 }
