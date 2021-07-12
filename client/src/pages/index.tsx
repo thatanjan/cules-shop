@@ -9,6 +9,8 @@ import SwiperCore, {
 	Navigation,
 } from 'swiper/core'
 
+import { useStoreID } from 'redux/hooks/useUserHooks'
+
 import ProductBannerSlideShow from 'components/Banner/ProductBannerSlideShow'
 import ProductPreviewTabs from 'components/Tabs/ProductPreviewTabs'
 
@@ -22,6 +24,8 @@ import 'swiper/components/navigation/navigation.min.css'
 import 'swiper/components/scrollbar/scrollbar.min.css'
 
 SwiperCore.use([Keyboard, Scrollbar, Autoplay, Pagination, Navigation])
+
+interface Props {}
 
 const Index = () => {
 	return (
@@ -40,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		cookies: { jwt },
 	} = req
 
-	let props = { isAuthenticated: false, userID: '', sellerID: '' }
+	let props = { userID: '', sellerID: '' }
 
 	if (!jwt) return { props }
 
@@ -50,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 	if (!isValid) return { props }
 
-	props = { isAuthenticated: true, userID, sellerID: sellerID || '' }
+	props = { userID, sellerID: sellerID || '' }
 
 	return { props }
 }
