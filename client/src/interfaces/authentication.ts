@@ -30,3 +30,8 @@ export interface RegisterInput {
 export interface RegisterOutput {
 	register: Output
 }
+
+export interface UserPayload {
+	userID: string
+	sellerID?: string
+}
