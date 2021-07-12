@@ -1,4 +1,5 @@
 import React from 'react'
+import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
 import SwiperCore, {
 	Keyboard,
@@ -10,6 +11,8 @@ import SwiperCore, {
 
 import ProductBannerSlideShow from 'components/Banner/ProductBannerSlideShow'
 import ProductPreviewTabs from 'components/Tabs/ProductPreviewTabs'
+
+import { UserPayload } from 'interfaces/authentication'
 
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
@@ -37,15 +40,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		cookies: { jwt },
 	} = req
 
-	const props = { isAuthenticated: false, userID: '' }
+	let props = { isAuthenticated: false, userID: '', sellerID: '' }
 
 	if (!jwt) return { props }
 
 	const isValid = await checkValidJWT(jwt)
 
+	const { userID, sellerID } = jwtDecode<UserPayload>(jwt)
+
 	if (!isValid) return { props }
 
-	props.isAuthenticated = true
+	props = { isAuthenticated: true, userID, sellerID }
 
 	return { props }
 }
