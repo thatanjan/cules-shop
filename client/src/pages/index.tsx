@@ -25,9 +25,13 @@ import 'swiper/components/scrollbar/scrollbar.min.css'
 
 SwiperCore.use([Keyboard, Scrollbar, Autoplay, Pagination, Navigation])
 
-interface Props {}
+interface Props {
+	userID: string
+	sellerID: string
+}
 
-const Index = () => {
+const Index = (props: Props) => {
+	useStoreID(props)
 	return (
 		<>
 			<ProductBannerSlideShow />

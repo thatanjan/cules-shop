@@ -12,9 +12,10 @@ import PersonIcon from '@material-ui/icons/Person'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import SearchIcon from '@material-ui/icons/Search'
 
-import { APP_TITLE } from 'variables/global'
+import { APP_TITLE, LOGIN_URL } from 'variables/global'
 import MuiLink from 'components/Links/MuiLink'
 
+import { useAppSelector } from 'redux/hooks/appHooks'
 import useLargerThanMD from 'hooks/mediaQueries/useLargerThanMD'
 
 const Drawer = dynamic(() => import('components/Drawers/AppDrawer'))
@@ -30,6 +31,8 @@ interface Props {
 const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 	const [open, setOpen] = useState(false)
 	const largerThanMD = useLargerThanMD()
+
+	const { loggedIn, userID } = useAppSelector(state => state.user)
 
 	return (
 		<>
@@ -67,9 +70,12 @@ const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 
 						{largerThanMD && <SearchBar />}
 
-						<IconButton>
+						<MuiLink
+							href={loggedIn ? `/account` : LOGIN_URL}
+							MuiComponent={IconButton}
+						>
 							<PersonIcon />
-						</IconButton>
+						</MuiLink>
 
 						<IconButton>
 							<ShoppingCartIcon />
