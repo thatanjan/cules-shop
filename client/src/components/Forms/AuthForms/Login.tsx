@@ -1,11 +1,20 @@
-import React from 'react'
+import Cookie from 'js-cookie'
+import { useRouter } from 'next/router'
+import React, { useState } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import LinearProgress from '@material-ui/core/LinearProgress'
+import Alert from '@material-ui/core/Alert'
+
+import { TOKEN_NAME } from 'variables/global'
 
 import MuiLink from 'components/Links/MuiLink'
+
+import { LoginOutput } from 'interfaces/authentication'
+
+import { useLoginMutation } from 'redux/api/auth/userAuth'
 
 interface Values {
 	email: string
@@ -13,6 +22,11 @@ interface Values {
 }
 
 const Login = () => {
+	const [alertMessage, setAlertMessage] = useState('')
+
+	const [login] = useLoginMutation()
+	const { push } = useRouter()
+
 	return (
 		<Box sx={{ minHeight: '70vh' }}>
 			<Formik
@@ -38,11 +52,24 @@ const Login = () => {
 
 					return errors
 				}}
-				onSubmit={(values, { setSubmitting }) => {
-					setTimeout(() => {
-						setSubmitting(false)
-						alert(JSON.stringify(values, null, 2))
-					}, 500)
+				onSubmit={async (values, { setSubmitting }) => {
+					const {
+						data: {
+							login: { token, errorMessage },
+						},
+					} = (await login(values)) as { data: LoginOutput }
+
+					if (token) {
+						Cookie.set(TOKEN_NAME, token)
+						push('/')
+						return true
+					}
+
+					if (errorMessage) {
+						setAlertMessage(errorMessage)
+
+						setTimeout(() => setAlertMessage(''), 3000)
+					}
 				}}
 			>
 				{({ submitForm, isSubmitting }) => (
@@ -91,6 +118,19 @@ const Login = () => {
 					</Form>
 				)}
 			</Formik>
+
+			{alertMessage && (
+				<Alert
+					variant='filled'
+					severity='error'
+					sx={{ marginTop: '1rem' }}
+					onClose={() => {
+						setAlertMessage('')
+					}}
+				>
+					{alertMessage}
+				</Alert>
+			)}
 		</Box>
 	)
 }
