@@ -32,9 +32,24 @@ const AccountPage = (props: Props) => {
 						Taylor swift
 					</Typography>
 
-					<Box sx={{ display: 'grid', placeItems: 'center', marginTop: '1rem' }}>
+					<Box
+						sx={{
+							display: 'grid',
+							placeItems: 'center',
+							marginTop: '1rem',
+							gridTemplateColumns: '1fr 1fr',
+						}}
+					>
 						<MuiLink MuiComponent={Button} href='/account/edit' variant='contained'>
 							Edit Profile
+						</MuiLink>
+
+						<MuiLink
+							MuiComponent={Button}
+							href='/account/become-seller'
+							variant='contained'
+						>
+							Become a seller
 						</MuiLink>
 					</Box>
 				</Grid>
