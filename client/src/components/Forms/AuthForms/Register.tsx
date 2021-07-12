@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Cookie from 'js-cookie'
 import { Formik, Form, Field } from 'formik'
@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Typography from '@material-ui/core/Typography'
+import Alert from '@material-ui/core/Alert'
 
 import MuiLink from 'components/Links/MuiLink'
 
@@ -26,6 +27,7 @@ interface Values {
 const Login = () => {
 	const [register] = useRegisterMutation()
 	const { push } = useRouter()
+	const [alertMessage, setAlertMessage] = useState('')
 
 	return (
 		<Box>
@@ -73,6 +75,13 @@ const Login = () => {
 					const {
 						register: { token, errorMessage },
 					} = data
+
+					if (errorMessage) {
+						setAlertMessage(errorMessage)
+
+						setTimeout(() => setAlertMessage(''), 3000)
+						return false
+					}
 
 					Cookie.set(TOKEN_NAME, token)
 					push('/')
@@ -153,6 +162,19 @@ const Login = () => {
 					</Form>
 				)}
 			</Formik>
+
+			{alertMessage && (
+				<Alert
+					variant='filled'
+					severity='error'
+					sx={{ marginTop: '1rem' }}
+					onClose={() => {
+						setAlertMessage('')
+					}}
+				>
+					{alertMessage}
+				</Alert>
+			)}
 		</Box>
 	)
 }
