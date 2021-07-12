@@ -1,4 +1,6 @@
 import React from 'react'
+import { useRouter } from 'next/router'
+import Cookie from 'js-cookie'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 import Button from '@material-ui/core/Button'
@@ -12,6 +14,8 @@ import { RegisterOutput } from 'interfaces/authentication'
 
 import { useRegisterMutation } from 'redux/api/auth/userAuth'
 
+import { TOKEN_NAME } from 'variables/global'
+
 interface Values {
 	name: string
 	email: string
@@ -21,6 +25,7 @@ interface Values {
 
 const Login = () => {
 	const [register] = useRegisterMutation()
+	const { push } = useRouter()
 
 	return (
 		<Box>
@@ -62,14 +67,17 @@ const Login = () => {
 					return errors
 				}}
 				onSubmit={async (values, { setSubmitting }) => {
-					const data = (await register(values)) as { data: RegisterOutput }
+					const { data } = (await register(values)) as { data: RegisterOutput }
+					if (data) setSubmitting(false)
 
-					console.log(data)
+					const {
+						register: { token, errorMessage },
+					} = data
 
-					setTimeout(() => {
-						setSubmitting(false)
-						alert(JSON.stringify(values, null, 2))
-					}, 500)
+					Cookie.set(TOKEN_NAME, token)
+					push('/')
+
+					return true
 				}}
 			>
 				{({ submitForm, isSubmitting }) => (
