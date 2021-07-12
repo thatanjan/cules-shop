@@ -8,6 +8,10 @@ import Typography from '@material-ui/core/Typography'
 
 import MuiLink from 'components/Links/MuiLink'
 
+import { RegisterOutput } from 'interfaces/authentication'
+
+import { useRegisterMutation } from 'redux/api/auth/userAuth'
+
 interface Values {
 	name: string
 	email: string
@@ -16,6 +20,8 @@ interface Values {
 }
 
 const Login = () => {
+	const [register] = useRegisterMutation()
+
 	return (
 		<Box>
 			<Formik
@@ -55,7 +61,11 @@ const Login = () => {
 					}
 					return errors
 				}}
-				onSubmit={(values, { setSubmitting }) => {
+				onSubmit={async (values, { setSubmitting }) => {
+					const data = (await register(values)) as { data: RegisterOutput }
+
+					console.log(data)
+
 					setTimeout(() => {
 						setSubmitting(false)
 						alert(JSON.stringify(values, null, 2))
