@@ -14,7 +14,8 @@ import MuiLink from 'components/Links/MuiLink'
 
 import { LoginOutput } from 'interfaces/authentication'
 
-import { useLoginMutation } from 'redux/api/auth/userAuth'
+import { loginMutation } from 'graphql/mutations/authMutations'
+import createRequest from 'graphql/createRequest'
 
 interface Values {
 	email: string
@@ -24,7 +25,6 @@ interface Values {
 const Login = () => {
 	const [alertMessage, setAlertMessage] = useState('')
 
-	const [login] = useLoginMutation()
 	const { push } = useRouter()
 
 	return (
@@ -54,10 +54,13 @@ const Login = () => {
 				}}
 				onSubmit={async (values, { setSubmitting }) => {
 					const {
-						data: {
-							login: { token, errorMessage },
-						},
-					} = (await login(values)) as { data: LoginOutput }
+						login: { token, errorMessage },
+					}: LoginOutput = await createRequest({
+						key: loginMutation,
+						values,
+					})
+
+					if (token || errorMessage) setSubmitting(false)
 
 					if (token) {
 						Cookie.set(TOKEN_NAME, token)
