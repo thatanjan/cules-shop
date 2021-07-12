@@ -12,3 +12,28 @@ export const loginMutation = gql`
 		}
 	}
 `
+
+export const registerMutation = gql`
+	mutation register(
+		$name: String!
+		$email: String!
+		$password: String!
+		$confirmPassword: String!
+	) {
+		register(
+			Input: {
+				name: $name
+				email: $email
+				password: $password
+				confirmPassword: $confirmPassword
+			}
+		) {
+			token
+			errorMessage
+			validationError {
+				email
+				password
+			}
+		}
+	}
+`
