@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 	if (!isValid) return { props }
 
-	props = { isAuthenticated: true, userID, sellerID }
+	props = { isAuthenticated: true, userID, sellerID: sellerID || '' }
 
 	return { props }
 }
