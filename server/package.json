@@ -35,6 +35,7 @@
 	"scripts": {
 		"dev": "nodemon --exec babel-node src/index.js",
 		"build": "babel src -d build",
-		"start": "node build/index.js"
+		"start": "node build/index.js",
+		"lint": "eslint . --ext ts --ext tsx --ext js"
 	}
 }
