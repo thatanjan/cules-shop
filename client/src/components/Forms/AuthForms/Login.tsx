@@ -12,7 +12,7 @@ import { TOKEN_NAME } from 'variables/global'
 
 import MuiLink from 'components/Links/MuiLink'
 
-import { LoginOutput } from 'interfaces/authentication'
+import { LoginOutput, LoginInput } from 'interfaces/authentication'
 
 import { loginMutation } from 'graphql/mutations/authMutations'
 import createRequest from 'graphql/createRequest'
@@ -55,7 +55,7 @@ const Login = () => {
 				onSubmit={async (values, { setSubmitting }) => {
 					const {
 						login: { token, errorMessage },
-					}: LoginOutput = await createRequest({
+					} = await createRequest<LoginInput, LoginOutput>({
 						key: loginMutation,
 						values,
 					})
