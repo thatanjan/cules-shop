@@ -1,5 +1,5 @@
 import { login, Ids, logout } from 'redux/slices/userSlice'
-import { useAppDispatch } from 'redux/hooks/appHooks'
+import { useAppDispatch, useAppSelector } from 'redux/hooks/appHooks'
 
 export const useStoreID = (ids: Ids) => {
 	const dispatch = useAppDispatch()
@@ -8,3 +8,5 @@ export const useStoreID = (ids: Ids) => {
 
 	dispatch(login(ids))
 }
+
+export const useUserState = () => useAppSelector(state => state.user)
