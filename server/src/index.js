@@ -64,7 +64,7 @@ const removeBearer = token => {
 	return token
 }
 
-app.get('/validate', ({ body }, res) => {
+app.post('/validate', ({ body }, res) => {
 	const {
 		data: { jwt: token },
 	} = body
