@@ -6,7 +6,7 @@ interface InitialState {
 	sellerID: string
 }
 
-interface Ids {
+export interface Ids {
 	userID: string
 	sellerID: string
 }
