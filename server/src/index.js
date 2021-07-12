@@ -3,7 +3,8 @@ import express from 'express'
 import { ApolloServer, makeExecutableSchema } from 'apollo-server-express'
 import dotenv from 'dotenv'
 import { applyMiddleware } from 'graphql-middleware'
-import jwt from 'express-jwt'
+import expressJwt from 'express-jwt'
+import jwt from 'jsonwebtoken'
 
 import typeDefs from 'graphql/typeDefs'
 import resolvers from 'graphql/resolvers'
@@ -33,7 +34,7 @@ mongoose
 	})
 
 app.use(
-	jwt({
+	expressJwt({
 		secret: process.env.SECRET_KEY,
 		algorithms: ['HS256'],
 		credentialsRequired: false,
@@ -73,7 +74,7 @@ app.post('/validate', ({ body }, res) => {
 
 	const newToken = removeBearer(token)
 
-	jwtToken.verify(newToken, process.env.SECRET_KEY, err => {
+	jwt.verify(newToken, process.env.SECRET_KEY, err => {
 		if (err) res.status(401).send(err)
 
 		res.status(200).send('calm down')
