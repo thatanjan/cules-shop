@@ -1,9 +1,17 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 import graphqlBaseQuery from 'redux/api/graphqlBaseQuery'
-import { loginMutation } from 'graphql/mutations/authMutations'
+import {
+	loginMutation,
+	registerMutation,
+} from 'graphql/mutations/authMutations'
 
-import { LoginOutput, LoginInput } from 'interfaces/authentication'
+import {
+	LoginOutput,
+	LoginInput,
+	RegisterInput,
+	RegisterOutput,
+} from 'interfaces/authentication'
 
 const userAuthApi = createApi({
 	reducerPath: 'userAuthApi',
@@ -15,9 +23,15 @@ const userAuthApi = createApi({
 				params: values,
 			}),
 		}),
+		register: builder.mutation<RegisterOutput, RegisterInput>({
+			query: values => ({
+				body: registerMutation,
+				params: values,
+			}),
+		}),
 	}),
 })
 
-export const { useLoginMutation } = userAuthApi
+export const { useLoginMutation, useRegisterMutation } = userAuthApi
 
 export default userAuthApi
