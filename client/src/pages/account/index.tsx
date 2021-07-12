@@ -7,11 +7,15 @@ import Box from '@material-ui/core/Box'
 import AccountData from 'components/Account/AccountData'
 import AccountAvatar from 'components/Avatar/AccountAvatar'
 
+import { useUserState } from 'redux/hooks/useUserHooks'
+
 import MuiLink from 'components/Links/MuiLink'
 
 interface Props {}
 
 const AccountPage = (props: Props) => {
+	const { sellerID } = useUserState()
+
 	return (
 		<>
 			<Grid
@@ -46,10 +50,14 @@ const AccountPage = (props: Props) => {
 
 						<MuiLink
 							MuiComponent={Button}
-							href='/account/become-seller'
+							href={
+								sellerID
+									? `/account/seller-profile/${sellerID}`
+									: '/account/become-seller'
+							}
 							variant='contained'
 						>
-							Become a seller
+							{sellerID ? 'Seller profile' : 'Become a seller'}
 						</MuiLink>
 					</Box>
 				</Grid>
