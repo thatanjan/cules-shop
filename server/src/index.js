@@ -48,6 +48,38 @@ app.use((err, req, _, next) => {
 	next()
 })
 
+const removeBearer = token => {
+	const parts = token.split(' ')
+	if (parts.length === 2) {
+		const scheme = parts[0]
+		const credentials = parts[1]
+
+		if (/^Bearer$/i.test(scheme)) {
+			const newToken = credentials
+
+			return newToken
+		}
+	}
+
+	return token
+}
+
+app.get('/validate', ({ body }, res) => {
+	const {
+		data: { jwt: token },
+	} = body
+
+	if (!token) res.status(401).send('No token found')
+
+	const newToken = removeBearer(token)
+
+	jwtToken.verify(newToken, process.env.SECRET_KEY, err => {
+		if (err) res.status(401).send(err)
+
+		res.status(200).send('calm down')
+	})
+})
+
 const server = new ApolloServer({
 	schema: applyMiddleware(
 		makeExecutableSchema({
