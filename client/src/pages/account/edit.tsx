@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 
 import AccountAvatar from 'components/Avatar/AccountAvatar'
+import AccountEditForm from 'components/Forms/Account/AccountEditForm'
+
 
 interface Props {}
 
@@ -33,6 +35,8 @@ const EditProfile = (props: Props) => {
 						<Button variant='contained'>Upload a Picture</Button>
 					</Box>
 				</Grid>
+
+				<AccountEditForm />
 			</Grid>
 		</>
 	)
