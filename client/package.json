@@ -7,7 +7,8 @@
 		"build": "next build",
 		"start": "next start",
 		"dev-server": "yarn --cwd ../server dev",
-		"both-dev": "concurrently \"yarn run dev-server\" \"yarn run dev \""
+		"both-dev": "concurrently \"yarn run dev-server\" \"yarn run dev \"",
+		"lint": "eslint . --ext ts --ext tsx --ext js"
 	},
 	"dependencies": {
 		"@emotion/cache": "latest",
