@@ -1,4 +1,5 @@
 import React from 'react'
+import { GetServerSideProps } from 'next'
 import SwiperCore, {
 	Keyboard,
 	Scrollbar,
@@ -9,6 +10,8 @@ import SwiperCore, {
 
 import ProductBannerSlideShow from 'components/Banner/ProductBannerSlideShow'
 import ProductPreviewTabs from 'components/Tabs/ProductPreviewTabs'
+
+import checkValidJWT from 'utils/auth/checkValidJWT'
 
 import 'swiper/swiper.min.css'
 import 'swiper/components/pagination/pagination.min.css'
@@ -28,3 +31,21 @@ const Index = () => {
 }
 
 export default Index
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+	const {
+		cookies: { jwt },
+	} = req
+
+	const props = { isAuthenticated: false, userID: '' }
+
+	if (!jwt) return { props }
+
+	const isValid = await checkValidJWT(jwt)
+
+	if (!isValid) return { props }
+
+	props.isAuthenticated = true
+
+	return { props }
+}
