@@ -35,7 +35,7 @@ const resolver = {
 
 				const { _id } = user
 
-				const payload = { id: _id }
+				const payload = { userID: _id }
 
 				const seller = await Seller.findOne({ user: _id }, '_id')
 
