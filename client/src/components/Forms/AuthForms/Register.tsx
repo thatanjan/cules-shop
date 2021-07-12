@@ -69,8 +69,19 @@ const Login = () => {
 					return errors
 				}}
 				onSubmit={async (values, { setSubmitting }) => {
-					const { data } = (await register(values)) as { data: RegisterOutput }
-					if (data) setSubmitting(false)
+					const { data, error } = (await register(values)) as {
+						data: RegisterOutput
+						error: any
+					}
+
+					if (data || error) setSubmitting(false)
+
+					if (error) {
+						setAlertMessage('Something went wrong')
+
+						setTimeout(() => setAlertMessage(''), 3000)
+						return false
+					}
 
 					const {
 						register: { token, errorMessage },
