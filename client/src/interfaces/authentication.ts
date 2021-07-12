@@ -19,3 +19,14 @@ export interface LoginInput {
 	email: string
 	password: string
 }
+
+export interface RegisterInput {
+	email: String
+	password: String
+	name: String
+	confirmPassword: String
+}
+
+export interface RegisterOutput {
+	register: Output
+}
