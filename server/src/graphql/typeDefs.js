@@ -20,7 +20,7 @@ const typeDefs = gql`
 	}
 
 	input MultipleUserIDs {
-		userID: [ID!]!
+		userIDs: [ID!]!
 	}
 `
 
