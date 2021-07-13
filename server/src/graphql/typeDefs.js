@@ -18,6 +18,10 @@ const typeDefs = gql`
 		success: Boolean
 		errorMessage: String
 	}
+
+	input MultipleUserIDs {
+		userID: [ID!]!
+	}
 `
 
 export default [typeDefs, ...userTypeDefs, ...productTypeDefs, ...cartTypeDefs]
