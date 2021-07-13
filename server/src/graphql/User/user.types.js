@@ -3,6 +3,7 @@ import { gql } from 'apollo-server-express'
 const types = gql`
 	extend type Query {
 		getMultipleUserNameImage(Input: MultipleIDs): [UserNameImage!]
+		getMyAddress: Address!
 	}
 
 	type Mutation {
@@ -39,6 +40,13 @@ const types = gql`
 	type UserNameImage {
 		name: String!
 		image: String!
+	}
+
+	type Address {
+		country: String!
+		city: String!
+		postal: String!
+		address: String!
 	}
 `
 
