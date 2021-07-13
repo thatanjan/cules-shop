@@ -11,9 +11,10 @@ import Alert from '@material-ui/core/Alert'
 
 import MuiLink from 'components/Links/MuiLink'
 
-import { RegisterOutput } from 'interfaces/authentication'
+import { RegisterOutput, RegisterInput } from 'interfaces/authentication'
 
-import { useRegisterMutation } from 'redux/api/auth/userAuth'
+import { registerMutation } from 'graphql/mutations/authMutations'
+import createRequest from 'graphql/createRequest'
 
 import { TOKEN_NAME } from 'variables/global'
 
@@ -25,7 +26,6 @@ interface Values {
 }
 
 const Login = () => {
-	const [register] = useRegisterMutation()
 	const { push } = useRouter()
 	const [alertMessage, setAlertMessage] = useState('')
 
@@ -69,23 +69,14 @@ const Login = () => {
 					return errors
 				}}
 				onSubmit={async (values, { setSubmitting }) => {
-					const { data, error } = (await register(values)) as {
-						data: RegisterOutput
-						error: any
-					}
-
-					if (data || error) setSubmitting(false)
-
-					if (error) {
-						setAlertMessage('Something went wrong')
-
-						setTimeout(() => setAlertMessage(''), 3000)
-						return false
-					}
-
 					const {
 						register: { token, errorMessage },
-					} = data
+					} = await createRequest<RegisterInput, RegisterOutput>({
+						key: registerMutation,
+						values,
+					})
+
+					if (token || errorMessage) setSubmitting(false)
 
 					if (errorMessage) {
 						setAlertMessage(errorMessage)
