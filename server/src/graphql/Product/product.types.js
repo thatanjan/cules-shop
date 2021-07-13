@@ -7,6 +7,7 @@ const typeDefs = gql`
 
 	extend type Query {
 		getProducts(Input: GetProductInput!): [Product!]!
+		getProductDetails(productID: ID!): ProductDetails!
 	}
 
 	type Product {
@@ -14,6 +15,15 @@ const typeDefs = gql`
 		shortDescription: String!
 		category: String!
 		seller: String!
+	}
+
+	type ProductDetails {
+		name: String!
+		description: String!
+		category: String!
+		seller: String!
+		price: Int!
+		quantity: Int!
 	}
 
 	input GetProductInput {
