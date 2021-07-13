@@ -1,7 +1,11 @@
 import { gql } from 'apollo-server-express'
 
 const types = gql`
-	extend type Mutation {
+	extend type Query {
+		getMultipleUserNameImage(Input: MultipleIDs): [UserNameImage!]
+	}
+
+	type Mutation {
 		login(Input: LoginInput!): Response!
 		register(Input: RegisterInput!): Response!
 		becomeSeller: SuccessResponse!
@@ -30,6 +34,11 @@ const types = gql`
 		token: String
 		errorMessage: String
 		validationError: ValidationErrorMessage
+	}
+
+	type UserNameImage {
+		name: String!
+		image: String!
 	}
 `
 
