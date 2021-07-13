@@ -13,6 +13,8 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import SearchIcon from '@material-ui/icons/Search'
 
 import { APP_TITLE, LOGIN_URL } from 'variables/global'
+
+import AccountMenu from 'components/Menus/AccountMenu'
 import MuiLink from 'components/Links/MuiLink'
 
 import { useAppSelector } from 'redux/hooks/appHooks'
@@ -70,12 +72,7 @@ const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 
 						{largerThanMD && <SearchBar />}
 
-						<MuiLink
-							href={loggedIn ? `/account` : LOGIN_URL}
-							MuiComponent={IconButton}
-						>
-							<PersonIcon />
-						</MuiLink>
+						<AccountMenu />
 
 						<IconButton>
 							<ShoppingCartIcon />
