@@ -1,7 +1,7 @@
 import Profile from 'models/Profile'
 import uploadImage from 'utils/cloudinary/uploadToCloudinary'
 import sendErrorMessage from 'utils/errorMessage'
-import sendMessage from 'utils/message'
+import successResponse from 'utils/successResponse'
 import imageConfig from 'variables/cloudinaryVariables'
 import deleteImage from 'utils/cloudinary/deleteImageFromCloudinary'
 
@@ -12,9 +12,13 @@ const PROFILE_PICTUE = 'profilePicture'
 const UPLOAD = 'upload'
 const REMOVE = 'remove'
 
-const mainResolver = operation => async (_, { image }, { user: { id } }) => {
+const mainResolver = operation => async (
+	_,
+	{ image },
+	{ user: { userID } }
+) => {
 	try {
-		const profileData = await Profile.findOne({ user: id }, PROFILE_PICTUE)
+		const profileData = await Profile.findOne({ user: userID }, PROFILE_PICTUE)
 
 		const currentImage = profileData[PROFILE_PICTUE]
 
@@ -30,17 +34,19 @@ const mainResolver = operation => async (_, { image }, { user: { id } }) => {
 
 				await profileData.save()
 
-				return sendMessage('Picture successfully deleted')
+				return successResponse()
 			}
 		}
 
 		const imageID = await uploadImage(image, { folder: PATH, ...imageConfig })
 
-		profileData[PROFILE_PICTUE] = imageID
+		if (typeof imageID === 'string') {
+			profileData[PROFILE_PICTUE] = imageID
+		}
 
 		const res = await profileData.save()
 
-		if (res) return sendMessage('Profile Picture uploaded successfully')
+		if (res) return successResponse()
 
 		return sendErrorMessage('error')
 	} catch (err) {
