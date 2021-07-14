@@ -4,9 +4,9 @@ import sendErrorMessage from 'utils/errorMessage'
 
 const resolver = {
 	Mutation: {
-		updateMyAddress: async (_, { Input }, { user: { userID } }) => {
+		updateProfile: async (_, { Input }, { user: { userID } }) => {
 			try {
-				await Profile.updateOne({ user: userID }, { $set: { address: Input } })
+				await Profile.updateOne({ user: userID }, { $set: Input })
 
 				return successResponse()
 			} catch (e) {
