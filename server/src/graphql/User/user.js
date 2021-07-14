@@ -5,7 +5,6 @@ import typeDefs from './user.types'
 import registerUserMutation from './register.mutation'
 import loginUserMutation from './login.mutation'
 import becomeSellerMutation from './becomeSeller.mutation'
-import getMultipleUserNameImage from './getMultipleUserNameImage.query'
 
 const resolver = {
 	Query: {
@@ -19,6 +18,5 @@ export const userResolvers = merge(
 	registerUserMutation,
 	loginUserMutation,
 	resolver,
-	becomeSellerMutation,
-	getMultipleUserNameImage
+	becomeSellerMutation
 )
