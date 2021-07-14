@@ -3,6 +3,7 @@ import { gql } from 'apollo-server-express'
 import { userTypeDefs } from 'graphql/User/user'
 import { productTypeDefs } from 'graphql/Product/product'
 import { cartTypeDefs } from 'graphql/Cart/cart'
+import { profileTypeDefs } from 'graphql/Profile/profile'
 
 const typeDefs = gql`
 	type Query {
@@ -24,4 +25,10 @@ const typeDefs = gql`
 	}
 `
 
-export default [typeDefs, ...userTypeDefs, ...productTypeDefs, ...cartTypeDefs]
+export default [
+	typeDefs,
+	...userTypeDefs,
+	...productTypeDefs,
+	...cartTypeDefs,
+	...profileTypeDefs,
+]
