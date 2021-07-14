@@ -8,6 +8,8 @@ const types = gql`
 
 	extend type Mutation {
 		updateMyAddress(Input: AddressInput): SuccessResponse!
+		uploadProfilePicture(image: String!): SuccessResponse!
+		removeProfilePicture: SuccessResponse!
 	}
 
 	type UserNameImage {
