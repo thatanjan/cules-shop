@@ -22,6 +22,7 @@ const schema = {
 		type: objectId,
 		required: true,
 	},
+	profilePicture: { type: String, default: '' },
 }
 
 const ProfileSchema = new Schema(schema)
