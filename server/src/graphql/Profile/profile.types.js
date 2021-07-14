@@ -6,9 +6,20 @@ const types = gql`
 		getMyAddress: Address!
 	}
 
+	extend type Mutation {
+		updateMyAddress(Input: AddressInput): SuccessResponse!
+	}
+
 	type UserNameImage {
 		name: String!
 		image: String!
+	}
+
+	input AddressInput {
+		country: String!
+		city: String!
+		postal: String!
+		address: String!
 	}
 
 	type Address {
