@@ -8,14 +8,14 @@ import { modifyTypes } from 'graphql/Cart/modifyQuantity.mutation'
 import { somethingWentWrong, sendShieldError } from 'utils/shieldError'
 
 const canProductBeAddedToCart = rule()(
-	async (_, { Input: { productID, quantity } }, { user: { id } }) => {
+	async (_, { Input: { productID, quantity } }, { user: { userID } }) => {
 		try {
 			const product = await Product.findById(productID, 'quantity')
 
 			if (!product) return sendShieldError('No product found')
 
 			const userCart = await Cart.findOne(
-				{ user: id },
+				{ user: userID },
 				{
 					products: {
 						$elemMatch: { id: { $eq: productID } },
@@ -36,7 +36,7 @@ const canProductBeAddedToCart = rule()(
 )
 
 const canProductQuantityBeModified = rule()(
-	async (_, { Input: { productID, amount, type } }, { user: { id } }) => {
+	async (_, { Input: { productID, amount, type } }, { user: { userID } }) => {
 		try {
 			const { DECREASE, INCREASE } = modifyTypes
 
@@ -53,7 +53,7 @@ const canProductQuantityBeModified = rule()(
 				return sendShieldError('Not enough product exist on stock')
 
 			const userCart = await Cart.findOne(
-				{ user: id },
+				{ user: userID },
 				{
 					products: {
 						$elemMatch: { id: { $eq: productID } },

@@ -9,9 +9,9 @@ import {
 	canProductQuantityBeModified,
 } from './cartPermissions'
 
-const isSeller = rule()(async (_, __, { user: { id } }) => {
+const isSeller = rule()(async (_, __, { user: { userID } }) => {
 	try {
-		const result = await Seller.findOne({ user: id })
+		const result = await Seller.findOne({ user: userID })
 
 		if (result) return sendShieldError('Sorry, You are already a Seller')
 

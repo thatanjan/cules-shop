@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import cloudinary from 'cloudinary'
 import express from 'express'
 import { ApolloServer, makeExecutableSchema } from 'apollo-server-express'
 import dotenv from 'dotenv'
@@ -12,6 +13,14 @@ import resolvers from 'graphql/resolvers'
 import permissions from 'config/permission'
 
 dotenv.config()
+
+const cloudinaryV2 = cloudinary.v2
+
+cloudinaryV2.config({
+	cloud_name: process.env.CLOUD_NAME,
+	api_key: process.env.API_KEY,
+	api_secret: process.env.API_SECRET,
+})
 
 const app = express()
 
