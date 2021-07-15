@@ -5,7 +5,7 @@ import { RootState } from 'redux/stores/mainStore'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Props as AlertProps } from 'components/Alerts/CustomAlert'
 
-export type Base64 = ArrayBuffer | string | null
+import { Base64 } from 'interfaces/global'
 
 export interface InitialState {
 	previewLink: string

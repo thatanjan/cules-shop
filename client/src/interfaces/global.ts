@@ -6,3 +6,5 @@ export interface CommonResponse {
 	success?: boolean
 	errorMessage?: string
 }
+
+export type Base64 = ArrayBuffer | string | null
