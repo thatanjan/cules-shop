@@ -10,6 +10,7 @@ import { Base64 } from 'interfaces/global'
 
 export interface InitialState {
 	upload: {
+		uploadModal: boolean
 		previewLink: string
 		previewModal: boolean
 		file: Base64
@@ -22,6 +23,7 @@ export interface InitialState {
 
 const initialState: InitialState = {
 	upload: {
+		uploadModal: false,
 		previewLink: '',
 		previewModal: false,
 		file: null,
@@ -56,6 +58,12 @@ const profilePictureUploadSlice = createSlice({
 	name: 'profilePictureUpload',
 	initialState,
 	reducers: {
+		openUploadModal: ({ upload }) => {
+			upload.uploadModal = true
+		},
+		closeUploadModal: ({ upload }) => {
+			upload.uploadModal = false
+		},
 		openPreviewModal: (
 			{ upload },
 			{ payload: previewLink }: PayloadAction<string>
