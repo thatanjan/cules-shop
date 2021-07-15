@@ -2,6 +2,7 @@ import merge from 'lodash/merge'
 
 import getMultipleUserNameImage from './getMultipleUserNameImage.query'
 import getMyAddress from './getMyAddress.query'
+import getMultipleProfile from './getMultipleProfile.query'
 
 import updateProfile from './updateProfile.mutation'
 import profilePictureMutation from './profilePicture.mutation'
@@ -14,5 +15,6 @@ export const profileResolvers = merge(
 	getMultipleUserNameImage,
 	getMyAddress,
 	updateProfile,
-	profilePictureMutation
+	profilePictureMutation,
+	getMultipleProfile
 )
