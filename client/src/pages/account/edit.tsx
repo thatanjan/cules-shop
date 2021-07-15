@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 
+import UploadAlert, { Props as AlertProps } from 'components/Alerts/CustomAlert'
 import AccountAvatar from 'components/Avatar/AccountAvatar'
 import AccountEditForm from 'components/Forms/Account/AccountEditForm'
 import ImageUploadModal from 'components/Modals/ImageUploadModal'
@@ -93,6 +94,10 @@ const EditProfile = (props: Props) => {
 						{uploadModal && <ImageUploadModal {...uploadModalProps} />}
 
 						{previewModal && <UploadPreviewModal {...uploadPreviewProps} />}
+
+						{(uploading || successful || failed) && (
+							<UploadAlert {...(alertProps as AlertProps)} />
+						)}
 					</Box>
 				</Grid>
 
