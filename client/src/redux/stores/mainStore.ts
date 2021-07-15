@@ -4,6 +4,7 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 import drawerReducer from 'redux/slices/drawerSlice'
 import checkoutReducer from 'redux/slices/checkoutSlices'
 import userReducer from 'redux/slices/userSlice'
+import profileReducer from 'redux/slices/profileSlice'
 
 import userAuthApi from 'redux/api/auth/userAuth'
 
@@ -12,6 +13,7 @@ const store = configureStore({
 		drawer: drawerReducer,
 		checkout: checkoutReducer,
 		user: userReducer,
+		profile: profileReducer,
 		[userAuthApi.reducerPath]: userAuthApi.reducer,
 	},
 	middleware: getDefaultMiddleware =>
