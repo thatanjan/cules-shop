@@ -5,6 +5,7 @@ import { RootState } from 'redux/stores/mainStore'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Props as AlertProps } from 'components/Alerts/CustomAlert'
 
+import { ProfilePictureUploadResponse } from 'interfaces/profile'
 import { Base64 } from 'interfaces/global'
 
 export interface InitialState {
@@ -38,7 +39,7 @@ export const uploadFile = createAsyncThunk(
 
 		const image = state.profile.file
 
-		return createRequest({
+		return createRequest<{ image: Base64 }, ProfilePictureUploadResponse>({
 			key: uploadProfilePicture,
 			values: { image },
 		})
@@ -78,7 +79,7 @@ const profilePictureUploadSlice = createSlice({
 				}
 			})
 
-			.addCase(uploadFile.fulfilled, (state, { payload }: any) => {
+			.addCase(uploadFile.fulfilled, (state, { payload }) => {
 				state.uploading = false
 				state.successful = true
 
