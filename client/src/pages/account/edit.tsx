@@ -6,11 +6,47 @@ import Box from '@material-ui/core/Box'
 
 import AccountAvatar from 'components/Avatar/AccountAvatar'
 import AccountEditForm from 'components/Forms/Account/AccountEditForm'
+import ImageUploadModal from 'components/Modals/ImageUploadModal'
 
+import { useAppDispatch, useAppSelector } from 'redux/hooks/appHooks'
+import {
+	openUploadModal,
+	closePreviewModal,
+	uploadFile,
+	closeUploadModal,
+	makeBase64Image,
+	openPreviewModal,
+	resetState,
+} from 'redux/slices/profileSlice'
+import { Base64 } from 'interfaces/global'
 
 interface Props {}
 
 const EditProfile = (props: Props) => {
+	const {
+		uploading,
+		alertProps,
+		uploadModal,
+		previewModal,
+		previewLink,
+		successful,
+		failed,
+	} = useAppSelector(({ profile }) => profile.upload)
+
+	const dispatch = useAppDispatch()
+
+	const closeReset = () => {
+		dispatch(resetState())
+	}
+
+	const uploadModalProps = {
+		closeModal: () => dispatch(closeUploadModal()),
+		uploadModal,
+		makeImage: (base64: Base64) => dispatch(makeBase64Image(base64)),
+		openPreviewModal: (link: string) => dispatch(openPreviewModal(link)),
+		closeReset,
+	}
+
 	return (
 		<>
 			<Grid
@@ -32,7 +68,11 @@ const EditProfile = (props: Props) => {
 					</Typography>
 
 					<Box sx={{ display: 'grid', placeItems: 'center', marginTop: '1rem' }}>
-						<Button variant='contained'>Upload a Picture</Button>
+						<Button variant='contained' onClick={() => dispatch(openUploadModal())}>
+							Upload a Picture
+						</Button>
+
+						{uploadModal && <ImageUploadModal {...uploadModalProps} />}
 					</Box>
 				</Grid>
 
