@@ -2,14 +2,21 @@ import { gql } from 'apollo-server-express'
 
 const types = gql`
 	extend type Query {
-		getMultipleUserNameImage(Input: MultipleUserIDs): [UserNameImage!]
+		getMultipleUserNameImage(Input: MultipleUserIDs!): [UserNameImage!]
 		getMyAddress: Address!
+		getMultipleProfile(Input: MultipleUserIDs!): [UserProfile!]
 	}
 
 	extend type Mutation {
 		updateProfile(Input: UpdateProfileInput!): SuccessResponse!
 		uploadProfilePicture(image: String!): SuccessResponse!
 		removeProfilePicture: SuccessResponse!
+	}
+
+	type UserProfile {
+		name: String!
+		profilePicture: String!
+		address: Address!
 	}
 
 	type UserNameImage {
