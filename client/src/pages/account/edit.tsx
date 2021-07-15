@@ -7,6 +7,7 @@ import Box from '@material-ui/core/Box'
 import AccountAvatar from 'components/Avatar/AccountAvatar'
 import AccountEditForm from 'components/Forms/Account/AccountEditForm'
 import ImageUploadModal from 'components/Modals/ImageUploadModal'
+import UploadPreviewModal from 'components/Modals/UploadPreviewModal'
 
 import { useAppDispatch, useAppSelector } from 'redux/hooks/appHooks'
 import {
@@ -47,6 +48,23 @@ const EditProfile = (props: Props) => {
 		closeReset,
 	}
 
+	const handleDiscard = () => {
+		dispatch(closePreviewModal())
+		dispatch(openUploadModal())
+	}
+
+	const handleAccept = () => {
+		dispatch(uploadFile())
+		dispatch(closePreviewModal())
+	}
+
+	const uploadPreviewProps = {
+		previewLink,
+		previewModalOpen: previewModal,
+		handleDiscard,
+		handleAccept,
+	}
+
 	return (
 		<>
 			<Grid
@@ -73,6 +91,8 @@ const EditProfile = (props: Props) => {
 						</Button>
 
 						{uploadModal && <ImageUploadModal {...uploadModalProps} />}
+
+						{previewModal && <UploadPreviewModal {...uploadPreviewProps} />}
 					</Box>
 				</Grid>
 
