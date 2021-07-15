@@ -94,7 +94,7 @@ const profilePictureUploadSlice = createSlice({
 				if (data.success) {
 					upload.alertProps = {
 						severity: 'success',
-						message: data.message,
+						message: 'Picture uploaded successfully',
 						checked: true,
 					}
 				}
