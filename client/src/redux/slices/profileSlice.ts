@@ -133,6 +133,8 @@ export const {
 	closePreviewModal,
 	makeBase64Image,
 	resetState,
+	openUploadModal,
+	closeUploadModal,
 } = profilePictureUploadSlice.actions
 
 export default profilePictureUploadSlice.reducer
