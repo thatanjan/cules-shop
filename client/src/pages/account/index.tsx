@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 
+import { useStoreID } from 'redux/hooks/useUserHooks'
+
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
 import { UserPayload } from 'interfaces/authentication'
@@ -17,10 +19,15 @@ import { useUserState } from 'redux/hooks/useUserHooks'
 
 import MuiLink from 'components/Links/MuiLink'
 
-interface Props {}
+interface Props {
+	userID: string
+	sellerID: string
+}
 
 const AccountPage = (props: Props) => {
 	const { sellerID } = useUserState()
+
+	useStoreID(props)
 
 	return (
 		<>
