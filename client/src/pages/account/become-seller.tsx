@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 
 import AccountAvatar from 'components/Avatar/AccountAvatar'
+import BecomeSellerForm from 'components/Forms/Account/BecomeSellerForm'
 
 import { UserPayload } from 'interfaces/authentication'
 
@@ -35,6 +36,8 @@ const BecomeSeller = (props: Props) => {
 						Taylor swift
 					</Typography>
 				</Grid>
+
+				<BecomeSellerForm />
 			</Grid>
 		</>
 	)
