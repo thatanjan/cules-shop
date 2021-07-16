@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { Formik, Form, Field, FieldAttributes } from 'formik'
 import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
@@ -47,6 +48,7 @@ const AccountEditForm = () => {
 	const [alertMessage, setAlertMessage] = useState('')
 	const { userID } = useUserState()
 	const { data, error } = useGetMultipleProfile([userID])
+	const { push } = useRouter()
 
 	if (error)
 		return <CustomAlert checked severity='error' message='Something went wrong' />
@@ -83,13 +85,17 @@ const AccountEditForm = () => {
 
 					const input = { name, ...address }
 
-					const { success, errorMessage } = await createRequest<
-						typeof input,
-						CommonResponse
-					>({
+					const {
+						updateProfile: { success, errorMessage },
+					} = await createRequest<typeof input, { updateProfile: CommonResponse }>({
 						key: updateProfile,
 						values: input,
 					})
+
+					if (success) {
+						setSubmitting(false)
+						push('/account')
+					}
 
 					if (errorMessage) {
 						setSubmitting(false)
