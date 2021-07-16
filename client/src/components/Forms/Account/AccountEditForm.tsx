@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Formik, Form, Field, FieldAttributes } from 'formik'
 import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
@@ -43,6 +44,7 @@ const CustomField = ({ label, name, ...props }: CustomFieldProps) => {
 }
 
 const AccountEditForm = () => {
+	const [alertMessage, setAlertMessage] = useState('')
 	const { userID } = useUserState()
 	const { data, error } = useGetMultipleProfile([userID])
 
@@ -55,58 +57,78 @@ const AccountEditForm = () => {
 		)
 
 	return (
-		<Formik
-			initialValues={data.getMultipleProfile[0]}
-			validate={values => {
-				const errors: Partial<Values> = {}
-				return errors
-			}}
-			onSubmit={async (values, { setSubmitting }) => {
-				const { name, address } = values
+		<>
+			{/* {alertMessage && ( */}
+			{/* 	<CustomAlert */}
+			{/* 		checked */}
+			{/* 		variant='filled' */}
+			{/* 		severity='error' */}
+			{/* 		sx={{ marginTop: '1rem' }} */}
+			{/* 		onClose={() => { */}
+			{/* 			setAlertMessage('') */}
+			{/* 		}} */}
+			{/* 	> */}
+			{/* 		{alertMessage} */}
+			{/* 	</CustomAlert> */}
+			{/* )} */}
 
-				const input = { name, ...address }
+			<Formik
+				initialValues={data.getMultipleProfile[0]}
+				validate={values => {
+					const errors: Partial<Values> = {}
+					return errors
+				}}
+				onSubmit={async (values, { setSubmitting }) => {
+					const { name, address } = values
 
-				const { success, errorMessage } = await createRequest<
-					typeof input,
-					CommonResponse
-				>({
-					key: updateProfile,
-					values: input,
-				})
+					const input = { name, ...address }
 
-				setTimeout(() => {
-					setSubmitting(false)
-					alert(JSON.stringify(values, null, 2))
-				}, 500)
-			}}
-		>
-			{({ submitForm, isSubmitting }) => (
-				<Form>
-					<CustomField name='name' label='Name' />
+					const { success, errorMessage } = await createRequest<
+						typeof input,
+						CommonResponse
+					>({
+						key: updateProfile,
+						values: input,
+					})
 
-					<CustomField name='address.country' label='Country' />
+					// if (errorMessage) {
+					// 	setSubmitting(false)
+					// 	setAlertMessage(errorMessage)
+					// }
 
-					<CustomField name='address.city' label='City' />
+					// setTimeout(() => {
+					// 	setAlertMessage('')
+					// }, 3000)
+				}}
+			>
+				{({ submitForm, isSubmitting }) => (
+					<Form>
+						<CustomField name='name' label='Name' />
 
-					<CustomField name='address.state' label='State' />
+						<CustomField name='address.country' label='Country' />
 
-					<CustomField name='address.zip' label='Zip' />
+						<CustomField name='address.city' label='City' />
 
-					<CustomField name='address.address' label='Address' />
+						<CustomField name='address.state' label='State' />
 
-					{isSubmitting && <LinearProgress />}
-					<br />
-					<Button
-						variant='contained'
-						color='primary'
-						disabled={isSubmitting}
-						onClick={submitForm}
-					>
-						Submit
-					</Button>
-				</Form>
-			)}
-		</Formik>
+						<CustomField name='address.zip' label='Zip' />
+
+						<CustomField name='address.address' label='Address' />
+
+						{isSubmitting && <LinearProgress />}
+						<br />
+						<Button
+							variant='contained'
+							color='primary'
+							disabled={isSubmitting}
+							onClick={submitForm}
+						>
+							Submit
+						</Button>
+					</Form>
+				)}
+			</Formik>
+		</>
 	)
 }
 
