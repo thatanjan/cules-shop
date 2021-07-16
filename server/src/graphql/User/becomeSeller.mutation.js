@@ -4,9 +4,9 @@ import sendErrorMessage from 'utils/errorMessage'
 
 const resolver = {
 	Mutation: {
-		becomeSeller: async (_, __, { user: { userID } }) => {
+		becomeSeller: async (_, { Input }, { user: { userID } }) => {
 			try {
-				const newSeller = new Seller({ user: userID, company: 'Cules Coding' })
+				const newSeller = new Seller({ user: userID, ...Input })
 
 				await newSeller.save()
 
