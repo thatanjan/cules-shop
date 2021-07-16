@@ -25,3 +25,7 @@ export interface GetMultipleProfileResponse {
 		address: Address
 	}>
 }
+
+export interface SellerProfile {
+	company: string
+}
