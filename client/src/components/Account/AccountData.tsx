@@ -42,7 +42,7 @@ const AccountData = () => {
 					>
 						{value && (
 							<>
-								<Grid item xs={3}>
+								<Grid item xs={3} sx={{ textTransform: 'capitalize' }}>
 									{item}
 								</Grid>
 								<Grid item xs={2} sm={1}>
