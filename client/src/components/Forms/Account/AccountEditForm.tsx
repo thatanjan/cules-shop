@@ -3,6 +3,11 @@ import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { TextField } from 'formik-material-ui'
 
+import CustomAlert from 'components/Alerts/CustomAlert'
+
+import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
+import { useUserState } from 'redux/hooks/useSliceHooks'
+
 interface Values {
 	name: string
 	address: {
@@ -11,16 +16,6 @@ interface Values {
 		postal: string
 		address: string
 	}
-}
-
-const initialValues: Values = {
-	name: '',
-	address: {
-		country: '',
-		city: '',
-		postal: '',
-		address: '',
-	},
 }
 
 interface CustomFieldProps extends FieldAttributes<any> {
@@ -42,9 +37,21 @@ const CustomField = ({ label, name, ...props }: CustomFieldProps) => {
 }
 
 const AccountEditForm = () => {
+	const { userID } = useUserState()
+	console.log(userID)
+	const { data, error } = useGetMultipleProfile([userID])
+
+	if (error)
+		return <CustomAlert checked severity='error' message='Something went wrong' />
+
+	if (!data)
+		return (
+			<CustomAlert checked severity='info' message='Profile data is loading' />
+		)
+
 	return (
 		<Formik
-			initialValues={initialValues}
+			initialValues={data.getMultipleProfile[0]}
 			validate={values => {
 				const errors: Partial<Values> = {}
 				return errors
