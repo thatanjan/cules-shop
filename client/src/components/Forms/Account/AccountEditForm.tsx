@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { Formik, Form, Field, FieldAttributes } from 'formik'
+import { Formik, Form } from 'formik'
 import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import { TextField } from 'formik-material-ui'
 
 import CustomAlert from 'components/Alerts/CustomAlert'
+import CustomField from 'components/Forms/Account/CustomField'
 
 import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
 import { useUserState } from 'redux/hooks/useSliceHooks'
@@ -24,24 +24,6 @@ interface Values {
 		postal: string
 		address: string
 	}
-}
-
-interface CustomFieldProps extends FieldAttributes<any> {
-	name: string
-	label: string
-}
-
-const CustomField = ({ label, name, ...props }: CustomFieldProps) => {
-	return (
-		<Field
-			{...{ name, label, ...props }}
-			component={TextField}
-			type='text'
-			sx={{ marginBottom: '1rem' }}
-			fullWidth
-			variant='standard'
-		/>
-	)
 }
 
 const AccountEditForm = () => {
