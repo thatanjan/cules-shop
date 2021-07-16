@@ -8,6 +8,12 @@ import CustomAlert from 'components/Alerts/CustomAlert'
 import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
 import { useUserState } from 'redux/hooks/useSliceHooks'
 
+import createRequest from 'graphql/createRequest'
+
+import { updateProfile } from 'graphql/mutations/profileMutations'
+
+import { CommonResponse } from 'interfaces/global'
+
 interface Values {
 	name: string
 	address: {
@@ -38,7 +44,6 @@ const CustomField = ({ label, name, ...props }: CustomFieldProps) => {
 
 const AccountEditForm = () => {
 	const { userID } = useUserState()
-	console.log(userID)
 	const { data, error } = useGetMultipleProfile([userID])
 
 	if (error)
@@ -56,8 +61,19 @@ const AccountEditForm = () => {
 				const errors: Partial<Values> = {}
 				return errors
 			}}
-			onSubmit={(values, { setSubmitting }) => {
-				console.log(values)
+			onSubmit={async (values, { setSubmitting }) => {
+				const { name, address } = values
+
+				const input = { name, ...address }
+
+				const { success, errorMessage } = await createRequest<
+					typeof input,
+					CommonResponse
+				>({
+					key: updateProfile,
+					values: input,
+				})
+
 				setTimeout(() => {
 					setSubmitting(false)
 					alert(JSON.stringify(values, null, 2))
