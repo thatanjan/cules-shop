@@ -29,25 +29,33 @@ const AccountData = () => {
 
 	return (
 		<Grid justifyContent='center' container sx={{ maxWidth: '50rem' }}>
-			{fields.map(item => (
-				<Grid
-					container
-					item
-					justifyContent='center'
-					sx={{ marginBottom: '.5rem' }}
-					key={nanoid()}
-				>
-					<Grid item xs={3}>
-						{item}
+			{fields.map(item => {
+				const value = originalData[item]
+
+				return (
+					<Grid
+						container
+						item
+						justifyContent='center'
+						sx={{ marginBottom: '.5rem' }}
+						key={nanoid()}
+					>
+						{value && (
+							<>
+								<Grid item xs={3}>
+									{item}
+								</Grid>
+								<Grid item xs={2} sm={1}>
+									:
+								</Grid>
+								<Grid item xs={6}>
+									{value}
+								</Grid>
+							</>
+						)}
 					</Grid>
-					<Grid item xs={2} sm={1}>
-						:
-					</Grid>
-					<Grid item xs={6}>
-						{originalData[item]}
-					</Grid>
-				</Grid>
-			))}
+				)
+			})}
 		</Grid>
 	)
 }
