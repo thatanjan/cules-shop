@@ -58,19 +58,19 @@ const AccountEditForm = () => {
 
 	return (
 		<>
-			{/* {alertMessage && ( */}
-			{/* 	<CustomAlert */}
-			{/* 		checked */}
-			{/* 		variant='filled' */}
-			{/* 		severity='error' */}
-			{/* 		sx={{ marginTop: '1rem' }} */}
-			{/* 		onClose={() => { */}
-			{/* 			setAlertMessage('') */}
-			{/* 		}} */}
-			{/* 	> */}
-			{/* 		{alertMessage} */}
-			{/* 	</CustomAlert> */}
-			{/* )} */}
+			{alertMessage && (
+				<CustomAlert
+					checked
+					variant='filled'
+					severity='error'
+					sx={{ marginTop: '1rem' }}
+					onClose={() => {
+						setAlertMessage('')
+					}}
+				>
+					{alertMessage}
+				</CustomAlert>
+			)}
 
 			<Formik
 				initialValues={data.getMultipleProfile[0]}
@@ -91,14 +91,14 @@ const AccountEditForm = () => {
 						values: input,
 					})
 
-					// if (errorMessage) {
-					// 	setSubmitting(false)
-					// 	setAlertMessage(errorMessage)
-					// }
+					if (errorMessage) {
+						setSubmitting(false)
+						setAlertMessage(errorMessage)
+					}
 
-					// setTimeout(() => {
-					// 	setAlertMessage('')
-					// }, 3000)
+					setTimeout(() => {
+						setAlertMessage('')
+					}, 3000)
 				}}
 			>
 				{({ submitForm, isSubmitting }) => (
@@ -109,9 +109,7 @@ const AccountEditForm = () => {
 
 						<CustomField name='address.city' label='City' />
 
-						<CustomField name='address.state' label='State' />
-
-						<CustomField name='address.zip' label='Zip' />
+						<CustomField name='address.postal' label='Postal' />
 
 						<CustomField name='address.address' label='Address' />
 
