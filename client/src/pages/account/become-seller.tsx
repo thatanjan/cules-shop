@@ -10,9 +10,7 @@ import { UserPayload } from 'interfaces/authentication'
 
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
-interface Props {
-	
-}
+interface Props {}
 
 const BecomeSeller = (props: Props) => {
 	return (
@@ -35,9 +33,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 	const isValid = await checkValidJWT(jwt)
 
+	if (!isValid) return { props }
+
 	const { userID, sellerID } = jwtDecode<UserPayload>(jwt)
 
-	if (!isValid) return { props }
+	if (sellerID)
+		return { redirect: { destination: '/account', permanent: false } }
 
 	props = { userID, sellerID: sellerID || '' }
 
