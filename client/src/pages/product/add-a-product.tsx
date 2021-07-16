@@ -61,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 	const { userID, sellerID } = jwtDecode<UserPayload>(jwt)
 
-	if (sellerID)
+	if (!sellerID)
 		return { redirect: { destination: '/account', permanent: false } }
 
 	props = { userID, sellerID: sellerID || '' }
