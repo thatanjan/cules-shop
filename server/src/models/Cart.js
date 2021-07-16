@@ -5,7 +5,6 @@ const objectId = Schema.Types.ObjectId
 const product = {
 	id: {
 		type: objectId,
-		unique: true,
 		required: true,
 	},
 	quantity: {
