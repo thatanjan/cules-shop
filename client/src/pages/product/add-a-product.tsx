@@ -11,9 +11,15 @@ import { UserPayload } from 'interfaces/authentication'
 
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
-interface Props {}
+import { useStoreID } from 'redux/hooks/useUserHooks'
+
+interface Props {
+	userID: string
+	sellerID: string
+}
 
 const BecomeSeller = (props: Props) => {
+	useStoreID(props)
 	return (
 		<>
 			<Grid
