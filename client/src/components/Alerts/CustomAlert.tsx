@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import Alert from '@material-ui/core/Alert'
+import Alert, { AlertProps } from '@material-ui/core/Alert'
 import AlertTitle from '@material-ui/core/AlertTitle'
 import Slide from '@material-ui/core/Slide'
 import Collapse from '@material-ui/core/Collapse'
@@ -18,9 +18,9 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 )
 
-export interface Props {
+export interface Props extends AlertProps {
 	severity: 'error' | 'success' | 'info'
-	message: string
+	message?: string
 	checked: boolean
 }
 
@@ -28,6 +28,8 @@ export default function DescriptionAlerts({
 	severity,
 	message,
 	checked,
+	children,
+	...props
 }: Props) {
 	const classes = useStyles()
 
@@ -57,11 +59,12 @@ export default function DescriptionAlerts({
 								<CloseIcon fontSize='inherit' />
 							</IconButton>
 						}
+						{...props}
 					>
 						<AlertTitle style={{ textTransform: 'capitalize' }}>
 							{severity}
 						</AlertTitle>
-						{message}
+						{message || children}
 					</Alert>
 				</Collapse>
 			</div>
