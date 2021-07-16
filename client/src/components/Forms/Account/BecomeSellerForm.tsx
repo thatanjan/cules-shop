@@ -9,6 +9,7 @@ import { SellerProfile } from 'interfaces/profile'
 import { CommonResponse } from 'interfaces/global'
 
 import CustomField from 'components/Forms/Account/CustomField'
+import CustomAlert from 'components/Alerts/CustomAlert'
 
 import createRequest from 'graphql/createRequest'
 
@@ -17,8 +18,25 @@ import { becomeSeller } from 'graphql/mutations/profileMutations'
 const initialValues: SellerProfile = { company: '' }
 
 const BecomeSellerForm = () => {
+	const [alertMessage, setAlertMessage] = useState('')
+	const { push } = useRouter()
+
 	return (
-		<Box sx={{ width: '100%' }}>
+		<Box sx={{ width: '100%', margin: '2rem 0' }}>
+			{alertMessage && (
+				<CustomAlert
+					checked
+					variant='filled'
+					severity='error'
+					sx={{ margin: '1rem 0' }}
+					onClose={() => {
+						setAlertMessage('')
+					}}
+				>
+					{alertMessage}
+				</CustomAlert>
+			)}
+
 			<Formik
 				initialValues={initialValues}
 				validate={values => {
@@ -26,15 +44,31 @@ const BecomeSellerForm = () => {
 					return errors
 				}}
 				onSubmit={async (values, { setSubmitting }) => {
-					const data = await createRequest<
-						SellerProfile,
-						{ becomeSeller: CommonResponse }
-					>({ values, key: becomeSeller })
+					try {
+						const {
+							becomeSeller: { success, errorMessage },
+						} = await createRequest<SellerProfile, { becomeSeller: CommonResponse }>({
+							values,
+							key: becomeSeller,
+						})
 
-					setTimeout(() => {
+						if (success) {
+							setSubmitting(false)
+							push('/account')
+						}
+
+						if (errorMessage) {
+							setSubmitting(false)
+							setAlertMessage(errorMessage)
+						}
+					} catch (error) {
+						setAlertMessage(error.response.errors[0].message)
+						setTimeout(() => {
+							setAlertMessage('')
+						}, 3000)
+
 						setSubmitting(false)
-						alert(JSON.stringify(values, null, 2))
-					}, 500)
+					}
 				}}
 			>
 				{({ submitForm, isSubmitting }) => (
