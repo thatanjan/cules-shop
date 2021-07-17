@@ -23,6 +23,7 @@ interface Input {
 	description: string
 	quantity: number
 	category: string
+	price: number
 }
 
 const initialValues: Input = {
@@ -31,6 +32,7 @@ const initialValues: Input = {
 	description: '',
 	quantity: 0,
 	category: '',
+	price: 0,
 }
 
 interface SelectCategoryProps {
@@ -98,7 +100,8 @@ const CreateProductForm = () => {
 				}}
 				onSubmit={async (values, { setSubmitting }) => {
 					values.category = category
-					values.quantity = parseInt(values.quantity, 10)
+					values.quantity = parseInt(values.quantity.toString(), 10)
+					values.price = parseInt(values.price.toString(), 10)
 
 					try {
 						const {
@@ -110,7 +113,7 @@ const CreateProductForm = () => {
 
 						if (success) {
 							setSubmitting(false)
-							push('/account')
+							// push('/account')
 						}
 
 						if (errorMessage) {
@@ -145,6 +148,8 @@ const CreateProductForm = () => {
 						<CustomField name='description' label='Description' multiline rows={4} />
 
 						<CustomField name='quantity' label='Quantity' />
+
+						<CustomField name='price' label='Price' />
 
 						<SelectCategory {...{ category, setCategory }} />
 
