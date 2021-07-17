@@ -2,10 +2,9 @@ import React from 'react'
 import Image from 'next/image'
 import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
-import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
-import Box from '@material-ui/core/Box'
+
+import AddProductForm from 'components/Forms/Product/AddProductForm'
 
 import { UserPayload } from 'interfaces/authentication'
 
@@ -39,6 +38,8 @@ const BecomeSeller = (props: Props) => {
 						layout='responsive'
 					/>
 				</Grid>
+
+				<AddProductForm />
 			</Grid>
 		</>
 	)
