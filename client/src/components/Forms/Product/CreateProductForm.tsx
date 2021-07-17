@@ -1,5 +1,4 @@
 import { useState, ChangeEvent } from 'react'
-import { useRouter } from 'next/router'
 import { Formik, Form } from 'formik'
 import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
@@ -83,10 +82,13 @@ const SelectCategory = ({ category, setCategory }: SelectCategoryProps) => {
 	)
 }
 
-const CreateProductForm = () => {
+interface Props {
+	setCreated: Function
+}
+
+const CreateProductForm = ({ setCreated }: Props) => {
 	const [category, setCategory] = useState('')
 	const [alertMessage, setAlertMessage] = useState('')
-	const { push } = useRouter()
 	const dispatch = useAppDispatch()
 
 	const { file } = useProductState().upload
@@ -131,7 +133,7 @@ const CreateProductForm = () => {
 						if (success) {
 							setSubmitting(false)
 							dispatch(resetState())
-							// push('/account')
+							setCreated(true)
 						}
 
 						if (errorMessage) {

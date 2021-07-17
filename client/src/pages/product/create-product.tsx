@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
@@ -34,6 +34,14 @@ interface Props {
 
 const CreateProduct = (props: Props) => {
 	useStoreID(props)
+
+	const [created, setCreated] = useState(false)
+
+	useEffect(() => {
+		return () => {
+			setCreated(false)
+		}
+	}, [])
 
 	const { uploadModal, previewModal, previewLink } = useProductState().upload
 
@@ -74,28 +82,30 @@ const CreateProduct = (props: Props) => {
 					margin: '3rem 0',
 				}}
 			>
-				<Grid item xs={6} sm={4}>
-					<Image
-						src='/products/product.png'
-						height='1080'
-						width='1920'
-						layout='responsive'
-					/>
+				{!created && (
+					<Grid item xs={6} sm={4}>
+						<Image
+							src='/products/product.png'
+							height='1080'
+							width='1920'
+							layout='responsive'
+						/>
 
-					<Button
-						variant='contained'
-						sx={{ margin: '1rem 0' }}
-						onClick={() => dispatch(openUploadModal())}
-					>
-						Upload a Image
-					</Button>
+						<Button
+							variant='contained'
+							sx={{ margin: '1rem 0' }}
+							onClick={() => dispatch(openUploadModal())}
+						>
+							Upload a Image
+						</Button>
 
-					{uploadModal && <ImageUploadModal {...uploadModalProps} />}
+						{uploadModal && <ImageUploadModal {...uploadModalProps} />}
 
-					{previewModal && <UploadPreviewModal {...uploadPreviewProps} />}
-				</Grid>
+						{previewModal && <UploadPreviewModal {...uploadPreviewProps} />}
+					</Grid>
+				)}
 
-				<CreateProductForm />
+				{!created && <CreateProductForm setCreated={setCreated} />}
 			</Grid>
 		</>
 	)
