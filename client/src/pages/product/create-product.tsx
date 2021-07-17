@@ -4,6 +4,7 @@ import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
 
 import CreateProductForm from 'components/Forms/Product/CreateProductForm'
 import ImageUploadModal from 'components/Modals/ImageUploadModal'
@@ -20,7 +21,6 @@ import { useAppDispatch } from 'redux/hooks/appHooks'
 import {
 	openUploadModal,
 	closePreviewModal,
-	resetState,
 	closeUploadModal,
 	makeBase64Image,
 	openPreviewModal,
@@ -70,6 +70,22 @@ const CreateProduct = (props: Props) => {
 		openPreviewModal: (link: string) => dispatch(openPreviewModal(link)),
 		closeReset: () => {},
 	}
+
+	if (created)
+		return (
+			<Grid
+				sx={{ height: '100vh' }}
+				container
+				justifyItems='center'
+				alignItems='center'
+			>
+				<Grid item xs={12}>
+					<Typography align='center' variant='h3'>
+						Product Created Successfully
+					</Typography>
+				</Grid>
+			</Grid>
+		)
 
 	return (
 		<>
