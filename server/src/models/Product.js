@@ -11,7 +11,7 @@ const stringRequired = {
 }
 
 const schema = new Schema({
-	name: { ...stringRequired, unique: true },
+	name: stringRequired,
 	shortDescription: stringRequired,
 	description: stringRequired,
 	price: {
