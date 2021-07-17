@@ -12,7 +12,7 @@ const CustomField = ({ label, name, ...props }: CustomFieldProps) => {
 			{...{ name, label, ...props }}
 			component={TextField}
 			type='text'
-			sx={{ marginBottom: '1rem' }}
+			sx={{ marginBottom: '1rem', ...props.sx }}
 			fullWidth
 			variant='standard'
 		/>
