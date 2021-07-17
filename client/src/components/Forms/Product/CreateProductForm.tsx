@@ -20,14 +20,7 @@ import { useAppDispatch } from 'redux/hooks/appHooks'
 
 import { useGetAllCategoryNames } from 'hooks/swr/useProductHooks'
 
-import {
-	openUploadModal,
-	closePreviewModal,
-	resetState,
-	closeUploadModal,
-	makeBase64Image,
-	openPreviewModal,
-} from 'redux/slices/productSlice'
+import { resetState } from 'redux/slices/productSlice'
 
 interface Input {
 	name: string
@@ -36,6 +29,7 @@ interface Input {
 	quantity: number
 	category: string
 	price: number
+	image: ''
 }
 
 const initialValues: Input = {
@@ -45,6 +39,7 @@ const initialValues: Input = {
 	quantity: 0,
 	category: '',
 	price: 0,
+	image: '',
 }
 
 interface SelectCategoryProps {
@@ -114,7 +109,7 @@ const CreateProductForm = () => {
 
 			<Formik
 				initialValues={initialValues}
-				validate={values => {
+				validate={() => {
 					const errors: Partial<Input> = {}
 					return errors
 				}}
@@ -122,6 +117,8 @@ const CreateProductForm = () => {
 					values.category = category
 					values.quantity = parseInt(values.quantity.toString(), 10)
 					values.price = parseInt(values.price.toString(), 10)
+
+					values.image = file
 
 					try {
 						const {
@@ -133,6 +130,7 @@ const CreateProductForm = () => {
 
 						if (success) {
 							setSubmitting(false)
+							dispatch(resetState())
 							// push('/account')
 						}
 

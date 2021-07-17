@@ -8,6 +8,7 @@ export const createProduct = gql`
 		$quantity: Int!
 		$price: Int!
 		$category: ID!
+		$image: String!
 	) {
 		createProduct(
 			Input: {
@@ -17,6 +18,7 @@ export const createProduct = gql`
 				quantity: $quantity
 				category: $category
 				price: $price
+				image: $image
 			}
 		) {
 			success
