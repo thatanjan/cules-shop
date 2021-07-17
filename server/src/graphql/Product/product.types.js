@@ -8,6 +8,12 @@ const typeDefs = gql`
 	extend type Query {
 		getProducts(Input: GetProductInput!): [Product!]!
 		getProductDetails(productID: ID!): ProductDetails!
+		getAllCategoryNames: [AllCategoryNames!]
+	}
+
+	type AllCategoryNames {
+		name: String!
+		categoryID: ID!
 	}
 
 	type Product {
