@@ -15,6 +15,8 @@ import CustomAlert from 'components/Alerts/CustomAlert'
 import createRequest from 'graphql/createRequest'
 import { createProduct } from 'graphql/mutations/productMutations'
 
+import { useGetAllCategoryNames } from 'hooks/swr/useProductHooks'
+
 interface Input {
 	name: string
 	shortDescription: string
@@ -37,9 +39,16 @@ interface SelectCategoryProps {
 }
 
 const SelectCategory = ({ category, setCategory }: SelectCategoryProps) => {
-	const categories = [{ label: 'Electronics', value: '12121212121' }]
 	const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
 		setCategory(event.target.value as string)
+	}
+
+	let categories = []
+
+	const { data } = useGetAllCategoryNames()
+
+	if (data) {
+		categories = data.getAllCategoryNames
 	}
 
 	return (
@@ -52,8 +61,8 @@ const SelectCategory = ({ category, setCategory }: SelectCategoryProps) => {
 			name='category'
 		>
 			{categories.map(option => (
-				<MenuItem key={option.value} value={option.value}>
-					{option.label}
+				<MenuItem key={option.name} value={option.categoryID}>
+					{option.name}
 				</MenuItem>
 			))}
 		</CustomField>
@@ -89,6 +98,7 @@ const CreateProductForm = () => {
 				}}
 				onSubmit={async (values, { setSubmitting }) => {
 					values.category = category
+					values.quantity = parseInt(values.quantity, 10)
 
 					try {
 						const {
