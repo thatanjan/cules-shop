@@ -64,7 +64,7 @@ const SelectCategory = ({ category, setCategory }: SelectCategoryProps) => {
 	)
 }
 
-const AddProductForm = () => {
+const CreateProductForm = () => {
 	const [category, setCategory] = useState('')
 	const [alertMessage, setAlertMessage] = useState('')
 	const { push } = useRouter()
@@ -151,7 +151,7 @@ const AddProductForm = () => {
 							disabled={isSubmitting}
 							onClick={submitForm}
 						>
-							Add Product
+							Create Product
 						</Button>
 					</Form>
 				)}
@@ -160,4 +160,4 @@ const AddProductForm = () => {
 	)
 }
 
-export default AddProductForm
+export default CreateProductForm

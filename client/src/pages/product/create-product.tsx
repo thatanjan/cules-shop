@@ -4,7 +4,7 @@ import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
 import Grid from '@material-ui/core/Grid'
 
-import AddProductForm from 'components/Forms/Product/AddProductForm'
+import CreateProductForm from 'components/Forms/Product/CreateProductForm'
 
 import { UserPayload } from 'interfaces/authentication'
 
@@ -17,7 +17,7 @@ interface Props {
 	sellerID: string
 }
 
-const BecomeSeller = (props: Props) => {
+const CreateProduct = (props: Props) => {
 	useStoreID(props)
 	return (
 		<>
@@ -39,13 +39,13 @@ const BecomeSeller = (props: Props) => {
 					/>
 				</Grid>
 
-				<AddProductForm />
+				<CreateProductForm />
 			</Grid>
 		</>
 	)
 }
 
-export default BecomeSeller
+export default CreateProduct
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	const {
