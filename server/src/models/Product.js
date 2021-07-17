@@ -22,14 +22,6 @@ const schema = new Schema({
 		type: Number,
 		required: true,
 	},
-	totalBuyers: {
-		type: Number,
-		default: 0,
-	},
-	totalSold: {
-		type: Number,
-		default: 0,
-	},
 	seller: {
 		type: objectId,
 		required: true,
