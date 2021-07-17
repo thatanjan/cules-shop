@@ -6,6 +6,7 @@ export const createProduct = gql`
 		$shortDescription: String!
 		$description: String!
 		$quantity: Int!
+		$price: Int!
 		$category: ID!
 	) {
 		createProduct(
@@ -15,6 +16,7 @@ export const createProduct = gql`
 				description: $description
 				quantity: $quantity
 				category: $category
+				price: $price
 			}
 		) {
 			success
