@@ -24,7 +24,7 @@ const resolver = {
 
 				await product.save()
 
-				return { success: true }
+				return { success: true, productID: product._id }
 			} catch (__) {
 				return sendErrorMessage()
 			}
