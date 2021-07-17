@@ -1,12 +1,9 @@
 import { useState, ChangeEvent } from 'react'
 import { useRouter } from 'next/router'
-import { Formik, Form, Field, FieldAttributes } from 'formik'
+import { Formik, Form } from 'formik'
 import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
 
 import Box from '@material-ui/core/Box'
 
@@ -16,8 +13,7 @@ import CustomField from 'components/Forms/Account/CustomField'
 import CustomAlert from 'components/Alerts/CustomAlert'
 
 import createRequest from 'graphql/createRequest'
-
-import { becomeSeller } from 'graphql/mutations/profileMutations'
+import { createProduct } from 'graphql/mutations/productMutations'
 
 interface Input {
 	name: string
@@ -94,15 +90,12 @@ const CreateProductForm = () => {
 				onSubmit={async (values, { setSubmitting }) => {
 					values.category = category
 
-					console.log(values)
-					if (true) return true
-
 					try {
 						const {
-							becomeSeller: { success, errorMessage },
-						} = await createRequest<Input, { becomeSeller: CommonResponse }>({
+							createProduct: { success, errorMessage },
+						} = await createRequest<Input, { createProduct: CommonResponse }>({
 							values,
-							key: becomeSeller,
+							key: createProduct,
 						})
 
 						if (success) {
@@ -113,6 +106,10 @@ const CreateProductForm = () => {
 						if (errorMessage) {
 							setSubmitting(false)
 							setAlertMessage(errorMessage)
+
+							setTimeout(() => {
+								setAlertMessage('')
+							}, 3000)
 						}
 					} catch (error) {
 						setAlertMessage(error.response.errors[0].message)
