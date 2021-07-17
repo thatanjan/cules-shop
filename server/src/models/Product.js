@@ -27,6 +27,7 @@ const schema = new Schema({
 		required: true,
 	},
 	category: { type: objectId, required: true },
+	image: stringRequired,
 })
 
 const mongooseOptions = {
