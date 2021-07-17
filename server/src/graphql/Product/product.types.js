@@ -43,6 +43,7 @@ const typeDefs = gql`
 		quantity: Int!
 		category: ID!
 		price: Int!
+		image: String!
 	}
 `
 
