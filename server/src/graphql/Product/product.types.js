@@ -49,7 +49,7 @@ const typeDefs = gql`
 	type CreateProductResponse {
 		success: String
 		errorMessage: String
-		productID: String
+		productID: ID
 	}
 `
 
