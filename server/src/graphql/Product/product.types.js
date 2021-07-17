@@ -42,6 +42,7 @@ const typeDefs = gql`
 		description: String!
 		quantity: Int!
 		category: ID!
+		price: Int!
 	}
 `
 
