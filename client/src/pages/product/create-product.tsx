@@ -6,12 +6,26 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
 import CreateProductForm from 'components/Forms/Product/CreateProductForm'
+import ImageUploadModal from 'components/Modals/ImageUploadModal'
+import UploadPreviewModal from 'components/Modals/UploadPreviewModal'
 
 import { UserPayload } from 'interfaces/authentication'
 
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
 import { useStoreID } from 'redux/hooks/useUserHooks'
+import { useProductState } from 'redux/hooks/useSliceHooks'
+import { useAppDispatch } from 'redux/hooks/appHooks'
+
+import {
+	openUploadModal,
+	closePreviewModal,
+	resetState,
+	closeUploadModal,
+	makeBase64Image,
+	openPreviewModal,
+} from 'redux/slices/productSlice'
+import { Base64 } from 'interfaces/global'
 
 interface Props {
 	userID: string
@@ -20,6 +34,35 @@ interface Props {
 
 const CreateProduct = (props: Props) => {
 	useStoreID(props)
+
+	const { uploadModal, previewModal, previewLink } = useProductState().upload
+
+	const dispatch = useAppDispatch()
+
+	const handleDiscard = () => {
+		dispatch(closePreviewModal())
+		dispatch(openUploadModal())
+	}
+
+	const handleAccept = () => {
+		dispatch(closePreviewModal())
+	}
+
+	const uploadPreviewProps = {
+		previewLink,
+		previewModalOpen: previewModal,
+		handleDiscard,
+		handleAccept,
+	}
+
+	const uploadModalProps = {
+		closeModal: () => dispatch(closeUploadModal()),
+		uploadModal,
+		makeImage: (base64: Base64) => dispatch(makeBase64Image(base64)),
+		openPreviewModal: (link: string) => dispatch(openPreviewModal(link)),
+		closeReset: () => {},
+	}
+
 	return (
 		<>
 			<Grid
@@ -39,9 +82,17 @@ const CreateProduct = (props: Props) => {
 						layout='responsive'
 					/>
 
-					<Button variant='contained' sx={{ margin: '1rem 0' }}>
+					<Button
+						variant='contained'
+						sx={{ margin: '1rem 0' }}
+						onClick={() => dispatch(openUploadModal())}
+					>
 						Upload a Image
 					</Button>
+
+					{uploadModal && <ImageUploadModal {...uploadModalProps} />}
+
+					{previewModal && <UploadPreviewModal {...uploadPreviewProps} />}
 				</Grid>
 
 				<CreateProductForm />
