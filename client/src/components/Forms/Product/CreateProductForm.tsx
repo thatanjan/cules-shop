@@ -61,9 +61,14 @@ const SelectCategory = ({ category, setCategory }: SelectCategoryProps) => {
 			label='Category'
 			variant='filled'
 			name='category'
+			sx={{ '& .MuiSelect-select': { textTransform: 'capitalize' } }}
 		>
 			{categories.map(option => (
-				<MenuItem key={option.name} value={option.categoryID}>
+				<MenuItem
+					key={option.name}
+					value={option.categoryID}
+					sx={{ textTransform: 'capitalize' }}
+				>
 					{option.name}
 				</MenuItem>
 			))}
