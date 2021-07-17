@@ -1,8 +1,13 @@
-import { useState } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { useRouter } from 'next/router'
 import { Formik, Form, Field, FieldAttributes } from 'formik'
 import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
+
 import Box from '@material-ui/core/Box'
 
 import { CommonResponse } from 'interfaces/global'
@@ -30,7 +35,37 @@ const initialValues: Input = {
 	category: '',
 }
 
+interface SelectCategoryProps {
+	category: string
+	setCategory: Function
+}
+
+const SelectCategory = ({ category, setCategory }: SelectCategoryProps) => {
+	const categories = [{ label: 'Electronics', value: '12121212121' }]
+	const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
+		setCategory(event.target.value as string)
+	}
+
+	return (
+		<CustomField
+			select
+			value={category}
+			onChange={handleChange}
+			label='Category'
+			variant='filled'
+			name='category'
+		>
+			{categories.map(option => (
+				<MenuItem key={option.value} value={option.value}>
+					{option.label}
+				</MenuItem>
+			))}
+		</CustomField>
+	)
+}
+
 const AddProductForm = () => {
+	const [category, setCategory] = useState('')
 	const [alertMessage, setAlertMessage] = useState('')
 	const { push } = useRouter()
 
@@ -57,6 +92,8 @@ const AddProductForm = () => {
 					return errors
 				}}
 				onSubmit={async (values, { setSubmitting }) => {
+					values.category = category
+
 					console.log(values)
 					if (true) return true
 
@@ -102,7 +139,7 @@ const AddProductForm = () => {
 
 						<CustomField name='quantity' label='Quantity' />
 
-						<CustomField name='category' label='Category' />
+						<SelectCategory {...{ category, setCategory }} />
 
 						{isSubmitting && <LinearProgress />}
 
