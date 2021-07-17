@@ -15,7 +15,19 @@ import CustomAlert from 'components/Alerts/CustomAlert'
 import createRequest from 'graphql/createRequest'
 import { createProduct } from 'graphql/mutations/productMutations'
 
+import { useProductState } from 'redux/hooks/useSliceHooks'
+import { useAppDispatch } from 'redux/hooks/appHooks'
+
 import { useGetAllCategoryNames } from 'hooks/swr/useProductHooks'
+
+import {
+	openUploadModal,
+	closePreviewModal,
+	resetState,
+	closeUploadModal,
+	makeBase64Image,
+	openPreviewModal,
+} from 'redux/slices/productSlice'
 
 interface Input {
 	name: string
@@ -80,6 +92,9 @@ const CreateProductForm = () => {
 	const [category, setCategory] = useState('')
 	const [alertMessage, setAlertMessage] = useState('')
 	const { push } = useRouter()
+	const dispatch = useAppDispatch()
+
+	const { file } = useProductState().upload
 
 	return (
 		<Box sx={{ width: '100%', margin: '2rem 0' }}>
@@ -165,7 +180,7 @@ const CreateProductForm = () => {
 						<Button
 							variant='contained'
 							color='primary'
-							disabled={isSubmitting}
+							disabled={isSubmitting || !file}
 							onClick={submitForm}
 						>
 							Create Product
