@@ -3,6 +3,7 @@ import Image from 'next/image'
 import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
 import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
 import CreateProductForm from 'components/Forms/Product/CreateProductForm'
 
@@ -37,6 +38,10 @@ const CreateProduct = (props: Props) => {
 						width='1920'
 						layout='responsive'
 					/>
+
+					<Button variant='contained' sx={{ margin: '1rem 0' }}>
+						Upload a Image
+					</Button>
 				</Grid>
 
 				<CreateProductForm />
