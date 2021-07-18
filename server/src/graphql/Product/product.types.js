@@ -30,6 +30,7 @@ const typeDefs = gql`
 		seller: String!
 		price: Int!
 		quantity: Int!
+		image: String!
 	}
 
 	input GetProductInput {
