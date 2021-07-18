@@ -22,3 +22,13 @@ export const getProductDetails = gql`
 		}
 	}
 `
+
+export const isProductInTheCart = gql`
+	query isProductInTheCart($productID: ID!) {
+		isProductInTheCart(productID: $productID) {
+			exist
+			errorMessage
+			quantity
+		}
+	}
+`
