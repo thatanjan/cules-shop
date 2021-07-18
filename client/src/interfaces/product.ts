@@ -12,3 +12,9 @@ export interface GetProductDetailsResponse {
 	quantity: number
 	image: string
 }
+
+export interface IsProductInTheCartResponse {
+	exist: boolean
+	errorMessage: string
+	quantity: number
+}

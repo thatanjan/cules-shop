@@ -3,9 +3,14 @@ import useSWRgql from 'hooks/swr/useSWRgql'
 import {
 	getAllCategoryNames,
 	getProductDetails,
+	isProductInTheCart,
 } from 'graphql/queries/productQueries'
 
-import { AllCategoryName, GetProductDetailsResponse } from 'interfaces/product'
+import {
+	AllCategoryName,
+	GetProductDetailsResponse,
+	IsProductInTheCartResponse,
+} from 'interfaces/product'
 
 export const useGetAllCategoryNames = () =>
 	useSWRgql<{}, { getAllCategoryNames: AllCategoryName }>({
@@ -19,5 +24,14 @@ export const useGetProductDetails = (productID: string) =>
 		{ getProductDetails: GetProductDetailsResponse }
 	>({
 		key: getProductDetails,
+		values: { productID },
+	})
+
+export const useIsProductInTheCart = (productID: string) =>
+	useSWRgql<
+		{ productID: string },
+		{ isProductInTheCart: IsProductInTheCartResponse }
+	>({
+		key: isProductInTheCart,
 		values: { productID },
 	})
