@@ -8,3 +8,17 @@ export const getAllCategoryNames = gql`
 		}
 	}
 `
+
+export const getProductDetails = gql`
+	query getProductDetails($productID: ID!) {
+		getProductDetails(productID: $productID) {
+			name
+			description
+			category
+			seller
+			price
+			quantity
+			image
+		}
+	}
+`
