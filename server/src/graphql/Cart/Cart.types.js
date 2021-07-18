@@ -7,6 +7,15 @@ const typeDefs = gql`
 		removeProductFromCart(Input: RemoveProductFromCartInput): SuccessResponse!
 	}
 
+	extend type Query {
+		isProductInTheCart(productID: ID!): Exist!
+	}
+
+	type Exist {
+		exist: Boolean
+		errorMessage: String
+	}
+
 	input AddProductToCartInput {
 		productID: ID!
 		quantity: Int!
