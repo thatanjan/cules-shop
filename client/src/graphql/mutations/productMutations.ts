@@ -27,3 +27,12 @@ export const createProduct = gql`
 		}
 	}
 `
+
+export const removeProductFromCart = gql`
+	mutation removeProductFromCart($productID: ID!) {
+		removeProductFromCart(Input: { productID: $productID }) {
+			success
+			errorMessage
+		}
+	}
+`
