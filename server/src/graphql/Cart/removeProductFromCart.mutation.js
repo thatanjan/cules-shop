@@ -6,11 +6,11 @@ const resolvers = {
 		removeProductFromCart: async (
 			_,
 			{ Input: { productID } },
-			{ user: { id } }
+			{ user: { userID } }
 		) => {
 			try {
 				const removeProduct = await Cart.findOneAndUpdate(
-					{ user: id },
+					{ user: userID },
 					{
 						$pull: { products: { id: productID } },
 					},
@@ -28,7 +28,7 @@ const resolvers = {
 				}
 
 				const reduceTotalQuantity = await Cart.updateOne(
-					{ user: id },
+					{ user: userID },
 					{
 						$inc: {
 							totalQuantity: removeProduct.products[0].quantity * -1,

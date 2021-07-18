@@ -12,7 +12,7 @@ const resolver = {
 		modifyQuantity: async (
 			_,
 			{ Input: { type, amount, productID } },
-			{ user: { id } }
+			{ user: { userID } }
 		) => {
 			let updateAmount = 0
 
@@ -26,7 +26,7 @@ const resolver = {
 			}
 
 			const modifyQuantity = await Cart.updateOne(
-				{ user: id },
+				{ user: userID },
 				{
 					$inc: {
 						totalQuantity: updateAmount,

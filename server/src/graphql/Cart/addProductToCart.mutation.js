@@ -6,11 +6,11 @@ const resolvers = {
 		addProductToCart: async (
 			_,
 			{ Input: { productID, quantity } },
-			{ user: { id } }
+			{ user: { userID } }
 		) => {
 			try {
 				const addProduct = await Cart.updateOne(
-					{ user: id },
+					{ user: userID },
 					{
 						$push: { products: { id: productID, quantity } },
 						$inc: { totalQuantity: quantity },
