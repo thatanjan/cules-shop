@@ -14,21 +14,42 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import CompareIcon from '@material-ui/icons/Compare'
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart'
 
+import createRequest from 'graphql/createRequest'
+
+import { removeProductFromCart } from 'graphql/mutations/productMutations'
+
 import { useIsProductInTheCart } from 'hooks/swr/useProductHooks'
 
 import ProductQuantity from './ProductQuantity'
+
+import { CommonResponse } from 'interfaces/global'
 
 const CartPart = () => {
 	const {
 		query: { productID },
 	} = useRouter()
-	const { data } = useIsProductInTheCart(productID as string)
+	const { data, mutate } = useIsProductInTheCart(productID as string)
 
 	if (!data) return null
 
 	const {
 		isProductInTheCart: { exist, quantity },
 	} = data
+
+	const removeHandler = async () => {
+		try {
+			const {
+				removeProductFromCart: { success },
+			} = await createRequest<
+				{ productID: string },
+				{ removeProductFromCart: CommonResponse }
+			>({ key: removeProductFromCart, values: { productID: productID as string } })
+
+			if (success) mutate()
+		} catch (error) {}
+	}
+
+	const addHandler = async () => {}
 
 	return (
 		<>
@@ -39,6 +60,7 @@ const CartPart = () => {
 				variant='contained'
 				startIcon={exist ? <RemoveShoppingCartIcon /> : <AddShoppingCartIcon />}
 				fullWidth
+				onClick={exist ? removeHandler : addHandler}
 			>
 				{exist ? 'remove from the cart' : 'add to cart '}{' '}
 			</Button>
