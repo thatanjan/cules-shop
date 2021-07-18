@@ -6,10 +6,13 @@ import addProductToCartMutation from './addProductToCart.mutation'
 import modifyQuantityMutation from './modifyQuantity.mutation'
 import removeProductFromCartMutation from './removeProductFromCart.mutation'
 
+import isProductInTheCart from './isProductInTheCart.query'
+
 export const cartTypeDefs = [typeDefs]
 
 export const cartResolvers = merge(
 	addProductToCartMutation,
 	modifyQuantityMutation,
-	removeProductFromCartMutation
+	removeProductFromCartMutation,
+	isProductInTheCart
 )
