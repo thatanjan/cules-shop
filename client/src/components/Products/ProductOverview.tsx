@@ -14,7 +14,14 @@ import CompareIcon from '@material-ui/icons/Compare'
 
 import ProductQuantity from './ProductQuantity'
 
-const ProductOverview = () => {
+interface Props {
+	image: string
+	name: string
+	quantity: string
+	price: number
+}
+
+const ProductOverview = ({ image, name, quantity, price }: Props) => {
 	return (
 		<Grid container>
 			<Grid item xs={12}>
@@ -33,13 +40,13 @@ const ProductOverview = () => {
 					component='h1'
 					sx={{ textTransform: 'capitalize' }}
 				>
-					Purple solo 2 wireless
+					{name}
 				</Typography>
 
 				<Box sx={{ marginTop: '1rem' }}>
 					<Typography sx={{ display: 'inline' }}>Availability: </Typography>
 					<Typography sx={{ display: 'inline' }} color='limegreen'>
-						100 in strock
+						{quantity} in strock
 					</Typography>
 				</Box>
 
@@ -76,7 +83,7 @@ const ProductOverview = () => {
 				</List>
 
 				<Typography variant='h3' sx={{ marginTop: '3rem' }}>
-					$400
+					${price / 100}
 				</Typography>
 
 				<ProductQuantity />
