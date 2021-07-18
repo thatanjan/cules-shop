@@ -16,7 +16,10 @@ import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart'
 
 import createRequest from 'graphql/createRequest'
 
-import { removeProductFromCart } from 'graphql/mutations/productMutations'
+import {
+	removeProductFromCart,
+	addProductToCart,
+} from 'graphql/mutations/productMutations'
 
 import { useIsProductInTheCart } from 'hooks/swr/useProductHooks'
 
@@ -49,7 +52,21 @@ const CartPart = () => {
 		} catch (error) {}
 	}
 
-	const addHandler = async () => {}
+	const addHandler = async () => {
+		try {
+			const {
+				addProductToCart: { success },
+			} = await createRequest<
+				{ productID: string; quantity: number },
+				{ addProductToCart: CommonResponse }
+			>({
+				key: addProductToCart,
+				values: { productID: productID as string, quantity: 1 },
+			})
+
+			if (success) mutate()
+		} catch (error) {}
+	}
 
 	return (
 		<>
