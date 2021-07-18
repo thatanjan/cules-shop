@@ -21,7 +21,12 @@ interface Props {
 	price: number
 }
 
-const ProductOverview = ({ image, name, quantity, price }: Props) => {
+const ProductOverview = ({
+	image,
+	name,
+	quantity: productQuantity,
+	price,
+}: Props) => {
 	return (
 		<Grid container>
 			<Grid item xs={12}>
@@ -45,8 +50,11 @@ const ProductOverview = ({ image, name, quantity, price }: Props) => {
 
 				<Box sx={{ marginTop: '1rem' }}>
 					<Typography sx={{ display: 'inline' }}>Availability: </Typography>
-					<Typography sx={{ display: 'inline' }} color='limegreen'>
-						{quantity} in strock
+					<Typography
+						sx={{ display: 'inline' }}
+						color={productQuantity ? 'limegreen' : 'error'}
+					>
+						{productQuantity ? 'In Stock' : 'Out Of Stock'}
 					</Typography>
 				</Box>
 
