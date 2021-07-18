@@ -15,6 +15,8 @@ import ProductPreviewTabs from 'components/Tabs/ProductPreviewTabs'
 
 import { useStoreID } from 'redux/hooks/useUserHooks'
 
+import { useGetProductDetails } from 'hooks/swr/useProductHooks'
+
 import { UserPayload } from 'interfaces/authentication'
 
 import checkValidJWT from 'utils/auth/checkValidJWT'
@@ -34,9 +36,18 @@ interface Props {
 
 const Product = ({ productID, ...props }: Props) => {
 	useStoreID(props)
+
+	const { data } = useGetProductDetails(productID)
+
+	if (!data) return <>loading</>
+
+	const {
+		getProductDetails: { name, image, quantity, price },
+	} = data
+
 	return (
 		<>
-			<ProductOverview />
+			<ProductOverview {...{ name, image, quantity, price }} />
 
 			<ProductOverviewTabs />
 
