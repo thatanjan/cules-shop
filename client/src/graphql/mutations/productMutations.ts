@@ -23,6 +23,7 @@ export const createProduct = gql`
 		) {
 			success
 			errorMessage
+			productID
 		}
 	}
 `
