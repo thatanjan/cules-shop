@@ -41,6 +41,9 @@ export default shield(
 			modifyQuantity: and(isAuthenticated, canProductQuantityBeModified),
 			removeProductFromCart: and(isAuthenticated),
 		},
+		Query: {
+			isProductInTheCart: and(isAuthenticated),
+		},
 	},
 	{
 		allowExternalErrors: true,
