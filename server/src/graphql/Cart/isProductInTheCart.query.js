@@ -14,7 +14,8 @@ const resolver = {
 					}
 				)
 
-				if (userCart.products.length) return { exist: true }
+				if (userCart.products.length)
+					return { exist: true, quantity: userCart.products.quantity }
 
 				return { exist: false }
 			} catch (__) {

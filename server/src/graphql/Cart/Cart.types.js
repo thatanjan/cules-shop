@@ -14,6 +14,7 @@ const typeDefs = gql`
 	type Exist {
 		exist: Boolean
 		errorMessage: String
+		quantity: Int!
 	}
 
 	input AddProductToCartInput {
