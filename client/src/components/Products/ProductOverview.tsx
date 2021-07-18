@@ -1,5 +1,6 @@
 import Grid from '@material-ui/core/Grid'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
@@ -11,8 +12,39 @@ import { nanoid } from 'nanoid'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import CompareIcon from '@material-ui/icons/Compare'
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart'
+
+import { useIsProductInTheCart } from 'hooks/swr/useProductHooks'
 
 import ProductQuantity from './ProductQuantity'
+
+const CartPart = () => {
+	const {
+		query: { productID },
+	} = useRouter()
+	const { data } = useIsProductInTheCart(productID as string)
+
+	if (!data) return null
+
+	const {
+		isProductInTheCart: { exist, quantity },
+	} = data
+
+	return (
+		<>
+			<ProductQuantity />
+
+			<Button
+				sx={{ textTransform: 'capitalize', marginTop: '2rem', padding: '0.8rem' }}
+				variant='contained'
+				startIcon={exist ? <RemoveShoppingCartIcon /> : <AddShoppingCartIcon />}
+				fullWidth
+			>
+				{exist ? 'remove from the cart' : 'add to cart '}{' '}
+			</Button>
+		</>
+	)
+}
 
 interface Props {
 	image: string
@@ -94,16 +126,7 @@ const ProductOverview = ({
 					${price / 100}
 				</Typography>
 
-				<ProductQuantity />
-
-				<Button
-					sx={{ textTransform: 'capitalize', marginTop: '2rem', padding: '0.8rem' }}
-					variant='contained'
-					startIcon={<AddShoppingCartIcon />}
-					fullWidth
-				>
-					add to cart
-				</Button>
+				<CartPart />
 			</Grid>
 		</Grid>
 	)
