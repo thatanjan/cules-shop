@@ -1,6 +1,7 @@
 import { and, rule, shield } from 'graphql-shield'
 
 import Seller from 'models/Seller'
+import User from 'models/User'
 
 import { somethingWentWrong, sendShieldError } from 'utils/shieldError'
 
@@ -29,6 +30,12 @@ const isAuthenticated = rule()(async (_, __, { user, error }) => {
 	if (!user) {
 		return false
 	}
+
+	const { userID } = user
+
+	const doesUserExist = await User.findById(userID)
+
+	if (!doesUserExist) return false
 
 	return true
 })
