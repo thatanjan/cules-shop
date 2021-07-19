@@ -7,10 +7,12 @@ import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 
-interface Props {}
+interface Props {
+	quantity: number
+}
 
-const ProductQuantity = (props: Props) => {
-	const [quantity, setQuantity] = useState(0)
+const ProductQuantity = ({ quantity }: Props) => {
+	// const [quantity, setQuantity] = useState(0)
 	return (
 		<>
 			<ButtonGroup
@@ -20,12 +22,7 @@ const ProductQuantity = (props: Props) => {
 					'& .MuiTextField-root > label': { display: 'none' },
 				}}
 			>
-				<IconButton
-					color='primary'
-					component='span'
-					onClick={() => setQuantity(prev => prev + 1)}
-					size='small'
-				>
+				<IconButton color='primary' component='span' size='small'>
 					<AddIcon />
 				</IconButton>
 
@@ -43,7 +40,6 @@ const ProductQuantity = (props: Props) => {
 							},
 						},
 					}}
-					onChange={event => setQuantity(parseInt(event.target.value, 10))}
 				/>
 
 				<IconButton
@@ -51,7 +47,6 @@ const ProductQuantity = (props: Props) => {
 					component='span'
 					disabled={quantity <= 0}
 					size='small'
-					onClick={() => setQuantity(prev => prev - 1)}
 				>
 					<RemoveIcon />
 				</IconButton>
@@ -61,3 +56,7 @@ const ProductQuantity = (props: Props) => {
 }
 
 export default ProductQuantity
+
+// onClick={() => setQuantity(prev => prev + 1)}
+// onClick={() => setQuantity(prev => prev - 1)}
+// onChange={event => setQuantity(parseInt(event.target.value, 10))}
