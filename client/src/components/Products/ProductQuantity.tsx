@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import Button from '@material-ui/core/Button'
+import React from 'react'
+import { useRouter } from 'next/router'
 import TextField from '@material-ui/core/TextField'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import IconButton from '@material-ui/core/IconButton'
@@ -7,12 +7,40 @@ import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 
+import createRequest from 'graphql/createRequest'
+
+import { modifyQuantity } from 'graphql/mutations/productMutations'
+
+import { CommonResponse } from 'interfaces/global'
+
 interface Props {
 	quantity: number
 }
 
+const INCREASE = 'increase'
+const DECREASE = 'decrease'
+
+interface ModifyQuantityInput {
+	productID: string
+	type: typeof INCREASE | typeof DECREASE
+	amount: number
+}
+
 const ProductQuantity = ({ quantity }: Props) => {
-	// const [quantity, setQuantity] = useState(0)
+	const {
+		query: { productID },
+	} = useRouter()
+
+	const incrementQuantity = async () => {
+		const {} = await createRequest<
+			ModifyQuantityInput,
+			{ modifyQuantity: CommonResponse }
+		>({
+			key: modifyQuantity,
+			values: { productID: productID as string, type: INCREASE, amount: 1 },
+		})
+	}
+
 	return (
 		<>
 			<ButtonGroup
@@ -22,7 +50,12 @@ const ProductQuantity = ({ quantity }: Props) => {
 					'& .MuiTextField-root > label': { display: 'none' },
 				}}
 			>
-				<IconButton color='primary' component='span' size='small'>
+				<IconButton
+					color='primary'
+					component='span'
+					size='small'
+					onClick={incrementQuantity}
+				>
 					<AddIcon />
 				</IconButton>
 
@@ -56,7 +89,3 @@ const ProductQuantity = ({ quantity }: Props) => {
 }
 
 export default ProductQuantity
-
-// onClick={() => setQuantity(prev => prev + 1)}
-// onClick={() => setQuantity(prev => prev - 1)}
-// onChange={event => setQuantity(parseInt(event.target.value, 10))}
