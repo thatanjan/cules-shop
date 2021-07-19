@@ -45,3 +45,14 @@ export const addProductToCart = gql`
 		}
 	}
 `
+
+export const modifyQuantity = gql`
+	mutation modifyQuantity($productID: ID!, $type: String!, $amount: Int!) {
+		modifyQuantity(
+			Input: { productID: $productID, type: $type, amount: $amount }
+		) {
+			success
+			errorMessage
+		}
+	}
+`
