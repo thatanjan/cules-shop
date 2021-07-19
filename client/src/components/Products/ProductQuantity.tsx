@@ -15,6 +15,7 @@ import { CommonResponse } from 'interfaces/global'
 
 interface Props {
 	quantity: number
+	mutateQuantity: Function
 }
 
 const INCREASE = 'increase'
@@ -26,19 +27,23 @@ interface ModifyQuantityInput {
 	amount: number
 }
 
-const ProductQuantity = ({ quantity }: Props) => {
+const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 	const {
 		query: { productID },
 	} = useRouter()
 
 	const incrementQuantity = async () => {
-		const {} = await createRequest<
+		const {
+			modifyQuantity: { success },
+		} = await createRequest<
 			ModifyQuantityInput,
 			{ modifyQuantity: CommonResponse }
 		>({
 			key: modifyQuantity,
 			values: { productID: productID as string, type: INCREASE, amount: 1 },
 		})
+
+		if (success) mutateQuantity()
 	}
 
 	return (

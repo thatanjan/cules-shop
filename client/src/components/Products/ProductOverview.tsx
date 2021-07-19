@@ -70,7 +70,7 @@ const CartPart = () => {
 
 	return (
 		<>
-			{exist && <ProductQuantity quantity={quantity} />}
+			{exist && <ProductQuantity quantity={quantity} mutateQuantity={mutate} />}
 
 			<Button
 				sx={{ textTransform: 'capitalize', marginTop: '2rem', padding: '0.8rem' }}
