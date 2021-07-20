@@ -114,7 +114,9 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 						},
 					}}
 					helperText={quantityInput === 0 && 'Quantity must be more than 0'}
-					onChange={event => setQuantityInput(parseInt(event.target.value, 10))}
+					onChange={event =>
+						setQuantityInput(parseInt(event.target.value, 10) || '')
+					}
 					onBlur={modifyQuantityHandlerWithInput}
 				/>
 
