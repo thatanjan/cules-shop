@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import TextField from '@material-ui/core/TextField'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
@@ -34,6 +34,8 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 		query: { productID },
 	} = useRouter()
 
+	const [quantityInput, setQuantityInput] = useState(quantity || 0)
+
 	const modifyQuantityHandler = async (type: ModifyType, amount: number = 1) => {
 		const {
 			modifyQuantity: { success },
@@ -43,6 +45,34 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 		>({
 			key: modifyQuantity,
 			values: { productID: productID as string, type, amount },
+		})
+
+		if (success) mutateQuantity()
+	}
+
+	const modifyQuantityHandlerWithInput = async () => {
+		const difference = quantityInput - quantity
+
+		if (!difference) return false
+
+		let type: ModifyType = INCREASE
+
+		if (difference < 0) {
+			type = DECREASE
+		}
+
+		const {
+			modifyQuantity: { success },
+		} = await createRequest<
+			ModifyQuantityInput,
+			{ modifyQuantity: CommonResponse }
+		>({
+			key: modifyQuantity,
+			values: {
+				productID: productID as string,
+				type,
+				amount: Math.abs(difference),
+			},
 		})
 
 		if (success) mutateQuantity()
@@ -69,7 +99,7 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 				<TextField
 					variant='filled'
 					label='Quantity'
-					value={quantity}
+					value={quantityInput}
 					size='small'
 					InputProps={{
 						sx: {
@@ -80,6 +110,8 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 							},
 						},
 					}}
+					onChange={event => setQuantityInput(parseInt(event.target.value, 10))}
+					onBlur={modifyQuantityHandlerWithInput}
 				/>
 
 				<IconButton
