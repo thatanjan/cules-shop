@@ -21,9 +21,11 @@ interface Props {
 const INCREASE = 'increase'
 const DECREASE = 'decrease'
 
+type ModifyType = typeof INCREASE | typeof DECREASE
+
 interface ModifyQuantityInput {
 	productID: string
-	type: typeof INCREASE | typeof DECREASE
+	type: ModifyType
 	amount: number
 }
 
@@ -32,7 +34,7 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 		query: { productID },
 	} = useRouter()
 
-	const incrementQuantity = async () => {
+	const modifyQuantityHandler = async (type: ModifyType, amount: number = 1) => {
 		const {
 			modifyQuantity: { success },
 		} = await createRequest<
@@ -40,7 +42,7 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 			{ modifyQuantity: CommonResponse }
 		>({
 			key: modifyQuantity,
-			values: { productID: productID as string, type: INCREASE, amount: 1 },
+			values: { productID: productID as string, type, amount },
 		})
 
 		if (success) mutateQuantity()
@@ -59,7 +61,7 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 					color='primary'
 					component='span'
 					size='small'
-					onClick={incrementQuantity}
+					onClick={() => modifyQuantityHandler(INCREASE)}
 				>
 					<AddIcon />
 				</IconButton>
@@ -85,6 +87,7 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 					component='span'
 					disabled={quantity <= 0}
 					size='small'
+					onClick={() => modifyQuantityHandler(DECREASE)}
 				>
 					<RemoveIcon />
 				</IconButton>
