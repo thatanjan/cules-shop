@@ -34,7 +34,7 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 		query: { productID },
 	} = useRouter()
 
-	const [quantityInput, setQuantityInput] = useState(quantity || 0)
+	const [quantityInput, setQuantityInput] = useState<number | ''>(quantity || 0)
 
 	const modifyQuantityHandler = async (type: ModifyType, amount: number = 1) => {
 		const {
