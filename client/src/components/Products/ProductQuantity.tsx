@@ -51,6 +51,8 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 	}
 
 	const modifyQuantityHandlerWithInput = async () => {
+		if (quantityInput === 0) return false
+
 		const difference = quantityInput - quantity
 
 		if (!difference) return false
@@ -97,6 +99,7 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 				</IconButton>
 
 				<TextField
+					error={quantityInput === 0}
 					variant='filled'
 					label='Quantity'
 					value={quantityInput}
@@ -110,6 +113,7 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 							},
 						},
 					}}
+					helperText={quantityInput === 0 && 'Quantity must be more than 0'}
 					onChange={event => setQuantityInput(parseInt(event.target.value, 10))}
 					onBlur={modifyQuantityHandlerWithInput}
 				/>
