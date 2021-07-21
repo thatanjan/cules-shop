@@ -21,12 +21,12 @@ const typeDefs = gql`
 
 	type SellerName {
 		name: String!
-		sellerID: ID!
+		_id: ID!
 	}
 
 	type CategoryName {
 		name: String!
-		categoryID: ID!
+		_id: ID!
 	}
 
 	type CartProduct {
