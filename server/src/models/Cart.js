@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose'
+import Product from './Product'
 
 const objectId = Schema.Types.ObjectId
 
@@ -6,6 +7,7 @@ const product = {
 	id: {
 		type: objectId,
 		required: true,
+		ref: Product,
 	},
 	quantity: {
 		type: Number,
