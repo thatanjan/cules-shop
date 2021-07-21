@@ -4,7 +4,7 @@ import Product from './Product'
 const objectId = Schema.Types.ObjectId
 
 const product = {
-	id: {
+	productID: {
 		type: objectId,
 		required: true,
 		ref: Product,
