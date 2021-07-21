@@ -15,6 +15,7 @@ import { CommonResponse } from 'interfaces/global'
 
 interface Props {
 	quantity?: number
+	productID: string
 }
 
 const INCREASE = 'increase'
@@ -28,11 +29,7 @@ interface ModifyQuantityInput {
 	amount: number
 }
 
-const ProductQuantity = ({ quantity }: Props) => {
-	const {
-		query: { productID },
-	} = useRouter()
-
+const ProductQuantity = ({ quantity, productID }: Props) => {
 	const [quantityInput, setQuantityInput] = useState<number>(quantity || 0)
 
 	const modifyQuantityHandler = async (type: ModifyType, amount: number = 1) => {
@@ -43,7 +40,7 @@ const ProductQuantity = ({ quantity }: Props) => {
 			{ modifyQuantity: CommonResponse }
 		>({
 			key: modifyQuantity,
-			values: { productID: productID as string, type, amount },
+			values: { productID, type, amount },
 		})
 
 		if (success) return
@@ -70,7 +67,7 @@ const ProductQuantity = ({ quantity }: Props) => {
 		>({
 			key: modifyQuantity,
 			values: {
-				productID: productID as string,
+				productID,
 				type,
 				amount: Math.abs(difference),
 			},
