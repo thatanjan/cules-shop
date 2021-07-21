@@ -11,6 +11,31 @@ const typeDefs = gql`
 		isProductInTheCart(productID: ID!): Exist!
 		totalCartItems: TotalCartItems!
 		totalCartPrice: TotalCartPrice!
+		getAllCartProducts: GetAllCartProducts!
+	}
+
+	type GetAllCartProducts {
+		cartProducts: [CartProduct!]
+		errorMessage: String
+	}
+
+	type SellerName {
+		name: String!
+		sellerID: ID!
+	}
+
+	type CategoryName {
+		name: String!
+		categoryID: ID!
+	}
+
+	type CartProduct {
+		name: String!
+		image: String!
+		price: String!
+		_id: ID!
+		seller: SellerName!
+		category: CategoryName!
 	}
 
 	type Exist {
