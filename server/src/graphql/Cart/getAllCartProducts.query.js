@@ -5,7 +5,7 @@ const resolver = {
 	Query: {
 		getAllCartProducts: async (_, __, { user: { userID } }) => {
 			try {
-				const result = await Cart.findOne(
+				const { products } = await Cart.findOne(
 					{ user: userID },
 					'products.productID products.quantity'
 				).populate({
@@ -16,7 +16,12 @@ const resolver = {
 					},
 				})
 
-				console.log(JSON.stringify(result, undefined, 2))
+				const cartProducts = products.map(({ productID: product, quantity }) => {
+					product.userQuantity = quantity
+					return product
+				})
+
+				return { cartProducts }
 			} catch (e) {
 				console.log(e)
 				return sendErrorMessage()
