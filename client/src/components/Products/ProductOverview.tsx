@@ -70,7 +70,9 @@ const CartPart = () => {
 
 	return (
 		<>
-			{exist && <ProductQuantity quantity={quantity} mutateQuantity={mutate} />}
+			{exist && (
+				<ProductQuantity {...{ productID: productID as string, quantity }} />
+			)}
 
 			<Button
 				sx={{ textTransform: 'capitalize', marginTop: '2rem', padding: '0.8rem' }}
