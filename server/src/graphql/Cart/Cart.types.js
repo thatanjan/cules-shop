@@ -19,11 +19,6 @@ const typeDefs = gql`
 		errorMessage: String
 	}
 
-	type SellerName {
-		name: String!
-		_id: ID!
-	}
-
 	type CategoryName {
 		name: String!
 		_id: ID!
@@ -34,7 +29,6 @@ const typeDefs = gql`
 		image: String!
 		price: Int!
 		_id: ID!
-		seller: SellerName!
 		category: CategoryName!
 		userQuantity: Int!
 	}

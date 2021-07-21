@@ -11,8 +11,8 @@ const resolver = {
 				).populate({
 					path: 'products.productID',
 					populate: {
-						path: 'category seller',
-						select: '_id name company',
+						path: 'category',
+						select: '_id name',
 					},
 				})
 
