@@ -1,6 +1,9 @@
 import { Schema, createConnection } from 'mongoose'
 import { config } from 'dotenv'
 
+import Seller from 'models/Seller'
+import Category from 'models/Category'
+
 config()
 
 const objectId = Schema.Types.ObjectId
@@ -25,8 +28,13 @@ const schema = new Schema({
 	seller: {
 		type: objectId,
 		required: true,
+		ref: Seller,
 	},
-	category: { type: objectId, required: true },
+	category: {
+		type: objectId,
+		required: true,
+		ref: Category,
+	},
 	image: stringRequired,
 })
 
