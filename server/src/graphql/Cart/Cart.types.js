@@ -10,12 +10,18 @@ const typeDefs = gql`
 	extend type Query {
 		isProductInTheCart(productID: ID!): Exist!
 		totalCartItems: TotalCartItems!
+		totalCartPrice: TotalCartPrice!
 	}
 
 	type Exist {
 		exist: Boolean
 		errorMessage: String
 		quantity: Int
+	}
+
+	type TotalCartPrice {
+		totalPrice: Int
+		errorMessage: String
 	}
 
 	type TotalCartItems {
