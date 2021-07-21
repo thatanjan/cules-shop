@@ -19,6 +19,7 @@ import MuiLink from 'components/Links/MuiLink'
 
 import { useAppSelector } from 'redux/hooks/appHooks'
 import useLargerThanMD from 'hooks/mediaQueries/useLargerThanMD'
+import { useTotalCartItems } from 'hooks/swr/useCartHooks'
 
 const Drawer = dynamic(() => import('components/Drawers/AppDrawer'))
 const SearchBar = dynamic(() => import('./TopNavigationSearchBar'))
@@ -31,9 +32,17 @@ interface Props {
 }
 
 const CartMenu = () => {
+	const { data } = useTotalCartItems()
+
+	let totalItems: string | number = '0'
+
+	if (data) {
+		totalItems = data.totalCartItems.totalItems || totalItems
+	}
+
 	return (
 		<IconButton>
-			<Badge badgeContent={2} color='error'>
+			<Badge badgeContent={totalItems} color='error'>
 				<ShoppingCartIcon />
 			</Badge>
 		</IconButton>
