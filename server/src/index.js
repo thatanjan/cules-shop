@@ -10,6 +10,8 @@ import jwt from 'jsonwebtoken'
 import typeDefs from 'graphql/typeDefs'
 import resolvers from 'graphql/resolvers'
 
+import Product from 'models/Product'
+
 import permissions from 'config/permission'
 
 dotenv.config()
@@ -88,6 +90,24 @@ app.post('/validate', ({ body }, res) => {
 
 		res.status(200).send('calm down')
 	})
+})
+
+app.get('/doesProductExist', async ({ body }, res) => {
+	try {
+		const { productID } = body
+
+		if (!productID) res.status(401).send('No product id found')
+
+		const product = await Product.findById(productID, '_id')
+
+		if (!product) return res.status(401).send("product doesn't exist")
+
+		res.status(200).send('product found')
+
+		return true
+	} catch (e) {
+		return res.status(401).send('something went wrong')
+	}
 })
 
 const server = new ApolloServer({
