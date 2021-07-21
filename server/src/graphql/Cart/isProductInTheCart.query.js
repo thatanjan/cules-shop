@@ -9,7 +9,7 @@ const resolver = {
 					{ user: userID },
 					{
 						products: {
-							$elemMatch: { id: { $eq: productID } },
+							$elemMatch: { productID: { $eq: productID } },
 						},
 					}
 				)

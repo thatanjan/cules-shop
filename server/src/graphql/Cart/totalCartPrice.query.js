@@ -7,9 +7,9 @@ const resolver = {
 			try {
 				const { products } = await Cart.findOne(
 					{ user: userID },
-					'products.id products.quantity'
+					'products.productID products.quantity'
 				).populate({
-					path: 'products.id',
+					path: 'products.productID',
 					select: 'price',
 				})
 
@@ -17,7 +17,7 @@ const resolver = {
 
 				products.forEach(product => {
 					const userProductQuantity = product.quantity
-					const productPrice = product.id.price
+					const productPrice = product.productID.price
 
 					totalPrice += userProductQuantity * productPrice
 				})

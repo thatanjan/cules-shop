@@ -18,7 +18,7 @@ const canProductBeAddedToCart = rule()(
 				{ user: userID },
 				{
 					products: {
-						$elemMatch: { id: { $eq: productID } },
+						$elemMatch: { productID: { $eq: productID } },
 					},
 				}
 			)
@@ -56,7 +56,7 @@ const canProductQuantityBeModified = rule()(
 				{ user: userID },
 				{
 					products: {
-						$elemMatch: { id: { $eq: productID } },
+						$elemMatch: { productID: { $eq: productID } },
 					},
 				}
 			)

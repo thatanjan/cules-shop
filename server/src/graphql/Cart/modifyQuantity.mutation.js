@@ -33,7 +33,7 @@ const resolver = {
 						'products.$[product].quantity': updateAmount,
 					},
 				},
-				{ arrayFilters: [{ 'product.id': { $eq: productID } }] }
+				{ arrayFilters: [{ 'product.productID': { $eq: productID } }] }
 			)
 
 			if (!modifyQuantity.nModified) return sendErrorMessage()

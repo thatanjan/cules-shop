@@ -12,12 +12,12 @@ const resolvers = {
 				const removeProduct = await Cart.findOneAndUpdate(
 					{ user: userID },
 					{
-						$pull: { products: { id: productID } },
+						$pull: { products: { productID: productID } },
 					},
 					{
 						projection: {
 							products: {
-								$elemMatch: { id: { $eq: productID } },
+								$elemMatch: { productID: { $eq: productID } },
 							},
 						},
 					}
