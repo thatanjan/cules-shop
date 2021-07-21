@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
 import SwiperCore, {
@@ -58,10 +59,33 @@ const Product = ({ productID, ...props }: Props) => {
 
 export default Product
 
+const validateProduct = async (productID: string) => {
+	try {
+		const { data } = await axios.get(
+			process.env.NEXT_PUBLIC_SERVER_PRODUCT_VALIDATE,
+			{
+				data: { productID },
+			}
+		)
+
+		if (data) return true
+
+		return false
+	} catch (error) {
+		return false
+	}
+}
+
 export const getServerSideProps: GetServerSideProps = async ({
 	req,
 	query: { productID },
 }) => {
+	const isValidProduct = await validateProduct(productID as string)
+
+	if (!isValidProduct) {
+		return { redirect: { destination: '/404', permanent: false } }
+	}
+
 	const {
 		cookies: { jwt },
 	} = req
