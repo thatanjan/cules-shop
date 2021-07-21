@@ -8,3 +8,12 @@ export const totalCartItems = gql`
 		}
 	}
 `
+
+export const totalCartPrice = gql`
+	query totalCartPrice {
+		totalCartPrice {
+			totalPrice
+			errorMessage
+		}
+	}
+`
