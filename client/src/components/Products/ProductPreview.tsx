@@ -10,15 +10,24 @@ import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
+import { CartProduct } from 'interfaces/cart'
+
 const ProductQuantity = dynamic(() => import('./ProductQuantity'))
 const DeleteFromCart = dynamic(() => import('components/Cart/DeleteFromCart'))
 
-export interface Props {
+export interface Props extends CartProduct {
 	twoColumn?: boolean
 	cartPage?: boolean
 }
 
-const ProductPreview = ({ twoColumn, cartPage }: Props) => {
+const ProductPreview = ({
+	twoColumn,
+	cartPage,
+	name,
+	category,
+	price,
+	userQuantity,
+}: Props) => {
 	return (
 		<Card
 			sx={{
@@ -45,8 +54,8 @@ const ProductPreview = ({ twoColumn, cartPage }: Props) => {
 
 			<Box sx={{ flexGrow: 1 }}>
 				<CardHeader
-					title='Lenovo Lp2'
-					subheader='Head Phones'
+					title={name}
+					subheader={category.name}
 					subheaderTypographyProps={{
 						color: 'secondary',
 						variant: 'body2',
@@ -65,7 +74,7 @@ const ProductPreview = ({ twoColumn, cartPage }: Props) => {
 				>
 					<Grid item>
 						<Typography component='h5' variant='subtitle1' color='secondary'>
-							$100
+							${`${price / 100}`}
 						</Typography>
 					</Grid>
 
@@ -77,7 +86,7 @@ const ProductPreview = ({ twoColumn, cartPage }: Props) => {
 
 					<Grid item>
 						{cartPage ? (
-							<ProductQuantity />
+							<ProductQuantity quantity={userQuantity} />
 						) : (
 							<IconButton>
 								<AddShoppingCartIcon />
