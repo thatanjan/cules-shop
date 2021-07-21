@@ -14,8 +14,7 @@ import { modifyQuantity } from 'graphql/mutations/productMutations'
 import { CommonResponse } from 'interfaces/global'
 
 interface Props {
-	quantity: number
-	mutateQuantity: Function
+	quantity?: number
 }
 
 const INCREASE = 'increase'
@@ -29,7 +28,7 @@ interface ModifyQuantityInput {
 	amount: number
 }
 
-const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
+const ProductQuantity = ({ quantity }: Props) => {
 	const {
 		query: { productID },
 	} = useRouter()
@@ -47,7 +46,7 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 			values: { productID: productID as string, type, amount },
 		})
 
-		if (success) mutateQuantity()
+		if (success) return
 	}
 
 	const modifyQuantityHandlerWithInput = async () => {
@@ -77,7 +76,7 @@ const ProductQuantity = ({ quantity, mutateQuantity }: Props) => {
 			},
 		})
 
-		if (success) mutateQuantity()
+		if (success) return
 	}
 
 	return (
