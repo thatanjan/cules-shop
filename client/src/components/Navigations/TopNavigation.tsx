@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import AppBar from '@material-ui/core/AppBar'
 import Box from '@material-ui/core/Box'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -32,6 +33,7 @@ interface Props {
 }
 
 const CartMenu = () => {
+	const { push } = useRouter()
 	const { data } = useTotalCartItems()
 
 	let totalItems: string | number = '0'
@@ -41,7 +43,7 @@ const CartMenu = () => {
 	}
 
 	return (
-		<IconButton>
+		<IconButton onClick={() => push('/cart')}>
 			<Badge badgeContent={totalItems} color='error'>
 				<ShoppingCartIcon />
 			</Badge>
