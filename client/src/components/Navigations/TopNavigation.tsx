@@ -6,9 +6,9 @@ import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import Typography from '@material-ui/core/Typography'
+import Badge from '@material-ui/core/Badge'
 
 import ClearIcon from '@material-ui/icons/Clear'
-import PersonIcon from '@material-ui/icons/Person'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import SearchIcon from '@material-ui/icons/Search'
 
@@ -28,6 +28,16 @@ type CallBack = (val: boolean) => boolean
 interface Props {
 	showSearchBar: boolean
 	setShowSearchBar: (callBack: CallBack) => void
+}
+
+const CartMenu = () => {
+	return (
+		<IconButton>
+			<Badge badgeContent={2} color='error'>
+				<ShoppingCartIcon />
+			</Badge>
+		</IconButton>
+	)
 }
 
 const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
@@ -74,9 +84,7 @@ const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 
 						<AccountMenu />
 
-						<IconButton>
-							<ShoppingCartIcon />
-						</IconButton>
+						<CartMenu />
 					</Toolbar>
 				</AppBar>
 			</Box>
