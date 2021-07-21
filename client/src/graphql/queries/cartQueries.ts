@@ -17,3 +17,22 @@ export const totalCartPrice = gql`
 		}
 	}
 `
+
+export const getAllCartProducts = gql`
+	query getAllCartProducts {
+		getAllCartProducts {
+			cartProducts {
+				name
+				image
+				price
+				_id
+				userQuantity
+				category {
+					name
+					_id
+				}
+			}
+			errorMessage
+		}
+	}
+`
