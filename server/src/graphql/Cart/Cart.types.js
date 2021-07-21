@@ -32,10 +32,11 @@ const typeDefs = gql`
 	type CartProduct {
 		name: String!
 		image: String!
-		price: String!
+		price: Int!
 		_id: ID!
 		seller: SellerName!
 		category: CategoryName!
+		userQuantity: Int!
 	}
 
 	type Exist {
