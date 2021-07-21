@@ -9,6 +9,7 @@ import removeProductFromCartMutation from './removeProductFromCart.mutation'
 import isProductInTheCart from './isProductInTheCart.query'
 import totalCartItems from './totalCartItems.query'
 import totalCartPrice from './totalCartPrice.query'
+import getAllCartProducts from './getAllCartProducts.query'
 
 export const cartTypeDefs = [typeDefs]
 
@@ -18,5 +19,6 @@ export const cartResolvers = merge(
 	removeProductFromCartMutation,
 	isProductInTheCart,
 	totalCartItems,
-	totalCartPrice
+	totalCartPrice,
+	getAllCartProducts
 )
