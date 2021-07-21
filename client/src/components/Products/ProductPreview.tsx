@@ -27,6 +27,7 @@ const ProductPreview = ({
 	category,
 	price,
 	userQuantity,
+	_id,
 }: Props) => {
 	return (
 		<Card
@@ -86,7 +87,7 @@ const ProductPreview = ({
 
 					<Grid item>
 						{cartPage ? (
-							<ProductQuantity quantity={userQuantity} />
+							<ProductQuantity productID={_id} quantity={userQuantity} />
 						) : (
 							<IconButton>
 								<AddShoppingCartIcon />
