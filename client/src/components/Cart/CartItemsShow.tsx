@@ -15,28 +15,30 @@ const CartItemsShow = (props: Props) => {
 
 	if (!data) return <CustomBackdrop />
 
+	const {
+		getAllCartProducts: { cartProducts },
+	} = data
+
 	return (
 		<>
 			<Grid container>
-				{Array(10)
-					.fill(0)
-					.map(() => (
-						<Grid
-							key={nanoid()}
-							item
-							xs={6}
-							sm={4}
-							md={3}
-							sx={{
-								'@media only screen and (max-width: 350px)': {
-									flexBasis: '100%',
-									maxWidth: '100%',
-								},
-							}}
-						>
-							<ProductPreview cartPage />
-						</Grid>
-					))}
+				{cartProducts.map(product => (
+					<Grid
+						key={nanoid()}
+						item
+						xs={6}
+						sm={4}
+						md={3}
+						sx={{
+							'@media only screen and (max-width: 350px)': {
+								flexBasis: '100%',
+								maxWidth: '100%',
+							},
+						}}
+					>
+						<ProductPreview cartPage {...product} />
+					</Grid>
+				))}
 			</Grid>
 			<Pagination getRedirectLink={(value: number) => `/cart?query=${value}`} />
 		</>
