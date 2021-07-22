@@ -14,7 +14,10 @@ export const getProductDetails = gql`
 		getProductDetails(productID: $productID) {
 			name
 			description
-			category
+			category {
+				name
+				_id
+			}
 			seller
 			price
 			quantity
