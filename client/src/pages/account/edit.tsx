@@ -14,10 +14,14 @@ import UploadAlert, { Props as AlertProps } from 'components/Alerts/CustomAlert'
 import AccountAvatar from 'components/Avatar/AccountAvatar'
 import AccountEditForm from 'components/Forms/Account/AccountEditForm'
 import ImageUploadModal from 'components/Modals/ImageUploadModal'
+import CustomBackdrop from 'components/Loaders/CustomBackdrop'
 import UploadPreviewModal from 'components/Modals/UploadPreviewModal'
 
 import { useAppDispatch, useAppSelector } from 'redux/hooks/appHooks'
 import { useStoreID } from 'redux/hooks/useUserHooks'
+import { useUserState } from 'redux/hooks/useSliceHooks'
+
+import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
 
 import {
 	openUploadModal,
@@ -47,6 +51,15 @@ const EditProfile = (props: Props) => {
 	} = useAppSelector(({ profile }) => profile.upload)
 
 	useStoreID(props)
+
+	const { userID } = useUserState()
+	const { data, error } = useGetMultipleProfile([userID])
+
+	if (!data) return <CustomBackdrop />
+
+	const {
+		getMultipleProfile: [{ name, profilePicture }],
+	} = data
 
 	const dispatch = useAppDispatch()
 
@@ -91,12 +104,12 @@ const EditProfile = (props: Props) => {
 				}}
 			>
 				<Grid item xs={6} sm={4}>
-					<AccountAvatar />
+					<AccountAvatar name={name} src={profilePicture} />
 				</Grid>
 
 				<Grid item xs={12} sm={6} sx={{ marginTop: { xs: '1rem', sm: 0 } }}>
 					<Typography variant='h2' component='h1' align='center'>
-						Taylor swift
+						{name}
 					</Typography>
 
 					<Box sx={{ display: 'grid', placeItems: 'center', marginTop: '1rem' }}>
