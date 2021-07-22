@@ -16,17 +16,20 @@ const typeDefs = gql`
 		categoryID: ID!
 	}
 
+	"""
+	CategoryName  has come from car.types.js file
+	"""
 	type Product {
 		name: String!
 		shortDescription: String!
-		category: String!
+		category: CategoryName!
 		seller: String!
 	}
 
 	type ProductDetails {
 		name: String!
 		description: String!
-		category: String!
+		category: CategoryName!
 		seller: String!
 		price: Int!
 		quantity: Int!
