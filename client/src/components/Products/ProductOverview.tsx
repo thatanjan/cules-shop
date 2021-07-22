@@ -92,7 +92,7 @@ const CartPart = () => {
 interface Props {
 	image: string
 	name: string
-	quantity: string
+	quantity: number
 	price: number
 }
 
