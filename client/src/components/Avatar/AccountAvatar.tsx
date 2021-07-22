@@ -6,6 +6,7 @@ import clsx from 'clsx'
 
 interface Props {
 	small?: boolean
+	src: string
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -30,13 +31,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 }))
 
-const AccountAvatar = ({ small }: Props) => {
+const AccountAvatar = ({ small, src }: Props) => {
 	const { container, smallAvatarStyle, breakpointStyles } = useStyles()
 
 	return (
 		<Box className={clsx(container, small ? smallAvatarStyle : breakpointStyles)}>
 			<Image
-				src='/ts.jpg'
+				src={src}
 				layout='responsive'
 				height={100}
 				width={100}
