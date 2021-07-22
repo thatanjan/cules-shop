@@ -2,7 +2,7 @@ import React from 'react'
 import { mutate } from 'swr'
 import Button from '@material-ui/core/Button'
 
-import { totalCartItems, getAllCartProducts } from 'graphql/queries/cartQueries'
+import { getAllCartProducts } from 'graphql/queries/cartQueries'
 import createRequest from 'graphql/createRequest'
 
 import { removeProductFromCart } from 'graphql/mutations/productMutations'
@@ -24,7 +24,7 @@ const DeleteFromCart = ({ productID }: Props) => {
 				{ removeProductFromCart: CommonResponse }
 			>({ key: removeProductFromCart, values: { productID } })
 
-			if (success) mutate(getAllCartProducts)
+			if (success) mutate([getAllCartProducts, undefined])
 		} catch (error) {}
 	}
 
