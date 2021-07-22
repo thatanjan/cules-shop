@@ -10,6 +10,10 @@ import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
+import { Props as ProductQuantityProps } from 'components/Products/ProductQuantity'
+
+import { useIsProductInTheCart } from 'hooks/swr/useProductHooks'
+
 import { CartProduct } from 'interfaces/cart'
 
 const ProductQuantity = dynamic(() => import('./ProductQuantity'))
@@ -18,6 +22,20 @@ const DeleteFromCart = dynamic(() => import('components/Cart/DeleteFromCart'))
 export interface Props extends CartProduct {
 	twoColumn?: boolean
 	cartPage?: boolean
+}
+
+const ProductQuantityContainer = (props: ProductQuantityProps) => {
+	const { data, mutate } = useIsProductInTheCart(props.productID as string)
+
+	return (
+		<ProductQuantity
+			{...{
+				...props,
+				quantity: data ? data.isProductInTheCart.quantity : props.quantity,
+				mutateQuantity: mutate,
+			}}
+		/>
+	)
 }
 
 const ProductPreview = ({
@@ -87,7 +105,7 @@ const ProductPreview = ({
 
 					<Grid item>
 						{cartPage ? (
-							<ProductQuantity productID={_id} quantity={userQuantity} />
+							<ProductQuantityContainer productID={_id} quantity={userQuantity} />
 						) : (
 							<IconButton>
 								<AddShoppingCartIcon />
