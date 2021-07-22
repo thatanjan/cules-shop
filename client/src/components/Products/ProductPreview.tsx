@@ -99,7 +99,7 @@ const ProductPreview = ({
 
 					{cartPage && (
 						<Grid item>
-							<DeleteFromCart />
+							<DeleteFromCart productID={_id} />
 						</Grid>
 					)}
 
