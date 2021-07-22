@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useRouter } from 'next/router'
+import React, { useState, useEffect } from 'react'
 import TextField from '@material-ui/core/TextField'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import IconButton from '@material-ui/core/IconButton'
@@ -8,7 +7,6 @@ import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 
 import createRequest from 'graphql/createRequest'
-
 import { modifyQuantity } from 'graphql/mutations/productMutations'
 
 import { CommonResponse } from 'interfaces/global'
@@ -32,6 +30,10 @@ interface ModifyQuantityInput {
 
 const ProductQuantity = ({ quantity, productID, mutateQuantity }: Props) => {
 	const [quantityInput, setQuantityInput] = useState<number>(quantity || 0)
+
+	useEffect(() => {
+		setQuantityInput(quantity)
+	}, [quantity])
 
 	const modifyQuantityHandler = async (type: ModifyType, amount: number = 1) => {
 		const {
