@@ -14,6 +14,9 @@ import { CommonResponse } from 'interfaces/global'
 export interface Props {
 	quantity?: number
 	productID: string
+}
+
+interface PropsWithMutate extends Props {
 	mutateQuantity: Function
 }
 
@@ -28,7 +31,11 @@ interface ModifyQuantityInput {
 	amount: number
 }
 
-const ProductQuantity = ({ quantity, productID, mutateQuantity }: Props) => {
+const ProductQuantity = ({
+	quantity,
+	productID,
+	mutateQuantity,
+}: PropsWithMutate) => {
 	const [quantityInput, setQuantityInput] = useState<number>(quantity || 0)
 
 	useEffect(() => {
