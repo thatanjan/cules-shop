@@ -52,7 +52,7 @@ const Product = ({ productID, ...props }: Props) => {
 
 			<ProductOverviewTabs />
 
-			<ProductPreviewTabs tabNames={['related products']} />
+			{/* <ProductPreviewTabs tabNames={['related products']} /> */}
 		</>
 	)
 }
