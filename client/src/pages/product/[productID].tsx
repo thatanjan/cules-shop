@@ -13,6 +13,7 @@ import SwiperCore, {
 import ProductOverviewTabs from 'components/Tabs/ProductOverviewTabs'
 import ProductOverview from 'components/Products/ProductOverview'
 import ProductPreviewTabs from 'components/Tabs/ProductPreviewTabs'
+import CustomBackdrop from 'components/Loaders/CustomBackdrop'
 
 import { useStoreID } from 'redux/hooks/useUserHooks'
 
@@ -40,7 +41,7 @@ const Product = ({ productID, ...props }: Props) => {
 
 	const { data } = useGetProductDetails(productID)
 
-	if (!data) return <>loading</>
+	if (!data) return <CustomBackdrop />
 
 	const {
 		getProductDetails: { name, image, quantity, price },
