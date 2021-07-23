@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { mutate } from 'swr'
 import TextField from '@material-ui/core/TextField'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import IconButton from '@material-ui/core/IconButton'
@@ -8,6 +9,7 @@ import RemoveIcon from '@material-ui/icons/Remove'
 
 import createRequest from 'graphql/createRequest'
 import { modifyQuantity } from 'graphql/mutations/productMutations'
+import { totalCartPrice } from 'graphql/queries/cartQueries'
 
 import { CommonResponse } from 'interfaces/global'
 
@@ -53,7 +55,10 @@ const ProductQuantity = ({
 			values: { productID, type, amount },
 		})
 
-		if (success) mutateQuantity()
+		if (success) {
+			mutateQuantity()
+			mutate([totalCartPrice, undefined])
+		}
 	}
 
 	const modifyQuantityHandlerWithInput = async () => {
@@ -83,7 +88,10 @@ const ProductQuantity = ({
 			},
 		})
 
-		if (success) mutateQuantity()
+		if (success) {
+			mutateQuantity()
+			mutate([totalCartPrice, undefined])
+		}
 	}
 
 	return (
