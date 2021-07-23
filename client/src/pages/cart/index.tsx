@@ -1,14 +1,16 @@
 import React from 'react'
+import dynamic from 'next/dynamic'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
-import CartItemsShow from 'components/Cart/CartItemsShow'
-import CartTotal from 'components/Cart/CartTotal'
-import CoupnInput from 'components/Cart/CoupnInput'
 import CustomBackdrop from 'components/Loaders/CustomBackdrop'
 
 import { useGetAllCartProducts } from 'hooks/swr/useCartHooks'
+
+const CartItemsShow = dynamic(() => import('components/Cart/CartItemsShow'))
+const CartTotal = dynamic(() => import('components/Cart/CartTotal'))
+const CoupnInput = dynamic(() => import('components/Cart/CoupnInput'))
 
 interface Props {}
 
