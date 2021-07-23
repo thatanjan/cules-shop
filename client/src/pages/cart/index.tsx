@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
 import CustomBackdrop from 'components/Loaders/CustomBackdrop'
+import MuiLink from 'components/Links/MuiLink'
 
 import { useGetAllCartProducts } from 'hooks/swr/useCartHooks'
 
@@ -16,9 +17,10 @@ interface Props {}
 
 interface CustomButtonProps {
 	children: React.ReactNode
+	href: string
 }
 
-const CustomButton = ({ children }: CustomButtonProps) => {
+const CustomButton = ({ children, href }: CustomButtonProps) => {
 	return (
 		<Grid
 			item
@@ -26,9 +28,9 @@ const CustomButton = ({ children }: CustomButtonProps) => {
 			sm={5}
 			sx={{ marginBottom: '.5rem', marginLeft: { sm: '1rem' } }}
 		>
-			<Button variant='contained' fullWidth>
+			<MuiLink MuiComponent={Button} variant='contained' fullWidth href={href}>
 				{children}
-			</Button>
+			</MuiLink>
 		</Grid>
 	)
 }
@@ -63,8 +65,8 @@ const CartPage = (props: Props) => {
 							justifyContent='flex-end'
 							alignItems='center'
 						>
-							<CustomButton>Update Cart</CustomButton>
-							<CustomButton>Procced to checkout</CustomButton>
+							<CustomButton href='/cart'>Update Cart</CustomButton>
+							<CustomButton href='/checkout'>Procced to checkout</CustomButton>
 						</Grid>
 					</Grid>
 
