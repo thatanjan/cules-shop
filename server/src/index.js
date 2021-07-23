@@ -11,6 +11,7 @@ import typeDefs from 'graphql/typeDefs'
 import resolvers from 'graphql/resolvers'
 
 import Product from 'models/Product'
+import Category from 'models/Category'
 
 import permissions from 'config/permission'
 
@@ -103,6 +104,24 @@ app.get('/doesProductExist', async ({ body }, res) => {
 		if (!product) return res.status(401).send("product doesn't exist")
 
 		res.status(200).send('product found')
+
+		return true
+	} catch (e) {
+		return res.status(401).send('something went wrong')
+	}
+})
+
+app.get('/doesCategoryExist', async ({ body }, res) => {
+	try {
+		const { categoryID } = body
+
+		if (!categoryID) res.status(401).send('No Category id found')
+
+		const category = await Category.findById(categoryID, '_id')
+
+		if (!category) return res.status(401).send("Category doesn't exist")
+
+		res.status(200).send('Category found')
 
 		return true
 	} catch (e) {
