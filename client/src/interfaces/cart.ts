@@ -23,3 +23,8 @@ export interface GetAllCartProductsResponse {
 	cartProducts: Array<CartProduct>
 	errorMessage?: string
 }
+
+export interface TotalCartPriceResponse {
+	totalPrice: number
+	errorMessage: string
+}
