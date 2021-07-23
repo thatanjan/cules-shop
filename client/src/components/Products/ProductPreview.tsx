@@ -46,6 +46,7 @@ const ProductPreview = ({
 	price,
 	userQuantity,
 	_id,
+	image,
 }: Props) => {
 	return (
 		<Card
@@ -58,17 +59,11 @@ const ProductPreview = ({
 			<CardMedia
 				sx={{
 					width: '100%',
-					padding: '0 1rem',
 					m: 'auto',
 					flexBasis: twoColumn && '30%',
 				}}
 			>
-				<Image
-					src='/products/product.png'
-					width={1920}
-					height={1080}
-					layout='responsive'
-				/>
+				<Image src={image} width={1920} height={1080} layout='responsive' />
 			</CardMedia>
 
 			<Box sx={{ flexGrow: 1 }}>
