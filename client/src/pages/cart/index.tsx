@@ -48,7 +48,7 @@ const CartPage = (props: Props) => {
 
 			{cartProducts.length > 0 && (
 				<>
-					<CartItemsShow />
+					<CartItemsShow cartProducts={cartProducts} />
 
 					<Grid container sx={{ marginTop: '1rem' }}>
 						<Grid item xs={12} md={8} lg={6} sx={{ maxWidth: '50rem' }}>

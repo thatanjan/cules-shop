@@ -3,21 +3,14 @@ import Grid from '@material-ui/core/Grid'
 import { nanoid } from 'nanoid'
 
 import ProductPreview from 'components/Products/ProductPreview'
-import CustomBackdrop from 'components/Loaders/CustomBackdrop'
 
-import { useGetAllCartProducts } from 'hooks/swr/useCartHooks'
+import { CartProduct } from 'interfaces/cart'
 
-interface Props {}
+interface Props {
+	cartProducts: Array<CartProduct>
+}
 
-const CartItemsShow = (props: Props) => {
-	const { data } = useGetAllCartProducts()
-
-	if (!data) return <CustomBackdrop />
-
-	const {
-		getAllCartProducts: { cartProducts },
-	} = data
-
+const CartItemsShow = ({ cartProducts }: Props) => {
 	return (
 		<>
 			<Grid container>
