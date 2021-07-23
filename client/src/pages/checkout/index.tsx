@@ -1,4 +1,6 @@
 import React, { useEffect, Fragment } from 'react'
+import jwtDecode from 'jwt-decode'
+import { GetServerSideProps } from 'next'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
@@ -6,6 +8,11 @@ import Divider from '@material-ui/core/Divider'
 import { nanoid } from 'nanoid'
 
 import { useClearShippingAddress } from 'redux/hooks/useCheckoutHooks'
+import { useStoreID } from 'redux/hooks/useUserHooks'
+
+import { UserPayload } from 'interfaces/authentication'
+
+import checkValidJWT from 'utils/auth/checkValidJWT'
 
 import CheckoutForm from 'components/Forms/CheckoutForm'
 import CartTotal from 'components/Cart/CartTotal'
@@ -13,7 +20,10 @@ import ShippingFormContainer from 'components/Forms/BillingForms/ShippingFormCon
 
 import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
 
-interface Props {}
+interface Props {
+	userID: string
+	sellerID: string
+}
 
 interface CheckoutPageTitleProps {
 	children: React.ReactNode
@@ -43,14 +53,14 @@ const AddressShow = () => {
 		<>
 			{fields.map(field => (
 				<Fragment key={nanoid()}>
-					<Grid item xs={4}>
+					<Grid item xs={4} sx={{ textTransform: 'capitalize' }}>
 						{field}
 					</Grid>
 					<Grid item xs={2}>
 						:
 					</Grid>
 					<Grid item xs={6}>
-						{address[field]}
+						{address[field] || 'N/A'}
 					</Grid>
 				</Fragment>
 			))}
@@ -59,6 +69,7 @@ const AddressShow = () => {
 }
 
 const CheckoutPage = (props: Props) => {
+	useStoreID(props)
 	const clearShippingAddress = useClearShippingAddress()
 
 	useEffect(() => {
@@ -116,3 +127,23 @@ const CheckoutPage = (props: Props) => {
 }
 
 export default CheckoutPage
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+	const {
+		cookies: { jwt },
+	} = req
+
+	let props = { userID: '', sellerID: '' }
+
+	if (!jwt) return { props }
+
+	const isValid = await checkValidJWT(jwt)
+
+	const { userID, sellerID } = jwtDecode<UserPayload>(jwt)
+
+	if (!isValid) return { props }
+
+	props = { userID, sellerID: sellerID || '' }
+
+	return { props }
+}
