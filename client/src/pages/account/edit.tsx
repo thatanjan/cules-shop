@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
 import Typography from '@material-ui/core/Typography'
@@ -53,19 +53,27 @@ const EditProfile = (props: Props) => {
 	useStoreID(props)
 
 	const { userID } = useUserState()
-	const { data, error } = useGetMultipleProfile([userID])
-
-	if (!data) return <CustomBackdrop />
-
-	const {
-		getMultipleProfile: [{ name, profilePicture }],
-	} = data
+	const { data } = useGetMultipleProfile([userID])
 
 	const dispatch = useAppDispatch()
 
 	const closeReset = () => {
 		dispatch(resetState())
 	}
+
+	useEffect(() => {
+		if (successful || failed) {
+			setTimeout(() => {
+				closeReset()
+			}, 3000)
+		}
+	}, [successful, failed])
+
+	if (!data) return <CustomBackdrop />
+
+	const {
+		getMultipleProfile: [{ name, profilePicture }],
+	} = data
 
 	const uploadModalProps = {
 		closeModal: () => dispatch(closeUploadModal()),
