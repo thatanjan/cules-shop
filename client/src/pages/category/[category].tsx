@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import axios from 'axios'
+import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
 import Typography from '@material-ui/core/Typography'
 import InputLabel from '@material-ui/core/InputLabel'
@@ -12,6 +14,10 @@ import { nanoid } from 'nanoid'
 
 import ProductPreview from 'components/Products/ProductPreview'
 import CategoryPagination from 'components/Paginations/Pagination'
+
+import { UserPayload } from 'interfaces/authentication'
+
+import checkValidJWT from 'utils/auth/checkValidJWT'
 
 interface Props {
 	category: string
@@ -89,9 +95,48 @@ const Category = ({ category }: Props) => {
 	)
 }
 
+const validateCategory = async (categoryID: string) => {
+	try {
+		const { data } = await axios.get(
+			process.env.NEXT_PUBLIC_SERVER_CATEGORY_VALIDATE,
+			{
+				data: { categoryID },
+			}
+		)
+
+		if (data) return true
+
+		return false
+	} catch (error) {
+		return false
+	}
+}
+
 export const getServerSideProps: GetServerSideProps = async ({
 	query: { category },
+	req,
 }) => {
+	const {
+		cookies: { jwt },
+	} = req
+
+	const doesCategoryExist = await validateCategory(category as string)
+
+	if (!doesCategoryExist)
+		return { redirect: { destination: '/404', permanent: false } }
+
+	let props = { userID: '', sellerID: '', categoryID: category }
+
+	if (!jwt) return { props }
+
+	const isValid = await checkValidJWT(jwt)
+
+	const { userID, sellerID } = jwtDecode<UserPayload>(jwt)
+
+	if (!isValid) return { props }
+
+	props = { ...props, userID, sellerID: sellerID || '' }
+
 	return { props: { category } }
 }
 
