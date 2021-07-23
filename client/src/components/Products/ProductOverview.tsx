@@ -105,12 +105,7 @@ const ProductOverview = ({
 	return (
 		<Grid container>
 			<Grid item xs={12}>
-				<Image
-					src='/products/product.png'
-					layout='responsive'
-					width={1920}
-					height={1080}
-				/>
+				<Image src={image} layout='responsive' width={1920} height={1080} />
 			</Grid>
 
 			<Grid item xs={12}>
