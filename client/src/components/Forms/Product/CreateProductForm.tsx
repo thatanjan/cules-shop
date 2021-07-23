@@ -124,7 +124,7 @@ const CreateProductForm = ({ setCreated }: Props) => {
 				onSubmit={async (values, { setSubmitting }) => {
 					values.category = category
 					values.quantity = parseInt(values.quantity.toString(), 10)
-					values.price = parseInt(values.price.toString(), 10)
+					values.price = parseInt(values.price.toString(), 10) * 100
 
 					values.image = file
 
@@ -179,7 +179,7 @@ const CreateProductForm = ({ setCreated }: Props) => {
 
 						<CustomField name='quantity' label='Quantity' />
 
-						<CustomField name='price' label='Price' />
+						<CustomField name='price' label='Price $' />
 
 						<SelectCategory {...{ category, setCategory }} />
 
