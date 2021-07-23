@@ -19,12 +19,12 @@ export const useGetMultipleUserNameImage = (ids: ArrayOfID) =>
 	})
 
 export const useGetMultipleProfile = (
-	ids: ArrayOfID,
+	ids?: ArrayOfID,
 	swrDependencies?: 'all'
 ) => {
 	const { userID } = useUserState()
 	return useSWRgql<{ userIDs: ArrayOfID }, GetMultipleProfileResponse>({
-		values: { userIDs: ids },
+		values: { userIDs: ids || [userID] },
 		key: getMultipleProfile,
 		swrDependencies: swrDependencies || userID,
 	})
