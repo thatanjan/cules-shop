@@ -53,7 +53,7 @@ const EditProfile = (props: Props) => {
 	useStoreID(props)
 
 	const { userID } = useUserState()
-	const { data } = useGetMultipleProfile([userID])
+	const { data, mutate } = useGetMultipleProfile([userID])
 
 	const dispatch = useAppDispatch()
 
@@ -63,6 +63,7 @@ const EditProfile = (props: Props) => {
 
 	useEffect(() => {
 		if (successful || failed) {
+			mutate()
 			setTimeout(() => {
 				closeReset()
 			}, 3000)
