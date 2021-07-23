@@ -44,12 +44,11 @@ const CartPage = (props: Props) => {
 
 	return (
 		<div>
-			<Typography component='h1' variant='h3' align='center'>
-				Cart
-			</Typography>
-
-			{cartProducts.length > 0 && (
+			{cartProducts.length > 0 ? (
 				<>
+					<Typography component='h1' variant='h3' align='center'>
+						Cart
+					</Typography>
 					<CartItemsShow cartProducts={cartProducts} />
 
 					<Grid container sx={{ marginTop: '1rem' }}>
@@ -75,6 +74,19 @@ const CartPage = (props: Props) => {
 						</Grid>
 					</Grid>
 				</>
+			) : (
+				<Grid
+					container
+					justifyContent='center'
+					alignItems='center'
+					sx={{ height: '100vh' }}
+				>
+					<Grid item>
+						<Typography variant='h3' align='center'>
+							No products in the Cart
+						</Typography>
+					</Grid>
+				</Grid>
 			)}
 		</div>
 	)
