@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid'
 import { nanoid } from 'nanoid'
 
 import ProductPreview from 'components/Products/ProductPreview'
-import Pagination from 'components/Paginations/Pagination'
 import CustomBackdrop from 'components/Loaders/CustomBackdrop'
 
 import { useGetAllCartProducts } from 'hooks/swr/useCartHooks'
@@ -40,7 +39,6 @@ const CartItemsShow = (props: Props) => {
 					</Grid>
 				))}
 			</Grid>
-			<Pagination getRedirectLink={(value: number) => `/cart?query=${value}`} />
 		</>
 	)
 }
