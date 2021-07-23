@@ -5,6 +5,7 @@ import { GetServerSideProps } from 'next'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import CardMedia from '@material-ui/core/CardMedia'
 
 import CreateProductForm from 'components/Forms/Product/CreateProductForm'
 import ImageUploadModal from 'components/Modals/ImageUploadModal'
@@ -99,21 +100,25 @@ const CreateProduct = (props: Props) => {
 				}}
 			>
 				{!created && (
-					<Grid item xs={6} sm={4}>
-						<Image
-							src='/products/product.png'
-							height='1080'
-							width='1920'
-							layout='responsive'
-						/>
+					<Grid container item xs={12}>
+						<Grid item xs={12} sm={8}>
+							{previewLink && (
+								<CardMedia
+									image={previewLink}
+									sx={{ height: { xs: '12rem', sm: '25rem' } }}
+								/>
+							)}
+						</Grid>
 
-						<Button
-							variant='contained'
-							sx={{ margin: '1rem 0' }}
-							onClick={() => dispatch(openUploadModal())}
-						>
-							Upload a Image
-						</Button>
+						<Grid item xs={12} sm={8}>
+							<Button
+								variant='contained'
+								sx={{ margin: '1rem 0' }}
+								onClick={() => dispatch(openUploadModal())}
+							>
+								Upload a Image
+							</Button>
+						</Grid>
 
 						{uploadModal && <ImageUploadModal {...uploadModalProps} />}
 
@@ -121,7 +126,9 @@ const CreateProduct = (props: Props) => {
 					</Grid>
 				)}
 
-				{!created && <CreateProductForm setCreated={setCreated} />}
+				<Grid item xs={12}>
+					{!created && <CreateProductForm setCreated={setCreated} />}
+				</Grid>
 			</Grid>
 		</>
 	)
