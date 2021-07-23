@@ -51,7 +51,6 @@ const ProductSlice = createSlice({
 			upload.previewModal = true
 		},
 		closePreviewModal: ({ upload }) => {
-			upload.previewLink = ''
 			upload.previewModal = false
 		},
 		makeBase64Image: ({ upload }, { payload: file }: PayloadAction<Base64>) => {
