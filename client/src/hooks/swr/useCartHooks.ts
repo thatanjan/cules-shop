@@ -1,10 +1,15 @@
 import useSWRgql from 'hooks/swr/useSWRgql'
 
-import { totalCartItems, getAllCartProducts } from 'graphql/queries/cartQueries'
+import {
+	totalCartItems,
+	getAllCartProducts,
+	totalCartPrice,
+} from 'graphql/queries/cartQueries'
 
 import {
 	TotalCartItemsResponse,
 	GetAllCartProductsResponse,
+	TotalCartPriceResponse,
 } from 'interfaces/cart'
 
 export const useTotalCartItems = () =>
@@ -16,5 +21,11 @@ export const useTotalCartItems = () =>
 export const useGetAllCartProducts = () =>
 	useSWRgql<{}, { getAllCartProducts: GetAllCartProductsResponse }>({
 		key: getAllCartProducts,
+		values: {},
+	})
+
+export const useGetTotalCartPrice = () =>
+	useSWRgql<{}, { totalCartPrice: TotalCartPriceResponse }>({
+		key: totalCartPrice,
 		values: {},
 	})
