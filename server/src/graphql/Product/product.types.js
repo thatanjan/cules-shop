@@ -12,6 +12,7 @@ const typeDefs = gql`
 		getProducts(Input: GetProductInput!): [Product!]!
 		getProductDetails(productID: ID!): ProductDetails!
 		getAllCategoryNames: [AllCategoryNames!]
+		searchProducts(Input: SearchProductsInput!): GetCategoryProductsResponse
 	}
 
 	type AllCategoryNames {
@@ -51,6 +52,11 @@ const typeDefs = gql`
 
 	input GetProductInput {
 		products: [ID!]!
+	}
+
+	input SearchProductsInput {
+		query: String!
+		sortBy: String!
 	}
 
 	input CreateProductInput {
