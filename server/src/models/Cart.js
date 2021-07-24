@@ -3,7 +3,7 @@ import Product from './Product'
 
 const objectId = Schema.Types.ObjectId
 
-const product = {
+export const product = {
 	productID: {
 		type: objectId,
 		required: true,
