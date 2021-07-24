@@ -14,14 +14,25 @@ import { Props as ProductQuantityProps } from 'components/Products/ProductQuanti
 
 import { useIsProductInTheCart } from 'hooks/swr/useProductHooks'
 
-import { CartProduct } from 'interfaces/cart'
-
 const ProductQuantity = dynamic(() => import('./ProductQuantity'))
 const DeleteFromCart = dynamic(() => import('components/Cart/DeleteFromCart'))
 
-export interface Props extends CartProduct {
+export interface Props {
 	twoColumn?: boolean
 	cartPage?: boolean
+	name: string
+	image: string
+	price: number
+	userQuantity?: number
+	_id: string
+	seller?: {
+		name: string
+		_id: string
+	}
+	category: {
+		name: string
+		_id: string
+	}
 }
 
 const ProductQuantityContainer = (props: ProductQuantityProps) => {
