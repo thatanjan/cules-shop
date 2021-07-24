@@ -3,6 +3,22 @@ export type AllCategoryName = Array<{
 	categoryID: string
 }>
 
+export interface GetCategoryProductsInput {
+	skip: number
+	categoryID: string
+	sortBy: string
+}
+
+export interface GetCategoryProductsResponse {
+	products: Array<{
+		_id: string
+		name: string
+		price: number
+		category: { name: string; _id: string }
+	}>
+	errorMessage: string
+}
+
 export interface GetProductDetailsResponse {
 	name: string
 	description: string
