@@ -72,7 +72,7 @@ const typeDefs = gql`
 
 	input GetCategoryProductsInput {
 		skip: Int!
-		categoryID: String!
+		categoryID: ID!
 		sortBy: String!
 	}
 
