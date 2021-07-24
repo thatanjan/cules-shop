@@ -35,3 +35,22 @@ export const isProductInTheCart = gql`
 		}
 	}
 `
+
+export const getCategoryProducts = gql`
+	query getCategoryProducts($categoryID: ID!, $sortBy: String!, $skip: Int!) {
+		getCategoryProducts(
+			Input: { categoryID: $categoryID, sortBy: $sortBy, skip: $skip }
+		) {
+			products {
+				_id
+				name
+				price
+				category {
+					name
+					_id
+				}
+			}
+			errorMessage
+		}
+	}
+`
