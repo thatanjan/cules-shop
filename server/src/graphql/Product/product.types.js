@@ -6,6 +6,9 @@ const typeDefs = gql`
 	}
 
 	extend type Query {
+		getCategoryProducts(
+			Input: GetCategoryProductsInput!
+		): GetCategoryProductsResponse!
 		getProducts(Input: GetProductInput!): [Product!]!
 		getProductDetails(productID: ID!): ProductDetails!
 		getAllCategoryNames: [AllCategoryNames!]
@@ -16,14 +19,19 @@ const typeDefs = gql`
 		categoryID: ID!
 	}
 
+	type SellerName {
+		company: String!
+		_id: String!
+	}
+
 	"""
 	CategoryName  has come from car.types.js file
 	"""
 	type Product {
+		_id: String!
 		name: String!
-		shortDescription: String!
 		category: CategoryName!
-		seller: String!
+		price: Int!
 	}
 
 	type ProductDetails {
@@ -34,6 +42,11 @@ const typeDefs = gql`
 		price: Int!
 		quantity: Int!
 		image: String!
+	}
+
+	type GetCategoryProductsResponse {
+		products: [Product!]
+		errorMessage: String
 	}
 
 	input GetProductInput {
@@ -48,6 +61,12 @@ const typeDefs = gql`
 		category: ID!
 		price: Int!
 		image: String!
+	}
+
+	input GetCategoryProductsInput {
+		skip: Int!
+		categoryID: String!
+		sortBy: String!
 	}
 
 	type CreateProductResponse {
