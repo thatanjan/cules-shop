@@ -15,6 +15,7 @@ export interface GetCategoryProductsResponse {
 		name: string
 		price: number
 		category: { name: string; _id: string }
+		image: string
 	}>
 	errorMessage: string
 }
