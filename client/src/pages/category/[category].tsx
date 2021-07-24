@@ -19,6 +19,8 @@ import { UserPayload } from 'interfaces/authentication'
 
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
+import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
+
 interface Props {
 	category: string
 }
@@ -71,10 +73,19 @@ const Header = ({ category }: Props) => {
 	)
 }
 
-const Category = ({ category }: Props) => {
+const Category = ({ categoryID }: Props) => {
+	const { data } = useGetCategoryProducts({
+		skip: 0,
+		categoryID,
+		sortBy: 'NAME',
+	})
+
+	console.log(data)
+	if (true) return null
+
 	return (
 		<>
-			<Header {...{ category }} />
+			<Header {...{ category: categoryID }} />
 
 			<Grid container>
 				{Array(40)
@@ -87,7 +98,7 @@ const Category = ({ category }: Props) => {
 			</Grid>
 
 			<CategoryPagination
-				getRedirectLink={(value: number) => `/category/${category}?page=${value}`}
+				getRedirectLink={(value: number) => `/category/${categoryID}?page=${value}`}
 			/>
 
 			<Divider sx={{ margin: '3rem 0' }} />
@@ -137,7 +148,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
 	props = { ...props, userID, sellerID: sellerID || '' }
 
-	return { props: { category } }
+	return { props }
 }
 
 export default Category
