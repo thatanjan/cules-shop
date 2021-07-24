@@ -11,8 +11,8 @@ const resolver = {
 					{ category: categoryID },
 					'name quantity category price image'
 				)
-					.skip(skip)
 					.sort(sortType[sortBy])
+					.skip(skip)
 					.limit(30)
 					.populate('category')
 
