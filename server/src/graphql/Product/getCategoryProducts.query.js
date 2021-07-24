@@ -1,7 +1,7 @@
 import Product from 'models/Product'
 import sendErrorMessage from 'utils/errorMessage'
 
-const sortType = { NAME: 'name', HIGH_PRICE: '-price', LOW_PRICE: 'price' }
+import { sortType } from 'variables/global'
 
 const resolver = {
 	Query: {
