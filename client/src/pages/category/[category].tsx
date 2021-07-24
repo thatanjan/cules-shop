@@ -22,7 +22,7 @@ import checkValidJWT from 'utils/auth/checkValidJWT'
 import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
 
 interface Props {
-	category: string
+	categoryID: string
 }
 
 const SortingSelection = () => {
@@ -54,11 +54,11 @@ const SortingSelection = () => {
 	)
 }
 
-const Header = ({ category }: Props) => {
+const Header = ({ categoryID }: Props) => {
 	return (
 		<Grid container justifyContent='space-between' alignItems='center'>
 			<Grid item component={Typography} variant='h3'>
-				{category}
+				{categoryID}
 			</Grid>
 			<Grid item component={Typography}>
 				showing 1-30 of 40 results
