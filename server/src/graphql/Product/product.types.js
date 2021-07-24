@@ -56,6 +56,7 @@ const typeDefs = gql`
 
 	input SearchProductsInput {
 		query: String!
+		skip: Int!
 		sortBy: String!
 	}
 
