@@ -80,21 +80,22 @@ const Category = ({ categoryID }: Props) => {
 		sortBy: 'NAME',
 	})
 
-	console.log(data)
-	if (true) return null
+	if (!data) return null
+
+	const {
+		getCategoryProducts: { products },
+	} = data
 
 	return (
 		<>
-			<Header {...{ category: categoryID }} />
+			<Header {...{ categoryID }} />
 
 			<Grid container>
-				{Array(40)
-					.fill(0)
-					.map(() => (
-						<Grid item xs={6} sm={4} lg={3} key={nanoid()}>
-							<ProductPreview />
-						</Grid>
-					))}
+				{products.map(product => (
+					<Grid item xs={6} sm={4} lg={3} key={nanoid()}>
+						<ProductPreview {...product} />
+					</Grid>
+				))}
 			</Grid>
 
 			<CategoryPagination
