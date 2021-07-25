@@ -33,6 +33,7 @@ const typeDefs = gql`
 		name: String!
 		category: CategoryName!
 		price: Int!
+		image:String!
 	}
 
 	type ProductDetails {
