@@ -33,7 +33,8 @@ const typeDefs = gql`
 		name: String!
 		category: CategoryName!
 		price: Int!
-		image:String!
+		image: String!
+		alreadyInCart: Boolean!
 	}
 
 	type ProductDetails {
