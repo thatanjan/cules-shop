@@ -4,11 +4,6 @@ import sendErrorMessage from 'utils/errorMessage'
 import convertObjectID from 'utils/convertObjectID'
 
 import { sortType } from 'variables/global'
-// $map: {
-// 								input: '$products.productID',
-// 								as: 'productID',
-// 								in: ['$$productID'],
-// 							},
 
 const resolver = {
 	Query: {
@@ -18,6 +13,7 @@ const resolver = {
 			{ user: { userID } }
 		) => {
 			try {
+				const userObjectID = convertObjectID(userID)
 				const cartAggregation = Cart.aggregate()
 
 				const [
@@ -26,23 +22,34 @@ const resolver = {
 					},
 				] = await cartAggregation
 					.match({
-						user: convertObjectID(userID),
+						user: userObjectID,
 					})
 					.group({
-						_id: convertObjectID(userID),
+						_id: userObjectID,
 						productIDs: { $push: '$products.productID' },
 					})
 
-				const result = await Product.find(
-					{ category: categoryID },
-					'name quantity category price image'
-				)
+				const productAggregation = Product.aggregate()
+
+				const products = await productAggregation
+					.match({
+						category: convertObjectID(categoryID),
+					})
 					.sort(sortType[sortBy])
 					.skip(skip)
 					.limit(30)
-					.populate('category')
+					.project({
+						alreadyInCart: {
+							$in: ['$_id', productIDs],
+						},
+						name: 1,
+						quantity: 1,
+						category: 1,
+						price: 1,
+						image: 1,
+					})
 
-				return { products: result }
+				return { products }
 			} catch (e) {
 				console.log(e)
 				return sendErrorMessage()
