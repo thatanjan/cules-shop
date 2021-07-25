@@ -29,26 +29,41 @@ const resolver = {
 						productIDs: { $push: '$products.productID' },
 					})
 
-				const result = await Product.find(
-					{
+				const productAggregation = Product.aggregate()
+
+				const products = await productAggregation
+					.match({
 						$text: {
 							$search: query,
 						},
-					},
-					'name quantity category price image'
-				)
-					.sort(
-						sortType[sortBy] === 'name'
-							? { score: { $meta: 'textScore' } }
-							: sortType[sortBy]
-					)
+					})
+					.sort(sortType[sortBy])
 					.skip(skip)
 					.limit(30)
-					.populate('category')
+					.lookup({
+						from: 'categories',
+						localField: 'name _id',
+						foreignField: 'categoryID',
+						as: 'category',
+					})
+					.unwind('$category')
+					.project({
+						alreadyInCart: {
+							$in: ['$_id', productIDs],
+						},
+						name: 1,
+						quantity: 1,
+						category: 1,
+						price: 1,
+						image: 1,
+						category: {
+							name: 1,
+							_id: 1,
+						},
+					})
 
-				return { products: result }
+				return { products }
 			} catch (e) {
-				console.log(e)
 				return sendErrorMessage()
 			}
 		},
