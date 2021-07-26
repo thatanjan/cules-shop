@@ -1,4 +1,6 @@
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
+import { mutate } from 'swr'
 import Image from 'next/image'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
@@ -11,6 +13,13 @@ import IconButton from '@material-ui/core/IconButton'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
 import { Props as ProductQuantityProps } from 'components/Products/ProductQuantity'
+
+import createRequest from 'graphql/createRequest'
+
+import { CommonResponse } from 'interfaces/global'
+
+import { addProductToCart } from 'graphql/mutations/productMutations'
+import { getCategoryProducts } from 'graphql/queries/productQueries'
 
 import { useIsProductInTheCart } from 'hooks/swr/useProductHooks'
 
@@ -61,6 +70,27 @@ const ProductPreview = ({
 	image,
 	alreadyInCart,
 }: Props) => {
+	const { route } = useRouter()
+
+	const addProductHandler = async () => {
+		try {
+			const {
+				addProductToCart: { success },
+			} = await createRequest<
+				{ productID: string; quantity: number },
+				{ addProductToCart: CommonResponse }
+			>({
+				key: addProductToCart,
+				values: { productID: _id, quantity: 1 },
+			})
+
+			if (success) {
+				if (route === '/category/[category]')
+					mutate([getCategoryProducts, undefined])
+			}
+		} catch (error) {}
+	}
+
 	return (
 		<Card
 			sx={{
@@ -115,7 +145,7 @@ const ProductPreview = ({
 						{cartPage ? (
 							<ProductQuantityContainer productID={_id} quantity={userQuantity} />
 						) : (
-							<IconButton>
+							<IconButton onClick={() => addProductHandler()}>
 								<AddShoppingCartIcon />
 							</IconButton>
 						)}
