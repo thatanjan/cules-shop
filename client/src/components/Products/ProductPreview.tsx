@@ -20,6 +20,7 @@ import { CommonResponse } from 'interfaces/global'
 
 import { addProductToCart } from 'graphql/mutations/productMutations'
 import { getCategoryProducts } from 'graphql/queries/productQueries'
+import { totalCartItems } from 'graphql/queries/cartQueries'
 
 import { useIsProductInTheCart } from 'hooks/swr/useProductHooks'
 
@@ -85,8 +86,10 @@ const ProductPreview = ({
 			})
 
 			if (success) {
-				if (route === '/category/[category]')
+				if (route === '/category/[category]') {
 					mutate([getCategoryProducts, undefined])
+					mutate([totalCartItems, undefined])
+				}
 			}
 		} catch (error) {}
 	}
