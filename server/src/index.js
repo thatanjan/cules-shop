@@ -82,14 +82,14 @@ app.post('/validate', ({ body }, res) => {
 		data: { jwt: token },
 	} = body
 
-	if (!token) res.status(401).send('No token found')
+	if (!token) return res.status(401).send('No token found')
 
 	const newToken = removeBearer(token)
 
 	jwt.verify(newToken, process.env.SECRET_KEY, err => {
-		if (err) res.status(401).send(err)
+		if (err) return res.status(401).send(err)
 
-		res.status(200).send('calm down')
+		return res.status(200).send('calm down')
 	})
 })
 
@@ -97,15 +97,13 @@ app.get('/doesProductExist', async ({ body }, res) => {
 	try {
 		const { productID } = body
 
-		if (!productID) res.status(401).send('No product id found')
+		if (!productID) return res.status(401).send('No product id found')
 
 		const product = await Product.findById(productID, '_id')
 
 		if (!product) return res.status(401).send("product doesn't exist")
 
-		res.status(200).send('product found')
-
-		return true
+		return res.status(200).send('product found')
 	} catch (e) {
 		return res.status(401).send('something went wrong')
 	}
@@ -115,15 +113,13 @@ app.get('/doesCategoryExist', async ({ body }, res) => {
 	try {
 		const { categoryID } = body
 
-		if (!categoryID) res.status(401).send('No Category id found')
+		if (!categoryID) return res.status(401).send('No Category id found')
 
 		const category = await Category.findById(categoryID, 'name')
 
 		if (!category) return res.status(401).send("Category doesn't exist")
 
-		res.status(200).json({ name: category.name })
-
-		return true
+		return res.status(200).json({ name: category.name })
 	} catch (e) {
 		return res.status(401).send('something went wrong')
 	}
