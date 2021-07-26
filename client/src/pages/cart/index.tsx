@@ -44,7 +44,7 @@ const CustomButton = ({ children, href }: CustomButtonProps) => {
 }
 
 const CartPage = (props: Props) => {
-	const { data } = useGetAllCartProducts()
+	const { data, isValidating } = useGetAllCartProducts()
 
 	if (!data) return <CustomBackdrop />
 
@@ -56,6 +56,8 @@ const CartPage = (props: Props) => {
 		<div>
 			{cartProducts.length > 0 ? (
 				<>
+					{isValidating && <CustomBackdrop />}
+
 					<Typography component='h1' variant='h3' align='center'>
 						Cart
 					</Typography>
