@@ -58,8 +58,18 @@ const SortingSelection = () => {
 
 const Header = ({ categoryID, categoryName }: Props) => {
 	return (
-		<Grid container justifyContent='space-between' alignItems='center'>
-			<Grid item component={Typography} variant='h3'>
+		<Grid
+			container
+			justifyContent='space-between'
+			alignItems='center'
+			sx={{ marginTop: '1rem' }}
+		>
+			<Grid
+				item
+				component={Typography}
+				variant='h3'
+				sx={{ textTransform: 'capitalize' }}
+			>
 				{categoryName}
 			</Grid>
 			<Grid item component={Typography}>
