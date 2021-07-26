@@ -7,27 +7,38 @@ import { sortType } from 'variables/global'
 
 const resolver = {
 	Query: {
-		searchProducts: async (
-			_,
-			{ Input: { skip, query, sortBy } },
-			{ user: { userID } }
-		) => {
+		searchProducts: async (_, { Input: { skip, query, sortBy } }, { user }) => {
 			try {
-				const userObjectID = convertObjectID(userID)
-				const cartAggregation = Cart.aggregate()
+				let cartProductIDs = []
 
-				const [
-					{
-						productIDs: [productIDs],
-					},
-				] = await cartAggregation
-					.match({
-						user: userObjectID,
-					})
-					.group({
-						_id: userObjectID,
-						productIDs: { $push: '$products.productID' },
-					})
+				if (user) {
+					const { userID } = user
+					const userObjectID = convertObjectID(userID)
+					const cartAggregation = Cart.aggregate()
+
+					const [
+						{
+							productIDs: [productIDs],
+						},
+					] = await cartAggregation
+						.match({
+							user: userObjectID,
+						})
+						.group({
+							_id: userObjectID,
+							productIDs: { $push: '$products.productID' },
+						})
+
+					cartProductIDs = productIDs
+				}
+
+				const projection = { name: 1, quantity: 1, category: 1, price: 1, image: 1 }
+
+				if (user) {
+					projection.alreadyInCart = {
+						$in: ['$_id', cartProductIDs],
+					}
+				}
 
 				const productAggregation = Product.aggregate()
 
@@ -47,20 +58,7 @@ const resolver = {
 						as: 'category',
 					})
 					.unwind('$category')
-					.project({
-						alreadyInCart: {
-							$in: ['$_id', productIDs],
-						},
-						name: 1,
-						quantity: 1,
-						category: 1,
-						price: 1,
-						image: 1,
-						category: {
-							name: 1,
-							_id: 1,
-						},
-					})
+					.project(projection)
 
 				return { products }
 			} catch (e) {
