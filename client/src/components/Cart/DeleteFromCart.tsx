@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { mutate } from 'swr'
 import IconButton from '@material-ui/core/IconButton'
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart'
@@ -19,8 +20,8 @@ interface Props {
 }
 
 const DeleteFromCart = ({ productID }: Props) => {
+	const { route } = useRouter()
 	const removeHandler = async () => {
-		console.log('runs')
 		try {
 			const {
 				removeProductFromCart: { success },
@@ -30,8 +31,11 @@ const DeleteFromCart = ({ productID }: Props) => {
 			>({ key: removeProductFromCart, values: { productID } })
 
 			if (success) {
-				mutate([getAllCartProducts, undefined])
-				mutate([totalCartPrice, undefined])
+				switch (route) {
+					case '/cart':
+						mutate([getAllCartProducts, undefined])
+						mutate([totalCartPrice, undefined])
+				}
 				mutate([totalCartItems, undefined])
 			}
 		} catch (error) {}
