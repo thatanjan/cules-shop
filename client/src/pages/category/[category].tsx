@@ -14,6 +14,7 @@ import { nanoid } from 'nanoid'
 
 import ProductPreview from 'components/Products/ProductPreview'
 import CategoryPagination from 'components/Paginations/Pagination'
+import CustomBackdrop from 'components/Loaders/CustomBackdrop'
 
 import { UserPayload } from 'interfaces/authentication'
 
@@ -74,7 +75,7 @@ const Header = ({ categoryID }: Props) => {
 }
 
 const Category = ({ categoryID }: Props) => {
-	const { data } = useGetCategoryProducts({
+	const { data, isValidating } = useGetCategoryProducts({
 		skip: 0,
 		categoryID,
 		sortBy: 'NAME',
@@ -88,6 +89,8 @@ const Category = ({ categoryID }: Props) => {
 
 	return (
 		<>
+			{isValidating && <CustomBackdrop />}
+
 			<Header {...{ categoryID }} />
 
 			<Grid container>
