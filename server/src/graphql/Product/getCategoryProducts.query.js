@@ -10,12 +10,13 @@ const resolver = {
 		getCategoryProducts: async (
 			_,
 			{ Input: { skip, categoryID, sortBy } },
-			{ user: { userID } }
+			{ user }
 		) => {
 			try {
 				let cartProductIDs = []
 
-				if (userID) {
+				if (user) {
+					const { userID } = user
 					const userObjectID = convertObjectID(userID)
 					const cartAggregation = Cart.aggregate()
 
@@ -39,7 +40,7 @@ const resolver = {
 
 				const projection = { name: 1, quantity: 1, category: 1, price: 1, image: 1 }
 
-				if (userID) {
+				if (user) {
 					projection.alreadyInCart = {
 						$in: ['$_id', cartProductIDs],
 					}
@@ -63,7 +64,6 @@ const resolver = {
 
 				return { products }
 			} catch (e) {
-				console.log(e)
 				return sendErrorMessage()
 			}
 		},
