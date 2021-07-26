@@ -50,6 +50,7 @@ export const getCategoryProducts = gql`
 					name
 					_id
 				}
+				alreadyInCart
 			}
 			errorMessage
 		}
