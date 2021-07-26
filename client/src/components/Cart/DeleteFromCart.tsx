@@ -1,6 +1,7 @@
 import React from 'react'
 import { mutate } from 'swr'
-import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart'
 
 import { getAllCartProducts, totalCartPrice } from 'graphql/queries/cartQueries'
 import createRequest from 'graphql/createRequest'
@@ -33,7 +34,9 @@ const DeleteFromCart = ({ productID }: Props) => {
 
 	return (
 		<>
-			<Button onClick={() => removeHandler()}>Delete</Button>
+			<IconButton onClick={() => removeHandler()}>
+				<RemoveShoppingCartIcon />{' '}
+			</IconButton>
 		</>
 	)
 }

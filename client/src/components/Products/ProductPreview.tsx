@@ -33,6 +33,7 @@ export interface Props {
 		name: string
 		_id: string
 	}
+	alreadyInCart?: null | boolean
 }
 
 const ProductQuantityContainer = (props: ProductQuantityProps) => {
@@ -58,6 +59,7 @@ const ProductPreview = ({
 	userQuantity,
 	_id,
 	image,
+	alreadyInCart,
 }: Props) => {
 	return (
 		<Card
@@ -103,7 +105,7 @@ const ProductPreview = ({
 						</Typography>
 					</Grid>
 
-					{cartPage && (
+					{(cartPage || alreadyInCart) && (
 						<Grid item>
 							<DeleteFromCart productID={_id} />
 						</Grid>
