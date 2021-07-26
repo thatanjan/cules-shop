@@ -38,6 +38,13 @@ const resolver = {
 					.sort(sortType[sortBy])
 					.skip(skip)
 					.limit(30)
+					.lookup({
+						from: 'categories',
+						localField: 'name _id',
+						foreignField: 'categoryID',
+						as: 'category',
+					})
+					.unwind('$category')
 					.project({
 						alreadyInCart: {
 							$in: ['$_id', productIDs],
