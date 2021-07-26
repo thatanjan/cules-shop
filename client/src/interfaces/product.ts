@@ -9,7 +9,7 @@ export interface GetCategoryProductsInput {
 	sortBy: string
 }
 
-export interface GetCategoryProductsResponse {
+export interface GetMultipleProductsResponse {
 	products: Array<{
 		_id: string
 		name: string

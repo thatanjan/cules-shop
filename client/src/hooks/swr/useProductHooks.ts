@@ -11,7 +11,7 @@ import {
 	AllCategoryName,
 	GetProductDetailsResponse,
 	IsProductInTheCartResponse,
-	GetCategoryProductsResponse,
+	GetMultipleProductsResponse,
 	GetCategoryProductsInput,
 } from 'interfaces/product'
 
@@ -42,5 +42,5 @@ export const useIsProductInTheCart = (productID: string) =>
 export const useGetCategoryProducts = (values: GetCategoryProductsInput) =>
 	useSWRgql<
 		GetCategoryProductsInput,
-		{ getCategoryProducts: GetCategoryProductsResponse }
+		{ getCategoryProducts: GetMultipleProductsResponse }
 	>({ key: getCategoryProducts, values })
