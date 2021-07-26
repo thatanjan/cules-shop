@@ -135,21 +135,25 @@ const ProductPreview = ({
 						</Typography>
 					</Grid>
 
-					{(cartPage || alreadyInCart) && (
+					{(alreadyInCart || cartPage) && (
 						<Grid item>
 							<DeleteFromCart productID={_id} />
 						</Grid>
 					)}
 
-					<Grid item>
-						{cartPage ? (
-							<ProductQuantityContainer productID={_id} quantity={userQuantity} />
-						) : (
+					{!cartPage && !alreadyInCart && (
+						<Grid item>
 							<IconButton onClick={() => addProductHandler()}>
 								<AddShoppingCartIcon />
 							</IconButton>
-						)}
-					</Grid>
+						</Grid>
+					)}
+
+					{cartPage && (
+						<Grid item>
+							<ProductQuantityContainer productID={_id} quantity={userQuantity} />
+						</Grid>
+					)}
 				</CardContent>
 			</Box>
 		</Card>
