@@ -119,7 +119,7 @@ const validateCategory = async (categoryID: string) => {
 			}
 		)
 
-		if (data) return true
+		if (data) return data
 
 		return false
 	} catch (error) {
