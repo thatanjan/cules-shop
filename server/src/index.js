@@ -117,11 +117,11 @@ app.get('/doesCategoryExist', async ({ body }, res) => {
 
 		if (!categoryID) res.status(401).send('No Category id found')
 
-		const category = await Category.findById(categoryID, '_id')
+		const category = await Category.findById(categoryID, 'name')
 
 		if (!category) return res.status(401).send("Category doesn't exist")
 
-		res.status(200).send('Category found')
+		res.status(200).json({ name: category.name })
 
 		return true
 	} catch (e) {
