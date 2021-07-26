@@ -16,6 +16,7 @@ export interface GetCategoryProductsResponse {
 		price: number
 		category: { name: string; _id: string }
 		image: string
+		alreadyInCart: null | boolean
 	}>
 	errorMessage: string
 }
