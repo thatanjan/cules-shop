@@ -9,6 +9,7 @@ import {
 	totalCartPrice,
 	totalCartItems,
 } from 'graphql/queries/cartQueries'
+import { getCategoryProducts } from 'graphql/queries/productQueries'
 import createRequest from 'graphql/createRequest'
 
 import { removeProductFromCart } from 'graphql/mutations/productMutations'
@@ -35,6 +36,9 @@ const DeleteFromCart = ({ productID }: Props) => {
 					case '/cart':
 						mutate([getAllCartProducts, undefined])
 						mutate([totalCartPrice, undefined])
+
+					case '/category/[category]':
+						mutate([getCategoryProducts, undefined])
 				}
 				mutate([totalCartItems, undefined])
 			}
