@@ -13,23 +13,37 @@ const resolver = {
 			{ user: { userID } }
 		) => {
 			try {
-				const userObjectID = convertObjectID(userID)
-				const cartAggregation = Cart.aggregate()
+				let cartProductIDs = []
 
-				const [
-					{
-						productIDs: [productIDs],
-					},
-				] = await cartAggregation
-					.match({
-						user: userObjectID,
-					})
-					.group({
-						_id: userObjectID,
-						productIDs: { $push: '$products.productID' },
-					})
+				if (userID) {
+					const userObjectID = convertObjectID(userID)
+					const cartAggregation = Cart.aggregate()
+
+					const [
+						{
+							productIDs: [productIDs],
+						},
+					] = await cartAggregation
+						.match({
+							user: userObjectID,
+						})
+						.group({
+							_id: userObjectID,
+							productIDs: { $push: '$products.productID' },
+						})
+
+					cartProductIDs = productIDs
+				}
 
 				const productAggregation = Product.aggregate()
+
+				const projection = { name: 1, quantity: 1, category: 1, price: 1, image: 1 }
+
+				if (userID) {
+					projection.alreadyInCart = {
+						$in: ['$_id', cartProductIDs],
+					}
+				}
 
 				const products = await productAggregation
 					.match({
@@ -45,16 +59,7 @@ const resolver = {
 						as: 'category',
 					})
 					.unwind('$category')
-					.project({
-						alreadyInCart: {
-							$in: ['$_id', productIDs],
-						},
-						name: 1,
-						quantity: 1,
-						category: 1,
-						price: 1,
-						image: 1,
-					})
+					.project(projection)
 
 				return { products }
 			} catch (e) {
