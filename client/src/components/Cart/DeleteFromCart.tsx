@@ -3,7 +3,11 @@ import { mutate } from 'swr'
 import IconButton from '@material-ui/core/IconButton'
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart'
 
-import { getAllCartProducts, totalCartPrice } from 'graphql/queries/cartQueries'
+import {
+	getAllCartProducts,
+	totalCartPrice,
+	totalCartItems,
+} from 'graphql/queries/cartQueries'
 import createRequest from 'graphql/createRequest'
 
 import { removeProductFromCart } from 'graphql/mutations/productMutations'
@@ -28,6 +32,7 @@ const DeleteFromCart = ({ productID }: Props) => {
 			if (success) {
 				mutate([getAllCartProducts, undefined])
 				mutate([totalCartPrice, undefined])
+				mutate([totalCartItems, undefined])
 			}
 		} catch (error) {}
 	}
