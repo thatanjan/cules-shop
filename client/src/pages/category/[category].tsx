@@ -151,8 +151,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 	} = req
 
 	const doesCategoryExist = await validateCategory(category as string)
+	const pageParam = parseInt(page as string, 10)
 
-	if (!doesCategoryExist)
+	if (!doesCategoryExist || !pageParam)
 		return { redirect: { destination: '/404', permanent: false } }
 
 	let props = {
@@ -160,7 +161,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		sellerID: '',
 		categoryID: category,
 		categoryName: doesCategoryExist.name,
-		page: page ? parseInt(page as string, 10) : 1,
+		page: pageParam,
 	}
 
 	if (!jwt) return { props }
