@@ -18,6 +18,7 @@ export interface GetMultipleProductsResponse {
 		image: string
 		alreadyInCart: null | boolean
 	}>
+	totalProducts: number
 	errorMessage: string
 }
 
