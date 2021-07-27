@@ -91,7 +91,7 @@ const Header = ({ categoryName }: Props) => {
 
 const Category = ({ categoryID, categoryName, page }: Props) => {
 	const { data, isValidating } = useGetCategoryProducts({
-		skip: 0,
+		skip: page * 30,
 		categoryID,
 		sortBy: 'NAME',
 	})
