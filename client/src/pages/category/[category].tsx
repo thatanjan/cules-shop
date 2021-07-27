@@ -56,7 +56,7 @@ const SortingSelection = () => {
 	)
 }
 
-const Header = ({ categoryID, categoryName }: Props) => {
+const Header = ({ categoryName }: Props) => {
 	return (
 		<Grid
 			container
@@ -69,14 +69,17 @@ const Header = ({ categoryID, categoryName }: Props) => {
 				component={Typography}
 				variant='h3'
 				sx={{ textTransform: 'capitalize' }}
+				xs={12}
+				sm={8}
+				md={7}
 			>
 				{categoryName}
 			</Grid>
-			<Grid item component={Typography}>
-				showing 1-30 of 40 results
+			<Grid item component={Typography} xs={6} sm={4} md={3} align='right'>
+				Showing 1-30 of 40 results
 			</Grid>
 
-			<Grid item xs={12}>
+			<Grid item xs={6} sm={12} md={2}>
 				<Box sx={{ display: 'grid', justifyItems: 'end' }}>
 					<SortingSelection />
 				</Box>
