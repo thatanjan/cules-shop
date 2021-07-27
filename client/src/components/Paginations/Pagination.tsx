@@ -5,9 +5,10 @@ import { useRouter } from 'next/router'
 
 interface Props {
 	getRedirectLink: (value: number) => string
+	totalPages: number
 }
 
-const CategoryPagination = ({ getRedirectLink }: Props) => {
+const CategoryPagination = ({ getRedirectLink, totalPages }: Props) => {
 	const {
 		push,
 		query: { page },
@@ -23,7 +24,7 @@ const CategoryPagination = ({ getRedirectLink }: Props) => {
 			<Stack spacing={2}>
 				<Pagination
 					page={page ? parseInt(page as string, 10) : 1}
-					count={10}
+					count={totalPages}
 					onChange={handleChange}
 					sx={{
 						'& .MuiPagination-ul': { display: 'flex', justifyContent: 'center' },
