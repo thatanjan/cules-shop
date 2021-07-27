@@ -25,6 +25,7 @@ import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
 interface Props {
 	categoryID: string
 	categoryName: string
+	page: number
 }
 
 const SortingSelection = () => {
@@ -88,7 +89,7 @@ const Header = ({ categoryName }: Props) => {
 	)
 }
 
-const Category = ({ categoryID, categoryName }: Props) => {
+const Category = ({ categoryID, categoryName, page }: Props) => {
 	const { data, isValidating } = useGetCategoryProducts({
 		skip: 0,
 		categoryID,
@@ -105,7 +106,7 @@ const Category = ({ categoryID, categoryName }: Props) => {
 		<>
 			{isValidating && <CustomBackdrop />}
 
-			<Header {...{ categoryID, categoryName }} />
+			<Header {...{ categoryID, categoryName, page }} />
 
 			<Grid container>
 				{products.map(product => (
@@ -142,7 +143,7 @@ const validateCategory = async (categoryID: string) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({
-	query: { category },
+	query: { category, page },
 	req,
 }) => {
 	const {
@@ -159,6 +160,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		sellerID: '',
 		categoryID: category,
 		categoryName: doesCategoryExist.name,
+		page: page ? parseInt(page as string, 10) : 1,
 	}
 
 	if (!jwt) return { props }
