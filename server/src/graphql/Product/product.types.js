@@ -12,7 +12,7 @@ const typeDefs = gql`
 		getProducts(Input: GetProductInput!): [Product!]!
 		getProductDetails(productID: ID!): ProductDetails!
 		getAllCategoryNames: [AllCategoryNames!]
-		searchProducts(Input: SearchProductsInput!): GetCategoryProductsResponse
+		searchProducts(Input: SearchProductsInput!): GetCategoryProductsResponse!
 	}
 
 	type AllCategoryNames {
@@ -48,6 +48,7 @@ const typeDefs = gql`
 	}
 
 	type GetCategoryProductsResponse {
+		totalProducts: Int!
 		products: [Product!]
 		errorMessage: String
 	}
