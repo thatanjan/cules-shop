@@ -8,7 +8,10 @@ interface Props {
 }
 
 const CategoryPagination = ({ getRedirectLink }: Props) => {
-	const { push } = useRouter()
+	const {
+		push,
+		query: { page },
+	} = useRouter()
 
 	const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
 		const redirectLink = getRedirectLink(value)
@@ -19,6 +22,7 @@ const CategoryPagination = ({ getRedirectLink }: Props) => {
 		<>
 			<Stack spacing={2}>
 				<Pagination
+					page={page ? parseInt(page as string, 10) : 1}
 					count={10}
 					onChange={handleChange}
 					sx={{
