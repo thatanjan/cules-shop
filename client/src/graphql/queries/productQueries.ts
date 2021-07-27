@@ -41,6 +41,7 @@ export const getCategoryProducts = gql`
 		getCategoryProducts(
 			Input: { categoryID: $categoryID, sortBy: $sortBy, skip: $skip }
 		) {
+			totalProducts
 			products {
 				_id
 				name
