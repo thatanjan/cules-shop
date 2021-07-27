@@ -99,7 +99,7 @@ const Category = ({ categoryID, categoryName, page }: Props) => {
 	if (!data) return null
 
 	const {
-		getCategoryProducts: { products },
+		getCategoryProducts: { products, totalProducts },
 	} = data
 
 	return (
@@ -117,6 +117,7 @@ const Category = ({ categoryID, categoryName, page }: Props) => {
 			</Grid>
 
 			<CategoryPagination
+				totalPages={Math.ceil(totalProducts / 30)}
 				getRedirectLink={(value: number) => `/category/${categoryID}?page=${value}`}
 			/>
 
