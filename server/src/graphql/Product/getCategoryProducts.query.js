@@ -62,7 +62,13 @@ const resolver = {
 					.unwind('$category')
 					.project(projection)
 
-				return { products }
+				const [{ totalProducts }] = await Product.aggregate()
+					.match({
+						category: convertObjectID(categoryID),
+					})
+					.count('totalProducts')
+
+				return { products, totalProducts }
 			} catch (e) {
 				return sendErrorMessage()
 			}
