@@ -11,9 +11,7 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import Box from '@material-ui/core/Box'
 import Divider from '@material-ui/core/Divider'
-import { nanoid } from 'nanoid'
 
-import ProductPreview from 'components/Products/ProductPreview'
 import CustomBackdrop from 'components/Loaders/CustomBackdrop'
 
 import { UserPayload } from 'interfaces/authentication'
@@ -25,6 +23,7 @@ import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
 const CategoryPagination = dynamic(
 	() => import('components/Paginations/Pagination')
 )
+const ProductsShow = dynamic(() => import('components/Products/ProductsShow'))
 
 interface Props {
 	categoryID: string
@@ -114,13 +113,7 @@ const Category = ({ categoryID, categoryName, page }: Props) => {
 
 			<Header {...{ categoryID, categoryName, page }} />
 
-			<Grid container>
-				{products.map(product => (
-					<Grid item xs={6} sm={4} lg={3} key={nanoid()}>
-						<ProductPreview {...product} />
-					</Grid>
-				))}
-			</Grid>
+			<ProductsShow products={products} />
 
 			<CategoryPagination
 				totalPages={Math.ceil(totalProducts / 30)}
