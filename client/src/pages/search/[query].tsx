@@ -55,7 +55,11 @@ export const getServerSideProps: GetServerSideProps = async ({
 		cookies: { jwt },
 	} = req
 
-	let props = { userID: '', sellerID: '', query }
+	let props = {
+		userID: '',
+		sellerID: '',
+		query: (query as string).replace(/\+/g, ' ').trim(),
+	}
 
 	if (!jwt) return { props }
 
