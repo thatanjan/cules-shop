@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import dynamic from 'next/dynamic'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
@@ -13,7 +14,6 @@ import Divider from '@material-ui/core/Divider'
 import { nanoid } from 'nanoid'
 
 import ProductPreview from 'components/Products/ProductPreview'
-import CategoryPagination from 'components/Paginations/Pagination'
 import CustomBackdrop from 'components/Loaders/CustomBackdrop'
 
 import { UserPayload } from 'interfaces/authentication'
@@ -21,6 +21,10 @@ import { UserPayload } from 'interfaces/authentication'
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
 import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
+
+const CategoryPagination = dynamic(
+	() => import('components/Paginations/Pagination')
+)
 
 interface Props {
 	categoryID: string
@@ -91,7 +95,7 @@ const Header = ({ categoryName }: Props) => {
 
 const Category = ({ categoryID, categoryName, page }: Props) => {
 	const { data, isValidating } = useGetCategoryProducts({
-		skip: page * 30,
+		skip: (page - 1) * 30,
 		categoryID,
 		sortBy: 'NAME',
 	})
@@ -101,6 +105,8 @@ const Category = ({ categoryID, categoryName, page }: Props) => {
 	const {
 		getCategoryProducts: { products, totalProducts },
 	} = data
+
+	if (!products.length) return null
 
 	return (
 		<>
