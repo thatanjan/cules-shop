@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, FormEvent } from 'react'
 import { GetServerSideProps } from 'next'
 import jwtDecode from 'jwt-decode'
 import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 
 import { UserPayload } from 'interfaces/authentication'
 
@@ -17,13 +19,30 @@ interface Props {
 
 const Query = ({ query, ...userDetails }: Props) => {
 	useStoreID(userDetails)
-	const [searchInput, setSearchInput] = useState('')
+	const [searchInput, setSearchInput] = useState(query)
+
+	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
+	}
 
 	return (
 		<>
 			<Typography align='center' variant='h3' sx={{ m: '1rem 0' }}>
 				Search Products
 			</Typography>
+
+			<form onSubmit={handleSubmit}>
+				<TextField
+					value={searchInput}
+					fullWidth
+					onChange={e => setSearchInput(e.target.value)}
+					variant='standard'
+					label='Search Products'
+				/>
+				<Button variant='contained' type='submit' sx={{ m: '.8rem 0' }}>
+					search
+				</Button>
+			</form>
 		</>
 	)
 }
