@@ -1,4 +1,5 @@
 import React, { useState, FormEvent } from 'react'
+import { useRouter } from 'next/router'
 import { GetServerSideProps } from 'next'
 import jwtDecode from 'jwt-decode'
 import Typography from '@material-ui/core/Typography'
@@ -19,10 +20,16 @@ interface Props {
 
 const Query = ({ query, ...userDetails }: Props) => {
 	useStoreID(userDetails)
+	const { push } = useRouter()
 	const [searchInput, setSearchInput] = useState(query)
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
+		const queryString = searchInput.trim().replace(/\s/g, '+')
+
+		push(`/search/${queryString}`)
+
+		return true
 	}
 
 	return (
