@@ -109,7 +109,13 @@ const ProductPreview = ({
 					flexBasis: twoColumn && '30%',
 				}}
 			>
-				<Image src={image} width={1920} height={1080} layout='responsive' />
+				<Image
+					src={image}
+					width={1920}
+					height={1080}
+					layout='responsive'
+					quality={20}
+				/>
 			</CardMedia>
 
 			<Box sx={{ flexGrow: 1 }}>
