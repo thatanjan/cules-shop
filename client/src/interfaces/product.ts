@@ -9,15 +9,17 @@ export interface GetCategoryProductsInput {
 	sortBy: string
 }
 
+export type MultiPleProducts = Array<{
+	_id: string
+	name: string
+	price: number
+	category: { name: string; _id: string }
+	image: string
+	alreadyInCart: null | boolean
+}>
+
 export interface GetMultipleProductsResponse {
-	products: Array<{
-		_id: string
-		name: string
-		price: number
-		category: { name: string; _id: string }
-		image: string
-		alreadyInCart: null | boolean
-	}>
+	products: MultiPleProducts
 	totalProducts: number
 	errorMessage: string
 }
