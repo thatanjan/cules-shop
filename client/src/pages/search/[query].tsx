@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { GetServerSideProps } from 'next'
 import jwtDecode from 'jwt-decode'
 import Typography from '@material-ui/core/Typography'
@@ -7,13 +7,18 @@ import { UserPayload } from 'interfaces/authentication'
 
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
+import { useStoreID } from 'redux/hooks/useUserHooks'
+
 interface Props {
 	userID: string
 	sellerID: string
 	query: string
 }
 
-const Query = () => {
+const Query = ({ query, ...userDetails }: Props) => {
+	useStoreID(userDetails)
+	const [searchInput, setSearchInput] = useState('')
+
 	return (
 		<>
 			<Typography align='center' variant='h3' sx={{ m: '1rem 0' }}>
