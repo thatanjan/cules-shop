@@ -60,7 +60,7 @@ const resolver = {
 					.unwind('$category')
 					.project(projection)
 
-				const [{ totalProducts }] = await Product.aggregate()
+				const totalProducts = await Product.aggregate()
 					.match({
 						$text: {
 							$search: query,
@@ -68,7 +68,7 @@ const resolver = {
 					})
 					.count('totalProducts')
 
-				return { products, totalProducts }
+				return { products, totalProducts: totalProducts[0]?.totalProducts || 0 }
 			} catch (e) {
 				return sendErrorMessage()
 			}
