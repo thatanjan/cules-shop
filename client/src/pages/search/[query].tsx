@@ -33,7 +33,7 @@ interface InputProps {
 const ShowSearchResults = ({ page, searchInput }: InputProps) => {
 	const { NAME } = sortType
 
-	const { data } = useSearchProducts({
+	const { data, isValidating } = useSearchProducts({
 		query: searchInput,
 		skip: (page - 1) * 30,
 		sortBy: NAME,
@@ -41,7 +41,7 @@ const ShowSearchResults = ({ page, searchInput }: InputProps) => {
 
 	if (!data) return <CustomBackdrop />
 
-	return <></>
+	return <>{isValidating && <CustomBackdrop />}</>
 }
 
 const Query = ({ query, page, ...userDetails }: Props) => {
