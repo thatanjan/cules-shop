@@ -28,14 +28,14 @@ interface Props {
 
 interface InputProps {
 	page: number
-	searchInput: string
+	query: string
 }
 
-const ShowSearchResults = ({ page, searchInput }: InputProps) => {
+const ShowSearchResults = ({ page, query }: InputProps) => {
 	const { NAME } = sortType
 
 	const { data, isValidating } = useSearchProducts({
-		query: searchInput,
+		query,
 		skip: (page - 1) * 30,
 		sortBy: NAME,
 	})
@@ -104,7 +104,7 @@ const Query = ({ query, page, ...userDetails }: Props) => {
 
 			<SearchInputField {...{ query }} />
 
-			<ShowSearchResults {...{ page }} />
+			<ShowSearchResults {...{ page, query }} />
 		</>
 	)
 }
