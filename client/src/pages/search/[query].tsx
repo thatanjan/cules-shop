@@ -54,8 +54,11 @@ const ShowSearchResults = ({ page, searchInput }: InputProps) => {
 	)
 }
 
-const Query = ({ query, page, ...userDetails }: Props) => {
-	useStoreID(userDetails)
+interface InputFieldProps {
+	query: string
+}
+
+const SearchInputField = ({ query }: InputFieldProps) => {
 	const { push } = useRouter()
 	const [searchInput, setSearchInput] = useState(query)
 
@@ -70,30 +73,38 @@ const Query = ({ query, page, ...userDetails }: Props) => {
 	}
 
 	return (
+		<form onSubmit={handleSubmit}>
+			<TextField
+				value={searchInput}
+				fullWidth
+				onChange={e => setSearchInput(e.target.value)}
+				variant='standard'
+				label='Search Products'
+			/>
+			<Button
+				variant='contained'
+				type='submit'
+				sx={{ m: '.8rem 0' }}
+				disabled={!searchInput}
+			>
+				search
+			</Button>
+		</form>
+	)
+}
+
+const Query = ({ query, page, ...userDetails }: Props) => {
+	useStoreID(userDetails)
+
+	return (
 		<>
 			<Typography align='center' variant='h3' sx={{ m: '1rem 0' }}>
 				Search Products
 			</Typography>
 
-			<form onSubmit={handleSubmit}>
-				<TextField
-					value={searchInput}
-					fullWidth
-					onChange={e => setSearchInput(e.target.value)}
-					variant='standard'
-					label='Search Products'
-				/>
-				<Button
-					variant='contained'
-					type='submit'
-					sx={{ m: '.8rem 0' }}
-					disabled={!searchInput}
-				>
-					search
-				</Button>
-			</form>
+			<SearchInputField {...{ query }} />
 
-			<ShowSearchResults {...{ page, searchInput }} />
+			<ShowSearchResults {...{ page }} />
 		</>
 	)
 }
