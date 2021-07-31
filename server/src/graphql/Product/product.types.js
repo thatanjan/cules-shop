@@ -48,7 +48,7 @@ const typeDefs = gql`
 	}
 
 	type GetCategoryProductsResponse {
-		totalProducts: Int!
+		totalProducts: Int
 		products: [Product!]
 		errorMessage: String
 	}
