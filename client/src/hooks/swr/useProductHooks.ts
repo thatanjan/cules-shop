@@ -51,4 +51,4 @@ export const useSearchProducts = (values: SearchProductsInput) =>
 	useSWRgql<
 		SearchProductsInput,
 		{ searchProducts: GetMultipleProductsResponse }
-	>({ key: searchProducts, values, swrDependencies: values.query })
+	>({ key: searchProducts, values, swrDependencies: values.query + values.skip })
