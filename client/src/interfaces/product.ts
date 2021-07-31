@@ -49,5 +49,5 @@ export interface SearchProductsInput {
 }
 
 export interface MutationDeps {
-	mutationDeps: [Key, string | number | undefined]
+	mutationDeps: Array<[Key, string | number | undefined]>
 }
