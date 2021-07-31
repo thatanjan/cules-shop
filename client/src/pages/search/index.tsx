@@ -16,6 +16,9 @@ import { useSearchProducts } from 'hooks/swr/useProductHooks'
 
 import { sortType } from 'variables/global'
 
+import { totalCartItems } from 'graphql/queries/cartQueries'
+import { searchProducts } from 'graphql/queries/productQueries'
+
 import CustomBackdrop from 'components/Loaders/CustomBackdrop'
 import ProductsShow from 'components/Products/ProductsShow'
 
@@ -34,9 +37,10 @@ interface InputProps {
 const ShowSearchResults = ({ page, query }: InputProps) => {
 	const { NAME } = sortType
 
+	const skip = (page - 1) * 30
 	const { data, isValidating } = useSearchProducts({
 		query,
-		skip: (page - 1) * 30,
+		skip,
 		sortBy: NAME,
 	})
 
@@ -49,7 +53,13 @@ const ShowSearchResults = ({ page, query }: InputProps) => {
 	return (
 		<>
 			{isValidating && <CustomBackdrop />}
-			<ProductsShow products={products} />
+			<ProductsShow
+				products={products}
+				mutationDeps={[
+					[searchProducts, query + skip],
+					[totalCartItems, undefined],
+				]}
+			/>
 		</>
 	)
 }
