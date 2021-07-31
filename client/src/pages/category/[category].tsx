@@ -96,10 +96,11 @@ const Header = ({ categoryName }: Props) => {
 }
 
 const Category = ({ categoryID, categoryName, page }: Props) => {
+	const skip = (page - 1) * 30
 	const { data, isValidating } = useGetCategoryProducts({
-		skip: (page - 1) * 30,
 		categoryID,
 		sortBy: 'NAME',
+		skip,
 	})
 
 	if (!data) return null
@@ -119,7 +120,7 @@ const Category = ({ categoryID, categoryName, page }: Props) => {
 			<ProductsShow
 				products={products}
 				mutationDeps={[
-					[getCategoryProducts, undefined],
+					[getCategoryProducts, categoryID + 'NAME' + skip],
 					[totalCartItems, undefined],
 				]}
 			/>

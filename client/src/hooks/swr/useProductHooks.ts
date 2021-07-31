@@ -41,11 +41,18 @@ export const useIsProductInTheCart = (productID: string) =>
 		values: { productID },
 	})
 
-export const useGetCategoryProducts = (values: GetCategoryProductsInput) =>
-	useSWRgql<
+export const useGetCategoryProducts = (values: GetCategoryProductsInput) => {
+	const { categoryID, sortBy, skip } = values
+
+	return useSWRgql<
 		GetCategoryProductsInput,
 		{ getCategoryProducts: GetMultipleProductsResponse }
-	>({ key: getCategoryProducts, values })
+	>({
+		key: getCategoryProducts,
+		values,
+		swrDependencies: categoryID + sortBy + skip,
+	})
+}
 
 export const useSearchProducts = (values: SearchProductsInput) =>
 	useSWRgql<
