@@ -1,30 +1,21 @@
 import React from 'react'
-import { useRouter } from 'next/router'
 import { mutate } from 'swr'
 import IconButton from '@material-ui/core/IconButton'
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart'
 
-import {
-	getAllCartProducts,
-	totalCartPrice,
-	totalCartItems,
-} from 'graphql/queries/cartQueries'
-import {
-	getCategoryProducts,
-	searchProducts,
-} from 'graphql/queries/productQueries'
+import { totalCartItems } from 'graphql/queries/cartQueries'
 import createRequest from 'graphql/createRequest'
 
 import { removeProductFromCart } from 'graphql/mutations/productMutations'
 
 import { CommonResponse } from 'interfaces/global'
+import { MutationDeps } from 'interfaces/product'
 
-interface Props {
+interface Props extends MutationDeps {
 	productID: string
 }
 
-const DeleteFromCart = ({ productID }: Props) => {
-	const { route, query } = useRouter()
+const DeleteFromCart = ({ productID, mutationDeps }: Props) => {
 	const removeHandler = async () => {
 		try {
 			const {
@@ -35,19 +26,7 @@ const DeleteFromCart = ({ productID }: Props) => {
 			>({ key: removeProductFromCart, values: { productID } })
 
 			if (success) {
-				switch (route) {
-					case '/cart':
-						mutate([getAllCartProducts, undefined])
-						mutate([totalCartPrice, undefined])
-
-					case '/category/[category]':
-						mutate([getCategoryProducts, undefined])
-
-					case '/search':
-						const queryString = query.query
-						const skip = query.page ? (parseInt(query.page as string) - 1) * 30 : 0
-						mutate([searchProducts, (queryString as string) + skip])
-				}
+				mutationDeps.forEach(item => mutate(item))
 				mutate([totalCartItems, undefined])
 			}
 		} catch (error) {}
