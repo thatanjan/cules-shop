@@ -39,3 +39,9 @@ export interface IsProductInTheCartResponse {
 	errorMessage: string
 	quantity: number
 }
+
+export interface SearchProductsInput {
+	skip: number
+	query: string
+	sortBy: string
+}
