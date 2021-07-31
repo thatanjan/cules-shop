@@ -9,7 +9,10 @@ import {
 	totalCartPrice,
 	totalCartItems,
 } from 'graphql/queries/cartQueries'
-import { getCategoryProducts } from 'graphql/queries/productQueries'
+import {
+	getCategoryProducts,
+	searchProducts,
+} from 'graphql/queries/productQueries'
 import createRequest from 'graphql/createRequest'
 
 import { removeProductFromCart } from 'graphql/mutations/productMutations'
@@ -21,7 +24,7 @@ interface Props {
 }
 
 const DeleteFromCart = ({ productID }: Props) => {
-	const { route } = useRouter()
+	const { route, query } = useRouter()
 	const removeHandler = async () => {
 		try {
 			const {
@@ -39,6 +42,11 @@ const DeleteFromCart = ({ productID }: Props) => {
 
 					case '/category/[category]':
 						mutate([getCategoryProducts, undefined])
+
+					case '/search':
+						const queryString = query.query
+						const skip = query.page ? (parseInt(query.page as string) - 1) * 30 : 0
+						mutate([searchProducts, (queryString as string) + skip])
 				}
 				mutate([totalCartItems, undefined])
 			}
