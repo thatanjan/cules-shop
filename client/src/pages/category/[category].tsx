@@ -20,6 +20,9 @@ import checkValidJWT from 'utils/auth/checkValidJWT'
 
 import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
 
+import { getCategoryProducts } from 'graphql/queries/productQueries'
+import { totalCartItems } from 'graphql/queries/cartQueries'
+
 const CategoryPagination = dynamic(
 	() => import('components/Paginations/Pagination')
 )
@@ -113,7 +116,13 @@ const Category = ({ categoryID, categoryName, page }: Props) => {
 
 			<Header {...{ categoryID, categoryName, page }} />
 
-			<ProductsShow products={products} />
+			<ProductsShow
+				products={products}
+				mutationDeps={[
+					[getCategoryProducts, undefined],
+					[totalCartItems, undefined],
+				]}
+			/>
 
 			<CategoryPagination
 				totalPages={Math.ceil(totalProducts / 30)}
