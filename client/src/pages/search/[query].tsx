@@ -17,6 +17,7 @@ import { useSearchProducts } from 'hooks/swr/useProductHooks'
 import { sortType } from 'variables/global'
 
 import CustomBackdrop from 'components/Loaders/CustomBackdrop'
+import ProductsShow from 'components/Products/ProductsShow'
 
 interface Props {
 	userID: string
@@ -41,7 +42,16 @@ const ShowSearchResults = ({ page, searchInput }: InputProps) => {
 
 	if (!data) return <CustomBackdrop />
 
-	return <>{isValidating && <CustomBackdrop />}</>
+	const {
+		searchProducts: { products },
+	} = data
+
+	return (
+		<>
+			{isValidating && <CustomBackdrop />}
+			<ProductsShow products={products} />
+		</>
+	)
 }
 
 const Query = ({ query, page, ...userDetails }: Props) => {
