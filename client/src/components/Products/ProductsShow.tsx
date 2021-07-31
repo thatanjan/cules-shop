@@ -4,19 +4,19 @@ import Grid from '@material-ui/core/Grid'
 
 import ProductPreview from 'components/Products/ProductPreview'
 
-import { MultiPleProducts } from 'interfaces/product'
+import { MultiPleProducts, MutationDeps } from 'interfaces/product'
 
-interface Props {
+interface Props extends MutationDeps {
 	products: MultiPleProducts
 }
 
-const ProductsShow = ({ products }: Props) => {
+const ProductsShow = ({ products, mutationDeps }: Props) => {
 	return (
 		<>
 			<Grid container>
 				{products.map(product => (
 					<Grid item xs={6} sm={4} lg={3} key={nanoid()}>
-						<ProductPreview {...product} />
+						<ProductPreview {...product} mutationDeps={mutationDeps} />
 					</Grid>
 				))}
 			</Grid>
