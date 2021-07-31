@@ -120,8 +120,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 	let props = {
 		userID: '',
 		sellerID: '',
-		query: (query as string).replace(/\+/g, ' ').trim(),
-		page: parseInt(page, 10) || 1,
+		query: query ? (query as string).replace(/\+/g, ' ').trim() : '',
+		page: parseInt(page as string, 10) || 1,
 	}
 
 	if (!jwt) return { props }
