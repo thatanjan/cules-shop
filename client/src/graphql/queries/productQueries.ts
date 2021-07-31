@@ -57,3 +57,23 @@ export const getCategoryProducts = gql`
 		}
 	}
 `
+
+export const searchProducts = gql`
+	query searchProducts($query: String!, $skip: Int!, $sortBy: String!) {
+		searchProducts(Input: { query: $query, skip: $skip, sortBy: $sortBy }) {
+			totalProducts
+			products {
+				_id
+				name
+				price
+				image
+				category {
+					name
+					_id
+				}
+				alreadyInCart
+			}
+			errorMessage
+		}
+	}
+`
