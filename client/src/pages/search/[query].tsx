@@ -12,10 +12,13 @@ import checkValidJWT from 'utils/auth/checkValidJWT'
 
 import { useStoreID } from 'redux/hooks/useUserHooks'
 
+import { useSearchProducts } from 'hooks/swr/useProductHooks'
+
 interface Props {
 	userID: string
 	sellerID: string
 	query: string
+	page: number
 }
 
 const Query = ({ query, ...userDetails }: Props) => {
@@ -62,7 +65,7 @@ const Query = ({ query, ...userDetails }: Props) => {
 
 export const getServerSideProps: GetServerSideProps = async ({
 	req,
-	query: { query },
+	query: { query, page },
 }) => {
 	const {
 		cookies: { jwt },
@@ -72,6 +75,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		userID: '',
 		sellerID: '',
 		query: (query as string).replace(/\+/g, ' ').trim(),
+		page: parseInt(page, 10),
 	}
 
 	if (!jwt) return { props }
