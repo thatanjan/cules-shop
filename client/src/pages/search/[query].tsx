@@ -46,7 +46,12 @@ const Query = ({ query, ...userDetails }: Props) => {
 					variant='standard'
 					label='Search Products'
 				/>
-				<Button variant='contained' type='submit' sx={{ m: '.8rem 0' }}>
+				<Button
+					variant='contained'
+					type='submit'
+					sx={{ m: '.8rem 0' }}
+					disabled={!query}
+				>
 					search
 				</Button>
 			</form>
