@@ -16,6 +16,8 @@ import { useSearchProducts } from 'hooks/swr/useProductHooks'
 
 import { sortType } from 'variables/global'
 
+import CustomBackdrop from 'components/Loaders/CustomBackdrop'
+
 interface Props {
 	userID: string
 	sellerID: string
@@ -27,6 +29,7 @@ interface InputProps {
 	page: number
 	searchInput: string
 }
+
 const ShowSearchResults = ({ page, searchInput }: InputProps) => {
 	const { NAME } = sortType
 
@@ -36,7 +39,8 @@ const ShowSearchResults = ({ page, searchInput }: InputProps) => {
 		sortBy: NAME,
 	})
 
-	console.log(data)
+	if (!data) return <CustomBackdrop />
+
 	return <></>
 }
 
