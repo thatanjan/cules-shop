@@ -6,6 +6,12 @@ import ProductPreview from 'components/Products/ProductPreview'
 
 import { CartProduct } from 'interfaces/cart'
 
+import {
+	totalCartItems,
+	totalCartPrice,
+	getAllCartProducts,
+} from 'graphql/queries/cartQueries'
+
 interface Props {
 	cartProducts: Array<CartProduct>
 }
@@ -28,7 +34,15 @@ const CartItemsShow = ({ cartProducts }: Props) => {
 							},
 						}}
 					>
-						<ProductPreview cartPage {...product} />
+						<ProductPreview
+							cartPage
+							{...product}
+							mutationDeps={[
+								[getAllCartProducts, undefined],
+								[totalCartPrice, undefined],
+								[totalCartItems, undefined],
+							]}
+						/>
 					</Grid>
 				))}
 			</Grid>
