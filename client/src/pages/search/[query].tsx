@@ -21,10 +21,12 @@ interface Props {
 	page: number
 }
 
-const Query = ({ query, ...userDetails }: Props) => {
+const Query = ({ query, ...userDetails, page }: Props) => {
 	useStoreID(userDetails)
 	const { push } = useRouter()
 	const [searchInput, setSearchInput] = useState(query)
+
+	// const {data}  = useSearchProducts({query: searchInput, skip: })
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
@@ -75,7 +77,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		userID: '',
 		sellerID: '',
 		query: (query as string).replace(/\+/g, ' ').trim(),
-		page: parseInt(page, 10),
+		page: parseInt(page, 10) || 1,
 	}
 
 	if (!jwt) return { props }
