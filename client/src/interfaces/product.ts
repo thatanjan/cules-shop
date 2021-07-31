@@ -1,3 +1,5 @@
+import { Key } from 'swr'
+
 export type AllCategoryName = Array<{
 	name: string
 	categoryID: string
@@ -44,4 +46,8 @@ export interface SearchProductsInput {
 	skip: number
 	query: string
 	sortBy: string
+}
+
+export interface MutationDeps {
+	mutationDeps: [Key, string | number | undefined]
 }
