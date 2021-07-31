@@ -25,6 +25,7 @@ const Query = ({ query, ...userDetails }: Props) => {
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
+
 		const queryString = searchInput.trim().replace(/\s/g, '+')
 
 		push(`/search/${queryString}`)
@@ -50,7 +51,7 @@ const Query = ({ query, ...userDetails }: Props) => {
 					variant='contained'
 					type='submit'
 					sx={{ m: '.8rem 0' }}
-					disabled={!query}
+					disabled={!searchInput}
 				>
 					search
 				</Button>
