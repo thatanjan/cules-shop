@@ -140,7 +140,7 @@ const ProductPreview = ({
 
 					{(alreadyInCart || cartPage) && (
 						<Grid item>
-							<DeleteFromCart productID={_id} />
+							<DeleteFromCart productID={_id} mutationDeps={mutationDeps} />
 						</Grid>
 					)}
 
