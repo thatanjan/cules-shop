@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
 import { mutate } from 'swr'
 import Image from 'next/image'
 import Card from '@material-ui/core/Card'
@@ -17,17 +16,16 @@ import { Props as ProductQuantityProps } from 'components/Products/ProductQuanti
 import createRequest from 'graphql/createRequest'
 
 import { CommonResponse } from 'interfaces/global'
+import { MutationDeps } from 'interfaces/product'
 
 import { addProductToCart } from 'graphql/mutations/productMutations'
-import { getCategoryProducts } from 'graphql/queries/productQueries'
-import { totalCartItems } from 'graphql/queries/cartQueries'
 
 import { useIsProductInTheCart } from 'hooks/swr/useProductHooks'
 
 const ProductQuantity = dynamic(() => import('./ProductQuantity'))
 const DeleteFromCart = dynamic(() => import('components/Cart/DeleteFromCart'))
 
-export interface Props {
+export interface Props extends MutationDeps {
 	twoColumn?: boolean
 	cartPage?: boolean
 	name: string
@@ -70,9 +68,8 @@ const ProductPreview = ({
 	_id,
 	image,
 	alreadyInCart,
+	mutationDeps,
 }: Props) => {
-	const { route } = useRouter()
-
 	const addProductHandler = async () => {
 		try {
 			const {
@@ -86,10 +83,7 @@ const ProductPreview = ({
 			})
 
 			if (success) {
-				if (route === '/category/[category]') {
-					mutate([getCategoryProducts, undefined])
-					mutate([totalCartItems, undefined])
-				}
+				mutationDeps.forEach(item => mutate(item))
 			}
 		} catch (error) {}
 	}
