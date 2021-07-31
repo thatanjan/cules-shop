@@ -23,11 +23,11 @@ interface Props {
 	page: number
 }
 
-const Query = ({ query, page, ...userDetails }: Props) => {
-	useStoreID(userDetails)
-	const { push } = useRouter()
-	const [searchInput, setSearchInput] = useState(query)
-
+interface InputProps {
+	page: number
+	searchInput: string
+}
+const ShowSearchResults = ({ page, searchInput }: InputProps) => {
 	const { NAME } = sortType
 
 	const { data } = useSearchProducts({
@@ -37,6 +37,13 @@ const Query = ({ query, page, ...userDetails }: Props) => {
 	})
 
 	console.log(data)
+	return <></>
+}
+
+const Query = ({ query, page, ...userDetails }: Props) => {
+	useStoreID(userDetails)
+	const { push } = useRouter()
+	const [searchInput, setSearchInput] = useState(query)
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
@@ -71,6 +78,8 @@ const Query = ({ query, page, ...userDetails }: Props) => {
 					search
 				</Button>
 			</form>
+
+			<ShowSearchResults {...{ page, searchInput }} />
 		</>
 	)
 }
