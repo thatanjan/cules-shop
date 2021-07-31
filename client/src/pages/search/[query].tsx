@@ -14,6 +14,8 @@ import { useStoreID } from 'redux/hooks/useUserHooks'
 
 import { useSearchProducts } from 'hooks/swr/useProductHooks'
 
+import { sortType } from 'variables/global'
+
 interface Props {
 	userID: string
 	sellerID: string
@@ -21,12 +23,20 @@ interface Props {
 	page: number
 }
 
-const Query = ({ query, ...userDetails, page }: Props) => {
+const Query = ({ query, page, ...userDetails }: Props) => {
 	useStoreID(userDetails)
 	const { push } = useRouter()
 	const [searchInput, setSearchInput] = useState(query)
 
-	// const {data}  = useSearchProducts({query: searchInput, skip: })
+	const { NAME } = sortType
+
+	const { data } = useSearchProducts({
+		query: searchInput,
+		skip: (page - 1) * 30,
+		sortBy: NAME,
+	})
+
+	console.log(data)
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
