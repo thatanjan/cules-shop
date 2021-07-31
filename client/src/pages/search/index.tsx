@@ -67,7 +67,7 @@ const SearchInputField = ({ query }: InputFieldProps) => {
 
 		const queryString = searchInput.trim().replace(/\s/g, '+')
 
-		push(`/search/${queryString}`)
+		push(`/search?query=${queryString}`)
 
 		return true
 	}
