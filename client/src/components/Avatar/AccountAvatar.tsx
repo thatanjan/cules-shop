@@ -36,6 +36,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 const AccountAvatar = ({ small, src, name }: Props) => {
 	const { container, smallAvatarStyle, breakpointStyles } = useStyles()
 
+	if (small && !src && !name) return <Avatar />
+
 	if (small && !src)
 		return (
 			<Avatar

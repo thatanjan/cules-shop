@@ -102,12 +102,6 @@ const AccountMenu = () => {
 					My account
 				</LinkedMenu>
 				<Divider />
-				<LinkedMenu href='/login'>
-					<ListItemIcon>
-						<PersonAdd fontSize='small' />
-					</ListItemIcon>
-					Add another account
-				</LinkedMenu>
 				<LinkedMenu href='/settings'>
 					<ListItemIcon>
 						<Settings fontSize='small' />
