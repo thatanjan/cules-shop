@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react'
+import React, { useState, useEffect, FormEvent } from 'react'
 import { useRouter } from 'next/router'
 import { GetServerSideProps } from 'next'
 import jwtDecode from 'jwt-decode'
@@ -71,6 +71,10 @@ interface InputFieldProps {
 const SearchInputField = ({ query }: InputFieldProps) => {
 	const { push } = useRouter()
 	const [searchInput, setSearchInput] = useState(query)
+
+	useEffect(() => {
+		setSearchInput(query)
+	}, [query])
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
