@@ -11,17 +11,25 @@ import Settings from '@material-ui/icons/Settings'
 import Logout from '@material-ui/icons/Logout'
 import { useTheme } from '@material-ui/core/styles'
 
+import AccountAvatar from 'components/Avatar/AccountAvatar'
+
 import MuiLink from 'components/Links/MuiLink'
 
 import { useAppSelector } from 'redux/hooks/appHooks'
+import { useGetMultipleUserNameImage } from 'hooks/swr/useProfileHooks'
 
 import { LOGIN_URL } from 'variables/global'
 
 const AccountMenu = () => {
 	const theme = useTheme()
-	const { loggedIn } = useAppSelector(state => state.user)
+	const { loggedIn, userID } = useAppSelector(state => state.user)
+
+	console.log(userID)
+	const { data } = useGetMultipleUserNameImage([userID])
 
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+
+	if (!data) return null
 
 	const open = Boolean(anchorEl)
 
@@ -33,11 +41,15 @@ const AccountMenu = () => {
 		setAnchorEl(null)
 	}
 
+	const {
+		getMultipleUserNameImage: [{ name, profilePicture }],
+	} = data
+
 	return (
 		<>
 			<Tooltip title='Account settings'>
 				<IconButton onClick={handleClick}>
-					<Avatar>A</Avatar>
+					<AccountAvatar name={name} src={profilePicture} small />
 				</IconButton>
 			</Tooltip>
 
