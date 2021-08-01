@@ -18,6 +18,10 @@ import { UserPayload } from 'interfaces/authentication'
 
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
+import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
+
+import { sortType } from 'variables/global'
+
 import 'swiper/swiper.min.css'
 import 'swiper/components/pagination/pagination.min.css'
 import 'swiper/components/navigation/navigation.min.css'
@@ -30,13 +34,34 @@ interface Props {
 	sellerID: string
 }
 
+export class TabData {
+	name: string
+
+	hook: Function
+
+	constructor(name: string, hook: Function) {
+		this.name = name
+		this.hook = hook
+	}
+}
+
 const Index = (props: Props) => {
 	useStoreID(props)
+	const { NAME } = sortBy
 	return (
 		<>
 			<ProductBannerSlideShow />
-			<ProductPreviewTabs tabNames={['featured', 'on Sale', 'top rated']} />
-			<ProductPreviewTabs tabNames={['Television']} />
+			<ProductPreviewTabs
+				tabData={[
+					new TabData('Television', () =>
+						useGetCategoryProducts({
+							categoryID: '60f27c41389742613420479a',
+							skip: 0,
+							sortBy: NAME,
+						})
+					),
+				]}
+			/>
 		</>
 	)
 }
