@@ -15,13 +15,18 @@ import checkValidJWT from 'utils/auth/checkValidJWT'
 
 import { LOGIN_URL } from 'variables/global'
 
+import { useStoreID } from 'redux/hooks/useUserHooks'
+
 import { useGetAllCartProducts } from 'hooks/swr/useCartHooks'
 
 const CartItemsShow = dynamic(() => import('components/Cart/CartItemsShow'))
 const CartTotal = dynamic(() => import('components/Cart/CartTotal'))
 const CoupnInput = dynamic(() => import('components/Cart/CoupnInput'))
 
-interface Props {}
+interface Props {
+	userID: string
+	sellerID: string
+}
 
 interface CustomButtonProps {
 	children: React.ReactNode
@@ -44,6 +49,7 @@ const CustomButton = ({ children, href }: CustomButtonProps) => {
 }
 
 const CartPage = (props: Props) => {
+	useStoreID(props)
 	const { data, isValidating } = useGetAllCartProducts()
 
 	if (!data) return <CustomBackdrop />
