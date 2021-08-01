@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import Avatar from '@material-ui/core/Avatar'
+import React, { useState, ReactNode } from 'react'
 import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
+import MenuItem, { MenuItemProps } from '@material-ui/core/MenuItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Tooltip from '@material-ui/core/Tooltip'
 import Divider from '@material-ui/core/Divider'
@@ -12,9 +11,23 @@ import Logout from '@material-ui/icons/Logout'
 import { useTheme } from '@material-ui/core/styles'
 
 import AccountAvatar from 'components/Avatar/AccountAvatar'
+import MuiLink from 'components/Links/MuiLink'
 
 import { useAppSelector } from 'redux/hooks/appHooks'
 import { useGetMultipleUserNameImage } from 'hooks/swr/useProfileHooks'
+
+interface LinkedMenuProps extends MenuItemProps {
+	children: ReactNode
+	href: string
+}
+
+const LinkedMenu = ({ children, href, ...props }: LinkedMenuProps) => {
+	return (
+		<MuiLink MuiComponent={MenuItem} href={href} {...props}>
+			{children}
+		</MuiLink>
+	)
+}
 
 const AccountMenu = () => {
 	const theme = useTheme()
@@ -82,31 +95,31 @@ const AccountMenu = () => {
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
-				<MenuItem sx={{ mb: 1 }}>
+				<LinkedMenu sx={{ mb: 1 }} href='/account'>
 					<ListItemIcon>
 						<AccountAvatar name={name} src={profilePicture} small />
 					</ListItemIcon>
 					My account
-				</MenuItem>
+				</LinkedMenu>
 				<Divider />
-				<MenuItem>
+				<LinkedMenu href='/login'>
 					<ListItemIcon>
 						<PersonAdd fontSize='small' />
 					</ListItemIcon>
 					Add another account
-				</MenuItem>
-				<MenuItem>
+				</LinkedMenu>
+				<LinkedMenu href='/settings'>
 					<ListItemIcon>
 						<Settings fontSize='small' />
 					</ListItemIcon>
 					Settings
-				</MenuItem>
-				<MenuItem>
+				</LinkedMenu>
+				<LinkedMenu href='/logout'>
 					<ListItemIcon>
 						<Logout fontSize='small' />
 					</ListItemIcon>
 					Logout
-				</MenuItem>
+				</LinkedMenu>
 			</Menu>
 		</>
 	)
