@@ -13,8 +13,8 @@ export interface ProfilePictureUploadResponse {
 
 export interface GetMultipleUserNameImage {
 	getMultipleUserNameImage: Array<{
+		profilePicture: string
 		name: string
-		image: string
 	}>
 }
 
