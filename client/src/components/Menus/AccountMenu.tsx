@@ -16,6 +16,8 @@ import MuiLink from 'components/Links/MuiLink'
 import { useAppSelector } from 'redux/hooks/appHooks'
 import { useGetMultipleUserNameImage } from 'hooks/swr/useProfileHooks'
 
+import { LOGIN_URL } from 'variables/global'
+
 interface LinkedMenuProps extends MenuItemProps {
 	children: ReactNode
 	href: string
@@ -137,7 +139,16 @@ const AccountMenu = () => {
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
-				{loggedIn ? <ForLoggedIn /> : ''}
+				{loggedIn ? (
+					<ForLoggedIn />
+				) : (
+					<LinkedMenu href={LOGIN_URL}>
+						<ListItemIcon>
+							<PersonAdd />
+						</ListItemIcon>
+						Login
+					</LinkedMenu>
+				)}
 			</Menu>
 		</>
 	)
