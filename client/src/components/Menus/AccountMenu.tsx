@@ -29,15 +29,61 @@ const LinkedMenu = ({ children, href, ...props }: LinkedMenuProps) => {
 	)
 }
 
-const AccountMenu = () => {
-	const theme = useTheme()
-	const { loggedIn, userID } = useAppSelector(state => state.user)
+const ForLoggedIn = () => {
+	const { userID } = useAppSelector(state => state.user)
 
 	const { data } = useGetMultipleUserNameImage([userID])
 
-	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+	if (!data) return null
+
+	const {
+		getMultipleUserNameImage: [{ name, profilePicture }],
+	} = data
+
+	return (
+		<>
+			<LinkedMenu sx={{ mb: 1 }} href='/account'>
+				<ListItemIcon>
+					<AccountAvatar name={name} src={profilePicture} small />
+				</ListItemIcon>
+				My account
+			</LinkedMenu>
+			<Divider />
+			<LinkedMenu href='/settings'>
+				<ListItemIcon>
+					<Settings fontSize='small' />
+				</ListItemIcon>
+				Settings
+			</LinkedMenu>
+			<LinkedMenu href='/logout'>
+				<ListItemIcon>
+					<Logout fontSize='small' />
+				</ListItemIcon>
+				Logout
+			</LinkedMenu>
+		</>
+	)
+}
+
+const LoggedInAvatar = () => {
+	const { userID } = useAppSelector(state => state.user)
+
+	const { data } = useGetMultipleUserNameImage([userID])
 
 	if (!data) return null
+
+	const {
+		getMultipleUserNameImage: [{ name, profilePicture }],
+	} = data
+
+	return <AccountAvatar name={name} src={profilePicture} small />
+}
+
+const AccountMenu = () => {
+	const theme = useTheme()
+	const { loggedIn } = useAppSelector(state => state.user)
+
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
 	const open = Boolean(anchorEl)
 
@@ -49,15 +95,11 @@ const AccountMenu = () => {
 		setAnchorEl(null)
 	}
 
-	const {
-		getMultipleUserNameImage: [{ name, profilePicture }],
-	} = data
-
 	return (
 		<>
 			<Tooltip title='Account settings'>
 				<IconButton onClick={handleClick}>
-					<AccountAvatar name={name} src={profilePicture} small />
+					{loggedIn ? <LoggedInAvatar /> : <AccountAvatar name='' src='' small />}
 				</IconButton>
 			</Tooltip>
 
@@ -95,25 +137,7 @@ const AccountMenu = () => {
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
-				<LinkedMenu sx={{ mb: 1 }} href='/account'>
-					<ListItemIcon>
-						<AccountAvatar name={name} src={profilePicture} small />
-					</ListItemIcon>
-					My account
-				</LinkedMenu>
-				<Divider />
-				<LinkedMenu href='/settings'>
-					<ListItemIcon>
-						<Settings fontSize='small' />
-					</ListItemIcon>
-					Settings
-				</LinkedMenu>
-				<LinkedMenu href='/logout'>
-					<ListItemIcon>
-						<Logout fontSize='small' />
-					</ListItemIcon>
-					Logout
-				</LinkedMenu>
+				{loggedIn ? <ForLoggedIn /> : ''}
 			</Menu>
 		</>
 	)
