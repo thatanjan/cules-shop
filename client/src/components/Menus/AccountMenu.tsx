@@ -13,18 +13,13 @@ import { useTheme } from '@material-ui/core/styles'
 
 import AccountAvatar from 'components/Avatar/AccountAvatar'
 
-import MuiLink from 'components/Links/MuiLink'
-
 import { useAppSelector } from 'redux/hooks/appHooks'
 import { useGetMultipleUserNameImage } from 'hooks/swr/useProfileHooks'
-
-import { LOGIN_URL } from 'variables/global'
 
 const AccountMenu = () => {
 	const theme = useTheme()
 	const { loggedIn, userID } = useAppSelector(state => state.user)
 
-	console.log(userID)
 	const { data } = useGetMultipleUserNameImage([userID])
 
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -88,7 +83,10 @@ const AccountMenu = () => {
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
 				<MenuItem sx={{ mb: 1 }}>
-					<Avatar /> My account
+					<ListItemIcon>
+						<AccountAvatar name={name} src={profilePicture} small />
+					</ListItemIcon>
+					My account
 				</MenuItem>
 				<Divider />
 				<MenuItem>
