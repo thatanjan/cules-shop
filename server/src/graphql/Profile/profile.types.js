@@ -21,7 +21,7 @@ const types = gql`
 
 	type UserNameImage {
 		name: String!
-		image: String!
+		profilePicture: String!
 	}
 
 	input UpdateProfileInput {
