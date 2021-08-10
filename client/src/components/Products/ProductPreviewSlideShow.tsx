@@ -3,6 +3,10 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { nanoid } from 'nanoid'
 import { makeStyles } from '@material-ui/core/styles'
 
+import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
+
+import { sortType } from 'variables/global'
+
 import ProductPreview from './ProductPreview'
 
 export const useStyles = makeStyles({
@@ -16,6 +20,7 @@ export const useStyles = makeStyles({
 
 interface Props {
 	singleTab: boolean | undefined
+	categoryID: string
 }
 
 const singleTabBreakpointStyle = {
@@ -39,8 +44,19 @@ const singleTabBreakpointStyle = {
 	},
 }
 
-const ProductSlideShow = ({ singleTab }: Props) => {
+const ProductSlideShow = ({ singleTab, categoryID }: Props) => {
 	const { swiperContainer } = useStyles()
+
+	const { NAME } = sortType
+
+	const { data } = useGetCategoryProducts({ categoryID, skip: 0, sortBy: NAME })
+
+	if (!data) return null
+
+	const {
+		getCategoryProducts: { products },
+	} = data
+
 	return (
 		<>
 			<Swiper
@@ -73,13 +89,11 @@ const ProductSlideShow = ({ singleTab }: Props) => {
 				navigation
 				className={swiperContainer}
 			>
-				{Array(20)
-					.fill(0)
-					.map(() => (
-						<SwiperSlide key={nanoid()}>
-							<ProductPreview twoColumn={singleTab} />
-						</SwiperSlide>
-					))}
+				{products.map(product => (
+					<SwiperSlide key={nanoid()}>
+						<ProductPreview twoColumn={singleTab} {...product} />
+					</SwiperSlide>
+				))}
 			</Swiper>
 		</>
 	)
