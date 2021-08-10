@@ -47,7 +47,7 @@ export class TabData {
 
 const Index = (props: Props) => {
 	useStoreID(props)
-	const { NAME } = sortBy
+	const { NAME } = sortType
 	return (
 		<>
 			<ProductBannerSlideShow />
