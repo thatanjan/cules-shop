@@ -63,9 +63,12 @@ const ProductPreviewTabs = ({ tabData }: Props) => {
 				</Tabs>
 			</Box>
 
-			{tabData.map((_, index) => (
+			{tabData.map(({ categoryID }, index) => (
 				<TabPanel {...{ value, index, key: nanoid() }}>
-					<ProductPreviewSlideShow singleTab={tabData.length === 1} />
+					<ProductPreviewSlideShow
+						categoryID={categoryID}
+						singleTab={tabData.length === 1}
+					/>
 				</TabPanel>
 			))}
 		</Box>
