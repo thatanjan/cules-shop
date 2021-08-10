@@ -91,7 +91,7 @@ const ProductSlideShow = ({ singleTab, categoryID }: Props) => {
 			>
 				{products.map(product => (
 					<SwiperSlide key={nanoid()}>
-						<ProductPreview twoColumn={singleTab} {...product} />
+						<ProductPreview {...product} />
 					</SwiperSlide>
 				))}
 			</Swiper>

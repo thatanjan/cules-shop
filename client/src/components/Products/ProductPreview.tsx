@@ -26,7 +26,6 @@ const ProductQuantity = dynamic(() => import('./ProductQuantity'))
 const DeleteFromCart = dynamic(() => import('components/Cart/DeleteFromCart'))
 
 export interface Props extends MutationDeps {
-	twoColumn?: boolean
 	cartPage?: boolean
 	name: string
 	image: string
@@ -59,7 +58,6 @@ const ProductQuantityContainer = (props: ProductQuantityProps) => {
 }
 
 const ProductPreview = ({
-	twoColumn,
 	cartPage,
 	name,
 	category,
@@ -93,14 +91,12 @@ const ProductPreview = ({
 			sx={{
 				m: '1rem auto',
 				width: '90%',
-				display: twoColumn && 'flex',
 			}}
 		>
 			<CardMedia
 				sx={{
 					width: '100%',
 					m: 'auto',
-					flexBasis: twoColumn && '30%',
 				}}
 			>
 				<Image
