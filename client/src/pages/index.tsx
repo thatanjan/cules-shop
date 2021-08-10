@@ -18,10 +18,6 @@ import { UserPayload } from 'interfaces/authentication'
 
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
-import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
-
-import { sortType } from 'variables/global'
-
 import 'swiper/swiper.min.css'
 import 'swiper/components/pagination/pagination.min.css'
 import 'swiper/components/navigation/navigation.min.css'
@@ -37,30 +33,21 @@ interface Props {
 export class TabData {
 	name: string
 
-	hook: Function
+	categoryID: string
 
-	constructor(name: string, hook: Function) {
+	constructor(name: string, categoryID: string) {
 		this.name = name
-		this.hook = hook
+		this.categoryID = categoryID
 	}
 }
 
 const Index = (props: Props) => {
 	useStoreID(props)
-	const { NAME } = sortType
 	return (
 		<>
 			<ProductBannerSlideShow />
 			<ProductPreviewTabs
-				tabData={[
-					new TabData('Television', () =>
-						useGetCategoryProducts({
-							categoryID: '60f27c41389742613420479a',
-							skip: 0,
-							sortBy: NAME,
-						})
-					),
-				]}
+				tabData={[new TabData('Television', '60f27c41389742613420479a')]}
 			/>
 		</>
 	)
@@ -79,9 +66,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 	const isValid = await checkValidJWT(jwt)
 
-	const { userID, sellerID } = jwtDecode<UserPayload>(jwt)
-
 	if (!isValid) return { props }
+
+	const { userID, sellerID } = jwtDecode<UserPayload>(jwt)
 
 	props = { userID, sellerID: sellerID || '' }
 
