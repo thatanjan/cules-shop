@@ -15,7 +15,7 @@ import { Props as ProductQuantityProps } from 'components/Products/ProductQuanti
 
 import createRequest from 'graphql/createRequest'
 
-import { CommonResponse } from 'interfaces/global'
+import { CommonResponse, SxTypes } from 'interfaces/global'
 import { MutationDeps } from 'interfaces/product'
 
 import { addProductToCart } from 'graphql/mutations/productMutations'
@@ -86,6 +86,8 @@ const ProductPreview = ({
 		} catch (error) {}
 	}
 
+	const cartStyle: SxTypes = { display: 'grid', justifyItems: 'end' }
+
 	return (
 		<Card
 			sx={{
@@ -127,21 +129,22 @@ const ProductPreview = ({
 					container
 					alignItems='center'
 					justifyContent='space-between'
+					sx={{ padding: '0 16px' }}
 				>
-					<Grid item>
+					<Grid item xs={6}>
 						<Typography component='h5' variant='subtitle1' color='secondary'>
 							${`${price / 100}`}
 						</Typography>
 					</Grid>
 
 					{(alreadyInCart || cartPage) && (
-						<Grid item>
+						<Grid item sx={cartStyle}>
 							<DeleteFromCart productID={_id} mutationDeps={mutationDeps} />
 						</Grid>
 					)}
 
 					{!cartPage && !alreadyInCart && (
-						<Grid item>
+						<Grid item xs={6} sx={cartStyle}>
 							<IconButton onClick={() => addProductHandler()}>
 								<AddShoppingCartIcon />
 							</IconButton>
