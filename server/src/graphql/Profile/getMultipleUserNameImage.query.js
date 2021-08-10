@@ -5,14 +5,12 @@ const resolver = {
 	Query: {
 		getMultipleUserNameImage: async (_, { Input: { userIDs } }) => {
 			try {
-				const users = await Profile.find({ user: { $in: userIDs } }, 'name')
+				const users = await Profile.find(
+					{ user: { $in: userIDs } },
+					'name profilePicture'
+				)
 
-				const result = users.map(user => {
-					user.image = ''
-					return user
-				})
-
-				return result
+				return users
 			} catch (e) {
 				return sendErrorMessage(e)
 			}
