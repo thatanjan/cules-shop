@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
 import { Props as ProductQuantityProps } from 'components/Products/ProductQuantity'
+import MuiLink from 'components/Links/MuiLink'
 
 import createRequest from 'graphql/createRequest'
 
@@ -87,6 +88,7 @@ const ProductPreview = ({
 	}
 
 	const cartStyle: SxTypes = { display: 'grid', justifyItems: 'end' }
+	const productPageLink = `/product/${_id}`
 
 	return (
 		<Card
@@ -95,7 +97,9 @@ const ProductPreview = ({
 				width: '90%',
 			}}
 		>
-			<CardMedia
+			<MuiLink
+				href={productPageLink}
+				MuiComponent={CardMedia}
 				sx={{
 					width: '100%',
 					m: 'auto',
@@ -108,12 +112,20 @@ const ProductPreview = ({
 					layout='responsive'
 					quality={20}
 				/>
-			</CardMedia>
+			</MuiLink>
 
 			<Box sx={{ flexGrow: 1 }}>
 				<CardHeader
-					title={name}
-					subheader={category.name}
+					title={
+						<MuiLink MuiComponent={Typography} href={productPageLink}>
+							{name}
+						</MuiLink>
+					}
+					subheader={
+						<MuiLink MuiComponent={Typography} href={productPageLink}>
+							{category.name}
+						</MuiLink>
+					}
 					subheaderTypographyProps={{
 						color: 'secondary',
 						variant: 'body2',
