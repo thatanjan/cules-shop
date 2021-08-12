@@ -56,13 +56,18 @@ const typeDefs = gql`
 		userQuantity: Int!
 	}
 
+	input ShippingInput {
+		name: String!
+		country: String!
+		address: String!
+		city: String!
+		postal: String!
+	}
+
 	input CheckoutInput {
 		products: [CheckoutProduct!]
 		stripeID: ID!
-		shippingAddress: AddressInput!
-		"""
-		AddressInput is from profile.types
-		"""
+		shippingAddress: ShippingInput!
 	}
 
 	input AddProductToCartInput {
