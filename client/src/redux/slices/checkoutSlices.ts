@@ -9,15 +9,11 @@ interface InitialState {
 
 const initialState: InitialState = {
 	shippingValues: {
-		email: '',
-		firstName: '',
-		secondName: '',
+		name: '',
 		country: '',
-		streetAddress1: '',
-		streetAddress2: '',
-		cityTown: '',
-		state: '',
-		zip: '',
+		address: '',
+		city: '',
+		postal: '',
 	},
 	showDifferentAddressForm: false,
 }
@@ -36,8 +32,6 @@ export const checkoutSlice = createSlice({
 		},
 	},
 })
-
-console.log(checkoutSlice)
 
 export const {
 	setShippingAddress,
