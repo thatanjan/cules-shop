@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper'
 import Divider from '@material-ui/core/Divider'
 import { nanoid } from 'nanoid'
 
+import { setShippingAddress } from 'redux/slices/checkoutSlices'
 import { useClearShippingAddress } from 'redux/hooks/useCheckoutHooks'
 import { useStoreID } from 'redux/hooks/useUserHooks'
 
@@ -44,8 +45,10 @@ const AddressShow = () => {
 	if (!data) return null
 
 	const {
-		getMultipleProfile: [{ address }],
+		getMultipleProfile: [{ address, name }],
 	} = data
+
+	setShippingAddress({ name, ...address })
 
 	const fields = Object.keys(address)
 
