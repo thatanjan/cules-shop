@@ -95,6 +95,7 @@ const ShippingForm = () => {
 						name='country'
 						type='text'
 						label='Country'
+						required
 					/>
 
 					<CustomField
@@ -102,6 +103,7 @@ const ShippingForm = () => {
 						name='postal'
 						type='text'
 						label='Postal Code'
+						required
 					/>
 
 					{isSubmitting && <LinearProgress />}
