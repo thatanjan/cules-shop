@@ -33,6 +33,10 @@ const schema = new Schema({
 	chargedMoney: { type: Number, required: true },
 	orderID: stringRequired,
 	currency: stringRequired,
+	date: {
+		type: Date,
+		default: Date.now,
+	},
 })
 
 const Order = model('Order', schema)
