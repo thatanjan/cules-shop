@@ -11,6 +11,7 @@ const stringRequired = {
 
 const product = {
 	...product,
+	categoryID: stringRequired,
 	totalPrice: { type: Number, required: true },
 	price: { type: Number, required: true },
 }
@@ -31,6 +32,7 @@ const schema = new Schema({
 	products: [product],
 	chargedMoney: { type: Number, required: true },
 	orderID: stringRequired,
+	currency: stringRequired,
 })
 
 const Order = model('Order', schema)
