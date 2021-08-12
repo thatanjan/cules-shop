@@ -5,6 +5,7 @@ const typeDefs = gql`
 		addProductToCart(Input: AddProductToCartInput!): SuccessResponse!
 		modifyQuantity(Input: ModifyQuantityInput!): SuccessResponse!
 		removeProductFromCart(Input: RemoveProductFromCartInput): SuccessResponse!
+		checkout(Input: CheckoutInput!): SuccessResponse!
 	}
 
 	extend type Query {
@@ -47,6 +48,17 @@ const typeDefs = gql`
 	type TotalCartItems {
 		totalItems: Int
 		errorMessage: String
+	}
+
+	input CheckoutProduct {
+		productID: ID!
+		categoryID: ID!
+		userQuantity: Int!
+	}
+
+	input CheckoutInput {
+		products: [CheckoutProduct!]
+		stripeID: ID!
 	}
 
 	input AddProductToCartInput {
