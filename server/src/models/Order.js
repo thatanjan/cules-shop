@@ -21,11 +21,12 @@ const schema = new Schema({
 		required: true,
 		ref: user,
 	},
-	shippingAddress: {
+	shippingDetails: {
 		country: stringRequired,
 		city: stringRequired,
 		postal: stringRequired,
 		address: stringRequired,
+		name: stringRequired,
 	},
 	products: [product],
 	chargedMoney: { type: Number, required: true },
