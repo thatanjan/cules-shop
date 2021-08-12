@@ -12,7 +12,6 @@ const stringRequired = {
 const product = {
 	...product,
 	categoryID: stringRequired,
-	totalPrice: { type: Number, required: true },
 	price: { type: Number, required: true },
 }
 
