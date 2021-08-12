@@ -7,15 +7,11 @@ import { TextField } from 'formik-material-ui'
 import { useSetShippingAddress } from 'redux/hooks/useCheckoutHooks'
 
 export interface Values {
-	firstName: string
-	secondName: string
-	email: string
+	name: string
 	country: string
-	streetAddress1: string
-	streetAddress2: string
-	cityTown: string
-	state: string
-	zip: string
+	address: string
+	city: string
+	postal: string
 }
 
 interface CustomFieldProps extends FieldAttributes<any> {
@@ -50,25 +46,15 @@ const ShippingForm = () => {
 	return (
 		<Formik
 			initialValues={{
-				email: '',
-				firstName: '',
-				secondName: '',
+				name: '',
 				country: '',
-				streetAddress1: '',
-				streetAddress2: '',
-				cityTown: '',
-				state: '',
-				zip: '',
+				address: '',
+				city: '',
+				postal: '',
 			}}
 			validate={values => {
 				const errors: Partial<Values> = {}
-				if (!values.email) {
-					errors.email = 'Required'
-				} else if (
-					!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-				) {
-					errors.email = 'Invalid email address'
-				}
+
 				return errors
 			}}
 			onSubmit={(values, { setSubmitting }) => {
@@ -82,59 +68,40 @@ const ShippingForm = () => {
 				<Form>
 					<CustomField
 						component={TextField}
-						name='firstName'
+						name='name'
 						type='text'
-						label='First Name'
+						label='Name'
 						required
 					/>
 
 					<CustomField
 						component={TextField}
-						name='secondName'
+						name='address'
 						type='text'
-						label='Second Name'
+						label='Address'
 						required
 					/>
 
 					<CustomField
 						component={TextField}
-						name='streetAddress1'
+						name='city'
 						type='text'
-						label='Street Address 1'
+						label='City'
 						required
 					/>
 
 					<CustomField
 						component={TextField}
-						name='streetAddress2'
+						name='country'
 						type='text'
-						label='Street Address 2'
-						required
+						label='Country'
 					/>
 
 					<CustomField
 						component={TextField}
-						name='cityTown'
+						name='postal'
 						type='text'
-						label='City / Town'
-						required
-					/>
-
-					<CustomField
-						component={TextField}
-						name='state'
-						type='text'
-						label='State'
-					/>
-
-					<CustomField component={TextField} name='zip' type='text' label='Zip' />
-
-					<CustomField
-						component={TextField}
-						name='email'
-						type='email'
-						label='Email'
-						required
+						label='Postal Code'
 					/>
 
 					{isSubmitting && <LinearProgress />}
