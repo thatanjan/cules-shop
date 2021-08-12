@@ -67,7 +67,7 @@ const typeDefs = gql`
 	input CheckoutInput {
 		products: [CheckoutProduct!]
 		stripeID: ID!
-		shippingAddress: ShippingInput!
+		shippingDetails: ShippingInput!
 	}
 
 	input AddProductToCartInput {
