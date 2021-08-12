@@ -1,6 +1,7 @@
 import { model, Schema } from 'mongoose'
 
 import { product } from './Cart'
+import Product from './Product'
 const objectId = Schema.Types.ObjectId
 
 const stringRequired = {
@@ -8,7 +9,11 @@ const stringRequired = {
 	required: true,
 }
 
-const product = { ...product, totalPrice: { type: Number, required: true } }
+const product = {
+	...product,
+	totalPrice: { type: Number, required: true },
+	ref: Product,
+}
 
 const schema = new Schema({
 	user: {
@@ -24,6 +29,7 @@ const schema = new Schema({
 	},
 	products: [product],
 	chargedMoney: { type: Number, required: true },
+	orderID: stringRequired,
 })
 
 const Order = model('Order', schema)
