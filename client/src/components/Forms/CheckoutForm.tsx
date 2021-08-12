@@ -35,9 +35,21 @@ const CheckoutForm = () => {
 				key: checkout,
 				values: {
 					productID: '60f2cf46a76aaa34433eaaee',
-					categoryID: '60f2cf46a76aaa34433eaaee',
-					userQuantity: 1,
+					products: [
+						{
+							productID: '60f2cf46a76aaa34433eaaee',
+							categoryID: '60f2cf46a76aaa34433eaaee',
+							userQuantity: 12,
+						},
+					],
 					stripeID: id,
+					shippingDetails: {
+						name: '',
+						country: '',
+						address: '',
+						city: '',
+						postal: '',
+					},
 				},
 			})
 
