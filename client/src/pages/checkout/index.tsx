@@ -8,7 +8,10 @@ import Divider from '@material-ui/core/Divider'
 import { nanoid } from 'nanoid'
 
 import { setShippingAddress } from 'redux/slices/checkoutSlices'
-import { useClearShippingAddress } from 'redux/hooks/useCheckoutHooks'
+import {
+	useClearShippingAddress,
+	useGetCheckoutState,
+} from 'redux/hooks/useCheckoutHooks'
 import { useStoreID } from 'redux/hooks/useUserHooks'
 
 import { UserPayload } from 'interfaces/authentication'
@@ -75,6 +78,8 @@ const CheckoutPage = (props: Props) => {
 	useStoreID(props)
 	const clearShippingAddress = useClearShippingAddress()
 
+	const { showDifferentAddressForm } = useGetCheckoutState()
+
 	useEffect(() => {
 		return () => {
 			clearShippingAddress()
@@ -97,13 +102,15 @@ const CheckoutPage = (props: Props) => {
 				<Grid item xs={12} md={6} sx={{ margin: '1rem 0' }}>
 					<CheckoutPageTitle>Shipping Address</CheckoutPageTitle>
 
-					<Grid container sx={{ margin: '1rem 0' }}>
-						<Grid item xs={12} sx={{ marginBottom: '1rem' }}>
-							<Typography variant='h5'>Current Address</Typography>
-						</Grid>
+					{!showDifferentAddressForm && (
+						<Grid container sx={{ margin: '1rem 0' }}>
+							<Grid item xs={12} sx={{ marginBottom: '1rem' }}>
+								<Typography variant='h5'>Current Address</Typography>
+							</Grid>
 
-						<AddressShow />
-					</Grid>
+							<AddressShow />
+						</Grid>
+					)}
 
 					<Grid item xs={12}>
 						<ShippingFormContainer />
