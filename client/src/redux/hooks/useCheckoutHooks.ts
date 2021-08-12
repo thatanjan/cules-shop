@@ -1,4 +1,4 @@
-import { useAppDispatch } from 'redux/hooks/appHooks'
+import { useAppDispatch, useAppSelector } from 'redux/hooks/appHooks'
 import {
 	setShippingAddress,
 	clearShippingAddress,
@@ -21,3 +21,5 @@ export const useClearShippingAddress = () => {
 	const dispatch = useAppDispatch()
 	return () => dispatch(clearShippingAddress())
 }
+
+export const useGetCheckoutState = () => useAppSelector(state => state.checkout)
