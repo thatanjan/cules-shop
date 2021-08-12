@@ -54,13 +54,13 @@ const ShippingForm = () => {
 			}}
 			validate={values => {
 				const errors: Partial<Values> = {}
+				setShippingAddress(values)
 
 				return errors
 			}}
 			onSubmit={(values, { setSubmitting }) => {
 				setTimeout(() => {
 					setSubmitting(false)
-					setShippingAddress(values)
 				}, 500)
 			}}
 		>
