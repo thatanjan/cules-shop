@@ -8,6 +8,10 @@ import {
 } from '@stripe/react-stripe-js'
 import Button from '@material-ui/core/Button'
 
+import createRequest from 'graphql/createRequest'
+
+import { checkout } from 'graphql/mutations/checkoutMutations'
+
 const CheckoutForm = () => {
 	const stripe = useStripe()
 	const elements = useElements()
@@ -23,6 +27,22 @@ const CheckoutForm = () => {
 			type: 'card',
 			card: elements.getElement(CardElement),
 		})
+
+		if (!error) {
+			const { id } = paymentMethod
+
+			const request = await createRequest({
+				key: checkout,
+				values: {
+					productID: '60f2cf46a76aaa34433eaaee',
+					categoryID: '60f2cf46a76aaa34433eaaee',
+					userQuantity: 1,
+					stripeID: id,
+				},
+			})
+
+			console.log(request)
+		}
 	}
 
 	return (
@@ -49,7 +69,9 @@ const CheckoutForm = () => {
 	)
 }
 
-const stripePromise = loadStripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh')
+const stripePromise = loadStripe(
+	'pk_test_51J4gFKKMP47A4jh0PLmYH5uTFG91ABInhXU6tADls29Ep2952EGvyYuMXBfAx0vf1oAaSYblaWVNEkHr4UiFx6EV00uuQOy4HE'
+)
 
 const Checkout = () => (
 	<>
