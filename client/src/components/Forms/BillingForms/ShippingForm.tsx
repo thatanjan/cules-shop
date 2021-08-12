@@ -58,13 +58,9 @@ const ShippingForm = () => {
 
 				return errors
 			}}
-			onSubmit={(values, { setSubmitting }) => {
-				setTimeout(() => {
-					setSubmitting(false)
-				}, 500)
-			}}
+			onSubmit={() => {}}
 		>
-			{({ submitForm, isSubmitting }) => (
+			{() => (
 				<Form>
 					<CustomField
 						component={TextField}
@@ -105,19 +101,6 @@ const ShippingForm = () => {
 						label='Postal Code'
 						required
 					/>
-
-					{isSubmitting && <LinearProgress />}
-
-					<Button
-						variant='contained'
-						color='primary'
-						disabled={isSubmitting}
-						onClick={submitForm}
-						sx={{ margin: '1rem 0', padding: { sm: { padding: '1rem' } } }}
-						fullWidth
-					>
-						Done
-					</Button>
 				</Form>
 			)}
 		</Formik>
