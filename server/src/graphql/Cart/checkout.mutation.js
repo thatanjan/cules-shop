@@ -9,7 +9,7 @@ const resolver = {
 	Mutation: {
 		checkout: async (
 			_,
-			{ Input: { products, stripeID } },
+			{ Input: { products, stripeID, checkoutDetails } },
 			{ user: { userID } }
 		) => {
 			try {
@@ -23,8 +23,9 @@ const resolver = {
 
 				let totalPrice = 0
 
-				res.forEach(item => {
-					totalPrice += item.price
+				res.forEach((item, index) => {
+					const individualQuantity = products[index].userQuantity
+					totalPrice += item.price * individualQuantity
 				})
 
 				const payment = await stripe.paymentIntents.create({
@@ -33,6 +34,8 @@ const resolver = {
 					confirm: true,
 					payment_method: stripeID,
 				})
+
+				console.log(payment)
 
 				return { success: true }
 			} catch (err) {
