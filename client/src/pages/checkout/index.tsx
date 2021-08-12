@@ -44,6 +44,13 @@ export const CheckoutPageTitle = ({ children }: CheckoutPageTitleProps) => (
 
 const AddressShow = () => {
 	const { data } = useGetMultipleProfile()
+	const clearShippingAddress = useClearShippingAddress()
+
+	useEffect(() => {
+		return () => {
+			clearShippingAddress()
+		}
+	}, [])
 
 	if (!data) return null
 
