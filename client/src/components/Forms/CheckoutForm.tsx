@@ -15,13 +15,17 @@ import createRequest from 'graphql/createRequest'
 
 import { checkout } from 'graphql/mutations/checkoutMutations'
 
-import { useGetCheckoutState } from 'redux/hooks/useCheckoutHooks'
+import {
+	useGetCheckoutState,
+	useSetCheckoutDone,
+} from 'redux/hooks/useCheckoutHooks'
 
 const CheckoutForm = () => {
 	const stripe = useStripe()
 	const elements = useElements()
 	const [errorMessage, setErrorMessage] = useState('')
 	const [checkingOut, setCheckingOut] = useState(false)
+	const setCheckoutDone = useSetCheckoutDone()
 
 	const { shippingValues, isNewAddressValid, isCurrentAddressValid } =
 		useGetCheckoutState()
@@ -59,6 +63,7 @@ const CheckoutForm = () => {
 
 		if (request) {
 			setCheckingOut(false)
+			setCheckoutDone()
 		}
 	}
 
