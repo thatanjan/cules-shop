@@ -63,6 +63,7 @@ const AccountAvatar = ({ small, src, name }: Props) => {
 						height={100}
 						width={100}
 						objectFit='cover'
+						quality={small ? 20 : 50}
 					/>
 				</Box>
 			) : (
