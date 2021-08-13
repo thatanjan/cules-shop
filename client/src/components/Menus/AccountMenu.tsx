@@ -14,7 +14,7 @@ import AccountAvatar from 'components/Avatar/AccountAvatar'
 import MuiLink from 'components/Links/MuiLink'
 
 import { useAppSelector } from 'redux/hooks/appHooks'
-import { useGetMultipleUserNameImage } from 'hooks/swr/useProfileHooks'
+import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
 
 import { LOGIN_URL } from 'variables/global'
 
@@ -34,12 +34,12 @@ const LinkedMenu = ({ children, href, ...props }: LinkedMenuProps) => {
 const ForLoggedIn = () => {
 	const { userID } = useAppSelector(state => state.user)
 
-	const { data } = useGetMultipleUserNameImage([userID])
+	const { data } = useGetMultipleProfile([userID])
 
 	if (!data) return null
 
 	const {
-		getMultipleUserNameImage: [{ name, profilePicture }],
+		getMultipleProfile: [{ name, profilePicture }],
 	} = data
 
 	return (
@@ -70,12 +70,12 @@ const ForLoggedIn = () => {
 const LoggedInAvatar = () => {
 	const { userID } = useAppSelector(state => state.user)
 
-	const { data } = useGetMultipleUserNameImage([userID])
+	const { data } = useGetMultipleProfile([userID])
 
 	if (!data) return null
 
 	const {
-		getMultipleUserNameImage: [{ name, profilePicture }],
+		getMultipleProfile: [{ name, profilePicture }],
 	} = data
 
 	return <AccountAvatar name={name} src={profilePicture} small />
