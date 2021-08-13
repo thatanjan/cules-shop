@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose'
 import Product from './Product'
-import Category from 'models/Category'
 
 const objectId = Schema.Types.ObjectId
 
@@ -10,7 +9,6 @@ export const product = {
 		required: true,
 		ref: Product,
 	},
-	categoryID: { type: objectId, required: true, ref: Category },
 	quantity: {
 		type: Number,
 		required: true,
