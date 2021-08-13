@@ -30,7 +30,7 @@ const AppLayout = ({ children }: Props) => {
 				sx={{
 					minHeight: '100vh',
 					maxWidth: '100vw',
-					minWidth: '100vw',
+					overflowX: 'hidden',
 				}}
 				elevation={0}
 				square
