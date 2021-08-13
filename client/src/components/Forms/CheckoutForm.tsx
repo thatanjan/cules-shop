@@ -8,6 +8,8 @@ import {
 } from '@stripe/react-stripe-js'
 import Button from '@material-ui/core/Button'
 
+import CustomAlert from 'components/Alerts/CustomAlert'
+
 import createRequest from 'graphql/createRequest'
 
 import { checkout } from 'graphql/mutations/checkoutMutations'
@@ -17,6 +19,7 @@ import { useGetCheckoutState } from 'redux/hooks/useCheckoutHooks'
 const CheckoutForm = () => {
 	const stripe = useStripe()
 	const elements = useElements()
+	const [errorMessage, setErrorMessage] = useState('')
 
 	const { shippingValues, isNewAddressValid, isCurrentAddressValid } =
 		useGetCheckoutState()
@@ -33,6 +36,14 @@ const CheckoutForm = () => {
 			card: elements.getElement(CardElement),
 		})
 
+		if (error) {
+			setErrorMessage(error.message)
+			setTimeout(() => {
+				setErrorMessage('')
+			}, 3000)
+			return false
+		}
+
 		if (!error) {
 			const { id } = paymentMethod
 
@@ -47,28 +58,36 @@ const CheckoutForm = () => {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<CardElement
-				options={{
-					style: {
-						base: {
-							fontSize: '1.5rem',
-							color: 'white',
+		<>
+			<form onSubmit={handleSubmit}>
+				<CardElement
+					options={{
+						style: {
+							base: {
+								fontSize: '1.5rem',
+								color: 'white',
+							},
 						},
-					},
-				}}
-			/>
-			<Button
-				variant='contained'
-				type='submit'
-				disabled={
-					!stripe || !elements || (!isNewAddressValid && !isCurrentAddressValid)
-				}
-				sx={{ margin: '1.5rem 0' }}
-			>
-				Pay
-			</Button>
-		</form>
+					}}
+				/>
+				<Button
+					variant='contained'
+					type='submit'
+					disabled={
+						!stripe || !elements || (!isNewAddressValid && !isCurrentAddressValid)
+					}
+					sx={{ margin: '1.5rem 0' }}
+				>
+					Pay
+				</Button>
+			</form>
+
+			{errorMessage && (
+				<CustomAlert checked severity='error'>
+					{errorMessage}
+				</CustomAlert>
+			)}
+		</>
 	)
 }
 
