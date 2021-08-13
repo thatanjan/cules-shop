@@ -72,6 +72,7 @@ const typeDefs = gql`
 
 	input AddProductToCartInput {
 		productID: ID!
+		categoryID: ID!
 		quantity: Int!
 	}
 
