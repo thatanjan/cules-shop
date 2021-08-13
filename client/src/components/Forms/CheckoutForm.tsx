@@ -7,6 +7,7 @@ import {
 	useElements,
 } from '@stripe/react-stripe-js'
 import Button from '@material-ui/core/Button'
+import LinearProgress from '@material-ui/core/LinearProgress'
 
 import CustomAlert from 'components/Alerts/CustomAlert'
 
@@ -20,6 +21,7 @@ const CheckoutForm = () => {
 	const stripe = useStripe()
 	const elements = useElements()
 	const [errorMessage, setErrorMessage] = useState('')
+	const [checkingOut, setCheckingOut] = useState(false)
 
 	const { shippingValues, isNewAddressValid, isCurrentAddressValid } =
 		useGetCheckoutState()
@@ -44,16 +46,19 @@ const CheckoutForm = () => {
 			return false
 		}
 
-		if (!error) {
-			const { id } = paymentMethod
+		const { id } = paymentMethod
 
-			const request = await createRequest({
-				key: checkout,
-				values: {
-					stripeID: id,
-					shippingDetails: shippingValues,
-				},
-			})
+		const request = await createRequest({
+			key: checkout,
+			values: {
+				stripeID: id,
+				shippingDetails: shippingValues,
+			},
+		})
+		setCheckingOut(true)
+
+		if (request) {
+			setCheckingOut(false)
 		}
 	}
 
@@ -70,11 +75,17 @@ const CheckoutForm = () => {
 						},
 					}}
 				/>
+
+				{checkingOut && <LinearProgress sx={{ mt: '1rem' }} />}
+
 				<Button
 					variant='contained'
 					type='submit'
 					disabled={
-						!stripe || !elements || (!isNewAddressValid && !isCurrentAddressValid)
+						!stripe ||
+						!elements ||
+						checkingOut ||
+						(!isNewAddressValid && !isCurrentAddressValid)
 					}
 					sx={{ margin: '1.5rem 0' }}
 				>
