@@ -54,6 +54,7 @@ const AddressShow = () => {
 	const { isCurrentAddressValid } = useGetCheckoutState()
 
 	useEffect(() => {
+		dispatch(setIsCurrentAddressValid(false))
 		return () => {
 			clearShippingAddress()
 		}
@@ -70,7 +71,12 @@ const AddressShow = () => {
 	const fields = Object.keys(address)
 
 	for (let key in address) {
-		if (!address[key]) dispatch(setIsCurrentAddressValid(false))
+		if (address[key]) {
+			dispatch(setIsCurrentAddressValid(true))
+		} else {
+			dispatch(setIsCurrentAddressValid(false))
+			break
+		}
 	}
 
 	return (
