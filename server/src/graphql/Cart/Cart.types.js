@@ -50,12 +50,6 @@ const typeDefs = gql`
 		errorMessage: String
 	}
 
-	input CheckoutProduct {
-		productID: ID!
-		categoryID: ID!
-		userQuantity: Int!
-	}
-
 	input ShippingInput {
 		name: String!
 		country: String!
@@ -65,7 +59,6 @@ const typeDefs = gql`
 	}
 
 	input CheckoutInput {
-		products: [CheckoutProduct!]
 		stripeID: ID!
 		shippingDetails: ShippingInput!
 	}
