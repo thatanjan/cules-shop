@@ -7,6 +7,7 @@ interface InitialState {
 	showDifferentAddressForm: boolean
 	isCurrentAddressValid: boolean
 	isNewAddressValid: boolean
+	checkoutDone: boolean
 }
 
 const initialState: InitialState = {
@@ -20,6 +21,7 @@ const initialState: InitialState = {
 	showDifferentAddressForm: false,
 	isCurrentAddressValid: false,
 	isNewAddressValid: false,
+	checkoutDone: false,
 }
 
 export const checkoutSlice = createSlice({
@@ -42,6 +44,9 @@ export const checkoutSlice = createSlice({
 		setIsNewAddressValid: (state, { payload }) => {
 			state.isNewAddressValid = payload
 		},
+		setCheckoutDone: (state, { payload }: PayloadAction<boolean>) => {
+			state.checkoutDone = payload
+		},
 	},
 })
 
@@ -52,6 +57,7 @@ export const {
 	resetState,
 	setIsCurrentAddressValid,
 	setIsNewAddressValid,
+	setCheckoutDone,
 } = checkoutSlice.actions
 
 export default checkoutSlice.reducer
