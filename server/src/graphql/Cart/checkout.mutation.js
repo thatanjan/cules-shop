@@ -16,7 +16,7 @@ const resolver = {
 			try {
 				const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-				const { products } = await Cart.find({ user: userID }, 'products')
+				const { products } = await Cart.findOne({ user: userID }, 'products')
 
 				if (!products.length)
 					return sendErrorMessage('No product is available in cart')
