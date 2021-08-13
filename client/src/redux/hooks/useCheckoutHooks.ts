@@ -3,6 +3,7 @@ import {
 	setShippingAddress,
 	clearShippingAddress,
 	toggleShowDifferentAddressForm,
+	setCheckoutDone,
 } from 'redux/slices/checkoutSlices'
 import { Values } from 'components/Forms/BillingForms/ShippingForm'
 
@@ -23,3 +24,8 @@ export const useClearShippingAddress = () => {
 }
 
 export const useGetCheckoutState = () => useAppSelector(state => state.checkout)
+
+export const useSetCheckoutDone = () => {
+	const dispatch = useAppDispatch()
+	return () => dispatch(setCheckoutDone(true))
+}
