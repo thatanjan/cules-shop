@@ -42,7 +42,7 @@ interface CheckoutPageTitleProps {
 const CheckoutSuccessful = () => {
 	const { push } = useRouter()
 
-	push('/cart')
+	setTimeout(() => push('/cart'), 3000)
 
 	return (
 		<Grid
