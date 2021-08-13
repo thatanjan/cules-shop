@@ -122,7 +122,11 @@ const EditProfile = (props: Props) => {
 					</Typography>
 
 					<Box sx={{ display: 'grid', placeItems: 'center', marginTop: '1rem' }}>
-						<Button variant='contained' onClick={() => dispatch(openUploadModal())}>
+						<Button
+							variant='contained'
+							onClick={() => dispatch(openUploadModal())}
+							disabled={uploading}
+						>
 							Upload a Picture
 						</Button>
 
