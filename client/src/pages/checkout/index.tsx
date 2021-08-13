@@ -15,6 +15,7 @@ import {
 import {
 	useClearShippingAddress,
 	useGetCheckoutState,
+	useResetCheckoutState,
 } from 'redux/hooks/useCheckoutHooks'
 import { useStoreID } from 'redux/hooks/useUserHooks'
 import { useAppDispatch } from 'redux/hooks/appHooks'
@@ -41,6 +42,13 @@ interface CheckoutPageTitleProps {
 
 const CheckoutSuccessful = () => {
 	const { push } = useRouter()
+	const resetState = useResetCheckoutState()
+
+	useEffect(() => {
+		return () => {
+			resetState()
+		}
+	}, [])
 
 	setTimeout(() => push('/cart'), 3000)
 
