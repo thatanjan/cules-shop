@@ -1,4 +1,4 @@
-import { FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import {
 	CardElement,
@@ -18,7 +18,8 @@ const CheckoutForm = () => {
 	const stripe = useStripe()
 	const elements = useElements()
 
-	const { shippingValues } = useGetCheckoutState()
+	const { shippingValues, isNewAddressValid, isCurrentAddressValid } =
+		useGetCheckoutState()
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
@@ -42,8 +43,6 @@ const CheckoutForm = () => {
 					shippingDetails: shippingValues,
 				},
 			})
-
-			console.log(request)
 		}
 	}
 
@@ -62,7 +61,9 @@ const CheckoutForm = () => {
 			<Button
 				variant='contained'
 				type='submit'
-				disabled={!stripe || !elements}
+				disabled={
+					!stripe || !elements || (!isNewAddressValid && !isCurrentAddressValid)
+				}
 				sx={{ margin: '1.5rem 0' }}
 			>
 				Pay
