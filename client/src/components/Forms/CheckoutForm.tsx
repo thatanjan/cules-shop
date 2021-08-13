@@ -12,9 +12,13 @@ import createRequest from 'graphql/createRequest'
 
 import { checkout } from 'graphql/mutations/checkoutMutations'
 
+import { useGetCheckoutState } from 'redux/hooks/useCheckoutHooks'
+
 const CheckoutForm = () => {
 	const stripe = useStripe()
 	const elements = useElements()
+
+	const { shippingValues } = useGetCheckoutState()
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
@@ -34,22 +38,8 @@ const CheckoutForm = () => {
 			const request = await createRequest({
 				key: checkout,
 				values: {
-					productID: '60f2cf46a76aaa34433eaaee',
-					products: [
-						{
-							productID: '60f2cf46a76aaa34433eaaee',
-							categoryID: '60f2cf46a76aaa34433eaaee',
-							userQuantity: 12,
-						},
-					],
 					stripeID: id,
-					shippingDetails: {
-						name: '',
-						country: '',
-						address: '',
-						city: '',
-						postal: '',
-					},
+					shippingDetails: shippingValues,
 				},
 			})
 
