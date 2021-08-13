@@ -133,12 +133,12 @@ const EditProfile = (props: Props) => {
 						{uploadModal && <ImageUploadModal {...uploadModalProps} />}
 
 						{previewModal && <UploadPreviewModal {...uploadPreviewProps} />}
-
-						{(uploading || successful || failed) && (
-							<UploadAlert {...(alertProps as AlertProps)} />
-						)}
 					</Box>
 				</Grid>
+
+				{(uploading || successful || failed) && (
+					<UploadAlert {...(alertProps as AlertProps)} sx={{ m: '1rem 0' }} />
+				)}
 
 				<AccountEditForm />
 			</Grid>
