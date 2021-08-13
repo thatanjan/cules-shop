@@ -112,7 +112,7 @@ const EditProfile = (props: Props) => {
 					margin: '3rem 0',
 				}}
 			>
-				<Grid item xs={6} sm={4}>
+				<Grid item xs={6} sm={4} sx={{ mb: '1rem' }}>
 					<AccountAvatar name={name} src={profilePicture} />
 				</Grid>
 
@@ -121,7 +121,7 @@ const EditProfile = (props: Props) => {
 						{name}
 					</Typography>
 
-					<Box sx={{ display: 'grid', placeItems: 'center', marginTop: '1rem' }}>
+					<Box sx={{ display: 'grid', placeItems: 'center', m: '1rem 0' }}>
 						<Button
 							variant='contained'
 							onClick={() => dispatch(openUploadModal())}
