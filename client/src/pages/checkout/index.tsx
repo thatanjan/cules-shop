@@ -1,6 +1,7 @@
 import React, { useEffect, Fragment, useState } from 'react'
 import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
@@ -36,6 +37,27 @@ interface Props {
 
 interface CheckoutPageTitleProps {
 	children: React.ReactNode
+}
+
+const CheckoutSuccessful = () => {
+	const { push } = useRouter()
+
+	push('/cart')
+
+	return (
+		<Grid
+			container
+			justifyContent='center'
+			alignItems='center'
+			sx={{ height: '100vh' }}
+		>
+			<Grid item>
+				<Typography variant='h3' align='center'>
+					Checkout is successful
+				</Typography>
+			</Grid>
+		</Grid>
+	)
 }
 
 export const CheckoutPageTitle = ({ children }: CheckoutPageTitleProps) => (
@@ -111,13 +133,15 @@ const CheckoutPage = (props: Props) => {
 	useStoreID(props)
 	const clearShippingAddress = useClearShippingAddress()
 
-	const { showDifferentAddressForm } = useGetCheckoutState()
+	const { showDifferentAddressForm, checkoutDone } = useGetCheckoutState()
 
 	useEffect(() => {
 		return () => {
 			clearShippingAddress()
 		}
 	}, [])
+
+	if (checkoutDone) return <CheckoutSuccessful />
 
 	return (
 		<>
