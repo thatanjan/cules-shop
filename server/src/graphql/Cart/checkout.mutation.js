@@ -10,11 +10,16 @@ const resolver = {
 	Mutation: {
 		checkout: async (
 			_,
-			{ Input: { products, stripeID, shippingDetails } },
+			{ Input: { stripeID, shippingDetails } },
 			{ user: { userID } }
 		) => {
 			try {
 				const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+
+				const { products } = await Cart.find({ user: userID }, 'products')
+
+				if (!products.length)
+					return sendErrorMessage('No product is available in cart')
 
 				const productIDs = products.map(product => product.productID)
 
