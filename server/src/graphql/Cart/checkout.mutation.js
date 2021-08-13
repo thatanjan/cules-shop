@@ -58,6 +58,13 @@ const resolver = {
 
 				await order.save()
 
+				const updateCart = await Cart.updateOne(
+					{ user: userID },
+					{ $set: { products: [] } }
+				)
+
+				if (updateCart.nModified !== 1) return sendErrorMessage()
+
 				return { success: true }
 			} catch (err) {
 				console.log(err)
