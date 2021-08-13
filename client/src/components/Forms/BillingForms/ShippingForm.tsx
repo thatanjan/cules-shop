@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Formik, Form, Field, FieldAttributes } from 'formik'
-import Button from '@material-ui/core/Button'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import { TextField } from 'formik-material-ui'
 
-import { useSetShippingAddress } from 'redux/hooks/useCheckoutHooks'
+import { useAppDispatch } from 'redux/hooks/appHooks'
+import {
+	useSetShippingAddress,
+	useClearShippingAddress,
+} from 'redux/hooks/useCheckoutHooks'
+import { setIsNewAddressValid } from 'redux/slices/checkoutSlices'
 
 export interface Values {
 	name: string
@@ -42,6 +45,16 @@ const CustomField = ({
 
 const ShippingForm = () => {
 	const setShippingAddress = useSetShippingAddress()
+	const dispatch = useAppDispatch()
+	const clearShippingAddress = useClearShippingAddress()
+
+	useEffect(() => {
+		dispatch(setIsNewAddressValid(false))
+		return () => {
+			dispatch(setIsNewAddressValid(false))
+			clearShippingAddress()
+		}
+	}, [])
 
 	return (
 		<Formik
@@ -55,6 +68,15 @@ const ShippingForm = () => {
 			validate={values => {
 				const errors: Partial<Values> = {}
 				setShippingAddress(values)
+
+				for (let key in values) {
+					if (values[key]) {
+						dispatch(setIsNewAddressValid(true))
+					} else {
+						dispatch(setIsNewAddressValid(false))
+						break
+					}
+				}
 
 				return errors
 			}}
