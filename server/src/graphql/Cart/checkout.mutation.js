@@ -63,11 +63,29 @@ const resolver = {
 					{ $set: { products: [] } }
 				)
 
-				if (updateCart.nModified !== 1) return sendErrorMessage()
+				console.log(updateCart)
+
+				if (!updateCart) return sendErrorMessage()
+
+				const bulkUpdateArray = products.map(({ productID, userQuantity }) => ({
+					updateOne: {
+						filter: {
+							_id: productID,
+						},
+						update: {
+							$inc: {
+								quantity: userQuantity * -1,
+							},
+						},
+					},
+				}))
+
+				const updateProduct = await Product.bulkWrite(bulkUpdateArray)
+
+				if (!updateProduct.result.ok) return sendErrorMessage()
 
 				return { success: true }
 			} catch (err) {
-				console.log(err)
 				return sendErrorMessage()
 			}
 		},
