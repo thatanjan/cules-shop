@@ -93,7 +93,7 @@ const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 
 						{largerThanMD && <SearchBar />}
 
-						<AccountMenu />
+						{largerThanMD && <AccountMenu />}
 
 						<CartMenu />
 					</Toolbar>
