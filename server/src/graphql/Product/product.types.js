@@ -3,6 +3,7 @@ import { gql } from 'apollo-server-express'
 const typeDefs = gql`
 	extend type Mutation {
 		createProduct(Input: CreateProductInput!): CreateProductResponse!
+		addReview(Input: AddReviewInput!): SuccessResponse!
 	}
 
 	extend type Query {
@@ -83,6 +84,12 @@ const typeDefs = gql`
 		success: String
 		errorMessage: String
 		productID: ID
+	}
+
+	input AddReviewInput {
+		description: String!
+		star: Int!
+		productID: ID!
 	}
 `
 
