@@ -103,7 +103,7 @@ const ProductOverview = ({
 	price,
 }: Props) => {
 	return (
-		<Grid container>
+		<Grid container sx={{ mt: '2rem' }}>
 			<Grid item xs={12}>
 				<Image src={image} layout='responsive' width={1920} height={1080} />
 			</Grid>
