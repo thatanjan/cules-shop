@@ -105,7 +105,13 @@ const ProductOverview = ({
 	return (
 		<Grid container sx={{ mt: '2rem' }}>
 			<Grid item xs={12}>
-				<Image src={image} layout='responsive' width={1920} height={1080} />
+				<Image
+					src={image}
+					layout='responsive'
+					width={1920}
+					height={1080}
+					quality={60}
+				/>
 			</Grid>
 
 			<Grid item xs={12}>
