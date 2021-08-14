@@ -3,6 +3,7 @@ import merge from 'lodash/merge'
 import typeDefs from './product.types'
 
 import createProduct from './createProduct.mutation'
+import addReview from './addReview.mutation'
 import getAllCategoryNames from './getAllCategoryNames.query'
 import getProductDetails from './getProductDetails.query'
 import getCategoryProducts from './getCategoryProducts.query'
@@ -15,5 +16,6 @@ export const productResolvers = merge(
 	getAllCategoryNames,
 	getProductDetails,
 	getCategoryProducts,
-	searchProducts
+	searchProducts,
+	addReview
 )
