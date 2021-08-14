@@ -13,6 +13,22 @@ const stringRequired = {
 	required: true,
 }
 
+const reviewSchema = new Schema({
+	user: {
+		type: objectId,
+		required: true,
+	},
+	description: stringRequired,
+	star: {
+		type: Number,
+		required: true,
+	},
+	date: {
+		type: Date,
+		default: Date.now,
+	},
+})
+
 const schema = new Schema({
 	name: { ...stringRequired, text: true },
 	shortDescription: stringRequired,
@@ -36,6 +52,7 @@ const schema = new Schema({
 		ref: Category,
 	},
 	image: stringRequired,
+	reviews: [reviewSchema],
 })
 
 const mongooseOptions = {
