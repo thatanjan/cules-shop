@@ -15,6 +15,7 @@ const Footer = () => {
 			sx={{
 				position: 'sticky',
 				top: '100%',
+				mt: '2rem',
 			}}
 			component='footer'
 		>
