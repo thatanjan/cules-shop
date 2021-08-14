@@ -104,7 +104,7 @@ const ProductOverview = ({
 }: Props) => {
 	return (
 		<Grid container sx={{ mt: '2rem' }}>
-			<Grid item xs={12}>
+			<Grid item xs={12} md={6}>
 				<Image
 					src={image}
 					layout='responsive'
@@ -114,7 +114,7 @@ const ProductOverview = ({
 				/>
 			</Grid>
 
-			<Grid item xs={12}>
+			<Grid item xs={12} md={5} sx={{ mt: '1rem' }}>
 				<Typography sx={{ color: '#9c9c9c' }}>Headphones</Typography>
 				<Typography
 					variant='h4'
