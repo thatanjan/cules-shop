@@ -13,6 +13,9 @@ const resolver = {
 			let totalReviews = 0
 			let averageStars = 0
 
+			if (!reviews || reviews.length === 0)
+				return { reviews: [], totalReviews, averageStars }
+
 			allStars = allStars.toObject()
 
 			for (let key in allStars) {
