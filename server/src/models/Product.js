@@ -1,6 +1,7 @@
 import { Schema, createConnection } from 'mongoose'
 import { config } from 'dotenv'
 
+import Profile from 'models/Profile'
 import Seller from 'models/Seller'
 import Category from 'models/Category'
 
@@ -17,6 +18,7 @@ const reviewSchema = new Schema({
 	user: {
 		type: objectId,
 		required: true,
+		ref: Profile,
 	},
 	description: stringRequired,
 	star: {
