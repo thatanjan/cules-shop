@@ -14,6 +14,7 @@ const typeDefs = gql`
 		getProductDetails(productID: ID!): ProductDetails!
 		getAllCategoryNames: [AllCategoryNames!]
 		searchProducts(Input: SearchProductsInput!): GetCategoryProductsResponse!
+		getReviews(productID: ID!): GetReviewsResponse!
 	}
 
 	type AllCategoryNames {
@@ -52,6 +53,20 @@ const typeDefs = gql`
 		totalProducts: Int
 		products: [Product!]
 		errorMessage: String
+	}
+
+	type Reviews {
+		_id: ID!
+		description: String!
+		user: ID!
+		star: Int!
+		date: String!
+	}
+
+	type GetReviewsResponse {
+		totalReviews: Int!
+		averageStars: Int!
+		reviews: [Reviews!]
 	}
 
 	input GetProductInput {
