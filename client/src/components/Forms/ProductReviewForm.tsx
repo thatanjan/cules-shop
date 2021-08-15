@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
 import CustomRating from 'components/Ratings/CustomRating'
+import CustomAlert, { Severity } from 'components/Alerts/CustomAlert'
 
 import createRequest from 'graphql/createRequest'
 
@@ -17,9 +18,22 @@ const ProductReviewForm = () => {
 	const [description, setDescription] = useState('')
 	const [ratingValue, setRatingValue] = useState(0)
 
+	const resetInput = () => {
+		setDescription('')
+		setRatingValue(0)
+	}
+
+	const [alert, setAlert] = useState<{
+		severity: Severity | ''
+		message: String
+	}>({ severity: '', message: '' })
+
 	const {
 		query: { productID },
 	} = useRouter()
+
+	const resetAlert = () =>
+		setTimeout(() => setAlert({ severity: '', message: '' }), 3000)
 
 	const handleSubmit: FormEventHandler<HTMLFormElement> = async event => {
 		event.preventDefault()
@@ -28,16 +42,35 @@ const ProductReviewForm = () => {
 			star: ratingValue,
 			productID: productID as string,
 		}
-		const request = await createRequest<AddReviewInput, CommonResponse>({
-			key: addReview,
-			values: values,
-		})
 
-		console.log(request)
+		try {
+			const request = await createRequest<
+				AddReviewInput,
+				{ addReview: CommonResponse }
+			>({
+				key: addReview,
+				values: values,
+			})
 
-		setDescription('')
-		setRatingValue(0)
-		event.preventDefault()
+			setAlert({ severity: 'info', message: 'Adding Reviews' })
+
+			if (request) {
+				const {
+					addReview: { success, errorMessage },
+				} = request
+
+				if (success) {
+					setAlert({ severity: 'success', message: 'Review added successfully' })
+					resetInput()
+				}
+
+				if (errorMessage) setAlert({ severity: 'error', message: errorMessage })
+				resetAlert()
+			}
+		} catch (e) {
+			setAlert({ severity: 'error', message: 'Something went wrong' })
+			resetAlert()
+		}
 	}
 
 	return (
@@ -70,6 +103,12 @@ const ProductReviewForm = () => {
 			>
 				Submit
 			</Button>
+
+			{alert.message && (
+				<CustomAlert checked severity={alert.severity as Severity}>
+					{alert.message}
+				</CustomAlert>
+			)}
 		</Box>
 	)
 }
