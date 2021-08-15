@@ -51,3 +51,9 @@ export interface SearchProductsInput {
 export interface MutationDeps {
 	mutationDeps: Array<[Key, string | number | undefined]>
 }
+
+export interface AddReviewInput {
+	description: string
+	productID: string
+	star: number
+}
