@@ -57,3 +57,19 @@ export interface AddReviewInput {
 	productID: string
 	star: number
 }
+
+export interface GetReviewResponse {
+	totalReviews: number
+	averageStars: number
+	reviews: Array<{
+		_id: string
+		description: string
+		user: {
+			user: string
+			name: string
+			profilePicture: string
+		}
+		star: number
+		date: string
+	}>
+}
