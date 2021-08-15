@@ -8,6 +8,7 @@ import getAllCategoryNames from './getAllCategoryNames.query'
 import getProductDetails from './getProductDetails.query'
 import getCategoryProducts from './getCategoryProducts.query'
 import searchProducts from './searchProducts.query'
+import getReviews from './getReviews.query'
 
 export const productTypeDefs = [typeDefs]
 
@@ -17,5 +18,6 @@ export const productResolvers = merge(
 	getProductDetails,
 	getCategoryProducts,
 	searchProducts,
-	addReview
+	addReview,
+	getReviews
 )
