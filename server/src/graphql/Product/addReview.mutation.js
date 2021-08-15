@@ -9,9 +9,17 @@ const resolver = {
 			{ user: { userID } }
 		) => {
 			try {
+				const starKey = `allStars.${star}`
+
+				const ratingUpdateObject = {}
+				ratingUpdateObject[starKey] = 1
+
 				const update = await Product.updateOne(
 					{ _id: productID },
-					{ $push: { reviews: { description, star, user: userID } } }
+					{
+						$push: { reviews: { description, star, user: userID } },
+						$inc: ratingUpdateObject,
+					}
 				)
 
 				if (update.nModified) return { success: true }
