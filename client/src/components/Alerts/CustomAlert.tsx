@@ -18,8 +18,10 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 )
 
+export type Severity = 'error' | 'success' | 'info'
+
 export interface Props extends AlertProps {
-	severity: 'error' | 'success' | 'info'
+	severity: Severity
 	message?: string
 	checked: boolean
 }
