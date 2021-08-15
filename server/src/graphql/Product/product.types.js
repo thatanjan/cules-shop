@@ -39,6 +39,12 @@ const typeDefs = gql`
 		alreadyInCart: Boolean
 	}
 
+	type ReviewUser {
+		name: String!
+		profilePicture: String!
+		user: ID!
+	}
+
 	type ProductDetails {
 		name: String!
 		description: String!
@@ -58,7 +64,7 @@ const typeDefs = gql`
 	type Reviews {
 		_id: ID!
 		description: String!
-		user: ID!
+		user: ReviewUser!
 		star: Int!
 		date: String!
 	}
