@@ -3,7 +3,10 @@ import Product from 'models/Product'
 const resolver = {
 	Query: {
 		getReviews: async (_, { productID }) => {
-			const product = await Product.findById(productID)
+			const product = await Product.findById(productID).populate({
+				path: 'reviews.user',
+				select: 'name profilePicture user',
+			})
 
 			let { allStars, reviews } = product
 
