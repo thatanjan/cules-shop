@@ -77,3 +77,23 @@ export const searchProducts = gql`
 		}
 	}
 `
+
+export const getReviews = gql`
+	query getReviews($productID: ID!) {
+		getReviews(productID: $productID) {
+			totalReviews
+			averageStars
+			reviews {
+				_id
+				description
+				user {
+					user
+					name
+					profilePicture
+				}
+				star
+				date
+			}
+		}
+	}
+`
