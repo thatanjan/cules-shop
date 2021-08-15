@@ -6,6 +6,7 @@ import {
 	isProductInTheCart,
 	getCategoryProducts,
 	searchProducts,
+	getReviews,
 } from 'graphql/queries/productQueries'
 
 import {
@@ -15,6 +16,7 @@ import {
 	GetMultipleProductsResponse,
 	GetCategoryProductsInput,
 	SearchProductsInput,
+	GetReviewResponse,
 } from 'interfaces/product'
 
 export const useGetAllCategoryNames = () =>
@@ -59,3 +61,9 @@ export const useSearchProducts = (values: SearchProductsInput) =>
 		SearchProductsInput,
 		{ searchProducts: GetMultipleProductsResponse }
 	>({ key: searchProducts, values, swrDependencies: values.query + values.skip })
+
+export const useGetReviews = (productID: string) =>
+	useSWRgql<{ productID: string }, { getReviews: GetReviewResponse }>({
+		key: getReviews,
+		values: { productID },
+	})
