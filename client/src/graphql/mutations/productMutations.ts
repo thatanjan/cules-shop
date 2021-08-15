@@ -56,3 +56,14 @@ export const modifyQuantity = gql`
 		}
 	}
 `
+
+export const addReview = gql`
+	mutation addReview($productID: ID!, $description: String!, $star: Int!) {
+		addReview(
+			Input: { productID: $productID, description: $description, star: $star }
+		) {
+			success
+			errorMessage
+		}
+	}
+`
