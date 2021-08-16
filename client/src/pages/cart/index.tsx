@@ -81,7 +81,6 @@ const CartPage = (props: Props) => {
 							justifyContent='flex-end'
 							alignItems='center'
 						>
-							<CustomButton href='/cart'>Update Cart</CustomButton>
 							<CustomButton href='/checkout'>Procced to checkout</CustomButton>
 						</Grid>
 					</Grid>
