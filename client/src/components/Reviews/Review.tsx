@@ -3,39 +3,45 @@ import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
-import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 
 import CustomRating from 'components/Ratings/CustomRating'
+import AccountAvatar from 'components/Avatar/AccountAvatar'
+import MuiLink from 'components/Links/MuiLink'
 
-const Review = () => {
+import { Review as ReviewInterface } from 'interfaces/product'
+
+interface Props extends ReviewInterface {}
+
+const Review = ({
+	user: { name, profilePicture, user },
+	date,
+	star,
+	description,
+}: Props) => {
 	return (
 		<Card>
 			<CardHeader
-				avatar={
-					<Avatar sx={{ bgcolor: 'red' }} aria-label='Review'>
-						R
-					</Avatar>
+				avatar={<AccountAvatar src={profilePicture} small name={name} />}
+				title={
+					<MuiLink MuiComponent={Typography} href={`/profile/${user}`}>
+						{name}
+					</MuiLink>
 				}
-				title='Anjan shomodder'
 				subheader={
 					<Grid container>
 						<Grid item xs={6}>
-							22jan, 2013
+							{date}
 						</Grid>
 						<Grid item xs={6} sx={{ display: 'grid', placeItems: 'end' }}>
-							<CustomRating readOnly value={4} />
+							<CustomRating readOnly value={star} />
 						</Grid>
 					</Grid>
 				}
 			/>
 
 			<CardContent>
-				<Typography>
-					Lorem quae quae asperiores nobis magnam. At a dolores inventore non quasi
-					exercitationem deleniti aliquam qui? Neque accusantium ad tenetur qui
-					totam. Quod eveniet cum quas a vero molestiae deserunt
-				</Typography>
+				<Typography>{description}</Typography>
 			</CardContent>
 		</Card>
 	)
