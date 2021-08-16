@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useState, useEffect } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import {
 	CardElement,
@@ -36,6 +36,10 @@ const CheckoutForm = () => {
 		showDifferentAddressForm,
 	} = useGetCheckoutState()
 
+	useEffect(() => {
+		if (errorMessage) setTimeout(() => setErrorMessage(''), 3000)
+	}, [errorMessage])
+
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		try {
 			event.preventDefault()
@@ -51,9 +55,6 @@ const CheckoutForm = () => {
 
 			if (error) {
 				setErrorMessage(error.message)
-				setTimeout(() => {
-					setErrorMessage('')
-				}, 3000)
 				return false
 			}
 
