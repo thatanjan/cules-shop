@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography'
 
 import CustomRating from 'components/Ratings/CustomRating'
 import AccountAvatar from 'components/Avatar/AccountAvatar'
-import MuiLink from 'components/Links/MuiLink'
 
 import { Review as ReviewInterface } from 'interfaces/product'
 
@@ -23,11 +22,7 @@ const Review = ({
 		<Card sx={{ flexBasis: '100%' }}>
 			<CardHeader
 				avatar={<AccountAvatar src={profilePicture} small name={name} />}
-				title={
-					<MuiLink MuiComponent={Typography} href={`/profile/${user}`}>
-						{name}
-					</MuiLink>
-				}
+				title={name}
 				subheader={
 					<Grid container>
 						<Grid item xs={6}>
