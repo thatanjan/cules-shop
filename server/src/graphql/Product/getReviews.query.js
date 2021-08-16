@@ -28,7 +28,8 @@ const resolver = {
 				averageStars += value * numKey
 			}
 
-			averageStars = (averageStars.toFixed(1) / totalReviews) * 10
+			averageStars = averageStars / totalReviews
+			averageStars = averageStars.toFixed(1) * 10
 
 			reviews.forEach(review => {
 				review.date = review.date.toDateString()
