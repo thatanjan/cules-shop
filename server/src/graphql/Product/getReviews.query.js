@@ -3,12 +3,14 @@ import Product from 'models/Product'
 const resolver = {
 	Query: {
 		getReviews: async (_, { productID }) => {
-			const product = await Product.findById(productID)
+			let product = await Product.findById(productID)
 				.sort('-reviews.date')
 				.populate({
 					path: 'reviews.user',
 					select: 'name profilePicture user',
 				})
+
+			product = product.toObject()
 
 			let { allStars, reviews } = product
 
@@ -17,8 +19,6 @@ const resolver = {
 
 			if (!reviews || reviews.length === 0)
 				return { reviews: [], totalReviews, averageStars }
-
-			allStars = allStars.toObject()
 
 			for (let key in allStars) {
 				const value = allStars[key]
@@ -29,8 +29,6 @@ const resolver = {
 			}
 
 			averageStars = (averageStars.toFixed(1) / totalReviews) * 10
-
-			reviews = reviews.toObject()
 
 			reviews.forEach(review => {
 				review.date = review.date.toDateString()
