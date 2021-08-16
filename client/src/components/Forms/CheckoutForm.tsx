@@ -9,6 +9,8 @@ import {
 import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
+import { CommonResponse } from 'interfaces/global'
+
 import CustomAlert from 'components/Alerts/CustomAlert'
 
 import createRequest from 'graphql/createRequest'
@@ -35,39 +37,57 @@ const CheckoutForm = () => {
 	} = useGetCheckoutState()
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-		event.preventDefault()
+		try {
+			event.preventDefault()
 
-		if (elements == null) {
-			return
-		}
+			if (elements == null) {
+				return
+			}
 
-		const { error, paymentMethod } = await stripe.createPaymentMethod({
-			type: 'card',
-			card: elements.getElement(CardElement),
-		})
+			const { error, paymentMethod } = await stripe.createPaymentMethod({
+				type: 'card',
+				card: elements.getElement(CardElement),
+			})
 
-		if (error) {
-			setErrorMessage(error.message)
-			setTimeout(() => {
-				setErrorMessage('')
-			}, 3000)
-			return false
-		}
+			if (error) {
+				setErrorMessage(error.message)
+				setTimeout(() => {
+					setErrorMessage('')
+				}, 3000)
+				return false
+			}
 
-		const { id } = paymentMethod
+			const { id } = paymentMethod
 
-		const request = await createRequest({
-			key: checkout,
-			values: {
-				stripeID: id,
-				shippingDetails: shippingValues,
-			},
-		})
-		setCheckingOut(true)
+			const request = await createRequest<
+				{ stripeID: string; shippingDetails: typeof shippingValues },
+				{ checkout: CommonResponse }
+			>({
+				key: checkout,
+				values: {
+					stripeID: id,
+					shippingDetails: shippingValues,
+				},
+			})
+			setCheckingOut(true)
 
-		if (request) {
+			if (request) {
+				const {
+					checkout: { success },
+				} = request
+
+				if (success) {
+					setCheckingOut(false)
+					setCheckoutDone()
+					return true
+				}
+
+				setErrorMessage(request.checkout.errorMessage)
+				setCheckingOut(false)
+			}
+		} catch (error) {
+			setErrorMessage(request.checkout.errorMessage)
 			setCheckingOut(false)
-			setCheckoutDone()
 		}
 	}
 
