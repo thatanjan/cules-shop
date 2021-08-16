@@ -100,14 +100,18 @@ const AddressShow = () => {
 
 	const fields = Object.keys(address)
 
+	let validAddress = true
+
 	for (let key in address) {
 		if (address[key]) {
-			dispatch(setIsCurrentAddressValid(true))
+			continue
 		} else {
-			dispatch(setIsCurrentAddressValid(false))
+			validAddress = false
 			break
 		}
 	}
+
+	dispatch(setIsCurrentAddressValid(validAddress))
 
 	return (
 		<>
