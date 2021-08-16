@@ -27,8 +27,12 @@ const CheckoutForm = () => {
 	const [checkingOut, setCheckingOut] = useState(false)
 	const setCheckoutDone = useSetCheckoutDone()
 
-	const { shippingValues, isNewAddressValid, isCurrentAddressValid } =
-		useGetCheckoutState()
+	const {
+		shippingValues,
+		isNewAddressValid,
+		isCurrentAddressValid,
+		showDifferentAddressForm,
+	} = useGetCheckoutState()
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
@@ -90,7 +94,8 @@ const CheckoutForm = () => {
 						!stripe ||
 						!elements ||
 						checkingOut ||
-						(!isNewAddressValid && !isCurrentAddressValid)
+						(showDifferentAddressForm && !isNewAddressValid) ||
+						!isCurrentAddressValid
 					}
 					sx={{ margin: '1.5rem 0' }}
 				>
