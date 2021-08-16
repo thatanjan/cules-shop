@@ -58,18 +58,20 @@ export interface AddReviewInput {
 	star: number
 }
 
+export interface Review {
+	_id: string
+	description: string
+	user: {
+		user: string
+		name: string
+		profilePicture: string
+	}
+	star: number
+	date: string
+}
+
 export interface GetReviewResponse {
 	totalReviews: number
 	averageStars: number
-	reviews: Array<{
-		_id: string
-		description: string
-		user: {
-			user: string
-			name: string
-			profilePicture: string
-		}
-		star: number
-		date: string
-	}>
+	reviews: Array<Review>
 }
