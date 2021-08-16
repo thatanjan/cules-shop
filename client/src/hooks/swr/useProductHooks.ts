@@ -41,6 +41,7 @@ export const useIsProductInTheCart = (productID: string) =>
 	>({
 		key: isProductInTheCart,
 		values: { productID },
+		swrDependencies: productID,
 	})
 
 export const useGetCategoryProducts = (values: GetCategoryProductsInput) => {
