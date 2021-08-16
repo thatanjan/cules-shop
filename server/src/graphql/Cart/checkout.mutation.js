@@ -28,9 +28,12 @@ const resolver = {
 				let totalPrice = 0
 
 				res.forEach((item, index) => {
-					const individualQuantity = products[index].userQuantity
+					const individualQuantity = products[index].quantity
 					totalPrice += item.price * individualQuantity
 				})
+
+				if (totalPrice < 50)
+					return sendErrorMessage('Amount must be at least $0.50 usd')
 
 				const payment = await stripe.paymentIntents.create({
 					amount: totalPrice,
@@ -67,8 +70,6 @@ const resolver = {
 					{ user: userID },
 					{ $set: { products: [] } }
 				)
-
-				console.log(updateCart)
 
 				if (!updateCart) return sendErrorMessage()
 
