@@ -20,7 +20,7 @@ const Review = ({
 	description,
 }: Props) => {
 	return (
-		<Card>
+		<Card sx={{ flexBasis: '100%' }}>
 			<CardHeader
 				avatar={<AccountAvatar src={profilePicture} small name={name} />}
 				title={
