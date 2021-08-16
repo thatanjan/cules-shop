@@ -1,4 +1,5 @@
 import React, { useState, FormEventHandler } from 'react'
+import { mutate } from 'swr'
 import { useRouter } from 'next/router'
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
@@ -8,6 +9,7 @@ import CustomRating from 'components/Ratings/CustomRating'
 import CustomAlert, { Severity } from 'components/Alerts/CustomAlert'
 
 import createRequest from 'graphql/createRequest'
+import { getReviews } from 'graphql/queries/productQueries'
 
 import { AddReviewInput } from 'interfaces/product'
 import { CommonResponse } from 'interfaces/global'
@@ -62,6 +64,7 @@ const ProductReviewForm = () => {
 				if (success) {
 					setAlert({ severity: 'success', message: 'Review added successfully' })
 					resetInput()
+					mutate([getReviews, undefined])
 				}
 
 				if (errorMessage) setAlert({ severity: 'error', message: errorMessage })
