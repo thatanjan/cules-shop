@@ -28,26 +28,6 @@ interface Props {
 	sellerID: string
 }
 
-interface CustomButtonProps {
-	children: React.ReactNode
-	href: string
-}
-
-const CustomButton = ({ children, href }: CustomButtonProps) => {
-	return (
-		<Grid
-			item
-			xs={12}
-			sm={5}
-			sx={{ marginBottom: '.5rem', marginLeft: { sm: '1rem' } }}
-		>
-			<MuiLink MuiComponent={Button} variant='contained' fullWidth href={href}>
-				{children}
-			</MuiLink>
-		</Grid>
-	)
-}
-
 const CartPage = (props: Props) => {
 	useStoreID(props)
 	const { data, isValidating } = useGetAllCartProducts()
@@ -73,21 +53,19 @@ const CartPage = (props: Props) => {
 						<Grid item xs={12} md={8} lg={6} sx={{ maxWidth: '50rem' }}>
 							<CoupnInput />
 						</Grid>
-						<Grid
-							item
-							container
-							xs={12}
-							lg={6}
-							justifyContent='flex-end'
-							alignItems='center'
-						>
-							<CustomButton href='/checkout'>Procced to checkout</CustomButton>
-						</Grid>
 					</Grid>
 
 					<Grid container justifyContent='flex-end'>
 						<Grid item xs={12} md={6}>
 							<CartTotal />
+							<MuiLink
+								MuiComponent={Button}
+								variant='contained'
+								fullWidth
+								href='/checkout'
+							>
+								Procced to checkout
+							</MuiLink>
 						</Grid>
 					</Grid>
 				</>
