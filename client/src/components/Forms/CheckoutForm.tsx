@@ -87,7 +87,7 @@ const CheckoutForm = () => {
 				setCheckingOut(false)
 			}
 		} catch (error) {
-			setErrorMessage(request.checkout.errorMessage)
+			setErrorMessage('Something Went Wrong. Please try again')
 			setCheckingOut(false)
 		}
 	}
