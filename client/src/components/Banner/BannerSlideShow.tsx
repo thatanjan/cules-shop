@@ -17,9 +17,6 @@ const useStyles = makeStyles({
 
 const banners = ['cules-shop/pixel_2_xl_google-actualizacion-seguridad_wscp9z']
 
-// autoplay={{
-// 	delay: 3000,
-// }}
 const BannerSlideShow = () => {
 	const { swiperContainer } = useStyles()
 	return (
@@ -30,45 +27,57 @@ const BannerSlideShow = () => {
 				pagination={{
 					clickable: true,
 				}}
+				autoplay={{
+					delay: 3000,
+				}}
 				navigation
 				className={swiperContainer}
 			>
-				{/* <SwiperSlide key={nanoid()}> */}
 				{banners.map(item => (
-					<Box sx={{ position: 'relative' }}>
-						<Box
-							sx={{
-								position: 'absolute',
-								zIndex: '9999',
-								left: '10%',
-								display: 'grid',
-								height: '100%',
-								gridRowGap: '2%',
-							}}
-						>
-							<Typography
-								variant='h4'
-								sx={{ textTransform: 'capitalize', alignSelf: 'end' }}
-							>
-								Explore the new Technologies
-							</Typography>
-							<Button
-								variant='outlined'
+					<SwiperSlide key={nanoid()}>
+						<Box sx={{ position: 'relative' }}>
+							<Box
 								sx={{
-									alignSelf: 'start',
-									justifySelf: 'start',
-									padding: {
-										sm: '2% 20%',
-									},
+									position: 'absolute',
+									zIndex: '9999',
+									left: '10%',
+									display: 'grid',
+									height: '100%',
+									gridRowGap: '2%',
 								}}
 							>
-								EXPLORE
-							</Button>
+								<Typography
+									variant='h4'
+									sx={{ textTransform: 'capitalize', alignSelf: 'end' }}
+								>
+									Explore the new Technologies
+								</Typography>
+								<Button
+									variant='outlined'
+									sx={{
+										alignSelf: 'start',
+										justifySelf: 'start',
+										padding: {
+											sm: '2% 20%',
+										},
+									}}
+								>
+									EXPLORE
+								</Button>
+							</Box>
+							<Box
+								sx={{
+									backgroundColor: '#00000096',
+									position: 'absolute',
+									zIndex: '999',
+									height: '100%',
+									width: '100%',
+								}}
+							/>
+							<Image src={item} width={1920} height={1080} layout='responsive' />
 						</Box>
-						<Image src={item} width={1920} height={1080} layout='responsive' />
-					</Box>
+					</SwiperSlide>
 				))}
-				{/* </SwiperSlide> */}
 			</Swiper>
 		</>
 	)
