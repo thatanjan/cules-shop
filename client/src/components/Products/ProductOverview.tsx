@@ -23,9 +23,13 @@ import {
 
 import { useIsProductInTheCart } from 'hooks/swr/useProductHooks'
 
-import ProductQuantity from './ProductQuantity'
+import { useUserState } from 'redux/hooks/useSliceHooks'
+
+import { LOGIN_URL } from 'variables/global'
 
 import { CommonResponse } from 'interfaces/global'
+
+import ProductQuantity from './ProductQuantity'
 
 const CartPart = () => {
 	const {
@@ -102,6 +106,8 @@ const ProductOverview = ({
 	quantity: productQuantity,
 	price,
 }: Props) => {
+	const { loggedIn } = useUserState()
+	const { push } = useRouter()
 	return (
 		<Grid container sx={{ mt: '2rem' }}>
 			<Grid item container xs={12} md={6}>
@@ -172,7 +178,21 @@ const ProductOverview = ({
 					${price / 100}
 				</Typography>
 
-				<CartPart />
+				{loggedIn ? (
+					<CartPart />
+				) : (
+					<Button
+						sx={{ textTransform: 'capitalize', marginTop: '2rem', padding: '0.8rem' }}
+						variant='contained'
+						startIcon={<AddShoppingCartIcon />}
+						fullWidth
+						onClick={() => {
+							push(LOGIN_URL)
+						}}
+					>
+						Please login to add products to cart
+					</Button>
+				)}
 			</Grid>
 		</Grid>
 	)
