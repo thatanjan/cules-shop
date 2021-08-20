@@ -4,7 +4,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { makeStyles } from '@material-ui/core/styles'
 import { nanoid } from 'nanoid'
 
-
 const useStyles = makeStyles({
 	swiperContainer: {
 		'& .swiper-pagination-bullet': {
@@ -12,6 +11,8 @@ const useStyles = makeStyles({
 		},
 	},
 })
+
+const banners = ['cules-shop/pixel_2_xl_google-actualizacion-seguridad_wscp9z']
 
 const BannerSlideShow = () => {
 	const { swiperContainer } = useStyles()
@@ -29,9 +30,9 @@ const BannerSlideShow = () => {
 				navigation
 				className={swiperContainer}
 			>
-				{[1, 2, 3, 4, 5].map(() => (
+				{banners.map(item => (
 					<SwiperSlide key={nanoid()}>
-						<Image src='/banner.jpg' width={1920} height={1080} layout='responsive' />
+						<Image src={item} width={1920} height={1080} layout='responsive' />
 					</SwiperSlide>
 				))}
 			</Swiper>
