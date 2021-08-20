@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import cookie from 'js-cookie'
+import { cache } from 'swr'
 
 import { TOKEN_NAME } from 'variables/global'
 
@@ -23,6 +24,7 @@ const Logout = (props: Props) => {
 	dispatch(resetDrawerState())
 
 	cookie.remove(TOKEN_NAME)
+	cache.clear()
 
 	useEffect(() => {
 		setTimeout(() => {
