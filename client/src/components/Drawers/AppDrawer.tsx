@@ -60,6 +60,22 @@ const AccountPart = () => {
 
 	const { data } = useGetMultipleProfile([userID])
 
+	if (!data && !userID)
+		return (
+			<Grid container sx={{ padding: '16px' }}>
+				<Grid item xs={12} sx={{ paddingBottom: '16px' }}>
+					<AccountAvatar small src='' name='' />
+				</Grid>
+				<Grid item container justifyContent='space-between'>
+					<Grid item>
+						<MuiLink MuiComponent={Typography} href={LOGIN_URL} variant='button'>
+							login
+						</MuiLink>
+					</Grid>
+				</Grid>
+			</Grid>
+		)
+
 	if (!data) return null
 
 	const {
