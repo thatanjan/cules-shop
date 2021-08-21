@@ -5,11 +5,20 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Collapse from '@material-ui/core/Collapse'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import { nanoid } from 'nanoid'
 
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 
-import { nanoid } from 'nanoid'
+import AccountAvatar from 'components/Avatar/AccountAvatar'
+import MuiLink from 'components/Links/MuiLink'
+
+import { useAppSelector } from 'redux/hooks/appHooks'
+import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
+
+import { LOGIN_URL } from 'variables/global'
 
 interface Props {
 	open: boolean
@@ -46,9 +55,50 @@ const DrawerListItem = ({ name, subCategories }: typeof data) => {
 	)
 }
 
+const AccountPart = () => {
+	const { userID } = useAppSelector(state => state.user)
+
+	const { data } = useGetMultipleProfile([userID])
+
+	if (!data) return null
+
+	const {
+		getMultipleProfile: [{ name, profilePicture }],
+	} = data
+	return (
+		<Grid container sx={{ padding: '16px' }}>
+			<Grid item xs={12} sx={{ paddingBottom: '16px' }}>
+				<AccountAvatar name={name} src={profilePicture} small />
+			</Grid>
+			<Grid item xs={12} sx={{ paddingBottom: '16px' }}>
+				<MuiLink MuiComponent={Typography} href='/account' variant='h5'>
+					{name}
+				</MuiLink>
+			</Grid>
+			<Grid item container justifyContent='space-between'>
+				<Grid item>
+					<MuiLink MuiComponent={Typography} href='/settings' variant='button'>
+						Settings
+					</MuiLink>
+				</Grid>
+				<Grid item>
+					<MuiLink
+						MuiComponent={Typography}
+						href='/authentication/logout'
+						variant='button'
+					>
+						Logout
+					</MuiLink>
+				</Grid>
+			</Grid>
+		</Grid>
+	)
+}
+
 const DrawerList = () => {
 	return (
 		<Box>
+			<AccountPart />
 			<List>
 				{Array(10)
 					.fill(data)
