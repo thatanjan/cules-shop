@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import Image from 'next/image'
 import Box from '@material-ui/core/Box'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Collapse from '@material-ui/core/Collapse'
+import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { nanoid } from 'nanoid'
@@ -81,10 +83,14 @@ const AccountPart = () => {
 	const {
 		getMultipleProfile: [{ name, profilePicture }],
 	} = data
+
 	return (
 		<Grid container sx={{ padding: '16px' }}>
 			<Grid item xs={12} sx={{ paddingBottom: '16px' }}>
-				<AccountAvatar name={name} src={profilePicture} small />
+				<Avatar
+					src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/q_100,ar_1.0,c_fill,h_200,w_200,g_face/r_max/${profilePicture}.webp`}
+					sx={{ height: { xs: 100, md: 150 }, width: { xs: 100, md: 150 } }}
+				/>
 			</Grid>
 			<Grid item xs={12} sx={{ paddingBottom: '16px' }}>
 				<MuiLink MuiComponent={Typography} href='/account' variant='h5'>
