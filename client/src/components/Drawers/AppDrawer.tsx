@@ -66,7 +66,9 @@ const AccountPart = () => {
 		return (
 			<Grid container sx={{ padding: '16px' }}>
 				<Grid item xs={12} sx={{ paddingBottom: '16px' }}>
-					<AccountAvatar small src='' name='' />
+					<Avatar
+						sx={{ height: { xs: 100, md: 150 }, width: { xs: 100, md: 150 } }}
+					/>
 				</Grid>
 				<Grid item container justifyContent='space-between'>
 					<Grid item>
