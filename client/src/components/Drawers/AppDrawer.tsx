@@ -95,14 +95,16 @@ const CategoryList = () => {
 
 	return (
 		<>
-			{allCategoryNames.map(({ name }) => (
-				<ListItem
+			{allCategoryNames.map(({ name, categoryID }) => (
+				<MuiLink
+					MuiComponent={ListItem}
 					button
 					sx={{ pl: '40px', textTransform: 'capitalize' }}
 					key={nanoid()}
+					href={`/category/${categoryID}?page=1`}
 				>
 					<ListItemText primary={name} />
-				</ListItem>
+				</MuiLink>
 			))}
 		</>
 	)
