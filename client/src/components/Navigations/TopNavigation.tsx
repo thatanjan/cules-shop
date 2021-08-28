@@ -18,7 +18,9 @@ import { APP_TITLE, LOGIN_URL } from 'variables/global'
 import AccountMenu from 'components/Menus/AccountMenu'
 import MuiLink from 'components/Links/MuiLink'
 
-import { useAppSelector } from 'redux/hooks/appHooks'
+import { toggleDrawer } from 'redux/slices/drawerSlice'
+import { useAppSelector, useAppDispatch } from 'redux/hooks/appHooks'
+
 import useLargerThanMD from 'hooks/mediaQueries/useLargerThanMD'
 import { useTotalCartItems } from 'hooks/swr/useCartHooks'
 
@@ -52,10 +54,11 @@ const CartMenu = () => {
 }
 
 const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
-	const [open, setOpen] = useState(false)
-	const largerThanMD = useLargerThanMD()
+	const open = useAppSelector(state => state.drawer.isOpen)
 
-	const { loggedIn, userID } = useAppSelector(state => state.user)
+	const dispatch = useAppDispatch()
+
+	const largerThanMD = useLargerThanMD()
 
 	return (
 		<>
@@ -67,12 +70,12 @@ const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 							color='inherit'
 							aria-label='open drawer'
 							sx={{ mr: 2 }}
-							onClick={() => setOpen(prev => !prev)}
+							onClick={() => dispatch(toggleDrawer())}
 						>
 							<MenuIcon />
 						</IconButton>
 
-						{open && <Drawer {...{ open, setOpen }} />}
+						{open && <Drawer />}
 
 						<Box sx={{ flexGrow: 1 }}>
 							<MuiLink

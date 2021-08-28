@@ -12,7 +12,10 @@ import { nanoid } from 'nanoid'
 
 import MuiLink from 'components/Links/MuiLink'
 
-import { useAppSelector } from 'redux/hooks/appHooks'
+import { useAppSelector, useAppDispatch } from 'redux/hooks/appHooks'
+
+import { toggleDrawer } from 'redux/slices/drawerSlice'
+
 import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
 
 import { useGetAllCategoryNames } from 'hooks/swr/useProductHooks'
@@ -88,6 +91,7 @@ const AccountPart = () => {
 
 const CategoryList = () => {
 	const { data } = useGetAllCategoryNames()
+	const dispatch = useAppDispatch()
 
 	if (!data) return null
 
@@ -102,6 +106,9 @@ const CategoryList = () => {
 					sx={{ pl: '40px', textTransform: 'capitalize' }}
 					key={nanoid()}
 					href={`/category/${categoryID}?page=1`}
+					onClick={() => {
+						dispatch(toggleDrawer())
+					}}
 				>
 					<ListItemText primary={name} />
 				</MuiLink>
@@ -129,13 +136,15 @@ const DrawerList = () => {
 	)
 }
 
-const AppDrawer = ({ open, setOpen }: Props) => {
+const AppDrawer = () => {
+	const dispatch = useAppDispatch()
+
 	return (
 		<div>
 			<SwipeableDrawer
 				open={open}
-				onOpen={() => setOpen(true)}
-				onClose={() => setOpen(false)}
+				onOpen={() => dispatch(toggleDrawer())}
+				onClose={() => dispatch(toggleDrawer())}
 				PaperProps={{
 					sx: {
 						width: { xs: '70vw', sm: '60vw', md: '50vw', xl: '20vw', lg: '40vw' },
