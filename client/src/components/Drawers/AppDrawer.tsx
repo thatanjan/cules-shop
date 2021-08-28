@@ -15,6 +15,8 @@ import MuiLink from 'components/Links/MuiLink'
 import { useAppSelector } from 'redux/hooks/appHooks'
 import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
 
+import { useGetAllCategoryNames } from 'hooks/swr/useProductHooks'
+
 import { LOGIN_URL } from 'variables/global'
 
 interface Props {
@@ -84,6 +86,28 @@ const AccountPart = () => {
 	)
 }
 
+const CategoryList = () => {
+	const { data } = useGetAllCategoryNames()
+
+	if (!data) return null
+
+	const { getAllCategoryNames: allCategoryNames } = data
+
+	return (
+		<>
+			{allCategoryNames.map(({ name }) => (
+				<ListItem
+					button
+					sx={{ pl: '40px', textTransform: 'capitalize' }}
+					key={nanoid()}
+				>
+					<ListItemText primary={name} />
+				</ListItem>
+			))}
+		</>
+	)
+}
+
 const DrawerList = () => {
 	return (
 		<Box>
@@ -97,13 +121,7 @@ const DrawerList = () => {
 					</>
 				}
 			>
-				{Array(10)
-					.fill(0)
-					.map(() => (
-						<ListItem button sx={{ pl: '40px' }} key={nanoid()}>
-							<ListItemText primary='Categories' />
-						</ListItem>
-					))}
+				<CategoryList />
 			</List>
 		</Box>
 	)
