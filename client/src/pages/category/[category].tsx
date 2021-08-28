@@ -19,6 +19,7 @@ import { UserPayload } from 'interfaces/authentication'
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
 import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
+import { useStoreID } from 'redux/hooks/useUserHooks'
 
 import { getCategoryProducts } from 'graphql/queries/productQueries'
 import { totalCartItems } from 'graphql/queries/cartQueries'
@@ -32,6 +33,8 @@ interface Props {
 	categoryID: string
 	categoryName: string
 	page: number
+	userID: string
+	sellerID: string
 }
 
 const SortingSelection = () => {
@@ -95,8 +98,11 @@ const Header = ({ categoryName }: Props) => {
 	)
 }
 
-const Category = ({ categoryID, categoryName, page }: Props) => {
+const Category = ({ categoryID, categoryName, page, ...others }: Props) => {
 	const skip = (page - 1) * 30
+
+	useStoreID(others)
+
 	const { data, isValidating } = useGetCategoryProducts({
 		categoryID,
 		sortBy: 'NAME',
