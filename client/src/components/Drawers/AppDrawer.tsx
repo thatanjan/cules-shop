@@ -1,20 +1,15 @@
-import React, { useState } from 'react'
-import Image from 'next/image'
+import React from 'react'
 import Box from '@material-ui/core/Box'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import Collapse from '@material-ui/core/Collapse'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import ListSubheader from '@material-ui/core/ListSubheader'
 import { nanoid } from 'nanoid'
 
-import ExpandLess from '@material-ui/icons/ExpandLess'
-import ExpandMore from '@material-ui/icons/ExpandMore'
-
-import AccountAvatar from 'components/Avatar/AccountAvatar'
 import MuiLink from 'components/Links/MuiLink'
 
 import { useAppSelector } from 'redux/hooks/appHooks'
@@ -25,36 +20,6 @@ import { LOGIN_URL } from 'variables/global'
 interface Props {
 	open: boolean
 	setOpen: Function
-}
-
-const data = {
-	name: 'Computers',
-	subCategories: ['laptop', 'desktop', 'monitor'],
-}
-
-const DrawerListItem = ({ name, subCategories }: typeof data) => {
-	const [openNest, setOpenNest] = useState(false)
-	return (
-		<>
-			<ListItem button onClick={() => setOpenNest(prev => !prev)}>
-				<ListItemText primary={name} />
-				{openNest ? <ExpandLess /> : <ExpandMore />}
-			</ListItem>
-
-			{openNest && (
-				<Collapse in={openNest} timeout='auto' unmountOnExit>
-					{subCategories &&
-						subCategories.map(item => (
-							<List component='div' disablePadding>
-								<ListItem button sx={{ pl: 4 }}>
-									<ListItemText primary={item} />
-								</ListItem>
-							</List>
-						))}
-				</Collapse>
-			)}
-		</>
-	)
 }
 
 const AccountPart = () => {
@@ -123,11 +88,21 @@ const DrawerList = () => {
 	return (
 		<Box>
 			<AccountPart />
-			<List>
+			<List
+				subheader={
+					<>
+						<ListSubheader component={Typography} id='nested-list-subheader'>
+							Shop by Categories
+						</ListSubheader>
+					</>
+				}
+			>
 				{Array(10)
-					.fill(data)
-					.map((item: typeof data) => (
-						<DrawerListItem {...item} key={nanoid()} />
+					.fill(0)
+					.map(() => (
+						<ListItem button sx={{ pl: '40px' }} key={nanoid()}>
+							<ListItemText primary='Categories' />
+						</ListItem>
 					))}
 			</List>
 		</Box>
