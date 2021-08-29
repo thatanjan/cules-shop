@@ -15,6 +15,7 @@ const typeDefs = gql`
 		getAllCategoryNames: [AllCategoryNames!]
 		searchProducts(Input: SearchProductsInput!): GetCategoryProductsResponse!
 		getReviews(productID: ID!): GetReviewsResponse!
+		getAllSellerProducts: [SellerProduct!]!
 	}
 
 	type AllCategoryNames {
@@ -37,6 +38,14 @@ const typeDefs = gql`
 		price: Int!
 		image: String!
 		alreadyInCart: Boolean
+	}
+
+	type SellerProduct {
+		_id: String!
+		name: String!
+		category: CategoryName!
+		price: Int!
+		image: String!
 	}
 
 	type ReviewUser {
