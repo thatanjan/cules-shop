@@ -41,19 +41,15 @@ const resolver = {
 					confirm: true,
 					payment_method: stripeID,
 				})
-
 				if (payment.status !== 'succeeded') return sendErrorMessage()
 
 				const { id, amount, currency } = payment
 
-				const orderedProducts = products.map(
-					({ productID, categoryID, userQuantity }, index) => ({
-						productID,
-						categoryID,
-						quantity: userQuantity,
-						price: res[index].price,
-					})
-				)
+				const orderedProducts = products.map(({ productID, quantity }, index) => ({
+					productID,
+					quantity,
+					price: res[index].price,
+				}))
 
 				const order = new Order({
 					orderID: id,
@@ -73,14 +69,14 @@ const resolver = {
 
 				if (!updateCart) return sendErrorMessage()
 
-				const bulkUpdateArray = products.map(({ productID, userQuantity }) => ({
+				const bulkUpdateArray = products.map(({ productID, quantity }) => ({
 					updateOne: {
 						filter: {
 							_id: productID,
 						},
 						update: {
 							$inc: {
-								quantity: userQuantity * -1,
+								quantity: quantity * -1,
 							},
 						},
 					},
