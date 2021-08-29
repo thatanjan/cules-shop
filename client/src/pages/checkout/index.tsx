@@ -77,41 +77,28 @@ export const CheckoutPageTitle = ({ children }: CheckoutPageTitleProps) => (
 	</>
 )
 
-const AddressShow = () => {
-	const { data } = useGetMultipleProfile()
-	const clearShippingAddress = useClearShippingAddress()
+const AddressShow = ({ address, name }: any) => {
 	const dispatch = useAppDispatch()
 	const { isCurrentAddressValid } = useGetCheckoutState()
 
-	useEffect(() => {
-		dispatch(setIsCurrentAddressValid(false))
-		return () => {
-			clearShippingAddress()
-		}
-	}, [])
-
-	if (!data) return null
-
-	const {
-		getMultipleProfile: [{ address, name }],
-	} = data
-
-	setShippingAddress({ name, ...address })
-
 	const fields = Object.keys(address)
 
-	let validAddress = true
+	useEffect(() => {
+		dispatch(setShippingAddress({ name, ...address }))
 
-	for (let key in address) {
-		if (address[key]) {
-			continue
-		} else {
-			validAddress = false
-			break
+		let validAddress = true
+
+		for (let key in address) {
+			if (address[key]) {
+				continue
+			} else {
+				validAddress = false
+				break
+			}
 		}
-	}
 
-	dispatch(setIsCurrentAddressValid(validAddress))
+		dispatch(setIsCurrentAddressValid(validAddress))
+	}, [])
 
 	return (
 		<>
@@ -139,6 +126,26 @@ const AddressShow = () => {
 			</CustomAlert>
 		</>
 	)
+}
+
+const AddressShowContainer = () => {
+	const { data } = useGetMultipleProfile()
+	const clearShippingAddress = useClearShippingAddress()
+	const dispatch = useAppDispatch()
+
+	useEffect(() => {
+		return () => {
+			clearShippingAddress()
+		}
+	}, [])
+
+	if (!data) return null
+
+	const {
+		getMultipleProfile: [{ address, name }],
+	} = data
+
+	return <AddressShow address={address} name={name} />
 }
 
 const CheckoutPage = (props: Props) => {
@@ -177,7 +184,7 @@ const CheckoutPage = (props: Props) => {
 								<Typography variant='h5'>Current Address</Typography>
 							</Grid>
 
-							<AddressShow />
+							<AddressShowContainer />
 						</Grid>
 					)}
 
