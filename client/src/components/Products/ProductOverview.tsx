@@ -118,7 +118,7 @@ const ProductOverview = ({
 	const { loggedIn } = useUserState()
 	const { push } = useRouter()
 	return (
-		<Grid container sx={{ mt: '2rem' }}>
+		<Grid container sx={{ mt: '2rem' }} justifyContent='space-evenly'>
 			<Grid item container xs={12} md={6}>
 				<Grid item xs={12} alignItems='center'>
 					<Image
