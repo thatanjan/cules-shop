@@ -57,7 +57,7 @@ const ForLoggedIn = () => {
 				</ListItemIcon>
 				Settings
 			</LinkedMenu>
-			<LinkedMenu href='/logout'>
+			<LinkedMenu href='/authentication/logout'>
 				<ListItemIcon>
 					<Logout fontSize='small' />
 				</ListItemIcon>
