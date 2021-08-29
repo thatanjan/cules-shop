@@ -1,3 +1,4 @@
+import { mutate as swrMutate } from 'swr'
 import Grid from '@material-ui/core/Grid'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -15,6 +16,8 @@ import CompareIcon from '@material-ui/icons/Compare'
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart'
 
 import createRequest from 'graphql/createRequest'
+
+import { totalCartItems } from 'graphql/queries/cartQueries'
 
 import {
 	removeProductFromCart,
@@ -52,7 +55,10 @@ const CartPart = () => {
 				{ removeProductFromCart: CommonResponse }
 			>({ key: removeProductFromCart, values: { productID: productID as string } })
 
-			if (success) mutate()
+			if (success) {
+				mutate()
+				swrMutate([totalCartItems, undefined])
+			}
 		} catch (error) {}
 	}
 
@@ -68,7 +74,10 @@ const CartPart = () => {
 				values: { productID: productID as string, quantity: 1 },
 			})
 
-			if (success) mutate()
+			if (success) {
+				mutate()
+				swrMutate([totalCartItems, undefined])
+			}
 		} catch (error) {}
 	}
 
