@@ -136,6 +136,7 @@ const AddressShowContainer = () => {
 	useEffect(() => {
 		return () => {
 			clearShippingAddress()
+			dispatch(setIsCurrentAddressValid(false))
 		}
 	}, [])
 
