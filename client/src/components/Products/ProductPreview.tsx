@@ -19,6 +19,7 @@ import createRequest from 'graphql/createRequest'
 import { CommonResponse, SxTypes } from 'interfaces/global'
 import { MutationDeps } from 'interfaces/product'
 
+import { totalCartItems } from 'graphql/queries/cartQueries'
 import { addProductToCart } from 'graphql/mutations/productMutations'
 
 import { useIsProductInTheCart } from 'hooks/swr/useProductHooks'
@@ -83,6 +84,7 @@ const ProductPreview = ({
 
 			if (success) {
 				mutationDeps.forEach(item => mutate(item))
+				mutate([totalCartItems, undefined])
 			}
 		} catch (error) {}
 	}
