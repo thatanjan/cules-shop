@@ -22,6 +22,7 @@ import { useUserState } from 'redux/hooks/useUserHooks'
 import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
 
 import MuiLink from 'components/Links/MuiLink'
+import AllSellerProducts from 'components/Products/AllSellerProducts'
 
 interface Props {
 	userID: string
@@ -74,6 +75,7 @@ const AccountPage = (props: Props) => {
 					</Box>
 				</Grid>
 			</Grid>
+			<AllSellerProducts />
 		</>
 	)
 }
