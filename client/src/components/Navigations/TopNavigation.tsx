@@ -63,7 +63,7 @@ const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
-				<AppBar position='static'>
+				<AppBar>
 					<Toolbar>
 						<IconButton
 							edge='start'
