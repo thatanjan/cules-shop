@@ -5,6 +5,15 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
 
+import {
+	getAllCategoryNames,
+	getProductDetails,
+	isProductInTheCart,
+	getCategoryProducts,
+	searchProducts,
+	getReviews,
+} from 'graphql/queries/productQueries'
+
 import { sortType } from 'variables/global'
 
 import ProductPreview from './ProductPreview'
@@ -91,7 +100,10 @@ const ProductSlideShow = ({ singleTab, categoryID }: Props) => {
 			>
 				{products.map(product => (
 					<SwiperSlide key={nanoid()}>
-						<ProductPreview {...product} />
+						<ProductPreview
+							{...product}
+							mutationDeps={[[getCategoryProducts, categoryID + NAME + 0]]}
+						/>
 					</SwiperSlide>
 				))}
 			</Swiper>
