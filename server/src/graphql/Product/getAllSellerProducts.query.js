@@ -21,7 +21,7 @@ const resolver = {
 					.unwind('$category')
 					.project(projection)
 
-				return products
+				return { products }
 			} catch (e) {
 				return sendErrorMessage()
 			}
