@@ -97,3 +97,21 @@ export const getReviews = gql`
 		}
 	}
 `
+
+export const getAllSellerProducts = gql`
+	query getAllSellerProducts {
+		getAllSellerProducts {
+			products {
+				name
+				category {
+					name
+					_id
+				}
+				image
+				price
+				_id
+			}
+			errorMessage
+		}
+	}
+`
