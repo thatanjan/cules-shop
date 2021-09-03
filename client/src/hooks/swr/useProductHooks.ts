@@ -1,5 +1,7 @@
 import useSWRgql from 'hooks/swr/useSWRgql'
 
+import { useUserState } from 'redux/hooks/useSliceHooks'
+
 import {
 	getAllCategoryNames,
 	getProductDetails,
@@ -7,6 +9,7 @@ import {
 	getCategoryProducts,
 	searchProducts,
 	getReviews,
+	getAllSellerProducts,
 } from 'graphql/queries/productQueries'
 
 import {
@@ -17,6 +20,7 @@ import {
 	GetCategoryProductsInput,
 	SearchProductsInput,
 	GetReviewResponse,
+	GetAllSellerProductsResponse,
 } from 'interfaces/product'
 
 export const useGetAllCategoryNames = () =>
@@ -68,3 +72,13 @@ export const useGetReviews = (productID: string) =>
 		key: getReviews,
 		values: { productID },
 	})
+
+export const useGetAllSellerProducts = () => {
+	const { sellerID } = useUserState()
+
+	return useSWRgql<{}, { getAllSellerProducts: GetAllSellerProductsResponse }>({
+		key: getAllSellerProducts,
+		values: {},
+		swrDependencies: sellerID,
+	})
+}
