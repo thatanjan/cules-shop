@@ -69,7 +69,7 @@ const AccountPage = (props: Props) => {
 							marginTop: '1rem',
 						}}
 					>
-						<MuiLink MuiComponent={Button} href='/account/edit' variant='contained'>
+						<MuiLink MuiComponent={Button} href='/account' variant='contained'>
 							Visit Profile
 						</MuiLink>
 					</Box>
