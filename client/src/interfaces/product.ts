@@ -75,3 +75,13 @@ export interface GetReviewResponse {
 	averageStars: number
 	reviews: Array<Review>
 }
+
+export interface GetAllSellerProductsResponse {
+	products: Array<{
+		_id: string
+		name: string
+		price: number
+		category: { name: string; _id: string }
+		image: string
+	}>
+}
