@@ -13,6 +13,8 @@ import Grid from '@material-ui/core/Grid'
 
 import MuiLink from 'components/Links/MuiLink'
 
+import { useGetAllSellerProducts } from 'hooks/swr/useProductHooks'
+
 interface Props {}
 
 function a11yProps(index: number) {
@@ -107,6 +109,14 @@ const SingleProduct = ({
 }
 
 const AllSellerProducts = (props: Props) => {
+	const { data } = useGetAllSellerProducts()
+
+	if (!data) return null
+
+	const {
+		getAllSellerProducts: { products },
+	} = data
+
 	return (
 		<>
 			<Box sx={{ width: '100%' }}>
@@ -119,15 +129,21 @@ const AllSellerProducts = (props: Props) => {
 						/>
 					</Tabs>
 				</Box>
-				<SingleProduct
-					{...{
-						name: '',
-						image: 'dfd',
-						price: 12,
-						category: { name: 'f', _id: '' },
-						_id: 'df',
-					}}
-				/>
+				<Grid container>
+					{products.map(({ name, image, price, _id, category }) => (
+						<Grid item xs={12} sm={6} md={4}>
+							<SingleProduct
+								{...{
+									name,
+									image,
+									price,
+									category: { name: category.name, _id: category._id },
+									_id,
+								}}
+							/>
+						</Grid>
+					))}
+				</Grid>
 			</Box>
 		</>
 	)
