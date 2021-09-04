@@ -32,6 +32,8 @@ import { LOGIN_URL } from 'variables/global'
 
 import { CommonResponse } from 'interfaces/global'
 
+import MuiLink from 'components/Links/MuiLink'
+
 import ProductQuantity from './ProductQuantity'
 
 const CartPart = () => {
@@ -107,6 +109,10 @@ interface Props {
 	name: string
 	quantity: number
 	price: number
+	category: {
+		name: string
+		_id: string
+	}
 }
 
 const ProductOverview = ({
@@ -114,6 +120,7 @@ const ProductOverview = ({
 	name,
 	quantity: productQuantity,
 	price,
+	category,
 }: Props) => {
 	const { loggedIn } = useUserState()
 	const { push } = useRouter()
@@ -133,7 +140,13 @@ const ProductOverview = ({
 			</Grid>
 
 			<Grid item xs={12} md={5} sx={{ mt: '1rem' }}>
-				<Typography sx={{ color: '#9c9c9c' }}>Headphones</Typography>
+				<MuiLink
+					MuiComponent={Typography}
+					href={`/category/${category._id}?page=1`}
+					sx={{ color: '#9c9c9c', textTransform: 'capitalize' }}
+				>
+					{category.name}
+				</MuiLink>
 				<Typography
 					variant='h4'
 					component='h1'
