@@ -122,7 +122,9 @@ const CreateProduct = (props: Props) => {
 
 						{uploadModal && <ImageUploadModal {...uploadModalProps} />}
 
-						{previewModal && <UploadPreviewModal {...uploadPreviewProps} />}
+						{previewModal && (
+							<UploadPreviewModal {...uploadPreviewProps} productImage />
+						)}
 					</Grid>
 				)}
 
