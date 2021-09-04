@@ -29,7 +29,10 @@ export interface GetMultipleProductsResponse {
 export interface GetProductDetailsResponse {
 	name: string
 	description: string
-	category: string
+	category: {
+		name: string
+		_id: string
+	}
 	seller: string
 	price: number
 	quantity: number
