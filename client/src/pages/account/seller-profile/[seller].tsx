@@ -49,7 +49,7 @@ const AccountPage = (props: Props) => {
 				alignItems='center'
 				sx={{
 					justifyContent: { xs: 'center', sm: 'start' },
-					maxWidth: '50rem',
+					maxWidth: '40rem',
 					margin: '3rem 0',
 				}}
 			>
@@ -57,7 +57,7 @@ const AccountPage = (props: Props) => {
 					<AccountAvatar src={profilePicture} name={name} />
 				</Grid>
 
-				<Grid item xs={12} sm={6} sx={{ marginTop: { xs: '1rem', sm: 0 } }}>
+				<Grid item xs={12} sm={8} sx={{ marginTop: { xs: '1rem', sm: 0 } }}>
 					<Typography variant='h2' component='h1' align='center'>
 						{name}
 					</Typography>
@@ -67,10 +67,19 @@ const AccountPage = (props: Props) => {
 							display: 'grid',
 							placeItems: 'center',
 							marginTop: '1rem',
+							gridTemplateColumns: { sm: '1fr 1fr', xs: '1fr' },
 						}}
 					>
 						<MuiLink MuiComponent={Button} href='/account' variant='contained'>
 							Visit Profile
+						</MuiLink>
+						<MuiLink
+							MuiComponent={Button}
+							href='/product/create-product'
+							variant='contained'
+							sx={{ textAlign: 'center', marginTop: { xs: '1rem', sm: '0' } }}
+						>
+							Create a new product
 						</MuiLink>
 					</Box>
 				</Grid>
