@@ -22,24 +22,34 @@ import { useGetAllCategoryNames } from 'hooks/swr/useProductHooks'
 
 import { resetState } from 'redux/slices/productSlice'
 
+import { Base64 } from 'interfaces/global'
+
 interface Input {
+	name: string
+	shortDescription: string
+	description: string
+	quantity: string
+	category: string
+	price: string
+}
+
+interface RequestInput {
 	name: string
 	shortDescription: string
 	description: string
 	quantity: number
 	category: string
 	price: number
-	image: ''
+	image: Base64
 }
 
 const initialValues: Input = {
 	name: '',
 	shortDescription: '',
 	description: '',
-	quantity: 0,
+	quantity: '0',
 	category: '',
-	price: 0,
-	image: '',
+	price: '0',
 }
 
 interface SelectCategoryProps {
@@ -117,22 +127,53 @@ const CreateProductForm = ({ setCreated }: Props) => {
 
 			<Formik
 				initialValues={initialValues}
-				validate={() => {
+				validate={values => {
 					const errors: Partial<Input> = {}
+					const { name, shortDescription, description, quantity, price } = values
+
+					const isLessThan = (value: string, toMatch: number) =>
+						value.length <= toMatch
+
+					if (isLessThan(name, 6))
+						errors.name = 'Name must be at least 6 characters long'
+
+					if (isLessThan(shortDescription, 10))
+						errors.shortDescription =
+							'Short Description must be at least 10 characters long'
+
+					if (isLessThan(description, 20))
+						errors.description = 'Description must be at least 20 characters long'
+
+					if (parseInt(quantity, 10) < 1)
+						errors.quantity = 'At least one product must be available'
+
+					if (parseInt(price, 10) < 0.25)
+						errors.price = 'Price must be greater than $0.25'
+
+					if (!category) errors.category = 'Category must be set to a category'
+
 					return errors
 				}}
-				onSubmit={async (values, { setSubmitting }) => {
-					values.category = category
-					values.quantity = parseInt(values.quantity.toString(), 10)
-					values.price = parseInt(values.price.toString(), 10) * 100
-
-					values.image = file
+				onSubmit={async (
+					{ quantity, price, description, name, shortDescription },
+					{ setSubmitting }
+				) => {
+					const newValues: RequestInput = {
+						category,
+						quantity: parseInt(quantity.toString(), 10),
+						price: parseInt(price.toString(), 10) * 100,
+						image: file,
+						description,
+						shortDescription,
+						name,
+					}
+					console.log(newValues)
 
 					try {
 						const {
 							createProduct: { success, productID, errorMessage },
-						} = await createRequest<Input, { createProduct: Response }>({
-							values,
+						} = await createRequest<RequestInput, { createProduct: Response }>({
+							values: newValues,
 							key: createProduct,
 						})
 
