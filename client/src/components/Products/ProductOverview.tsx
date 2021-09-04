@@ -124,9 +124,10 @@ const ProductOverview = ({
 					<Image
 						src={image}
 						layout='responsive'
-						width={1920}
-						height={1080}
+						width={100}
+						height={100}
 						quality={60}
+						objectFit='cover'
 					/>
 				</Grid>
 			</Grid>
