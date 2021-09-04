@@ -103,10 +103,7 @@ const CreateProduct = (props: Props) => {
 					<Grid container item xs={12}>
 						<Grid item xs={12} sm={8}>
 							{previewLink && (
-								<CardMedia
-									image={previewLink}
-									sx={{ height: { xs: '12rem', sm: '25rem' } }}
-								/>
+								<CardMedia image={previewLink} sx={{ height: 0, paddingTop: '100%' }} />
 							)}
 						</Grid>
 
