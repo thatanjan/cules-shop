@@ -16,6 +16,8 @@ import CustomBackdrop from 'components/Loaders/CustomBackdrop'
 
 import { UserPayload } from 'interfaces/authentication'
 
+import { sortType } from 'variables/global'
+
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
 import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
@@ -35,10 +37,13 @@ interface Props {
 	page: number
 	userID: string
 	sellerID: string
+	sort: string
 }
 
 const SortingSelection = () => {
 	const [sortBy, setSortBy] = useState('default')
+
+	const { NAME, HIGH_PRICE, LOW_PRICE } = sortType
 
 	const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
 		setSortBy(event.target.value as string)
@@ -58,9 +63,9 @@ const SortingSelection = () => {
 				<MenuItem value='default'>
 					<em>None</em>
 				</MenuItem>
-				<MenuItem value={10}>Twenty</MenuItem>
-				<MenuItem value={21}>Twenty one</MenuItem>
-				<MenuItem value={22}>Twenty one and a half</MenuItem>
+				<MenuItem>Name</MenuItem>
+				<MenuItem>High Price</MenuItem>
+				<MenuItem>Low Price</MenuItem>
 			</Select>
 		</FormControl>
 	)
@@ -110,14 +115,20 @@ const Header = ({
 	)
 }
 
-const Category = ({ categoryID, categoryName, page, ...others }: Props) => {
+const Category = ({
+	categoryID,
+	categoryName,
+	page,
+	sort,
+	...others
+}: Props) => {
 	const skip = (page - 1) * 30
 
 	useStoreID(others)
 
 	const { data, isValidating } = useGetCategoryProducts({
 		categoryID,
-		sortBy: 'NAME',
+		sortBy: sort,
 		skip,
 	})
 
@@ -178,7 +189,7 @@ const validateCategory = async (categoryID: string) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({
-	query: { category, page },
+	query: { category, page, sort },
 	req,
 }) => {
 	const {
@@ -188,7 +199,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 	const doesCategoryExist = await validateCategory(category as string)
 	const pageParam = parseInt(page as string, 10)
 
-	if (!doesCategoryExist || !pageParam)
+	sort = sort || sortType.NAME
+
+	if (!doesCategoryExist || !pageParam || !((sort as string) in sortType))
 		return { redirect: { destination: '/404', permanent: false } }
 
 	let props = {
@@ -197,6 +210,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		categoryID: category,
 		categoryName: doesCategoryExist.name,
 		page: pageParam,
+		sort: sort || sortType.NAME,
 	}
 
 	if (!jwt) return { props }
