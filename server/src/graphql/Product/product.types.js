@@ -12,10 +12,15 @@ const typeDefs = gql`
 		): GetCategoryProductsResponse!
 		getProducts(Input: GetProductInput!): [Product!]!
 		getProductDetails(productID: ID!): ProductDetails!
-		getAllCategoryNames: [AllCategoryNames!]
+		getAllCategoryNames: AllCategoryNamesResponse!
 		searchProducts(Input: SearchProductsInput!): GetCategoryProductsResponse!
 		getReviews(productID: ID!): GetReviewsResponse!
 		getAllSellerProducts: GetAllSellerProductsResponse!
+	}
+
+	type AllCategoryNamesResponse {
+		categories: [AllCategoryNames!]
+		errorMessage: String
 	}
 
 	type AllCategoryNames {
