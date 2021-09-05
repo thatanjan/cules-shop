@@ -125,7 +125,11 @@ const ProductPreview = ({
 						</MuiLink>
 					}
 					subheader={
-						<MuiLink MuiComponent={Typography} href={productPageLink}>
+						<MuiLink
+							MuiComponent={Typography}
+							href={productPageLink}
+							sx={{ textTransform: 'capitalize' }}
+						>
 							{category.name}
 						</MuiLink>
 					}
