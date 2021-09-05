@@ -95,17 +95,19 @@ const CategoryList = () => {
 
 	if (!data) return null
 
-	const { getAllCategoryNames: allCategoryNames } = data
+	const {
+		getAllCategoryNames: { categories },
+	} = data
 
 	return (
 		<>
-			{allCategoryNames.map(({ name, categoryID }) => (
+			{categories.map(({ name, _id }) => (
 				<MuiLink
 					MuiComponent={ListItem}
 					button
 					sx={{ pl: '40px', textTransform: 'capitalize' }}
 					key={nanoid()}
-					href={`/category/${categoryID}?page=1`}
+					href={`/category/${_id}?page=1`}
 					onClick={() => {
 						dispatch(toggleDrawer())
 					}}
