@@ -53,22 +53,11 @@ const resolver = {
 					.sort(sortType[sortBy])
 					.skip(skip)
 					.limit(30)
-					.lookup({
-						from: 'categories',
-						localField: 'name _id',
-						foreignField: 'categoryID',
-						as: 'category',
-					})
-					.unwind('$category')
 					.project(projection)
 
-				const [{ totalProducts }] = await Product.aggregate()
-					.match({
-						category: convertObjectID(categoryID),
-					})
-					.count('totalProducts')
+				await Product.populate(products, 'category')
 
-				return { products, totalProducts }
+				return { products, totalProducts: products.length }
 			} catch (e) {
 				return sendErrorMessage()
 			}
