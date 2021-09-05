@@ -66,7 +66,19 @@ const SortingSelection = () => {
 	)
 }
 
-const Header = ({ categoryName }: Props) => {
+interface HeaderProps {
+	categoryName: string
+	skip: number
+	totalProducts: number
+	totalCurrentProducts: number
+}
+
+const Header = ({
+	categoryName,
+	skip,
+	totalProducts,
+	totalCurrentProducts,
+}: HeaderProps) => {
 	return (
 		<Grid
 			container
@@ -86,7 +98,7 @@ const Header = ({ categoryName }: Props) => {
 				{categoryName}
 			</Grid>
 			<Grid item component={Typography} xs={6} sm={4} md={3} align='right'>
-				Showing 1-30 of 40 results
+				Showing {skip + 1}-{skip + totalCurrentProducts} of {totalProducts} results
 			</Grid>
 
 			<Grid item xs={6} sm={12} md={2}>
@@ -121,7 +133,14 @@ const Category = ({ categoryID, categoryName, page, ...others }: Props) => {
 		<>
 			{isValidating && <CustomBackdrop />}
 
-			<Header {...{ categoryID, categoryName, page }} />
+			<Header
+				{...{
+					categoryName,
+					skip,
+					totalCurrentProducts: products.length,
+					totalProducts,
+				}}
+			/>
 
 			<ProductsShow
 				products={products}
