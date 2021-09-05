@@ -21,6 +21,7 @@ const typeDefs = gql`
 	type AllCategoryNames {
 		name: String!
 		categoryID: ID!
+		image: String!
 	}
 
 	type SellerName {
