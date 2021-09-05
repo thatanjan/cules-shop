@@ -2,8 +2,14 @@ import { Key } from 'swr'
 
 export type AllCategoryName = Array<{
 	name: string
-	categoryID: string
+	_id: string
+	image: string
 }>
+
+export interface GetAllCategoryNamesResponse {
+	categories: AllCategoryName
+	errorMessage?: string
+}
 
 export interface GetCategoryProductsInput {
 	skip: number
