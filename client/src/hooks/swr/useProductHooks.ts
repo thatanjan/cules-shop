@@ -13,7 +13,7 @@ import {
 } from 'graphql/queries/productQueries'
 
 import {
-	AllCategoryName,
+	GetAllCategoryNamesResponse,
 	GetProductDetailsResponse,
 	IsProductInTheCartResponse,
 	GetMultipleProductsResponse,
@@ -24,7 +24,7 @@ import {
 } from 'interfaces/product'
 
 export const useGetAllCategoryNames = () =>
-	useSWRgql<{}, { getAllCategoryNames: AllCategoryName }>({
+	useSWRgql<{}, { getAllCategoryNames: GetAllCategoryNamesResponse }>({
 		key: getAllCategoryNames,
 		values: {},
 	})
