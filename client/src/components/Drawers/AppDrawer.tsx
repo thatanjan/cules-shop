@@ -113,6 +113,17 @@ const CategoryList = () => {
 					<ListItemText primary={name} />
 				</MuiLink>
 			))}
+			<MuiLink
+				MuiComponent={ListItem}
+				href='/categories'
+				onClick={() => {
+					dispatch(toggleDrawer())
+				}}
+				button
+				sx={{ pl: '40px', textTransform: 'capitalize', bg: '#262626' }}
+			>
+				<ListItemText primary='Show all Categories' />{' '}
+			</MuiLink>
 		</>
 	)
 }
