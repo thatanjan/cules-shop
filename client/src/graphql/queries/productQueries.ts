@@ -6,7 +6,7 @@ export const getAllCategoryNames = gql`
 			categories {
 				image
 				name
-				categoryID
+				_id
 			}
 		}
 	}
