@@ -2,17 +2,13 @@ import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { nanoid } from 'nanoid'
 import { makeStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import Box from '@material-ui/core/Box'
 
 import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
+import MuiLink from 'components/Links/MuiLink'
 
-import {
-	getAllCategoryNames,
-	getProductDetails,
-	isProductInTheCart,
-	getCategoryProducts,
-	searchProducts,
-	getReviews,
-} from 'graphql/queries/productQueries'
+import { getCategoryProducts } from 'graphql/queries/productQueries'
 
 import { sortType } from 'variables/global'
 
@@ -106,6 +102,14 @@ const ProductSlideShow = ({ singleTab, categoryID }: Props) => {
 						/>
 					</SwiperSlide>
 				))}
+
+				<MuiLink
+					MuiComponent={Box}
+					href={`/category/${categoryID}?page=1`}
+					sx={{ display: 'grid', justifyContent: 'end', m: '1rem 0' }}
+				>
+					<Button>Show More</Button>
+				</MuiLink>
 			</Swiper>
 		</>
 	)
