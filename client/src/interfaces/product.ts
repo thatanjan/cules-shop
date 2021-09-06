@@ -23,6 +23,7 @@ export type MultiPleProducts = Array<{
 	price: number
 	category: { name: string; _id: string }
 	image: string
+	quantity: number
 	alreadyInCart: null | boolean
 }>
 
