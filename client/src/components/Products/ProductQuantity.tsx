@@ -14,7 +14,7 @@ import { totalCartPrice } from 'graphql/queries/cartQueries'
 import { CommonResponse } from 'interfaces/global'
 
 export interface Props {
-	quantity?: number
+	userQuantity?: number
 	productID: string
 }
 
@@ -34,7 +34,7 @@ interface ModifyQuantityInput {
 }
 
 const ProductQuantity = ({
-	quantity,
+	userQuantity: quantity,
 	productID,
 	mutateQuantity,
 }: PropsWithMutate) => {

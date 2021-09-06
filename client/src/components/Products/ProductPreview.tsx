@@ -53,7 +53,7 @@ const ProductQuantityContainer = (props: ProductQuantityProps) => {
 		<ProductQuantity
 			{...{
 				...props,
-				quantity: data ? data.isProductInTheCart.quantity : props.quantity,
+				userQuantity: data ? data.isProductInTheCart.quantity : props.userQuantity,
 				mutateQuantity: mutate,
 			}}
 		/>
@@ -187,7 +187,7 @@ const ProductPreview = ({
 
 					{cartPage && (
 						<Grid item>
-							<ProductQuantityContainer productID={_id} quantity={userQuantity} />
+							<ProductQuantityContainer productID={_id} userQuantity={userQuantity} />
 						</Grid>
 					)}
 				</CardContent>

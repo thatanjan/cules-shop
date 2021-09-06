@@ -87,7 +87,11 @@ const CartPart = () => {
 		<>
 			{exist && (
 				<ProductQuantity
-					{...{ productID: productID as string, quantity, mutateQuantity: mutate }}
+					{...{
+						productID: productID as string,
+						userQuantity: quantity,
+						mutateQuantity: mutate,
+					}}
 				/>
 			)}
 
