@@ -91,26 +91,20 @@ app.post('/validate', ({ body }, res) => {
 	jwt.verify(newToken, process.env.SECRET_KEY, async (err, decoded) => {
 		if (err) return res.status(401).send(err)
 
-		const { userID } = decoded
+		const { userID, sellerID } = decoded
 
 		const user = await User.findById(userID)
 
 		if (!user) return res.status(401).send("User doesn't exist")
+
+		if (!sellerID) return res.status(200).send('everything is fine')
+
+		const seller = await Seller.findById(sellerID)
+
+		if (!seller) return res.status(401).send('Invalid seller')
+
+		return res.status(200).send('everything is fine')
 	})
-})
-
-app.body('/isSeller', async ({ body }) => {
-	const {
-		data: { sellerID },
-	} = body
-
-	if (!sellerID) return res.status(401).send('Invalid seller ID')
-
-	const seller = await Seller.findById(sellerID)
-
-	if (seller) return res.status(200).send('Everything is fine')
-
-	return res.status(401).send('Invalid seller')
 })
 
 app.get('/doesProductExist', async ({ body }, res) => {
