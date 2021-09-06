@@ -49,12 +49,17 @@ export interface Props extends MutationDeps {
 const ProductQuantityContainer = (props: ProductQuantityProps) => {
 	const { data, mutate } = useIsProductInTheCart(props.productID as string)
 
+	if (!data) return null
+
+	const { quantity: userQuantity } = data.isProductInTheCart
+
 	return (
 		<ProductQuantity
 			{...{
 				...props,
-				userQuantity: data ? data.isProductInTheCart.quantity : props.userQuantity,
+				userQuantity: userQuantity || props.userQuantity,
 				mutateQuantity: mutate,
+				productQuantity: props.quantity,
 			}}
 		/>
 	)
@@ -187,7 +192,11 @@ const ProductPreview = ({
 
 					{cartPage && (
 						<Grid item>
-							<ProductQuantityContainer productID={_id} userQuantity={userQuantity} />
+							<ProductQuantityContainer
+								productID={_id}
+								userQuantity={userQuantity}
+								productQuantity={quantity}
+							/>
 						</Grid>
 					)}
 				</CardContent>

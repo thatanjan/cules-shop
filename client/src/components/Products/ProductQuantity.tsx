@@ -16,6 +16,7 @@ import { CommonResponse } from 'interfaces/global'
 export interface Props {
 	userQuantity?: number
 	productID: string
+	ProductQuantity: number
 }
 
 interface PropsWithMutate extends Props {
@@ -34,15 +35,15 @@ interface ModifyQuantityInput {
 }
 
 const ProductQuantity = ({
-	userQuantity: quantity,
+	userQuantity,
 	productID,
 	mutateQuantity,
 }: PropsWithMutate) => {
-	const [quantityInput, setQuantityInput] = useState<number>(quantity || 0)
+	const [quantityInput, setQuantityInput] = useState<number>(userQuantity || 0)
 
 	useEffect(() => {
-		setQuantityInput(quantity)
-	}, [quantity])
+		setQuantityInput(userQuantity)
+	}, [userQuantity])
 
 	const modifyQuantityHandler = async (type: ModifyType, amount: number = 1) => {
 		const {
@@ -64,7 +65,7 @@ const ProductQuantity = ({
 	const modifyQuantityHandlerWithInput = async () => {
 		if (quantityInput === 0) return false
 
-		const difference = quantityInput - quantity
+		const difference = quantityInput - userQuantity
 
 		if (!difference) return false
 
@@ -135,7 +136,7 @@ const ProductQuantity = ({
 				<IconButton
 					color='primary'
 					component='span'
-					disabled={quantity <= 0}
+					disabled={userQuantity <= 0}
 					size='small'
 					onClick={() => modifyQuantityHandler(DECREASE)}
 				>
