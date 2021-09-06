@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
@@ -13,6 +14,7 @@ import Box from '@material-ui/core/Box'
 import Divider from '@material-ui/core/Divider'
 
 import CustomBackdrop from 'components/Loaders/CustomBackdrop'
+import MuiLink from 'components/Links/MuiLink'
 
 import { UserPayload } from 'interfaces/authentication'
 
@@ -40,32 +42,50 @@ interface Props {
 	sort: string
 }
 
+const convertUnderScoreToDash = (str: string) =>
+	str.replace(/_/g, ' ').toLowerCase()
+
 const SortingSelection = () => {
-	const [sortBy, setSortBy] = useState('default')
+	const {
+		query: { category: categoryID, sort },
+	} = useRouter()
 
-	const { NAME, HIGH_PRICE, LOW_PRICE } = sortType
-
-	const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-		setSortBy(event.target.value as string)
-	}
+	let { NAME, HIGH_PRICE, LOW_PRICE } = sortType
+	const sortValue = (sort as string) || NAME
 
 	return (
 		<FormControl>
 			<InputLabel id='demo-simple-select-autowidth-label'>Sort By</InputLabel>
 			<Select
-				labelId='demo-simple-select-autowidth-label'
-				id='demo-simple-select-autowidth'
-				value={sortBy}
-				onChange={handleChange}
+				value={sortType[sortValue]}
 				autoWidth
-				label='Age'
+				label='Sort By'
+				sx={{ textTransform: 'capitalize' }}
 			>
-				<MenuItem value='default'>
-					<em>None</em>
-				</MenuItem>
-				<MenuItem>Name</MenuItem>
-				<MenuItem>High Price</MenuItem>
-				<MenuItem>Low Price</MenuItem>
+				<MuiLink
+					MuiComponent={MenuItem}
+					href={`/category/${categoryID}?page=1&sort=${NAME}`}
+					sx={{ textTransform: 'capitalize' }}
+					value={NAME}
+				>
+					{convertUnderScoreToDash(NAME)}
+				</MuiLink>
+				<MuiLink
+					MuiComponent={MenuItem}
+					href={`/category/${categoryID}?page=1&sort=${HIGH_PRICE}`}
+					sx={{ textTransform: 'capitalize' }}
+					value={HIGH_PRICE}
+				>
+					{convertUnderScoreToDash(HIGH_PRICE)}
+				</MuiLink>
+				<MuiLink
+					MuiComponent={MenuItem}
+					href={`/category/${categoryID}?page=1&sort=${LOW_PRICE}`}
+					sx={{ textTransform: 'capitalize' }}
+					value={LOW_PRICE}
+				>
+					{convertUnderScoreToDash(LOW_PRICE)}
+				</MuiLink>
 			</Select>
 		</FormControl>
 	)
