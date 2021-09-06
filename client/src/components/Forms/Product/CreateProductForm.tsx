@@ -62,13 +62,14 @@ const SelectCategory = ({ category, setCategory }: SelectCategoryProps) => {
 		setCategory(event.target.value as string)
 	}
 
-	let categories = []
-
 	const { data } = useGetAllCategoryNames()
 
-	if (data) {
-		categories = data.getAllCategoryNames
-	}
+	console.log(data)
+	if (!data) return null
+
+	const {
+		getAllCategoryNames: { categories },
+	} = data
 
 	return (
 		<CustomField
@@ -83,7 +84,7 @@ const SelectCategory = ({ category, setCategory }: SelectCategoryProps) => {
 			{categories.map(option => (
 				<MenuItem
 					key={option.name}
-					value={option.categoryID}
+					value={option._id}
 					sx={{ textTransform: 'capitalize' }}
 				>
 					{option.name}
