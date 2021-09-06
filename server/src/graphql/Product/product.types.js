@@ -44,6 +44,7 @@ const typeDefs = gql`
 		price: Int!
 		image: String!
 		alreadyInCart: Boolean
+		quantity: Int!
 	}
 
 	type GetAllSellerProductsResponse {
