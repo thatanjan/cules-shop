@@ -12,6 +12,8 @@ import resolvers from 'graphql/resolvers'
 
 import Product from 'models/Product'
 import Category from 'models/Category'
+import User from 'models/User'
+import Seller from 'models/Seller'
 
 import permissions from 'config/permission'
 
@@ -86,10 +88,14 @@ app.post('/validate', ({ body }, res) => {
 
 	const newToken = removeBearer(token)
 
-	jwt.verify(newToken, process.env.SECRET_KEY, err => {
+	jwt.verify(newToken, process.env.SECRET_KEY, async (err, decoded) => {
 		if (err) return res.status(401).send(err)
 
-		return res.status(200).send('calm down')
+		const { userID } = decoded
+
+		const user = await User.findById(userID)
+
+		if (!user) return res.status(401).send("User doesn't exist")
 	})
 })
 
