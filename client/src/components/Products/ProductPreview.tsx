@@ -43,6 +43,7 @@ export interface Props extends MutationDeps {
 		_id: string
 	}
 	alreadyInCart?: null | boolean
+	quantity: number
 }
 
 const ProductQuantityContainer = (props: ProductQuantityProps) => {
@@ -69,6 +70,7 @@ const ProductPreview = ({
 	image,
 	alreadyInCart,
 	mutationDeps,
+	quantity,
 }: Props) => {
 	const addProductHandler = async () => {
 		try {
@@ -162,11 +164,24 @@ const ProductPreview = ({
 						</Grid>
 					)}
 
-					{!cartPage && !alreadyInCart && (
+					{!cartPage && !alreadyInCart && quantity > 0 && (
 						<Grid item xs={6} sx={cartStyle}>
 							<IconButton onClick={() => addProductHandler()}>
 								<AddShoppingCartIcon />
 							</IconButton>
+						</Grid>
+					)}
+
+					{quantity <= 0 && (
+						<Grid item xs={6} sx={{ padding: '12px 0' }}>
+							<Typography
+								component='h5'
+								variant='subtitle1'
+								color='error'
+								align='right'
+							>
+								Out of stock
+							</Typography>
 						</Grid>
 					)}
 
