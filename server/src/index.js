@@ -99,6 +99,20 @@ app.post('/validate', ({ body }, res) => {
 	})
 })
 
+app.body('/isSeller', async ({ body }) => {
+	const {
+		data: { sellerID },
+	} = body
+
+	if (!sellerID) return res.status(401).send('Invalid seller ID')
+
+	const seller = await Seller.findById(sellerID)
+
+	if (seller) return res.status(200).send('Everything is fine')
+
+	return res.status(401).send('Invalid seller')
+})
+
 app.get('/doesProductExist', async ({ body }, res) => {
 	try {
 		const { productID } = body
