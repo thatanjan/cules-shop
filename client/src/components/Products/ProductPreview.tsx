@@ -59,7 +59,7 @@ const ProductQuantityContainer = (props: ProductQuantityProps) => {
 				...props,
 				userQuantity: userQuantity || props.userQuantity,
 				mutateQuantity: mutate,
-				productQuantity: props.quantity,
+				productQuantity: props.productQuantity,
 			}}
 		/>
 	)

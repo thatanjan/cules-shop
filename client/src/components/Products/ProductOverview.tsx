@@ -36,7 +36,11 @@ import MuiLink from 'components/Links/MuiLink'
 
 import ProductQuantity from './ProductQuantity'
 
-const CartPart = () => {
+interface CartPartProps {
+	productQuantity: number
+}
+
+const CartPart = ({ productQuantity }: CartPartProps) => {
 	const {
 		query: { productID },
 	} = useRouter()
@@ -91,6 +95,7 @@ const CartPart = () => {
 						productID: productID as string,
 						userQuantity: quantity,
 						mutateQuantity: mutate,
+						productQuantity: productQuantity,
 					}}
 				/>
 			)}
@@ -206,7 +211,7 @@ const ProductOverview = ({
 				</Typography>
 
 				{loggedIn ? (
-					<CartPart />
+					<CartPart productQuantity={productQuantity} />
 				) : (
 					<Button
 						sx={{ textTransform: 'capitalize', marginTop: '2rem', padding: '0.8rem' }}
