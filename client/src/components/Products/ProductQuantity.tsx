@@ -16,7 +16,7 @@ import { CommonResponse } from 'interfaces/global'
 export interface Props {
 	userQuantity?: number
 	productID: string
-	ProductQuantity: number
+	productQuantity: number
 }
 
 interface PropsWithMutate extends Props {
@@ -38,8 +38,11 @@ const ProductQuantity = ({
 	userQuantity,
 	productID,
 	mutateQuantity,
+	productQuantity,
 }: PropsWithMutate) => {
-	const [quantityInput, setQuantityInput] = useState<number>(userQuantity || 0)
+	const [quantityInput, setQuantityInput] = useState<number | ''>(
+		userQuantity || 1
+	)
 
 	useEffect(() => {
 		setQuantityInput(userQuantity)
@@ -63,11 +66,12 @@ const ProductQuantity = ({
 	}
 
 	const modifyQuantityHandlerWithInput = async () => {
+		if (!quantityInput) setQuantityInput(1)
 		if (quantityInput === 0) return false
 
-		const difference = quantityInput - userQuantity
+		const difference = (quantityInput as number) - userQuantity
 
-		if (!difference) return false
+		if (!difference || quantityInput > productQuantity) return false
 
 		let type: ModifyType = INCREASE
 
@@ -109,12 +113,13 @@ const ProductQuantity = ({
 					component='span'
 					size='small'
 					onClick={() => modifyQuantityHandler(INCREASE)}
+					disabled={quantityInput >= productQuantity}
 				>
 					<AddIcon />
 				</IconButton>
 
 				<TextField
-					error={quantityInput === 0}
+					error={quantityInput === 0 || quantityInput > productQuantity}
 					variant='filled'
 					label='Quantity'
 					value={quantityInput}
@@ -128,15 +133,21 @@ const ProductQuantity = ({
 							},
 						},
 					}}
-					helperText={quantityInput === 0 && 'Quantity must be more than 0'}
-					onChange={event => setQuantityInput(parseInt(event.target.value, 10) || 1)}
+					helperText={
+						(quantityInput === 0 && 'Quantity must be more than 0') ||
+						(quantityInput > productQuantity &&
+							`Cannot order more than ${productQuantity}`)
+					}
+					onChange={event =>
+						setQuantityInput(parseInt(event.target.value, 10) || '')
+					}
 					onBlur={modifyQuantityHandlerWithInput}
 				/>
 
 				<IconButton
 					color='primary'
 					component='span'
-					disabled={userQuantity <= 0}
+					disabled={userQuantity === 1}
 					size='small'
 					onClick={() => modifyQuantityHandler(DECREASE)}
 				>
