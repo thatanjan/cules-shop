@@ -27,6 +27,7 @@ export const getAllCartProducts = gql`
 				price
 				_id
 				userQuantity
+				quantity
 				category {
 					name
 					_id
