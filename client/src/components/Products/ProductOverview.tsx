@@ -210,7 +210,11 @@ const ProductOverview = ({
 					${price / 100}
 				</Typography>
 
-				{loggedIn ? (
+				{productQuantity === 0 ? (
+					<Typography color='error' variant='h4' sx={{ m: '1rem 0' }}>
+						Out of Stock
+					</Typography>
+				) : loggedIn ? (
 					<CartPart productQuantity={productQuantity} />
 				) : (
 					<Button
