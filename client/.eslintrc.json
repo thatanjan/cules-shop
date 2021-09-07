@@ -65,7 +65,8 @@
 			"error",
 			{ "props": true, "ignorePropertyModificationsFor": ["state"] }
 		],
-		"arrow-body-style": "off"
+		"arrow-body-style": "off",
+		"no-unneeded-ternary": "off"
 	},
 	"settings": {
 		"import/resolver": {
