@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
-import { makeStyles, Theme } from '@material-ui/styles'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
@@ -15,22 +14,6 @@ const BannerSlideShow = dynamic(
 	() => import('components/Banner/BannerSlideShow')
 )
 
-const useStyles = makeStyles((theme: Theme) => ({
-	contentContainerStyle: {
-		[theme.breakpoints.up('xs')]: {
-			paddingTop:
-				theme.mixins.toolbar['@media (min-width:0px) and (orientation: landscape)']
-					.minHeight,
-		},
-		[theme.breakpoints.up('xs')]: {
-			paddingTop: theme.mixins.toolbar.minHeight,
-		},
-		[theme.breakpoints.up('sm')]: {
-			paddingTop: theme.mixins.toolbar['@media (min-width:600px)'].minHeight,
-		},
-	},
-}))
-
 interface Props {
 	children: React.ReactNode
 }
@@ -38,7 +21,6 @@ interface Props {
 const AppLayout = ({ children }: Props) => {
 	const [showSearchBar, setShowSearchBar] = useState(false)
 	const largerThanMD = useLargerThanMD()
-	const { contentContainerStyle } = useStyles()
 
 	const { route } = useRouter()
 
@@ -59,7 +41,11 @@ const AppLayout = ({ children }: Props) => {
 
 				{route === '/' && <BannerSlideShow />}
 
-				<Grid container justifyContent='center' className={contentContainerStyle}>
+				<Grid
+					container
+					justifyContent='center'
+					sx={{ pt: { xs: '56px', sm: '64px', md: '72px' } }}
+				>
 					<Grid item xs={11} md={10} lg={9}>
 						{children}
 					</Grid>
