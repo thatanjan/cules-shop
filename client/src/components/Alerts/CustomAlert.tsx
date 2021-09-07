@@ -7,16 +7,14 @@ import Collapse from '@material-ui/core/Collapse'
 import CloseIcon from '@material-ui/icons/Close'
 import IconButton from '@material-ui/core/IconButton'
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		root: {
-			width: '100%',
-			'& > * + *': {
-				marginTop: theme.spacing(2),
-			},
+const useStyles = makeStyles((theme: Theme) => ({
+	root: {
+		width: '100%',
+		'& > * + *': {
+			marginTop: theme.spacing(2),
 		},
-	})
-)
+	},
+}))
 
 export type Severity = 'error' | 'success' | 'info'
 
