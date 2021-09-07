@@ -152,10 +152,12 @@ const DrawerList = () => {
 const AppDrawer = () => {
 	const dispatch = useAppDispatch()
 
+	const { isOpen } = useAppSelector(state => state.drawer)
+
 	return (
 		<div>
 			<SwipeableDrawer
-				open={open}
+				open={isOpen}
 				onOpen={() => dispatch(toggleDrawer())}
 				onClose={() => dispatch(toggleDrawer())}
 				PaperProps={{
