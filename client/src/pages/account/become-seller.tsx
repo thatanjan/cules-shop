@@ -3,10 +3,9 @@ import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
-import Box from '@material-ui/core/Box'
 
 import AccountAvatar from 'components/Avatar/AccountAvatar'
+import CustomBackdrop from 'components/Loaders/CustomBackdrop'
 import BecomeSellerForm from 'components/Forms/Account/BecomeSellerForm'
 
 import { UserPayload } from 'interfaces/authentication'
@@ -15,6 +14,10 @@ import checkValidJWT from 'utils/auth/checkValidJWT'
 
 import { useStoreID } from 'redux/hooks/useUserHooks'
 
+import { useUserState } from 'redux/hooks/useUserHooks'
+
+import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
+
 interface Props {
 	userID: string
 	sellerID: string
@@ -22,6 +25,17 @@ interface Props {
 
 const BecomeSeller = (props: Props) => {
 	useStoreID(props)
+
+	const { userID } = useUserState()
+
+	const { data } = useGetMultipleProfile([userID])
+
+	if (!data) return <CustomBackdrop />
+
+	const {
+		getMultipleProfile: [{ name, profilePicture }],
+	} = data
+
 	return (
 		<>
 			<Grid
@@ -34,7 +48,7 @@ const BecomeSeller = (props: Props) => {
 				}}
 			>
 				<Grid item xs={6} sm={4}>
-					{/* <AccountAvatar /> */}
+					<AccountAvatar src={profilePicture} name={name} />
 				</Grid>
 
 				<Grid item xs={12} sm={6} sx={{ marginTop: { xs: '1rem', sm: 0 } }}>
