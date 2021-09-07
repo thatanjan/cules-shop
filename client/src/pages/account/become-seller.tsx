@@ -13,9 +13,15 @@ import { UserPayload } from 'interfaces/authentication'
 
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
-interface Props {}
+import { useStoreID } from 'redux/hooks/useUserHooks'
+
+interface Props {
+	userID: string
+	sellerID: string
+}
 
 const BecomeSeller = (props: Props) => {
+	useStoreID(props)
 	return (
 		<>
 			<Grid
@@ -28,7 +34,7 @@ const BecomeSeller = (props: Props) => {
 				}}
 			>
 				<Grid item xs={6} sm={4}>
-					<AccountAvatar />
+					{/* <AccountAvatar /> */}
 				</Grid>
 
 				<Grid item xs={12} sm={6} sx={{ marginTop: { xs: '1rem', sm: 0 } }}>
