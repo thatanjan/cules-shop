@@ -1,3 +1,4 @@
+import { mutate } from 'swr'
 import { FormEvent, useState, useEffect } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import {
@@ -16,6 +17,12 @@ import CustomAlert from 'components/Alerts/CustomAlert'
 import createRequest from 'graphql/createRequest'
 
 import { checkout } from 'graphql/mutations/checkoutMutations'
+
+import {
+	totalCartItems,
+	getAllCartProducts,
+	totalCartPrice,
+} from 'graphql/queries/cartQueries'
 
 import {
 	useGetCheckoutState,
@@ -80,6 +87,7 @@ const CheckoutForm = () => {
 				if (success) {
 					setCheckingOut(false)
 					setCheckoutDone()
+					mutate([totalCartItems, undefined])
 					return true
 				}
 
