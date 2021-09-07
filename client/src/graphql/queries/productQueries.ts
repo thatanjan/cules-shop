@@ -76,6 +76,7 @@ export const searchProducts = gql`
 					_id
 				}
 				alreadyInCart
+				quantity
 			}
 			errorMessage
 		}
