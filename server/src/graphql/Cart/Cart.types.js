@@ -32,6 +32,7 @@ const typeDefs = gql`
 		_id: ID!
 		category: CategoryName!
 		userQuantity: Int!
+		quantity: Int!
 	}
 
 	type Exist {
