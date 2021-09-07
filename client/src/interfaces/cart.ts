@@ -17,6 +17,7 @@ export interface CartProduct {
 		name: string
 		_id: string
 	}
+	quantity: number
 }
 
 export interface GetAllCartProductsResponse {
