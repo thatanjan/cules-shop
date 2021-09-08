@@ -97,6 +97,8 @@ const ProductQuantity = ({
 			mutateQuantity()
 			mutate([totalCartPrice, undefined])
 		}
+
+		return true
 	}
 
 	return (

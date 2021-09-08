@@ -3,9 +3,7 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import { nanoid } from 'nanoid'
 
-interface Props {}
-
-const ProductSpecification = (props: Props) => {
+const ProductSpecification = () => {
 	return (
 		<>
 			<Typography variant='h4' sx={{ marginBottom: '1rem' }}>

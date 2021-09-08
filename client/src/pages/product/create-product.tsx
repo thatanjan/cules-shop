@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Image from 'next/image'
 import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
 import Grid from '@material-ui/core/Grid'

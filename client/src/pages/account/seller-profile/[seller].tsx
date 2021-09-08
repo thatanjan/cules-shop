@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 
-import { useStoreID } from 'redux/hooks/useUserHooks'
+import { useStoreID, useUserState } from 'redux/hooks/useUserHooks'
 
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
@@ -16,8 +16,6 @@ import { UserPayload } from 'interfaces/authentication'
 
 import AccountAvatar from 'components/Avatar/AccountAvatar'
 import CustomBackdrop from 'components/Loaders/CustomBackdrop'
-
-import { useUserState } from 'redux/hooks/useUserHooks'
 
 import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
 

@@ -22,11 +22,6 @@ import { useGetAllCategoryNames } from 'hooks/swr/useProductHooks'
 
 import { LOGIN_URL } from 'variables/global'
 
-interface Props {
-	open: boolean
-	setOpen: Function
-}
-
 const AccountPart = () => {
 	const { userID } = useAppSelector(state => state.user)
 

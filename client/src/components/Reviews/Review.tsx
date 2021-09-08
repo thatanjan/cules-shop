@@ -13,7 +13,7 @@ import { Review as ReviewInterface } from 'interfaces/product'
 interface Props extends ReviewInterface {}
 
 const Review = ({
-	user: { name, profilePicture, user },
+	user: { name, profilePicture },
 	date,
 	star,
 	description,

@@ -12,7 +12,6 @@ import SwiperCore, {
 
 import ProductOverviewTabs from 'components/Tabs/ProductOverviewTabs'
 import ProductOverview from 'components/Products/ProductOverview'
-import ProductPreviewTabs from 'components/Tabs/ProductPreviewTabs'
 import CustomBackdrop from 'components/Loaders/CustomBackdrop'
 
 import { useStoreID } from 'redux/hooks/useUserHooks'

@@ -47,7 +47,10 @@ export interface Props extends MutationDeps {
 }
 
 const ProductQuantityContainer = (props: ProductQuantityProps) => {
-	const { data, mutate } = useIsProductInTheCart(props.productID as string)
+	const { productID, userQuantity: userQuantityProps, productQuantity } = props
+	const { data, mutate: mutateForCart } = useIsProductInTheCart(
+		productID as string
+	)
 
 	if (!data) return null
 
@@ -57,9 +60,9 @@ const ProductQuantityContainer = (props: ProductQuantityProps) => {
 		<ProductQuantity
 			{...{
 				...props,
-				userQuantity: userQuantity || props.userQuantity,
-				mutateQuantity: mutate,
-				productQuantity: props.productQuantity,
+				userQuantity: userQuantity || userQuantityProps,
+				mutateQuantity: mutateForCart,
+				productQuantity,
 			}}
 		/>
 	)
@@ -93,7 +96,10 @@ const ProductPreview = ({
 				mutationDeps.forEach(item => mutate(item))
 				mutate([totalCartItems, undefined])
 			}
-		} catch (error) {}
+			return true
+		} catch (error) {
+			return error
+		}
 	}
 
 	const cartStyle: SxTypes = { display: 'grid', justifyItems: 'end' }

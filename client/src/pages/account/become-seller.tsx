@@ -12,9 +12,7 @@ import { UserPayload } from 'interfaces/authentication'
 
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
-import { useStoreID } from 'redux/hooks/useUserHooks'
-
-import { useUserState } from 'redux/hooks/useUserHooks'
+import { useStoreID, useUserState } from 'redux/hooks/useUserHooks'
 
 import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
 

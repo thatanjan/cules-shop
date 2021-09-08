@@ -18,11 +18,7 @@ import createRequest from 'graphql/createRequest'
 
 import { checkout } from 'graphql/mutations/checkoutMutations'
 
-import {
-	totalCartItems,
-	getAllCartProducts,
-	totalCartPrice,
-} from 'graphql/queries/cartQueries'
+import { totalCartItems } from 'graphql/queries/cartQueries'
 
 import {
 	useGetCheckoutState,
@@ -62,7 +58,7 @@ const CheckoutForm = () => {
 
 			if (error) {
 				setErrorMessage(error.message)
-				return false
+				return
 			}
 
 			const { id } = paymentMethod
@@ -88,12 +84,13 @@ const CheckoutForm = () => {
 					setCheckingOut(false)
 					setCheckoutDone()
 					mutate([totalCartItems, undefined])
-					return true
+					return
 				}
 
 				setErrorMessage(request.checkout.errorMessage)
 				setCheckingOut(false)
 			}
+			return
 		} catch (error) {
 			setErrorMessage('Something Went Wrong. Please try again')
 			setCheckingOut(false)

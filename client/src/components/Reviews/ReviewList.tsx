@@ -8,13 +8,11 @@ import { useGetReviews } from 'hooks/swr/useProductHooks'
 
 import Review from './Review'
 
-interface Props {}
-
-const ReviewList = (props: Props) => {
+const ReviewList = () => {
 	const {
 		query: { productID },
 	} = useRouter()
-	const { data, error } = useGetReviews(productID as string)
+	const { data } = useGetReviews(productID as string)
 
 	if (!data) return null
 
@@ -22,7 +20,6 @@ const ReviewList = (props: Props) => {
 		getReviews: { reviews },
 	} = data
 
-	console.log(data)
 	return (
 		<List>
 			{reviews.map(review => (

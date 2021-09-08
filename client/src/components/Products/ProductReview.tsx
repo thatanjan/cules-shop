@@ -48,7 +48,7 @@ const ReviewResult = () => {
 	const {
 		query: { productID },
 	} = useRouter()
-	const { data, error } = useGetReviews(productID as string)
+	const { data } = useGetReviews(productID as string)
 
 	if (!data) return null
 

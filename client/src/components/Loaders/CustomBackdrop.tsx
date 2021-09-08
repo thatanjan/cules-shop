@@ -2,9 +2,7 @@ import React from 'react'
 import Backdrop from '@material-ui/core/Backdrop'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-interface Props {}
-
-const CustomBackdrop = (props: Props) => {
+const CustomBackdrop = () => {
 	return (
 		<Backdrop
 			sx={{

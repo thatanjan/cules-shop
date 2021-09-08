@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 export class DrawerButton {
 	name: string
 
@@ -25,7 +26,3 @@ export class Category {
 		return this
 	}
 }
-
-const computers = new Category('Computers').addSubCategories([
-	new DrawerButton(''),
-])

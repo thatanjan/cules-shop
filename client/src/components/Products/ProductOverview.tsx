@@ -65,7 +65,10 @@ const CartPart = ({ productQuantity }: CartPartProps) => {
 				mutate()
 				swrMutate([totalCartItems, undefined])
 			}
-		} catch (error) {}
+			return true
+		} catch (error) {
+			return error
+		}
 	}
 
 	const addHandler = async () => {
@@ -84,7 +87,10 @@ const CartPart = ({ productQuantity }: CartPartProps) => {
 				mutate()
 				swrMutate([totalCartItems, undefined])
 			}
-		} catch (error) {}
+			return true
+		} catch (error) {
+			return error
+		}
 	}
 
 	return (
@@ -95,7 +101,7 @@ const CartPart = ({ productQuantity }: CartPartProps) => {
 						productID: productID as string,
 						userQuantity: quantity,
 						mutateQuantity: mutate,
-						productQuantity: productQuantity,
+						productQuantity,
 					}}
 				/>
 			)}
@@ -163,7 +169,6 @@ const ProductOverview = ({
 				>
 					{name}
 				</Typography>
-
 				<Box sx={{ marginTop: '1rem' }}>
 					<Typography sx={{ display: 'inline' }}>Availability: </Typography>
 					<Typography
@@ -173,9 +178,7 @@ const ProductOverview = ({
 						{productQuantity ? 'In Stock' : 'Out Of Stock'}
 					</Typography>
 				</Box>
-
 				<hr style={{ color: '#6f6f6f' }} />
-
 				<Box sx={{ marginTop: '2rem' }}>
 					<Button
 						variant='contained'
@@ -194,7 +197,6 @@ const ProductOverview = ({
 						Compare
 					</Button>
 				</Box>
-
 				<List>
 					{Array(5)
 						.fill(0)
@@ -205,11 +207,10 @@ const ProductOverview = ({
 							</ListItem>
 						))}
 				</List>
-
 				<Typography variant='h3' sx={{ marginTop: '3rem' }}>
 					${price / 100}
 				</Typography>
-
+				// eslint-disable-next-line no-nested-ternary
 				{productQuantity === 0 ? (
 					<Typography color='error' variant='h4' sx={{ m: '1rem 0' }}>
 						Out of Stock

@@ -51,7 +51,7 @@ const ProductReviewForm = () => {
 				{ addReview: CommonResponse }
 			>({
 				key: addReview,
-				values: values,
+				values,
 			})
 
 			setAlert({ severity: 'info', message: 'Adding Reviews' })

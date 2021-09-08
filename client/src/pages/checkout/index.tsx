@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState } from 'react'
+import React, { useEffect, Fragment } from 'react'
 import jwtDecode from 'jwt-decode'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
@@ -88,10 +88,10 @@ const AddressShow = ({ address, name }: any) => {
 
 		let validAddress = true
 
-		for (let key in address) {
-			if (address[key]) {
-				continue
-			} else {
+		const keys = Object.keys(address)
+
+		for (const key of keys) {
+			if (!address[key]) {
 				validAddress = false
 				break
 			}

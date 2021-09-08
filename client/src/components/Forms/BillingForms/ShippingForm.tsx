@@ -69,7 +69,10 @@ const ShippingForm = () => {
 				const errors: Partial<Values> = {}
 				setShippingAddress(values)
 
-				for (let key in values) {
+				const keys = Object.keys(values)
+
+				// eslint-disable-next-line no-restricted-syntax
+				for (const key of keys) {
 					if (values[key]) {
 						dispatch(setIsNewAddressValid(true))
 					} else {

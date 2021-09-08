@@ -15,8 +15,6 @@ import MuiLink from 'components/Links/MuiLink'
 
 import { useGetAllSellerProducts } from 'hooks/swr/useProductHooks'
 
-interface Props {}
-
 function a11yProps(index: number) {
 	return {
 		id: `simple-tab-${index}`,
@@ -108,7 +106,7 @@ const SingleProduct = ({
 	)
 }
 
-const AllSellerProducts = (props: Props) => {
+const AllSellerProducts = () => {
 	const { data } = useGetAllSellerProducts()
 
 	if (!data) return null

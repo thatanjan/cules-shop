@@ -5,9 +5,7 @@ import Grid from '@material-ui/core/Grid'
 
 import { useGetTotalCartPrice } from 'hooks/swr/useCartHooks'
 
-interface Props {}
-
-const Subtotal = (props: Props) => {
+const Subtotal = () => {
 	const { data } = useGetTotalCartPrice()
 
 	if (!data) return null

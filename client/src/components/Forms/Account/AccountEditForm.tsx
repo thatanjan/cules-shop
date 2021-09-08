@@ -58,7 +58,7 @@ const AccountEditForm = () => {
 
 			<Formik
 				initialValues={data.getMultipleProfile[0]}
-				validate={values => {
+				validate={() => {
 					const errors: Partial<Values> = {}
 					return errors
 				}}

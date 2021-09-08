@@ -50,7 +50,7 @@ const SortingSelection = () => {
 		query: { category: categoryID, sort },
 	} = useRouter()
 
-	let { NAME, HIGH_PRICE, LOW_PRICE } = sortType
+	const { NAME, HIGH_PRICE, LOW_PRICE } = sortType
 	const sortValue = (sort as string) || NAME
 
 	return (
@@ -176,6 +176,7 @@ const Category = ({
 			<ProductsShow
 				products={products}
 				mutationDeps={[
+					// eslint-disable-next-line prefer-template
 					[getCategoryProducts, categoryID + 'NAME' + skip],
 					[totalCartItems, undefined],
 				]}
@@ -219,6 +220,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 	const doesCategoryExist = await validateCategory(category as string)
 	const pageParam = parseInt(page as string, 10)
 
+	// eslint-disable-next-line no-param-reassign
 	sort = sort || sortType.NAME
 
 	if (!doesCategoryExist || !pageParam || !((sort as string) in sortType))

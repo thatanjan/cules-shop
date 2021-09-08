@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import AppBar from '@material-ui/core/AppBar'
@@ -13,7 +13,7 @@ import ClearIcon from '@material-ui/icons/Clear'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import SearchIcon from '@material-ui/icons/Search'
 
-import { APP_TITLE, LOGIN_URL } from 'variables/global'
+import { APP_TITLE } from 'variables/global'
 
 import AccountMenu from 'components/Menus/AccountMenu'
 import MuiLink from 'components/Links/MuiLink'

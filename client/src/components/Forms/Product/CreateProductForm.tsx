@@ -7,7 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 
 import Box from '@material-ui/core/Box'
 
-import { CommonResponse } from 'interfaces/global'
+import { CommonResponse, Base64 } from 'interfaces/global'
 
 import CustomField from 'components/Forms/Account/CustomField'
 import CustomAlert from 'components/Alerts/CustomAlert'
@@ -21,8 +21,6 @@ import { useAppDispatch } from 'redux/hooks/appHooks'
 import { useGetAllCategoryNames } from 'hooks/swr/useProductHooks'
 
 import { resetState } from 'redux/slices/productSlice'
-
-import { Base64 } from 'interfaces/global'
 
 interface Input {
 	name: string
@@ -64,7 +62,6 @@ const SelectCategory = ({ category, setCategory }: SelectCategoryProps) => {
 
 	const { data } = useGetAllCategoryNames()
 
-	console.log(data)
 	if (!data) return null
 
 	const {
@@ -168,7 +165,6 @@ const CreateProductForm = ({ setCreated }: Props) => {
 						shortDescription,
 						name,
 					}
-					console.log(newValues)
 
 					try {
 						const {

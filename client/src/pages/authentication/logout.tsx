@@ -12,9 +12,7 @@ import { logout } from 'redux/slices/userSlice'
 import { resetState as resetDrawerState } from 'redux/slices/drawerSlice'
 import { useAppDispatch } from 'redux/hooks/appHooks'
 
-interface Props {}
-
-const Logout = (props: Props) => {
+const Logout = () => {
 	const dispatch = useAppDispatch()
 
 	const { push } = useRouter()

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { Formik, Form, Field, FieldAttributes } from 'formik'
+import { Formik, Form } from 'formik'
 import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Box from '@material-ui/core/Box'
@@ -39,7 +39,7 @@ const BecomeSellerForm = () => {
 
 			<Formik
 				initialValues={initialValues}
-				validate={values => {
+				validate={() => {
 					const errors: Partial<SellerProfile> = {}
 					return errors
 				}}

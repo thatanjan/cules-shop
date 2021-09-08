@@ -29,7 +29,10 @@ const DeleteFromCart = ({ productID, mutationDeps }: Props) => {
 				mutationDeps.forEach(item => mutate(item))
 				mutate([totalCartItems, undefined])
 			}
-		} catch (error) {}
+			return true
+		} catch (error) {
+			return error
+		}
 	}
 
 	return (
