@@ -1,21 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Formik, Form, Field, FieldAttributes } from 'formik'
-import Button from '@material-ui/core/Button'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import { TextField } from 'formik-material-ui'
 
-import { useSetShippingAddress } from 'redux/hooks/useCheckoutHooks'
+import { useAppDispatch } from 'redux/hooks/appHooks'
+import {
+	useSetShippingAddress,
+	useClearShippingAddress,
+} from 'redux/hooks/useCheckoutHooks'
+import { setIsNewAddressValid } from 'redux/slices/checkoutSlices'
 
 export interface Values {
-	firstName: string
-	secondName: string
-	email: string
+	name: string
 	country: string
-	streetAddress1: string
-	streetAddress2: string
-	cityTown: string
-	state: string
-	zip: string
+	address: string
+	city: string
+	postal: string
 }
 
 interface CustomFieldProps extends FieldAttributes<any> {
@@ -46,109 +45,87 @@ const CustomField = ({
 
 const ShippingForm = () => {
 	const setShippingAddress = useSetShippingAddress()
+	const dispatch = useAppDispatch()
+	const clearShippingAddress = useClearShippingAddress()
+
+	useEffect(() => {
+		dispatch(setIsNewAddressValid(false))
+		return () => {
+			dispatch(setIsNewAddressValid(false))
+			clearShippingAddress()
+		}
+	}, [])
 
 	return (
 		<Formik
 			initialValues={{
-				email: '',
-				firstName: '',
-				secondName: '',
+				name: '',
 				country: '',
-				streetAddress1: '',
-				streetAddress2: '',
-				cityTown: '',
-				state: '',
-				zip: '',
+				address: '',
+				city: '',
+				postal: '',
 			}}
 			validate={values => {
 				const errors: Partial<Values> = {}
-				if (!values.email) {
-					errors.email = 'Required'
-				} else if (
-					!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-				) {
-					errors.email = 'Invalid email address'
+				setShippingAddress(values)
+
+				const keys = Object.keys(values)
+
+				// eslint-disable-next-line no-restricted-syntax
+				for (const key of keys) {
+					if (values[key]) {
+						dispatch(setIsNewAddressValid(true))
+					} else {
+						dispatch(setIsNewAddressValid(false))
+						break
+					}
 				}
+
 				return errors
 			}}
-			onSubmit={(values, { setSubmitting }) => {
-				setTimeout(() => {
-					setSubmitting(false)
-					setShippingAddress(values)
-				}, 500)
-			}}
+			onSubmit={() => {}}
 		>
-			{({ submitForm, isSubmitting }) => (
+			{() => (
 				<Form>
 					<CustomField
 						component={TextField}
-						name='firstName'
+						name='name'
 						type='text'
-						label='First Name'
+						label='Name'
 						required
 					/>
 
 					<CustomField
 						component={TextField}
-						name='secondName'
+						name='address'
 						type='text'
-						label='Second Name'
+						label='Address'
 						required
 					/>
 
 					<CustomField
 						component={TextField}
-						name='streetAddress1'
+						name='city'
 						type='text'
-						label='Street Address 1'
+						label='City'
 						required
 					/>
 
 					<CustomField
 						component={TextField}
-						name='streetAddress2'
+						name='country'
 						type='text'
-						label='Street Address 2'
+						label='Country'
 						required
 					/>
 
 					<CustomField
 						component={TextField}
-						name='cityTown'
+						name='postal'
 						type='text'
-						label='City / Town'
+						label='Postal Code'
 						required
 					/>
-
-					<CustomField
-						component={TextField}
-						name='state'
-						type='text'
-						label='State'
-					/>
-
-					<CustomField component={TextField} name='zip' type='text' label='Zip' />
-
-					<CustomField
-						component={TextField}
-						name='email'
-						type='email'
-						label='Email'
-						required
-					/>
-
-					{isSubmitting && <LinearProgress />}
-
-					<Button
-						variant='contained'
-						color='primary'
-						disabled={isSubmitting}
-						onClick={submitForm}
-						sx={{ margin: '1rem 0', padding: { sm: { padding: '1rem' } } }}
-						fullWidth
-					>
-						Done
-					</Button>
 				</Form>
 			)}
 		</Formik>

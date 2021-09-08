@@ -1,8 +1,11 @@
+import React, { useState, FormEvent } from 'react'
+import { useRouter } from 'next/router'
+import Cookie from 'js-cookie'
 import { experimentalStyled as styled, alpha } from '@material-ui/core/styles'
 import InputBase from '@material-ui/core/InputBase'
 import SearchIcon from '@material-ui/icons/Search'
 
-const Search = styled('div')(({ theme }) => ({
+const Search = styled('form')(({ theme }) => ({
 	position: 'relative',
 	borderRadius: theme.shape.borderRadius,
 	backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -45,14 +48,38 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 
 const TopNavigationSearchBar = () => {
+	const SEARCH = 'search'
+
+	const { push } = useRouter()
+	const getSearchValue = () => Cookie.get(SEARCH)
+	const [input, setInput] = useState(getSearchValue() || '')
+
+	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
+
+		if (!input) return false
+
+		const queryString = input.trim().replace(/\s/g, '+')
+
+		Cookie.remove(SEARCH)
+		setInput('')
+		push(`/search?query=${queryString}`)
+
+		return true
+	}
+
 	return (
-		<Search>
+		<Search onSubmit={handleSubmit}>
 			<SearchIconWrapper>
 				<SearchIcon />
 			</SearchIconWrapper>
 			<StyledInputBase
 				placeholder='Search…'
-				inputProps={{ 'aria-label': 'search' }}
+				inputProps={{ 'aria-label': 'search', value: input }}
+				onChange={e => {
+					setInput(e.target.value)
+					Cookie.set(SEARCH, e.target.value)
+				}}
 			/>
 		</Search>
 	)

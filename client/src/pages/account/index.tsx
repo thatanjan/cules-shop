@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 
-import { useStoreID } from 'redux/hooks/useUserHooks'
+import { useStoreID, useUserState } from 'redux/hooks/useUserHooks'
 
 import checkValidJWT from 'utils/auth/checkValidJWT'
 
@@ -14,8 +14,9 @@ import { UserPayload } from 'interfaces/authentication'
 
 import AccountData from 'components/Account/AccountData'
 import AccountAvatar from 'components/Avatar/AccountAvatar'
+import CustomBackdrop from 'components/Loaders/CustomBackdrop'
 
-import { useUserState } from 'redux/hooks/useUserHooks'
+import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
 
 import MuiLink from 'components/Links/MuiLink'
 
@@ -25,9 +26,17 @@ interface Props {
 }
 
 const AccountPage = (props: Props) => {
-	const { sellerID } = useUserState()
-
 	useStoreID(props)
+
+	const { sellerID, userID } = useUserState()
+
+	const { data } = useGetMultipleProfile([userID])
+
+	if (!data) return <CustomBackdrop />
+
+	const {
+		getMultipleProfile: [{ name, profilePicture }],
+	} = data
 
 	return (
 		<>
@@ -41,12 +50,12 @@ const AccountPage = (props: Props) => {
 				}}
 			>
 				<Grid item xs={6} sm={4}>
-					<AccountAvatar />
+					<AccountAvatar src={profilePicture} name={name} />
 				</Grid>
 
 				<Grid item xs={12} sm={6} sx={{ marginTop: { xs: '1rem', sm: 0 } }}>
 					<Typography variant='h2' component='h1' align='center'>
-						Taylor swift
+						{name}
 					</Typography>
 
 					<Box

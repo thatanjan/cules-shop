@@ -3,9 +3,17 @@ import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
 
-interface Props {}
+import { useGetTotalCartPrice } from 'hooks/swr/useCartHooks'
 
-const Subtotal = (props: Props) => {
+const Subtotal = () => {
+	const { data } = useGetTotalCartPrice()
+
+	if (!data) return null
+
+	const {
+		totalCartPrice: { totalPrice },
+	} = data
+
 	return (
 		<Grid sx={{ margin: '2rem 0' }}>
 			<Typography variant='h4' sx={{ marginBottom: '.5rem' }}>
@@ -26,7 +34,7 @@ const Subtotal = (props: Props) => {
 					<Typography
 						sx={{ fontWeight: 'bold', marginTop: '1rem', marginBottom: '0.5rem' }}
 					>
-						$129.34
+						${totalPrice / 100}
 					</Typography>
 				</Grid>
 			</Grid>
@@ -45,7 +53,7 @@ const Subtotal = (props: Props) => {
 					<Typography
 						sx={{ fontWeight: 'bold', marginTop: '1rem', marginBottom: '0.5rem' }}
 					>
-						$129.34
+						${totalPrice / 100}
 					</Typography>
 				</Grid>
 			</Grid>

@@ -6,6 +6,8 @@ import { nanoid } from 'nanoid'
 
 import ProductPreviewSlideShow from 'components/Products/ProductPreviewSlideShow'
 
+import { TabData } from 'pages/index'
+
 interface TabPanelProps {
 	children?: React.ReactNode
 	index: number
@@ -36,10 +38,10 @@ function a11yProps(index: number) {
 }
 
 interface Props {
-	tabNames: Array<string>
+	tabData: Array<TabData>
 }
 
-const ProductPreviewTabs = ({ tabNames }: Props) => {
+const ProductPreviewTabs = ({ tabData }: Props) => {
 	const [value, setValue] = React.useState(0)
 
 	const handleChange = (_: React.SyntheticEvent, newValue: number) => {
@@ -50,20 +52,23 @@ const ProductPreviewTabs = ({ tabNames }: Props) => {
 		<Box sx={{ width: '100%' }}>
 			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 				<Tabs value={value} onChange={handleChange}>
-					{tabNames.map((tab, index) => (
+					{tabData.map((tab, index) => (
 						<Tab
 							key={nanoid()}
 							sx={{ textTransform: 'capitalize' }}
-							label={tab}
+							label={tab.name}
 							{...a11yProps(index)}
 						/>
 					))}
 				</Tabs>
 			</Box>
 
-			{tabNames.map((_, index) => (
+			{tabData.map(({ categoryID }, index) => (
 				<TabPanel {...{ value, index, key: nanoid() }}>
-					<ProductPreviewSlideShow singleTab={tabNames.length === 1} />
+					<ProductPreviewSlideShow
+						categoryID={categoryID}
+						singleTab={tabData.length === 1}
+					/>
 				</TabPanel>
 			))}
 		</Box>

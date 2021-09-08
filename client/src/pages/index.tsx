@@ -30,13 +30,34 @@ interface Props {
 	sellerID: string
 }
 
+export class TabData {
+	name: string
+
+	categoryID: string
+
+	constructor(name: string, categoryID: string) {
+		this.name = name
+		this.categoryID = categoryID
+	}
+}
+
 const Index = (props: Props) => {
 	useStoreID(props)
 	return (
 		<>
 			<ProductBannerSlideShow />
-			<ProductPreviewTabs tabNames={['featured', 'on Sale', 'top rated']} />
-			<ProductPreviewTabs tabNames={['Television']} />
+			<ProductPreviewTabs
+				tabData={[new TabData('Televisions', '60f27c41389742613420479a')]}
+			/>
+			<ProductPreviewTabs
+				tabData={[new TabData('Mobiles', '61345b7eda0b1e3e4df1ee9f')]}
+			/>
+			<ProductPreviewTabs
+				tabData={[new TabData('Air Conditioners', '61345bc0da0b1e3e4df1eea0')]}
+			/>
+			<ProductPreviewTabs
+				tabData={[new TabData('Laptops', '61345c95da0b1e3e4df1eea2')]}
+			/>
 		</>
 	)
 }
@@ -54,9 +75,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 	const isValid = await checkValidJWT(jwt)
 
-	const { userID, sellerID } = jwtDecode<UserPayload>(jwt)
-
 	if (!isValid) return { props }
+
+	const { userID, sellerID } = jwtDecode<UserPayload>(jwt)
 
 	props = { userID, sellerID: sellerID || '' }
 

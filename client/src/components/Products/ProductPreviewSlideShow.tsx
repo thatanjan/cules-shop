@@ -2,6 +2,15 @@ import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { nanoid } from 'nanoid'
 import { makeStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import Box from '@material-ui/core/Box'
+
+import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
+import MuiLink from 'components/Links/MuiLink'
+
+import { getCategoryProducts } from 'graphql/queries/productQueries'
+
+import { sortType } from 'variables/global'
 
 import ProductPreview from './ProductPreview'
 
@@ -16,6 +25,7 @@ export const useStyles = makeStyles({
 
 interface Props {
 	singleTab: boolean | undefined
+	categoryID: string
 }
 
 const singleTabBreakpointStyle = {
@@ -39,8 +49,19 @@ const singleTabBreakpointStyle = {
 	},
 }
 
-const ProductSlideShow = ({ singleTab }: Props) => {
+const ProductSlideShow = ({ singleTab, categoryID }: Props) => {
 	const { swiperContainer } = useStyles()
+
+	const { NAME } = sortType
+
+	const { data } = useGetCategoryProducts({ categoryID, skip: 0, sortBy: NAME })
+
+	if (!data) return null
+
+	const {
+		getCategoryProducts: { products },
+	} = data
+
 	return (
 		<>
 			<Swiper
@@ -73,13 +94,22 @@ const ProductSlideShow = ({ singleTab }: Props) => {
 				navigation
 				className={swiperContainer}
 			>
-				{Array(20)
-					.fill(0)
-					.map(() => (
-						<SwiperSlide key={nanoid()}>
-							<ProductPreview twoColumn={singleTab} />
-						</SwiperSlide>
-					))}
+				{products.map(product => (
+					<SwiperSlide key={nanoid()}>
+						<ProductPreview
+							{...product}
+							mutationDeps={[[getCategoryProducts, categoryID + NAME + 0]]}
+						/>
+					</SwiperSlide>
+				))}
+
+				<MuiLink
+					MuiComponent={Box}
+					href={`/category/${categoryID}?page=1`}
+					sx={{ display: 'grid', justifyContent: 'end', m: '1rem 0' }}
+				>
+					<Button>Show More</Button>
+				</MuiLink>
 			</Swiper>
 		</>
 	)

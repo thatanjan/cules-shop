@@ -1,6 +1,14 @@
 import useSWRgql from 'hooks/swr/useSWRgql'
-import { GetMultipleUserNameImage } from 'interfaces/profile'
-import { getMultipleUserNameImage } from 'graphql/queries/profileQueries'
+import { useUserState } from 'redux/hooks/useSliceHooks'
+
+import {
+	GetMultipleUserNameImage,
+	GetMultipleProfileResponse,
+} from 'interfaces/profile'
+import {
+	getMultipleUserNameImage,
+	getMultipleProfile,
+} from 'graphql/queries/profileQueries'
 
 type ArrayOfID = Array<string>
 
@@ -9,3 +17,15 @@ export const useGetMultipleUserNameImage = (ids: ArrayOfID) =>
 		values: { userIDs: ids },
 		key: getMultipleUserNameImage,
 	})
+
+export const useGetMultipleProfile = (
+	ids?: ArrayOfID,
+	swrDependencies?: 'all'
+) => {
+	const { userID } = useUserState()
+	return useSWRgql<{ userIDs: ArrayOfID }, GetMultipleProfileResponse>({
+		values: { userIDs: ids || [userID] },
+		key: getMultipleProfile,
+		swrDependencies: swrDependencies || userID,
+	})
+}

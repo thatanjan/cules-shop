@@ -7,6 +7,8 @@ export const useStoreID = (ids: Ids) => {
 	if (!ids.userID) return dispatch(logout())
 
 	dispatch(login(ids))
+
+	return true
 }
 
 export const useUserState = () => useAppSelector(state => state.user)

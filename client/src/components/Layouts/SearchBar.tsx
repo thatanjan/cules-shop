@@ -1,16 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, FormEvent } from 'react'
+import { useRouter } from 'next/router'
+import Cookie from 'js-cookie'
 import InputBase from '@material-ui/core/InputBase'
 import Paper from '@material-ui/core/Paper'
-import Collapse from '@material-ui/core/Collapse'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
 import ClearIcon from '@material-ui/icons/Clear'
 
-interface Props {}
-
 const SearchBar = () => {
-	const [input, setInput] = useState('')
+	const { push } = useRouter()
+	const getSearchValue = () => Cookie.get(SEARCH)
+	const [input, setInput] = useState(getSearchValue || '')
+
+	const SEARCH = 'search'
+
+	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
+
+		if (!input) return false
+
+		const queryString = input.trim().replace(/\s/g, '+')
+
+		Cookie.remove(SEARCH)
+		push(`/search?query=${queryString}`)
+
+		return true
+	}
 
 	const placeholder = 'Search your products'
 	return (
@@ -18,12 +34,16 @@ const SearchBar = () => {
 			component='form'
 			sx={{ p: '.5rem 1rem', display: 'flex', alignItems: 'center' }}
 			square
+			onSubmit={handleSubmit}
 		>
 			<InputBase
 				sx={{ ml: 1, flex: 1 }}
 				placeholder={placeholder}
-				inputProps={{ 'aria-label': placeholder, value: input }}
-				onChange={e => setInput(e.target.value)}
+				inputProps={{ 'aria-label': placeholder, value: getSearchValue() }}
+				onChange={e => {
+					setInput(e.target.value)
+					Cookie.set(SEARCH, e.target.value)
+				}}
 			/>
 
 			<IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
@@ -35,7 +55,10 @@ const SearchBar = () => {
 			<IconButton
 				sx={{ p: '10px' }}
 				aria-label='clear text'
-				onClick={() => setInput('')}
+				onClick={() => {
+					setInput('')
+					Cookie.set(SEARCH, '')
+				}}
 			>
 				<ClearIcon />
 			</IconButton>

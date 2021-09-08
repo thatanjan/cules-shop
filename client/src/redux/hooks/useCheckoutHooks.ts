@@ -1,8 +1,10 @@
-import { useAppDispatch } from 'redux/hooks/appHooks'
+import { useAppDispatch, useAppSelector } from 'redux/hooks/appHooks'
 import {
 	setShippingAddress,
 	clearShippingAddress,
 	toggleShowDifferentAddressForm,
+	setCheckoutDone,
+	resetState,
 } from 'redux/slices/checkoutSlices'
 import { Values } from 'components/Forms/BillingForms/ShippingForm'
 
@@ -20,4 +22,16 @@ export const useToggleShowDifferentAddressForm = () => {
 export const useClearShippingAddress = () => {
 	const dispatch = useAppDispatch()
 	return () => dispatch(clearShippingAddress())
+}
+
+export const useGetCheckoutState = () => useAppSelector(state => state.checkout)
+
+export const useSetCheckoutDone = () => {
+	const dispatch = useAppDispatch()
+	return () => dispatch(setCheckoutDone(true))
+}
+
+export const useResetCheckoutState = () => {
+	const dispatch = useAppDispatch()
+	return () => dispatch(resetState())
 }

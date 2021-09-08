@@ -5,21 +5,23 @@ import { Values as ShippingValues } from 'components/Forms/BillingForms/Shipping
 interface InitialState {
 	shippingValues: ShippingValues
 	showDifferentAddressForm: boolean
+	isCurrentAddressValid: boolean
+	isNewAddressValid: boolean
+	checkoutDone: boolean
 }
 
 const initialState: InitialState = {
 	shippingValues: {
-		email: '',
-		firstName: '',
-		secondName: '',
+		name: '',
 		country: '',
-		streetAddress1: '',
-		streetAddress2: '',
-		cityTown: '',
-		state: '',
-		zip: '',
+		address: '',
+		city: '',
+		postal: '',
 	},
 	showDifferentAddressForm: false,
+	isCurrentAddressValid: false,
+	isNewAddressValid: false,
+	checkoutDone: false,
 }
 
 export const checkoutSlice = createSlice({
@@ -29,21 +31,33 @@ export const checkoutSlice = createSlice({
 		setShippingAddress: (state, { payload }: PayloadAction<ShippingValues>) => {
 			state.shippingValues = payload
 		},
-		clearShippingAddress: () => initialState,
+		clearShippingAddress: state => {
+			state.shippingValues = initialState.shippingValues
+		},
 		resetState: () => initialState,
 		toggleShowDifferentAddressForm: state => {
 			state.showDifferentAddressForm = !state.showDifferentAddressForm
 		},
+		setIsCurrentAddressValid: (state, { payload }) => {
+			state.isCurrentAddressValid = payload
+		},
+		setIsNewAddressValid: (state, { payload }) => {
+			state.isNewAddressValid = payload
+		},
+		setCheckoutDone: (state, { payload }: PayloadAction<boolean>) => {
+			state.checkoutDone = payload
+		},
 	},
 })
-
-console.log(checkoutSlice)
 
 export const {
 	setShippingAddress,
 	clearShippingAddress,
 	toggleShowDifferentAddressForm,
 	resetState,
+	setIsCurrentAddressValid,
+	setIsNewAddressValid,
+	setCheckoutDone,
 } = checkoutSlice.actions
 
 export default checkoutSlice.reducer

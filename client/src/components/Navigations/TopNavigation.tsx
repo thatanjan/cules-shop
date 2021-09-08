@@ -1,24 +1,28 @@
-import React, { useState } from 'react'
+import React from 'react'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import AppBar from '@material-ui/core/AppBar'
 import Box from '@material-ui/core/Box'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import Typography from '@material-ui/core/Typography'
+import Badge from '@material-ui/core/Badge'
 
 import ClearIcon from '@material-ui/icons/Clear'
-import PersonIcon from '@material-ui/icons/Person'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import SearchIcon from '@material-ui/icons/Search'
 
-import { APP_TITLE, LOGIN_URL } from 'variables/global'
+import { APP_TITLE } from 'variables/global'
 
 import AccountMenu from 'components/Menus/AccountMenu'
 import MuiLink from 'components/Links/MuiLink'
 
-import { useAppSelector } from 'redux/hooks/appHooks'
+import { toggleDrawer } from 'redux/slices/drawerSlice'
+import { useAppSelector, useAppDispatch } from 'redux/hooks/appHooks'
+
 import useLargerThanMD from 'hooks/mediaQueries/useLargerThanMD'
+import { useTotalCartItems } from 'hooks/swr/useCartHooks'
 
 const Drawer = dynamic(() => import('components/Drawers/AppDrawer'))
 const SearchBar = dynamic(() => import('./TopNavigationSearchBar'))
@@ -30,28 +34,48 @@ interface Props {
 	setShowSearchBar: (callBack: CallBack) => void
 }
 
-const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
-	const [open, setOpen] = useState(false)
-	const largerThanMD = useLargerThanMD()
+const CartMenu = () => {
+	const { push } = useRouter()
+	const { data } = useTotalCartItems()
 
-	const { loggedIn, userID } = useAppSelector(state => state.user)
+	let totalItems: string | number = '0'
+
+	if (data) {
+		totalItems = data.totalCartItems.totalItems || totalItems
+	}
+
+	return (
+		<IconButton onClick={() => push('/cart')}>
+			<Badge badgeContent={totalItems} color='error'>
+				<ShoppingCartIcon />
+			</Badge>
+		</IconButton>
+	)
+}
+
+const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
+	const open = useAppSelector(state => state.drawer.isOpen)
+
+	const dispatch = useAppDispatch()
+
+	const largerThanMD = useLargerThanMD()
 
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
-				<AppBar position='static'>
+				<AppBar>
 					<Toolbar>
 						<IconButton
 							edge='start'
 							color='inherit'
 							aria-label='open drawer'
 							sx={{ mr: 2 }}
-							onClick={() => setOpen(prev => !prev)}
+							onClick={() => dispatch(toggleDrawer())}
 						>
 							<MenuIcon />
 						</IconButton>
 
-						{open && <Drawer {...{ open, setOpen }} />}
+						{open && <Drawer />}
 
 						<Box sx={{ flexGrow: 1 }}>
 							<MuiLink
@@ -72,11 +96,9 @@ const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 
 						{largerThanMD && <SearchBar />}
 
-						<AccountMenu />
+						{largerThanMD && <AccountMenu />}
 
-						<IconButton>
-							<ShoppingCartIcon />
-						</IconButton>
+						<CartMenu />
 					</Toolbar>
 				</AppBar>
 			</Box>

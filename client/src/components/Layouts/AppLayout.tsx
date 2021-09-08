@@ -30,7 +30,7 @@ const AppLayout = ({ children }: Props) => {
 				sx={{
 					minHeight: '100vh',
 					maxWidth: '100vw',
-					minWidth: '100vw',
+					overflowX: 'hidden',
 				}}
 				elevation={0}
 				square
@@ -41,7 +41,11 @@ const AppLayout = ({ children }: Props) => {
 
 				{route === '/' && <BannerSlideShow />}
 
-				<Grid container justifyContent='center'>
+				<Grid
+					container
+					justifyContent='center'
+					sx={{ pt: { xs: '56px', sm: '64px', md: '72px' } }}
+				>
 					<Grid item xs={11} md={10} lg={9}>
 						{children}
 					</Grid>

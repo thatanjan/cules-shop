@@ -9,6 +9,7 @@ interface Props {
 	handleDiscard: () => void
 	handleAccept: () => void
 	previewModalOpen: boolean
+	productImage?: boolean
 }
 
 const UploadPreviewModal = ({
@@ -16,6 +17,7 @@ const UploadPreviewModal = ({
 	handleDiscard,
 	handleAccept,
 	previewModalOpen,
+	productImage,
 }: Props) => {
 	return (
 		<Dialog
@@ -26,7 +28,7 @@ const UploadPreviewModal = ({
 		>
 			<DialogContent style={{ padding: 0 }}>
 				<CardMedia
-					style={{ height: 0, paddingTop: '56.25%' }}
+					style={{ height: 0, paddingTop: productImage ? '100%' : '56.25%' }}
 					image={previewLink}
 				/>
 			</DialogContent>

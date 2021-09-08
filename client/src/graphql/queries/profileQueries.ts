@@ -15,7 +15,22 @@ export const getMultipleUserNameImage = gql`
 	query getMultipleUserNameImage($userIDs: [ID!]!) {
 		getMultipleUserNameImage(Input: { userIDs: $userIDs }) {
 			name
-			image
+			profilePicture
+		}
+	}
+`
+
+export const getMultipleProfile = gql`
+	query getMultipleProfile($userIDs: [ID!]!) {
+		getMultipleProfile(Input: { userIDs: $userIDs }) {
+			name
+			profilePicture
+			address {
+				country
+				city
+				postal
+				address
+			}
 		}
 	}
 `

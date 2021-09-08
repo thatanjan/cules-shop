@@ -1,36 +1,51 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
+import { nanoid } from 'nanoid'
 
 import ProductPreview from 'components/Products/ProductPreview'
 
-import Pagination from 'components/Paginations/Pagination'
+import { CartProduct } from 'interfaces/cart'
 
-interface Props {}
+import {
+	totalCartItems,
+	totalCartPrice,
+	getAllCartProducts,
+} from 'graphql/queries/cartQueries'
 
-const CartItemsShow = (props: Props) => {
+interface Props {
+	cartProducts: Array<CartProduct>
+}
+
+const CartItemsShow = ({ cartProducts }: Props) => {
 	return (
 		<>
 			<Grid container>
-				{Array(10)
-					.fill(0)
-					.map(() => (
-						<Grid
-							item
-							xs={6}
-							sm={4}
-							md={3}
-							sx={{
-								'@media only screen and (max-width: 350px)': {
-									flexBasis: '100%',
-									maxWidth: '100%',
-								},
-							}}
-						>
-							<ProductPreview cartPage />
-						</Grid>
-					))}
+				{cartProducts.map(product => (
+					<Grid
+						key={nanoid()}
+						item
+						xs={6}
+						sm={4}
+						md={3}
+						sx={{
+							'@media only screen and (max-width: 350px)': {
+								flexBasis: '100%',
+								maxWidth: '100%',
+							},
+						}}
+					>
+						<ProductPreview
+							cartPage
+							{...product}
+							mutationDeps={[
+								[getAllCartProducts, undefined],
+								[totalCartPrice, undefined],
+								[totalCartItems, undefined],
+							]}
+						/>
+					</Grid>
+				))}
 			</Grid>
-			<Pagination getRedirectLink={(value: number) => `/cart?query=${value}`} />
 		</>
 	)
 }

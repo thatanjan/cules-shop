@@ -1,22 +1,32 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import { nanoid } from 'nanoid'
 
+import { useGetReviews } from 'hooks/swr/useProductHooks'
+
 import Review from './Review'
 
-interface Props {}
+const ReviewList = () => {
+	const {
+		query: { productID },
+	} = useRouter()
+	const { data } = useGetReviews(productID as string)
 
-const ReviewList = (props: Props) => {
+	if (!data) return null
+
+	const {
+		getReviews: { reviews },
+	} = data
+
 	return (
 		<List>
-			{Array(10)
-				.fill(0)
-				.map(() => (
-					<ListItem key={nanoid()}>
-						<Review />
-					</ListItem>
-				))}
+			{reviews.map(review => (
+				<ListItem key={nanoid()}>
+					<Review {...review} />
+				</ListItem>
+			))}
 		</List>
 	)
 }

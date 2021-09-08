@@ -1,6 +1,5 @@
 import React from 'react'
 import Divider from '@material-ui/core/Divider'
-import Typography from '@material-ui/core/Typography'
 import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -13,9 +12,7 @@ import { useToggleShowDifferentAddressForm } from 'redux/hooks/useCheckoutHooks'
 
 const ShippingForm = dynamic(() => import('./ShippingForm'))
 
-interface Props {}
-
-const ShippingFormContainer = (props: Props) => {
+const ShippingFormContainer = () => {
 	const showDifferentAddressForm = useAppSelector(
 		state => state.checkout.showDifferentAddressForm
 	)

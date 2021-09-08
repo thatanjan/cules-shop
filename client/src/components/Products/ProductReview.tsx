@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import { nanoid } from 'nanoid'
@@ -8,6 +9,8 @@ import CustomRating from 'components/Ratings/CustomRating'
 import ProductReviewForm from 'components/Forms/ProductReviewForm'
 
 import ProductReviewList from 'components/Reviews/ReviewList'
+
+import { useGetReviews } from 'hooks/swr/useProductHooks'
 
 const ReviewStarDistribution = () => {
 	return (
@@ -41,19 +44,36 @@ const ReviewStarDistribution = () => {
 	)
 }
 
+const ReviewResult = () => {
+	const {
+		query: { productID },
+	} = useRouter()
+	const { data } = useGetReviews(productID as string)
+
+	if (!data) return null
+
+	const {
+		getReviews: { totalReviews, averageStars },
+	} = data
+
+	return (
+		<Grid item xs={12} md={6}>
+			<Typography variant='h6' sx={{ margin: '1.5rem 0' }}>
+				Based on {totalReviews} reviews
+			</Typography>
+
+			<Typography variant='h3'>{averageStars / 10}</Typography>
+			<Typography sx={{ marginBottom: '1rem' }}>overall</Typography>
+
+			<ReviewStarDistribution />
+		</Grid>
+	)
+}
+
 const ProductReview = () => {
 	return (
 		<Grid container spacing={5}>
-			<Grid item xs={12} md={6}>
-				<Typography variant='h6' sx={{ margin: '1.5rem 0' }}>
-					Based on X reviews
-				</Typography>
-
-				<Typography variant='h3'>0.0</Typography>
-				<Typography sx={{ marginBottom: '1rem' }}>overall</Typography>
-
-				<ReviewStarDistribution />
-			</Grid>
+			<ReviewResult />
 
 			<Grid item xs={12} md={6}>
 				<Typography variant='h6' sx={{ margin: '1.5rem 0' }}>

@@ -8,9 +8,7 @@ import checkValidJWT from 'utils/auth/checkValidJWT'
 
 import Login from 'components/Forms/AuthForms/Login'
 
-interface Props {}
-
-const LoginPage = (props: Props) => {
+const LoginPage = () => {
 	return (
 		<Grid container justifyContent='center'>
 			<Grid item xs={10} sm={8} md={7} lg={6} xl={5}>

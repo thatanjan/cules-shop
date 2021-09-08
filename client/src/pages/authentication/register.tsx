@@ -13,15 +13,13 @@ import CheckIcon from '@material-ui/icons/Check'
 
 import Register from 'components/Forms/AuthForms/Register'
 
-interface Props {}
-
 const benefits = [
 	'Speed your way through checkout',
 	'Track your orders easily',
 	'Keep a record of all your purchases',
 ]
 
-const LoginPage = (props: Props) => {
+const LoginPage = () => {
 	return (
 		<Grid container justifyContent='center'>
 			<Grid item xs={10} sm={8} md={7} lg={6} xl={5}>

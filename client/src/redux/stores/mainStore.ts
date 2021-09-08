@@ -5,6 +5,7 @@ import drawerReducer from 'redux/slices/drawerSlice'
 import checkoutReducer from 'redux/slices/checkoutSlices'
 import userReducer from 'redux/slices/userSlice'
 import profileReducer from 'redux/slices/profileSlice'
+import productReducer from 'redux/slices/productSlice'
 
 import userAuthApi from 'redux/api/auth/userAuth'
 
@@ -14,6 +15,7 @@ const store = configureStore({
 		checkout: checkoutReducer,
 		user: userReducer,
 		profile: profileReducer,
+		product: productReducer,
 		[userAuthApi.reducerPath]: userAuthApi.reducer,
 	},
 	middleware: getDefaultMiddleware =>

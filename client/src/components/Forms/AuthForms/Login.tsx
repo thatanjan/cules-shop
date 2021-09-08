@@ -73,6 +73,8 @@ const Login = () => {
 
 						setTimeout(() => setAlertMessage(''), 3000)
 					}
+
+					return true
 				}}
 			>
 				{({ submitForm, isSubmitting }) => (

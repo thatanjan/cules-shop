@@ -1,26 +1,26 @@
 import React, { useState } from 'react'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import Alert from '@material-ui/core/Alert'
+import { makeStyles, Theme } from '@material-ui/core/styles'
+import Alert, { AlertProps } from '@material-ui/core/Alert'
 import AlertTitle from '@material-ui/core/AlertTitle'
 import Slide from '@material-ui/core/Slide'
 import Collapse from '@material-ui/core/Collapse'
 import CloseIcon from '@material-ui/icons/Close'
 import IconButton from '@material-ui/core/IconButton'
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		root: {
-			width: '100%',
-			'& > * + *': {
-				marginTop: theme.spacing(2),
-			},
+const useStyles = makeStyles((theme: Theme) => ({
+	root: {
+		width: '100%',
+		'& > * + *': {
+			marginTop: theme.spacing(2),
 		},
-	})
-)
+	},
+}))
 
-export interface Props {
-	severity: 'error' | 'success' | 'info'
-	message: string
+export type Severity = 'error' | 'success' | 'info'
+
+export interface Props extends AlertProps {
+	severity: Severity
+	message?: string
 	checked: boolean
 }
 
@@ -28,6 +28,8 @@ export default function DescriptionAlerts({
 	severity,
 	message,
 	checked,
+	children,
+	...props
 }: Props) {
 	const classes = useStyles()
 
@@ -57,11 +59,12 @@ export default function DescriptionAlerts({
 								<CloseIcon fontSize='inherit' />
 							</IconButton>
 						}
+						{...props}
 					>
 						<AlertTitle style={{ textTransform: 'capitalize' }}>
 							{severity}
 						</AlertTitle>
-						{message}
+						{message || children}
 					</Alert>
 				</Collapse>
 			</div>

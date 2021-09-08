@@ -3,8 +3,6 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 
-interface Props {}
-
 const useStyles = makeStyles({
 	formContainer: {
 		display: 'grid',
@@ -14,7 +12,7 @@ const useStyles = makeStyles({
 	},
 })
 
-const CoupnInput = (props: Props) => {
+const CoupnInput = () => {
 	const [code, setCode] = useState('')
 
 	const { formContainer } = useStyles()

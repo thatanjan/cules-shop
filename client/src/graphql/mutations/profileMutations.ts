@@ -10,14 +10,14 @@ export const uploadProfilePicture = gql`
 `
 
 export const updateProfile = gql`
-	query updateProfile(
+	mutation updateProfile(
 		$name: String!
 		$country: String!
 		$city: String!
 		$postal: String!
 		$address: String!
 	) {
-		getMultipleUserNameImage(
+		updateProfile(
 			Input: {
 				name: $name
 				address: {
@@ -28,6 +28,15 @@ export const updateProfile = gql`
 				}
 			}
 		) {
+			success
+			errorMessage
+		}
+	}
+`
+
+export const becomeSeller = gql`
+	mutation becomeSeller($company: String!) {
+		becomeSeller(Input: { company: $company }) {
 			success
 			errorMessage
 		}

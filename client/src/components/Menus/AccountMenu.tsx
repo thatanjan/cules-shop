@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import Avatar from '@material-ui/core/Avatar'
+import React, { useState, ReactNode } from 'react'
 import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
+import MenuItem, { MenuItemProps } from '@material-ui/core/MenuItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Tooltip from '@material-ui/core/Tooltip'
 import Divider from '@material-ui/core/Divider'
@@ -11,11 +10,76 @@ import Settings from '@material-ui/icons/Settings'
 import Logout from '@material-ui/icons/Logout'
 import { useTheme } from '@material-ui/core/styles'
 
+import AccountAvatar from 'components/Avatar/AccountAvatar'
 import MuiLink from 'components/Links/MuiLink'
 
 import { useAppSelector } from 'redux/hooks/appHooks'
+import { useGetMultipleProfile } from 'hooks/swr/useProfileHooks'
 
 import { LOGIN_URL } from 'variables/global'
+
+interface LinkedMenuProps extends MenuItemProps {
+	children: ReactNode
+	href: string
+}
+
+const LinkedMenu = ({ children, href, ...props }: LinkedMenuProps) => {
+	return (
+		<MuiLink MuiComponent={MenuItem} href={href} {...props}>
+			{children}
+		</MuiLink>
+	)
+}
+
+const ForLoggedIn = () => {
+	const { userID } = useAppSelector(state => state.user)
+
+	const { data } = useGetMultipleProfile([userID])
+
+	if (!data) return null
+
+	const {
+		getMultipleProfile: [{ name, profilePicture }],
+	} = data
+
+	return (
+		<>
+			<LinkedMenu sx={{ mb: 1 }} href='/account'>
+				<ListItemIcon>
+					<AccountAvatar name={name} src={profilePicture} small />
+				</ListItemIcon>
+				My account
+			</LinkedMenu>
+			<Divider />
+			<LinkedMenu href='/settings'>
+				<ListItemIcon>
+					<Settings fontSize='small' />
+				</ListItemIcon>
+				Settings
+			</LinkedMenu>
+			<LinkedMenu href='/authentication/logout'>
+				<ListItemIcon>
+					<Logout fontSize='small' />
+				</ListItemIcon>
+				Logout
+			</LinkedMenu>
+		</>
+	)
+}
+
+const LoggedInAvatar = () => {
+	const { userID } = useAppSelector(state => state.user)
+
+	const { data } = useGetMultipleProfile([userID])
+
+	if (!data) return null
+
+	const {
+		getMultipleProfile: [{ name, profilePicture }],
+	} = data
+
+	return <AccountAvatar name={name} src={profilePicture} small />
+}
 
 const AccountMenu = () => {
 	const theme = useTheme()
@@ -37,7 +101,7 @@ const AccountMenu = () => {
 		<>
 			<Tooltip title='Account settings'>
 				<IconButton onClick={handleClick}>
-					<Avatar>A</Avatar>
+					{loggedIn ? <LoggedInAvatar /> : <AccountAvatar name='' src='' small />}
 				</IconButton>
 			</Tooltip>
 
@@ -75,28 +139,16 @@ const AccountMenu = () => {
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
-				<MenuItem sx={{ mb: 1 }}>
-					<Avatar /> My account
-				</MenuItem>
-				<Divider />
-				<MenuItem>
-					<ListItemIcon>
-						<PersonAdd fontSize='small' />
-					</ListItemIcon>
-					Add another account
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<Settings fontSize='small' />
-					</ListItemIcon>
-					Settings
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<Logout fontSize='small' />
-					</ListItemIcon>
-					Logout
-				</MenuItem>
+				{loggedIn ? (
+					<ForLoggedIn />
+				) : (
+					<LinkedMenu href={LOGIN_URL}>
+						<ListItemIcon>
+							<PersonAdd />
+						</ListItemIcon>
+						Login
+					</LinkedMenu>
+				)}
 			</Menu>
 		</>
 	)
