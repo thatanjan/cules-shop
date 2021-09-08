@@ -1,3 +1,5 @@
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 import mongoose from 'mongoose'
 import cloudinary from 'cloudinary'
 import express from 'express'
