@@ -1,10 +1,33 @@
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 import mongoose from 'mongoose'
+import cloudinary from 'cloudinary'
 import express from 'express'
-import { gql, ApolloServer } from 'apollo-server-express'
+import { ApolloServer, makeExecutableSchema } from 'apollo-server-express'
 import dotenv from 'dotenv'
-import cors from 'cors'
+import { applyMiddleware } from 'graphql-middleware'
+import expressJwt from 'express-jwt'
+import jwt from 'jsonwebtoken'
+
+import typeDefs from 'graphql/typeDefs'
+import resolvers from 'graphql/resolvers'
+
+import Product from 'models/Product'
+import Category from 'models/Category'
+import User from 'models/User'
+import Seller from 'models/Seller'
+
+import permissions from 'config/permission'
 
 dotenv.config()
+
+const cloudinaryV2 = cloudinary.v2
+
+cloudinaryV2.config({
+	cloud_name: process.env.CLOUD_NAME,
+	api_key: process.env.API_KEY,
+	api_secret: process.env.API_SECRET,
+})
 
 const app = express()
 
@@ -19,6 +42,7 @@ mongoose
 		useCreateIndex: true,
 	})
 	.then(() => {
+		// eslint-disable-next-line no-console
 		console.log('mongodb connected')
 	})
 	.catch(error => {
@@ -26,24 +50,128 @@ mongoose
 		console.log(error)
 	})
 
-app.use(cors())
+app.use(
+	expressJwt({
+		secret: process.env.SECRET_KEY,
+		algorithms: ['HS256'],
+		credentialsRequired: false,
+	})
+)
 
-const typeDefs = gql`
-	type Query {
-		hello: String
+app.use((err, req, _, next) => {
+	if (err.name === 'UnauthorizedError') {
+		req.UnauthorizedError = err.message
 	}
-`
 
-const resolvers = {
-	Query: {
-		hello: () => 'hello world',
-	},
+	next()
+})
+
+const removeBearer = token => {
+	const parts = token.split(' ')
+	if (parts.length === 2) {
+		const scheme = parts[0]
+		const credentials = parts[1]
+
+		if (/^Bearer$/i.test(scheme)) {
+			const newToken = credentials
+
+			return newToken
+		}
+	}
+
+	return token
 }
 
-const server = new ApolloServer({ typeDefs, resolvers })
+app.post('/validate', ({ body }, res) => {
+	const {
+		data: { jwt: token },
+	} = body
+
+	if (!token) return res.status(401).send('No token found')
+
+	const newToken = removeBearer(token)
+
+	jwt.verify(newToken, process.env.SECRET_KEY, async (err, decoded) => {
+		if (err) return res.status(401).send(err)
+
+		const { userID, sellerID } = decoded
+
+		const user = await User.findById(userID)
+
+		if (!user) return res.status(401).send("User doesn't exist")
+
+		if (!sellerID) return res.status(200).send('everything is fine')
+
+		const seller = await Seller.findById(sellerID)
+
+		if (!seller) return res.status(401).send('Invalid seller')
+
+		return res.status(200).send('everything is fine')
+	})
+
+	return false
+})
+
+app.get('/doesProductExist', async ({ body }, res) => {
+	try {
+		const { productID } = body
+
+		if (!productID) return res.status(401).send('No product id found')
+
+		const product = await Product.findById(productID, '_id')
+
+		if (!product) return res.status(401).send("product doesn't exist")
+
+		return res.status(200).send('product found')
+	} catch (e) {
+		return res.status(401).send('something went wrong')
+	}
+})
+
+app.get('/doesCategoryExist', async ({ body }, res) => {
+	try {
+		const { categoryID } = body
+
+		if (!categoryID) return res.status(401).send('No Category id found')
+
+		const category = await Category.findById(categoryID, 'name')
+
+		if (!category) return res.status(401).send("Category doesn't exist")
+
+		return res.status(200).json({ name: category.name })
+	} catch (e) {
+		return res.status(401).send('something went wrong')
+	}
+})
+
+const server = new ApolloServer({
+	schema: applyMiddleware(
+		makeExecutableSchema({
+			typeDefs,
+			resolvers,
+		}),
+		permissions
+	),
+	context: ctx => {
+		const {
+			req: { user, UnauthorizedError },
+		} = ctx
+
+		if (user) {
+			return { ...ctx, user }
+		}
+
+		if (UnauthorizedError) {
+			return { error: UnauthorizedError }
+		}
+
+		return ctx
+	},
+})
 
 server.applyMiddleware({ app })
 
-const port = process.env.PORT || 9000
+const port = process.env.PORT || 8000
 
+// eslint-disable-next-line no-console
 app.listen({ port }, () => console.log(`server is running at ${port}`))

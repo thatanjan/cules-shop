@@ -8,11 +8,19 @@
 		"apollo-server-express": "^2.24.0",
 		"bcryptjs": "^2.4.3",
 		"body-parser": "^1.19.0",
+		"cloudinary": "^1.26.2",
+		"core-js": "^3.17.2",
 		"dotenv": "^9.0.0",
 		"express": "^4.17.1",
+		"express-jwt": "^6.0.0",
 		"graphql": "^15.5.0",
+		"graphql-middleware": "^6.0.10",
+		"graphql-shield": "^7.5.0",
 		"jsonwebtoken": "^8.5.1",
+		"lodash": "^4.17.21",
 		"mongoose": "^5.12.7",
+		"regenerator-runtime": "^0.13.9",
+		"stripe": "^8.168.0",
 		"validator": "^13.6.0"
 	},
 	"devDependencies": {
@@ -20,6 +28,7 @@
 		"@babel/core": "^7.14.0",
 		"@babel/node": "^7.13.13",
 		"@babel/preset-env": "^7.14.1",
+		"@types/js-cookie": "^2.2.7",
 		"babel-plugin-module-resolver": "^4.1.0",
 		"eslint": "^7.26.0",
 		"eslint-config-airbnb-base": "^14.2.1",
@@ -31,6 +40,7 @@
 	"scripts": {
 		"dev": "nodemon --exec babel-node src/index.js",
 		"build": "babel src -d build",
-		"start": "node build/index.js"
+		"start": "node build/index.js",
+		"lint": "eslint . --ext ts --ext tsx --ext js"
 	}
 }
