@@ -1,7 +1,8 @@
 import { model, Schema } from 'mongoose'
 
-import { product } from './Cart'
 import User from 'models/User'
+
+import { product } from './Cart'
 
 const objectId = Schema.Types.ObjectId
 

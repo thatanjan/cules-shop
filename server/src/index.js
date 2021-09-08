@@ -42,6 +42,7 @@ mongoose
 		useCreateIndex: true,
 	})
 	.then(() => {
+		// eslint-disable-next-line no-console
 		console.log('mongodb connected')
 	})
 	.catch(error => {
@@ -107,6 +108,8 @@ app.post('/validate', ({ body }, res) => {
 
 		return res.status(200).send('everything is fine')
 	})
+
+	return false
 })
 
 app.get('/doesProductExist', async ({ body }, res) => {
@@ -170,4 +173,5 @@ server.applyMiddleware({ app })
 
 const port = process.env.PORT || 8000
 
+// eslint-disable-next-line no-console
 app.listen({ port }, () => console.log(`server is running at ${port}`))

@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose'
+// eslint-disable-next-line import/no-cycle
 import Product from './Product'
 
 const objectId = Schema.Types.ObjectId

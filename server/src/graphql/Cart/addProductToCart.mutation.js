@@ -12,7 +12,7 @@ const resolvers = {
 				const addProduct = await Cart.updateOne(
 					{ user: userID },
 					{
-						$push: { products: { productID: productID, quantity } },
+						$push: { products: { productID, quantity } },
 						$inc: { totalQuantity: quantity },
 					}
 				)

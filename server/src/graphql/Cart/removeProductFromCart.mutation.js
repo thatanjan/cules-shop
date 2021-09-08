@@ -12,7 +12,7 @@ const resolvers = {
 				const removeProduct = await Cart.findOneAndUpdate(
 					{ user: userID },
 					{
-						$pull: { products: { productID: productID } },
+						$pull: { products: { productID } },
 					},
 					{
 						projection: {

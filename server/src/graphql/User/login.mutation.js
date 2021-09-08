@@ -3,6 +3,7 @@ import { compare } from 'bcryptjs'
 
 import sendErrorMessage from 'utils/errorMessage'
 import validateLoginInput from 'validation/login'
+
 import User from 'models/User'
 import Seller from 'models/Seller'
 
@@ -18,7 +19,6 @@ const resolver = {
 			const { email, password } = Input
 
 			if (!isValid) {
-				console.log(isValid)
 				return validationErrorMessage(errors)
 			}
 

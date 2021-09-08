@@ -17,13 +17,13 @@ const resolver = {
 				})
 
 				const cartProducts = products.map(({ productID: product, quantity }) => {
+					// eslint-disable-next-line no-param-reassign
 					product.userQuantity = quantity
 					return product
 				})
 
 				return { cartProducts }
 			} catch (e) {
-				console.log(e)
 				return sendErrorMessage()
 			}
 		},

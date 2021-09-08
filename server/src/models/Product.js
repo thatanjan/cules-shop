@@ -2,6 +2,7 @@ import { Schema, createConnection } from 'mongoose'
 import { config } from 'dotenv'
 
 import Profile from 'models/Profile'
+// eslint-disable-next-line import/no-cycle
 import Seller from 'models/Seller'
 import Category from 'models/Category'
 

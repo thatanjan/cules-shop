@@ -12,7 +12,7 @@ const resolver = {
 
 			product = product.toObject()
 
-			let { allStars, reviews } = product
+			const { allStars, reviews } = product
 
 			let totalReviews = 0
 			let averageStars = 0
@@ -20,18 +20,21 @@ const resolver = {
 			if (!reviews || reviews.length === 0)
 				return { reviews: [], totalReviews, averageStars }
 
-			for (let key in allStars) {
+			const keys = Object.keys(allStars)
+
+			keys.forEach(key => {
 				const value = allStars[key]
 				const numKey = parseInt(key, 10)
 
 				totalReviews += value
 				averageStars += value * numKey
-			}
+			})
 
-			averageStars = averageStars / totalReviews
+			averageStars /= totalReviews
 			averageStars = averageStars.toFixed(1) * 10
 
 			reviews.forEach(review => {
+				// eslint-disable-next-line no-param-reassign
 				review.date = review.date.toDateString()
 			})
 

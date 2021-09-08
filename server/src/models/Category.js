@@ -1,4 +1,4 @@
-import { Schema, model, createConnection } from 'mongoose'
+import { Schema, createConnection } from 'mongoose'
 import { config } from 'dotenv'
 
 config()
@@ -8,11 +8,6 @@ const schema = new Schema({
 	image: { type: String, required: true },
 })
 
-export const connection = createConnection(
-	process.env.MONGO_URI_PRODUCT,
-	mongooseOptions
-)
-
 const mongooseOptions = {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
@@ -21,6 +16,11 @@ const mongooseOptions = {
 	useFindAndModify: false,
 	useCreateIndex: true,
 }
+
+export const connection = createConnection(
+	process.env.MONGO_URI_PRODUCT,
+	mongooseOptions
+)
 
 const Category = connection.model('category', schema)
 
