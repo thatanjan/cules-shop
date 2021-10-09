@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 const { Schema } = mongoose
+const objectId = Schema.Types.ObjectId
 
 const schema = {
 	email: {
@@ -14,6 +15,14 @@ const schema = {
 	date: {
 		type: Date,
 		default: Date.now,
+	},
+	profile: {
+		type: objectId,
+		required: true,
+	},
+	seller: {
+		type: objectId,
+		default: '',
 	},
 }
 
