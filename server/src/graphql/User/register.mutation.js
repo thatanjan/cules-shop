@@ -18,6 +18,7 @@ const createUser = async ({ name, email, password }) => {
 		const userModelData = {
 			email,
 			password: hashedPassword,
+			profile: profile._id,
 		}
 
 		const newUser = new User(userModelData)
@@ -65,11 +66,15 @@ const resolver = {
 					return sendErrorMessage('Registering user failed. Please try again later.')
 				}
 
-				const { _id } = newUser
+				const { _id, profile } = newUser
 
-				const token = jwt.sign({ userID: _id }, process.env.SECRET_KEY, {
-					expiresIn: '7d',
-				})
+				const token = jwt.sign(
+					{ userID: _id, profileID: profile },
+					process.env.SECRET_KEY,
+					{
+						expiresIn: '7d',
+					}
+				)
 
 				return { token: `Bearer ${token}` }
 			} catch (error) {
