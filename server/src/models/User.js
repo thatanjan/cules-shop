@@ -1,6 +1,9 @@
 import mongoose from 'mongoose'
 
+import Profile from 'models/Profile'
+
 const { Schema } = mongoose
+
 const objectId = Schema.Types.ObjectId
 
 const schema = {
@@ -19,6 +22,7 @@ const schema = {
 	profile: {
 		type: objectId,
 		required: true,
+		ref: Profile,
 	},
 	seller: {
 		type: objectId,
