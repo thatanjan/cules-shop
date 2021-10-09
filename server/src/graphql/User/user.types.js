@@ -4,7 +4,7 @@ const types = gql`
 	extend type Mutation {
 		login(Input: LoginInput!): Response!
 		register(Input: RegisterInput!): Response!
-		becomeSeller(Input: BecomeSellerInput!): SuccessResponse!
+		becomeSeller(Input: BecomeSellerInput!): BecomeSellerResponse!
 	}
 
 	input LoginInput {
@@ -34,6 +34,11 @@ const types = gql`
 		token: String
 		errorMessage: String
 		validationError: ValidationErrorMessage
+	}
+
+	type BecomeSellerResponse {
+		token: String
+		errorMessage: String!
 	}
 `
 

@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken'
 import Seller from 'models/Seller'
 
 import sendErrorMessage from 'utils/errorMessage'
@@ -10,7 +11,13 @@ const resolver = {
 
 				await newSeller.save()
 
-				return { success: true }
+				const payload = { userID, sellerID: newSeller._id }
+
+				const token = jwt.sign(payload, process.env.SECRET_KEY, {
+					expiresIn: '7d',
+				})
+
+				return { success: true, token }
 			} catch (___) {
 				return sendErrorMessage('sorry, something went wrong')
 			}
