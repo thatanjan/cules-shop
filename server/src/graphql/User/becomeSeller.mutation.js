@@ -17,7 +17,7 @@ const resolver = {
 					expiresIn: '7d',
 				})
 
-				return { success: true, token }
+				return { success: true, token: `Bearer ${token}` }
 			} catch (___) {
 				return sendErrorMessage('sorry, something went wrong')
 			}
