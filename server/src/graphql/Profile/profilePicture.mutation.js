@@ -40,10 +40,10 @@ const mainResolver = operation => async (
 
 		const imageID = await uploadImage(image, { folder: PATH, ...imageConfig })
 
-		if (typeof imageID === 'string') {
-			profileData[PROFILE_PICTUE] = imageID
-		}
+		if (typeof imageID !== 'string')
+			return sendErrorMessage('Uploading image failed')
 
+		profileData[PROFILE_PICTUE] = imageID
 		const res = await profileData.save()
 
 		if (res) return successResponse()
