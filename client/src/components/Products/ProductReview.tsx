@@ -10,6 +10,7 @@ import ProductReviewForm from 'components/Forms/ProductReviewForm'
 
 import ProductReviewList from 'components/Reviews/ReviewList'
 
+import { useUserState } from 'redux/hooks/useSliceHooks'
 import { useGetReviews } from 'hooks/swr/useProductHooks'
 
 const ReviewStarDistribution = () => {
@@ -71,6 +72,7 @@ const ReviewResult = () => {
 }
 
 const ProductReview = () => {
+	const { userID } = useUserState()
 	return (
 		<Grid container spacing={5}>
 			<ReviewResult />
@@ -79,7 +81,7 @@ const ProductReview = () => {
 				<Typography variant='h6' sx={{ margin: '1.5rem 0' }}>
 					Review “Powerbank 1130 mAh Blue”
 				</Typography>
-				<ProductReviewForm />
+				{userID && <ProductReviewForm />}
 			</Grid>
 
 			<Grid item xs={12}>
