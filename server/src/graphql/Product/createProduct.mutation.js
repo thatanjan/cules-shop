@@ -1,7 +1,7 @@
 import sendErrorMessage from 'utils/errorMessage'
 import uploadImage from 'utils/cloudinary/uploadToCloudinary'
 import Product from 'models/Product'
-import imageConfig from 'variables/cloudinaryVariables'
+import { productImageConfig } from 'variables/cloudinaryVariables'
 
 const PATH = 'cules-shop/products/'
 
@@ -15,7 +15,7 @@ const resolver = {
 
 				const imageID = await uploadImage(image, {
 					folder: PATH,
-					...imageConfig,
+					...productImageConfig,
 				})
 
 				if (typeof imageID === 'string') {
