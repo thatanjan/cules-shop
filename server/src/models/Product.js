@@ -60,6 +60,10 @@ const schema = new Schema({
 		4: { type: Number, default: 0 },
 		5: { type: Number, default: 0 },
 	},
+	totalSold: {
+		type: Number,
+		default: 0,
+	},
 })
 
 const product = connection.model('product', schema)
