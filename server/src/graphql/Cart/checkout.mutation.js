@@ -89,6 +89,32 @@ const resolver = {
 
 				if (!updateProduct.result.ok) return sendErrorMessage()
 
+				const totalProductsPerCategory = {}
+
+				products.forEach(product => {
+					const categoryID = product.productID.category
+					const prevValue = totalProductsPerCategory[categoryID] || 0
+
+					totalProductsPerCategory[categoryID] = prevValue + product.quantity
+				})
+
+				const bulkUpdateCategory = products.map(item => ({
+					updateOne: {
+						filter: {
+							_id: item.productID.category,
+						},
+						update: {
+							$inc: {
+								totalSold: item.quantity,
+							},
+						},
+					},
+				}))
+
+				const updateCategory = await Category.bulkWrite(bulkUpdateCategory)
+
+				if (!updateCategory.result.ok) return sendErrorMessage()
+
 				return { success: true }
 			} catch (err) {
 				return sendErrorMessage()
