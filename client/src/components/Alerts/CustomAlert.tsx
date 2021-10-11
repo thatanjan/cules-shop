@@ -64,7 +64,7 @@ export default function DescriptionAlerts({
 						<AlertTitle style={{ textTransform: 'capitalize' }}>
 							{severity}
 						</AlertTitle>
-						{message || children}
+						{message || children || 'Something went wrong.'}
 					</Alert>
 				</Collapse>
 			</div>
