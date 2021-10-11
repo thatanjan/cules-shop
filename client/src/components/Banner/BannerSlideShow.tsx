@@ -29,7 +29,7 @@ const BannerSlideShow = () => {
 				<Box
 					sx={{
 						position: 'absolute',
-						zIndex: '9999',
+						zIndex: '9',
 						left: '10%',
 						display: 'grid',
 						height: '100%',
