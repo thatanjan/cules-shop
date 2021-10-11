@@ -5,7 +5,7 @@ const resolver = {
 	Query: {
 		getAllCategoryNames: async () => {
 			try {
-				const categories = await Category.find({})
+				const categories = await Category.find({}).sort('-totalSold')
 
 				return { categories }
 			} catch (e) {
