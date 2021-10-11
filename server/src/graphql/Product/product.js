@@ -10,6 +10,7 @@ import getCategoryProducts from './getCategoryProducts.query'
 import searchProducts from './searchProducts.query'
 import getReviews from './getReviews.query'
 import getAllSellerProducts from './getAllSellerProducts.query'
+import getPopularProducts from './getPopularProducts.query'
 
 export const productTypeDefs = [typeDefs]
 
@@ -21,5 +22,6 @@ export const productResolvers = merge(
 	searchProducts,
 	addReview,
 	getReviews,
-	getAllSellerProducts
+	getAllSellerProducts,
+	getPopularProducts
 )
