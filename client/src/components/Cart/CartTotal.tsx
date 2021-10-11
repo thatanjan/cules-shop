@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
@@ -7,12 +8,19 @@ import { useGetTotalCartPrice } from 'hooks/swr/useCartHooks'
 
 const Subtotal = () => {
 	const { data } = useGetTotalCartPrice()
+	const { push } = useRouter()
 
 	if (!data) return null
 
 	const {
 		totalCartPrice: { totalPrice },
 	} = data
+
+	if (!totalPrice) {
+		push('/cart')
+
+		return null
+	}
 
 	return (
 		<Grid sx={{ margin: '2rem 0' }}>
