@@ -3,6 +3,7 @@ import Stripe from 'stripe'
 import Cart from 'models/Cart'
 import Order from 'models/Order'
 import Product from 'models/Product'
+import Category from 'models/Category'
 
 import sendErrorMessage from 'utils/errorMessage'
 
@@ -16,20 +17,22 @@ const resolver = {
 			try {
 				const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-				const { products } = await Cart.findOne({ user: userID }, 'products')
+				const { products } = await Cart.findOne(
+					{ user: userID },
+					'products'
+				).populate({
+					path: 'products.productID',
+					select: 'category price quantity',
+				})
 
 				if (!products.length)
 					return sendErrorMessage('No product is available in cart')
 
-				const productIDs = products.map(product => product.productID)
-
-				const res = await Product.find({ _id: { $in: productIDs } }, 'price')
-
 				let totalPrice = 0
 
-				res.forEach((item, index) => {
-					const individualQuantity = products[index].quantity
-					totalPrice += item.price * individualQuantity
+				products.forEach((item, index) => {
+					const individualQuantity = item.quantity
+					totalPrice += item.productID.price * individualQuantity
 				})
 
 				if (totalPrice < 50)
@@ -45,10 +48,10 @@ const resolver = {
 
 				const { id, amount, currency } = payment
 
-				const orderedProducts = products.map(({ productID, quantity }, index) => ({
-					productID,
-					quantity,
-					price: res[index].price,
+				const orderedProducts = products.map(product => ({
+					productID: product.productID._id,
+					quantity: product.quantity,
+					price: product.productID.price,
 				}))
 
 				const order = new Order({
@@ -67,12 +70,12 @@ const resolver = {
 					{ $set: { products: [] } }
 				)
 
-				if (!updateCart) return sendErrorMessage()
+				if (!updateCart || !updateCart.nModified) return sendErrorMessage()
 
 				const bulkUpdateArray = products.map(({ productID, quantity }) => ({
 					updateOne: {
 						filter: {
-							_id: productID,
+							_id: productID._id,
 						},
 						update: {
 							$inc: {
