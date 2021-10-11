@@ -80,6 +80,7 @@ const resolver = {
 						update: {
 							$inc: {
 								quantity: quantity * -1,
+								totalSold: quantity,
 							},
 						},
 					},
