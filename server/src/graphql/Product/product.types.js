@@ -11,7 +11,7 @@ const typeDefs = gql`
 			Input: GetCategoryProductsInput!
 		): GetCategoryProductsResponse!
 		getProducts(Input: GetProductInput!): [Product!]!
-		getPopularProducts: [Product!]!
+		getPopularProducts: GetProductsResponse!
 		getProductDetails(productID: ID!): ProductDetails!
 		getAllCategoryNames: AllCategoryNamesResponse!
 		searchProducts(Input: SearchProductsInput!): GetCategoryProductsResponse!
@@ -50,6 +50,11 @@ const typeDefs = gql`
 
 	type GetAllSellerProductsResponse {
 		products: [SellerProduct!]
+		errorMessage: String
+	}
+
+	type GetProductsResponse {
+		products: [Product!]
 		errorMessage: String
 	}
 

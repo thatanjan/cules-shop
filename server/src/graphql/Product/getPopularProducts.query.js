@@ -52,7 +52,7 @@ const resolver = {
 					select: 'name _id image',
 				})
 
-				return products
+				return { products }
 			} catch (e) {
 				return sendErrorMessage()
 			}
