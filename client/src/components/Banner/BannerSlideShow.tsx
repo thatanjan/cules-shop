@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
@@ -22,6 +23,7 @@ const banners = ['cules-shop/pixel_2_xl_google-actualizacion-seguridad_wscp9z']
 const BannerSlideShow = () => {
 	const { swiperContainer } = useStyles()
 	const largerThanMD = useLargerThanMD()
+	const { push } = useRouter()
 
 	return (
 		<>
@@ -50,6 +52,9 @@ const BannerSlideShow = () => {
 							padding: {
 								sm: '2% 20%',
 							},
+						}}
+						onClick={() => {
+							push('/explore')
 						}}
 					>
 						EXPLORE
