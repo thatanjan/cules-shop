@@ -95,3 +95,8 @@ export interface GetAllSellerProductsResponse {
 		image: string
 	}>
 }
+
+export interface GetPopularProductsResponse {
+	products: MultiPleProducts
+	errorMessage: string
+}
