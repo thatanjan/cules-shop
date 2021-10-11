@@ -25,50 +25,51 @@ const BannerSlideShow = () => {
 
 	return (
 		<>
-			<Swiper
-				centeredSlides
-				loop
-				pagination={{
-					clickable: true,
-				}}
-				autoplay={{
-					delay: 3000,
-				}}
-				navigation
-				className={swiperContainer}
-			>
-				{banners.map(item => (
-					<SwiperSlide key={nanoid()}>
-						<Box sx={{ position: 'relative' }}>
-							<Box
-								sx={{
-									position: 'absolute',
-									zIndex: '9999',
-									left: '10%',
-									display: 'grid',
-									height: '100%',
-									gridRowGap: '2%',
-								}}
-							>
-								<Typography
-									variant={largerThanMD ? 'h2' : 'h4'}
-									sx={{ textTransform: 'capitalize', alignSelf: 'end' }}
-								>
-									Explore the new Technologies
-								</Typography>
-								<Button
-									variant='contained'
-									sx={{
-										alignSelf: 'start',
-										justifySelf: 'start',
-										padding: {
-											sm: '2% 20%',
-										},
-									}}
-								>
-									EXPLORE
-								</Button>
-							</Box>
+			<Box sx={{ position: 'relative' }}>
+				<Box
+					sx={{
+						position: 'absolute',
+						zIndex: '9999',
+						left: '10%',
+						display: 'grid',
+						height: '100%',
+						gridRowGap: '2%',
+					}}
+				>
+					<Typography
+						variant={largerThanMD ? 'h2' : 'h4'}
+						sx={{ textTransform: 'capitalize', alignSelf: 'end' }}
+					>
+						Explore the new Technologies
+					</Typography>
+					<Button
+						variant='contained'
+						sx={{
+							alignSelf: 'start',
+							justifySelf: 'start',
+							padding: {
+								sm: '2% 20%',
+							},
+						}}
+					>
+						EXPLORE
+					</Button>
+				</Box>
+
+				<Swiper
+					centeredSlides
+					loop
+					pagination={{
+						clickable: true,
+					}}
+					autoplay={{
+						delay: 3000,
+					}}
+					navigation
+					className={swiperContainer}
+				>
+					{banners.map(item => (
+						<SwiperSlide key={nanoid()}>
 							<Box
 								sx={{
 									backgroundColor: '#00000096',
@@ -79,10 +80,10 @@ const BannerSlideShow = () => {
 								}}
 							/>
 							<Image src={item} width={1920} height={1080} layout='responsive' />
-						</Box>
-					</SwiperSlide>
-				))}
-			</Swiper>
+						</SwiperSlide>
+					))}
+				</Swiper>
+			</Box>
 		</>
 	)
 }
