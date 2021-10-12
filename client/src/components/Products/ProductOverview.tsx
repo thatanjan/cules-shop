@@ -203,7 +203,7 @@ const ProductOverview = ({
 						.map((_, index) => (
 							<ListItem key={nanoid()}>
 								<Typography sx={{ marginRight: '1rem' }}>{index + 1}.</Typography>
-								<ListItemText primary='I dont for now' />
+								<ListItemText primary='Ipsum dolorem iure numquam deleniti' />
 							</ListItem>
 						))}
 				</List>
