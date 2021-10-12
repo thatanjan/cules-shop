@@ -20,6 +20,7 @@ import MuiLink from 'components/Links/MuiLink'
 
 import { toggleDrawer } from 'redux/slices/drawerSlice'
 import { useAppSelector, useAppDispatch } from 'redux/hooks/appHooks'
+import { useUserState } from 'redux/hooks/useSliceHooks'
 
 import useLargerThanMD from 'hooks/mediaQueries/useLargerThanMD'
 import { useTotalCartItems } from 'hooks/swr/useCartHooks'
@@ -55,6 +56,7 @@ const CartMenu = () => {
 
 const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 	const open = useAppSelector(state => state.drawer.isOpen)
+	const { userID } = useUserState()
 
 	const dispatch = useAppDispatch()
 
@@ -98,7 +100,7 @@ const TopNavigation = ({ setShowSearchBar, showSearchBar }: Props) => {
 
 						{largerThanMD && <AccountMenu />}
 
-						<CartMenu />
+						{userID && <CartMenu />}
 					</Toolbar>
 				</AppBar>
 			</Box>
