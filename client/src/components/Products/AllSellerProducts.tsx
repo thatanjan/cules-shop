@@ -57,7 +57,14 @@ const SingleProduct = ({
 					m: 'auto',
 				}}
 			>
-				<Image src={image} width={1} height={1} layout='responsive' quality={20} />
+				<Image
+					src={image}
+					width={1}
+					height={1}
+					layout='responsive'
+					quality={20}
+					objectFit='cover'
+				/>
 			</MuiLink>
 
 			<Box sx={{ flexGrow: 1 }}>
