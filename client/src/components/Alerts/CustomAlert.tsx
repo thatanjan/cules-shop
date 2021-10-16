@@ -31,7 +31,7 @@ export default function DescriptionAlerts({
 	children,
 	...props
 }: Props) {
-	const classes = useStyles()
+	const { root } = useStyles()
 
 	const [open, setOpen] = useState(true)
 
@@ -43,7 +43,7 @@ export default function DescriptionAlerts({
 			unmountOnExit
 			timeout={{ exit: 3 }}
 		>
-			<div className={classes.root}>
+			<div className={root}>
 				<Collapse in={open}>
 					<Alert
 						severity={severity}
