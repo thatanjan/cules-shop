@@ -49,12 +49,6 @@ const CartPage = (props: Props) => {
 					</Typography>
 					<CartItemsShow cartProducts={cartProducts} />
 
-					<Grid container sx={{ marginTop: '1rem' }}>
-						<Grid item xs={12} md={8} lg={6} sx={{ maxWidth: '50rem' }}>
-							<CoupnInput />
-						</Grid>
-					</Grid>
-
 					<Grid container justifyContent='flex-end'>
 						<Grid item xs={12} md={6}>
 							<CartTotal />
