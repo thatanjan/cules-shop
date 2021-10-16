@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 	},
 })
 
-const banners = ['cules-shop/pixel_2_xl_google-actualizacion-seguridad_wscp9z']
+const bannersPath = 'cules-shop/Banners/'
 
 const BannerSlideShow = () => {
 	const { swiperContainer } = useStyles()
@@ -73,20 +73,27 @@ const BannerSlideShow = () => {
 					navigation
 					className={swiperContainer}
 				>
-					{banners.map(item => (
-						<SwiperSlide key={nanoid()}>
-							<Box
-								sx={{
-									backgroundColor: '#00000096',
-									position: 'absolute',
-									zIndex: '999',
-									height: '100%',
-									width: '100%',
-								}}
-							/>
-							<Image src={item} width={1920} height={1080} layout='responsive' />
-						</SwiperSlide>
-					))}
+					{Array(5)
+						.fill(0)
+						.map((_, index) => (
+							<SwiperSlide key={nanoid()}>
+								<Box
+									sx={{
+										backgroundColor: '#00000096',
+										position: 'absolute',
+										zIndex: '999',
+										height: '100%',
+										width: '100%',
+									}}
+								/>
+								<Image
+									src={`${bannersPath}${index + 1}`}
+									width={1920}
+									height={1080}
+									layout='responsive'
+								/>
+							</SwiperSlide>
+						))}
 				</Swiper>
 			</Box>
 		</>
