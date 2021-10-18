@@ -130,7 +130,7 @@ const AllSellerProducts = () => {
 				</Box>
 				<Grid container>
 					{products.map(({ name, image, price, _id, category }) => (
-						<Grid item xs={12} sm={6} md={4}>
+						<Grid item xs={12} sm={4} md={3}>
 							<SingleProduct
 								{...{
 									name,
