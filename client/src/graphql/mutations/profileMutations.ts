@@ -37,8 +37,8 @@ export const updateProfile = gql`
 export const becomeSeller = gql`
 	mutation becomeSeller($company: String!) {
 		becomeSeller(Input: { company: $company }) {
-			success
 			errorMessage
+			token
 		}
 	}
 `
