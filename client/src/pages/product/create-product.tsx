@@ -24,6 +24,7 @@ import {
 	closeUploadModal,
 	makeBase64Image,
 	openPreviewModal,
+	resetState,
 } from 'redux/slices/productSlice'
 import { Base64 } from 'interfaces/global'
 
@@ -68,7 +69,9 @@ const CreateProduct = (props: Props) => {
 		uploadModal,
 		makeImage: (base64: Base64) => dispatch(makeBase64Image(base64)),
 		openPreviewModal: (link: string) => dispatch(openPreviewModal(link)),
-		closeReset: () => {},
+		closeReset: () => {
+			dispatch(resetState())
+		},
 	}
 
 	if (created)
