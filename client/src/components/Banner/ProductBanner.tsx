@@ -35,12 +35,7 @@ export default function MediaControlCard() {
 			</Box>
 
 			<CardMedia sx={{ width: '100%', padding: '0 1rem', m: 'auto' }}>
-				<Image
-					src='cules-shop/22650293_1920_eixdi4'
-					width={1920}
-					height={1080}
-					layout='responsive'
-				/>
+				<Image src='cules-shop/tv' width={1920} height={1080} layout='responsive' />
 			</CardMedia>
 		</Card>
 	)

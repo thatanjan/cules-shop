@@ -42,7 +42,11 @@ const tabNames = ['Description', 'specification', 'reviews']
 
 const tabChildrens = [ProductDescription, ProductSpecification, ProductReview]
 
-const ProductOverviewTabs = () => {
+interface Props {
+	description: string
+}
+
+const ProductOverviewTabs = ({ description }: Props) => {
 	const [value, setValue] = React.useState(0)
 	const theme = useTheme()
 
@@ -82,7 +86,7 @@ const ProductOverviewTabs = () => {
 								padding: '1rem',
 							}}
 						>
-							{TabChildren && <TabChildren />}
+							{TabChildren && <TabChildren description={description} />}
 						</Box>
 					</TabPanel>
 				)

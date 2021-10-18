@@ -31,6 +31,7 @@ const CheckoutForm = () => {
 	const [errorMessage, setErrorMessage] = useState('')
 	const [checkingOut, setCheckingOut] = useState(false)
 	const setCheckoutDone = useSetCheckoutDone()
+	const [checkoutSuccessful, setCheckoutSuccessful] = useState(false)
 
 	const {
 		shippingValues,
@@ -51,6 +52,8 @@ const CheckoutForm = () => {
 				return
 			}
 
+			setCheckingOut(true)
+
 			const { error, paymentMethod } = await stripe.createPaymentMethod({
 				type: 'card',
 				card: elements.getElement(CardElement),
@@ -58,6 +61,7 @@ const CheckoutForm = () => {
 
 			if (error) {
 				setErrorMessage(error.message)
+				setCheckingOut(false)
 				return
 			}
 
@@ -73,7 +77,6 @@ const CheckoutForm = () => {
 					shippingDetails: shippingValues,
 				},
 			})
-			setCheckingOut(true)
 
 			if (request) {
 				const {
@@ -84,6 +87,7 @@ const CheckoutForm = () => {
 					setCheckingOut(false)
 					setCheckoutDone()
 					mutate([totalCartItems, undefined])
+					setCheckoutSuccessful(true)
 					return
 				}
 
@@ -121,7 +125,8 @@ const CheckoutForm = () => {
 						!elements ||
 						checkingOut ||
 						(showDifferentAddressForm && !isNewAddressValid) ||
-						!isCurrentAddressValid
+						!isCurrentAddressValid ||
+						checkoutSuccessful
 					}
 					sx={{ margin: '1.5rem 0' }}
 				>

@@ -22,6 +22,7 @@ import { MutationDeps } from 'interfaces/product'
 import { totalCartItems } from 'graphql/queries/cartQueries'
 import { addProductToCart } from 'graphql/mutations/productMutations'
 
+import { useUserState } from 'redux/hooks/useSliceHooks'
 import { useIsProductInTheCart } from 'hooks/swr/useProductHooks'
 
 const ProductQuantity = dynamic(() => import('./ProductQuantity'))
@@ -80,6 +81,7 @@ const ProductPreview = ({
 	mutationDeps,
 	quantity,
 }: Props) => {
+	const { userID } = useUserState()
 	const addProductHandler = async () => {
 		try {
 			const {
@@ -175,7 +177,7 @@ const ProductPreview = ({
 						</Grid>
 					)}
 
-					{!cartPage && !alreadyInCart && quantity > 0 && (
+					{userID && !cartPage && !alreadyInCart && quantity > 0 && (
 						<Grid item xs={6} sx={cartStyle}>
 							<IconButton onClick={() => addProductHandler()}>
 								<AddShoppingCartIcon />

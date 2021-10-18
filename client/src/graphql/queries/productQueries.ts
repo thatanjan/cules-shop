@@ -120,3 +120,23 @@ export const getAllSellerProducts = gql`
 		}
 	}
 `
+
+export const getPopularProducts = gql`
+	query getPopularProducts {
+		getPopularProducts {
+			products {
+				_id
+				name
+				price
+				image
+				category {
+					name
+					_id
+				}
+				alreadyInCart
+				quantity
+			}
+			errorMessage
+		}
+	}
+`

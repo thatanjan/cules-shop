@@ -50,7 +50,14 @@ const SingleCategory = ({ name, image, _id }: SingleCategoryProps) => {
 					m: 'auto',
 				}}
 			>
-				<Image src={image} width={1} height={1} layout='responsive' quality={20} />
+				<Image
+					src={image}
+					width={1}
+					height={1}
+					layout='responsive'
+					quality={20}
+					objectFit='cover'
+				/>
 			</MuiLink>
 
 			<Box sx={{ flexGrow: 1, m: '1rem 0' }}>
@@ -60,7 +67,7 @@ const SingleCategory = ({ name, image, _id }: SingleCategoryProps) => {
 							MuiComponent={Typography}
 							sx={{ textTransform: 'capitalize' }}
 							href={categoryPageLink}
-							variant='h5'
+							variant='h6'
 						>
 							{name}
 						</MuiLink>

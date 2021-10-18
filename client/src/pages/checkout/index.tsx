@@ -50,7 +50,7 @@ const CheckoutSuccessful = () => {
 		}
 	}, [])
 
-	setTimeout(() => push('/cart'), 3000)
+	setTimeout(() => push('/'), 3000)
 
 	return (
 		<Grid

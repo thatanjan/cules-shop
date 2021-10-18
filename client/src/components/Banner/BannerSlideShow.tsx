@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
@@ -17,72 +18,89 @@ const useStyles = makeStyles({
 	},
 })
 
-const banners = ['cules-shop/pixel_2_xl_google-actualizacion-seguridad_wscp9z']
+const bannersPath = 'cules-shop/Banners/'
 
 const BannerSlideShow = () => {
 	const { swiperContainer } = useStyles()
 	const largerThanMD = useLargerThanMD()
+	const { push } = useRouter()
 
 	return (
 		<>
-			<Swiper
-				centeredSlides
-				loop
-				pagination={{
-					clickable: true,
+			<Box
+				sx={{
+					position: 'relative',
+					marginTop: { xs: '56px', sm: '64px' },
 				}}
-				autoplay={{
-					delay: 3000,
-				}}
-				navigation
-				className={swiperContainer}
 			>
-				{banners.map(item => (
-					<SwiperSlide key={nanoid()}>
-						<Box sx={{ position: 'relative' }}>
-							<Box
-								sx={{
-									position: 'absolute',
-									zIndex: '9999',
-									left: '10%',
-									display: 'grid',
-									height: '100%',
-									gridRowGap: '2%',
-								}}
-							>
-								<Typography
-									variant={largerThanMD ? 'h2' : 'h4'}
-									sx={{ textTransform: 'capitalize', alignSelf: 'end' }}
-								>
-									Explore the new Technologies
-								</Typography>
-								<Button
-									variant='contained'
+				<Box
+					sx={{
+						position: 'absolute',
+						zIndex: '9',
+						left: '10%',
+						display: 'grid',
+						height: '100%',
+						gridRowGap: '2%',
+					}}
+				>
+					<Typography
+						variant={largerThanMD ? 'h2' : 'h4'}
+						sx={{ textTransform: 'capitalize', alignSelf: 'end' }}
+					>
+						Explore the new Technologies
+					</Typography>
+					<Button
+						variant='contained'
+						sx={{
+							alignSelf: 'start',
+							justifySelf: 'start',
+							padding: {
+								sm: '2% 20%',
+							},
+						}}
+						onClick={() => {
+							push('/explore')
+						}}
+					>
+						EXPLORE
+					</Button>
+				</Box>
+
+				<Swiper
+					centeredSlides
+					loop
+					pagination={{
+						clickable: true,
+					}}
+					autoplay={{
+						delay: 3000,
+					}}
+					navigation
+					className={swiperContainer}
+				>
+					{Array(5)
+						.fill(0)
+						.map((_, index) => (
+							<SwiperSlide key={nanoid()}>
+								<Box
 									sx={{
-										alignSelf: 'start',
-										justifySelf: 'start',
-										padding: {
-											sm: '2% 20%',
-										},
+										backgroundColor: '#00000096',
+										position: 'absolute',
+										zIndex: '999',
+										height: '100%',
+										width: '100%',
 									}}
-								>
-									EXPLORE
-								</Button>
-							</Box>
-							<Box
-								sx={{
-									backgroundColor: '#00000096',
-									position: 'absolute',
-									zIndex: '999',
-									height: '100%',
-									width: '100%',
-								}}
-							/>
-							<Image src={item} width={1920} height={1080} layout='responsive' />
-						</Box>
-					</SwiperSlide>
-				))}
-			</Swiper>
+								/>
+								<Image
+									src={`${bannersPath}${index + 1}`}
+									width={1920}
+									height={1080}
+									layout='responsive'
+								/>
+							</SwiperSlide>
+						))}
+				</Swiper>
+			</Box>
 		</>
 	)
 }

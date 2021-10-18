@@ -7,6 +7,7 @@ import Box from '@material-ui/core/Box'
 
 import { useGetCategoryProducts } from 'hooks/swr/useProductHooks'
 import MuiLink from 'components/Links/MuiLink'
+import CustomAlert from 'components/Alerts/CustomAlert'
 
 import { getCategoryProducts } from 'graphql/queries/productQueries'
 
@@ -54,13 +55,22 @@ const ProductSlideShow = ({ singleTab, categoryID }: Props) => {
 
 	const { NAME } = sortType
 
-	const { data } = useGetCategoryProducts({ categoryID, skip: 0, sortBy: NAME })
+	const { data, error } = useGetCategoryProducts({
+		categoryID,
+		skip: 0,
+		sortBy: NAME,
+	})
 
+	if (error)
+		return <CustomAlert severity='error' message='Something went wrong' checked />
 	if (!data) return null
 
 	const {
-		getCategoryProducts: { products },
+		getCategoryProducts: { products, errorMessage },
 	} = data
+
+	if (errorMessage)
+		return <CustomAlert severity='error' message={errorMessage} checked />
 
 	return (
 		<>
@@ -94,14 +104,15 @@ const ProductSlideShow = ({ singleTab, categoryID }: Props) => {
 				navigation
 				className={swiperContainer}
 			>
-				{products.map(product => (
-					<SwiperSlide key={nanoid()}>
-						<ProductPreview
-							{...product}
-							mutationDeps={[[getCategoryProducts, categoryID + NAME + 0]]}
-						/>
-					</SwiperSlide>
-				))}
+				{Array.isArray(products) &&
+					products.map(product => (
+						<SwiperSlide key={nanoid()}>
+							<ProductPreview
+								{...product}
+								mutationDeps={[[getCategoryProducts, categoryID + NAME + 0]]}
+							/>
+						</SwiperSlide>
+					))}
 
 				<MuiLink
 					MuiComponent={Box}

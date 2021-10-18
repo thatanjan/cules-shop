@@ -2,14 +2,9 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
-import useLargerThanMD from 'hooks/mediaQueries/useLargerThanMD'
-import AppAccordion from 'components/Accordions/AppAccordions/AppAccordion'
-
 export const FOOTER_HEIGHT = '15rem'
 
 const Footer = () => {
-	const largerThanMD = useLargerThanMD()
-
 	return (
 		<Box
 			sx={{
@@ -19,8 +14,6 @@ const Footer = () => {
 			}}
 			component='footer'
 		>
-			{!largerThanMD && <AppAccordion />}
-
 			<Box
 				sx={{
 					padding: '3rem 0',

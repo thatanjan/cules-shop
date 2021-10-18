@@ -59,10 +59,11 @@ const SingleProduct = ({
 			>
 				<Image
 					src={image}
-					width={1920}
-					height={1080}
+					width={1}
+					height={1}
 					layout='responsive'
 					quality={20}
+					objectFit='cover'
 				/>
 			</MuiLink>
 
@@ -129,7 +130,7 @@ const AllSellerProducts = () => {
 				</Box>
 				<Grid container>
 					{products.map(({ name, image, price, _id, category }) => (
-						<Grid item xs={12} sm={6} md={4}>
+						<Grid item xs={12} sm={4} md={3}>
 							<SingleProduct
 								{...{
 									name,

@@ -51,12 +51,6 @@ const ForLoggedIn = () => {
 				My account
 			</LinkedMenu>
 			<Divider />
-			<LinkedMenu href='/settings'>
-				<ListItemIcon>
-					<Settings fontSize='small' />
-				</ListItemIcon>
-				Settings
-			</LinkedMenu>
 			<LinkedMenu href='/authentication/logout'>
 				<ListItemIcon>
 					<Logout fontSize='small' />

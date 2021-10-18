@@ -13,10 +13,15 @@ import { useStoreID } from 'redux/hooks/useUserHooks'
 
 import ProductBannerSlideShow from 'components/Banner/ProductBannerSlideShow'
 import ProductPreviewTabs from 'components/Tabs/ProductPreviewTabs'
+import CustomAlert from 'components/Alerts/CustomAlert'
+
+import CustomBackdrop from 'components/Loaders/CustomBackdrop'
 
 import { UserPayload } from 'interfaces/authentication'
 
 import checkValidJWT from 'utils/auth/checkValidJWT'
+
+import { useGetAllCategoryNames } from 'hooks/swr/useProductHooks'
 
 import 'swiper/swiper.min.css'
 import 'swiper/components/pagination/pagination.min.css'
@@ -41,23 +46,34 @@ export class TabData {
 	}
 }
 
+const CategoryPreviews = () => {
+	const { data, error } = useGetAllCategoryNames()
+
+	if (error)
+		return <CustomAlert checked severity='error' message='Something went wrong' />
+	if (!data) return <CustomBackdrop />
+
+	const {
+		getAllCategoryNames: { categories },
+	} = data
+
+	return (
+		<>
+			{' '}
+			{categories.slice(0, 5).map(({ name, _id }) => (
+				<ProductPreviewTabs tabData={[new TabData(name, _id)]} />
+			))}
+		</>
+	)
+}
+
 const Index = (props: Props) => {
 	useStoreID(props)
 	return (
 		<>
 			<ProductBannerSlideShow />
-			<ProductPreviewTabs
-				tabData={[new TabData('Televisions', '60f27c41389742613420479a')]}
-			/>
-			<ProductPreviewTabs
-				tabData={[new TabData('Mobiles', '61345b7eda0b1e3e4df1ee9f')]}
-			/>
-			<ProductPreviewTabs
-				tabData={[new TabData('Air Conditioners', '61345bc0da0b1e3e4df1eea0')]}
-			/>
-			<ProductPreviewTabs
-				tabData={[new TabData('Laptops', '61345c95da0b1e3e4df1eea2')]}
-			/>
+
+			<CategoryPreviews />
 		</>
 	)
 }

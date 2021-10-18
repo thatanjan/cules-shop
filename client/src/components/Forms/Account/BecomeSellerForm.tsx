@@ -4,9 +4,11 @@ import { Formik, Form } from 'formik'
 import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Box from '@material-ui/core/Box'
+import cookie from 'js-cookie'
+
+import { TOKEN_NAME } from 'variables/global'
 
 import { SellerProfile } from 'interfaces/profile'
-import { CommonResponse } from 'interfaces/global'
 
 import CustomField from 'components/Forms/Account/CustomField'
 import CustomAlert from 'components/Alerts/CustomAlert'
@@ -46,15 +48,24 @@ const BecomeSellerForm = () => {
 				onSubmit={async (values, { setSubmitting }) => {
 					try {
 						const {
-							becomeSeller: { success, errorMessage },
-						} = await createRequest<SellerProfile, { becomeSeller: CommonResponse }>({
+							becomeSeller: { token, errorMessage },
+						} = await createRequest<
+							SellerProfile,
+							{
+								becomeSeller: {
+									token: string
+									errorMessage: string
+								}
+							}
+						>({
 							values,
 							key: becomeSeller,
 						})
 
-						if (success) {
+						if (token) {
 							setSubmitting(false)
 							push('/account')
+							cookie.set(TOKEN_NAME, token)
 						}
 
 						if (errorMessage) {

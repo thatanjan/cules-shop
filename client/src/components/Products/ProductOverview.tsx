@@ -203,14 +203,15 @@ const ProductOverview = ({
 						.map((_, index) => (
 							<ListItem key={nanoid()}>
 								<Typography sx={{ marginRight: '1rem' }}>{index + 1}.</Typography>
-								<ListItemText primary='I dont for now' />
+								<ListItemText primary='Ipsum dolorem iure numquam deleniti' />
 							</ListItem>
 						))}
 				</List>
 				<Typography variant='h3' sx={{ marginTop: '3rem' }}>
 					${price / 100}
 				</Typography>
-				// eslint-disable-next-line no-nested-ternary
+
+				{/* eslint-disable-next-line no-nested-ternary */}
 				{productQuantity === 0 ? (
 					<Typography color='error' variant='h4' sx={{ m: '1rem 0' }}>
 						Out of Stock

@@ -10,6 +10,7 @@ import {
 	searchProducts,
 	getReviews,
 	getAllSellerProducts,
+	getPopularProducts,
 } from 'graphql/queries/productQueries'
 
 import {
@@ -21,6 +22,7 @@ import {
 	SearchProductsInput,
 	GetReviewResponse,
 	GetAllSellerProductsResponse,
+	GetPopularProductsResponse,
 } from 'interfaces/product'
 
 export const useGetAllCategoryNames = () =>
@@ -80,5 +82,12 @@ export const useGetAllSellerProducts = () => {
 		key: getAllSellerProducts,
 		values: {},
 		swrDependencies: sellerID,
+	})
+}
+
+export const useGetPopularProducts = () => {
+	return useSWRgql<{}, { getPopularProducts: GetPopularProductsResponse }>({
+		key: getPopularProducts,
+		values: {},
 	})
 }
