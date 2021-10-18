@@ -33,9 +33,9 @@ const resolver = {
 
 				if (!passwordsMatched) return sendErrorMessage("passwords doesn't match")
 
-				const { _id } = user
+				const { _id, profile } = user
 
-				const payload = { userID: _id }
+				const payload = { userID: _id, profileID: profile }
 
 				const seller = await Seller.findOne({ user: _id }, '_id')
 

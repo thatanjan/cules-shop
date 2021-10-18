@@ -1,11 +1,27 @@
 import { Schema, createConnection } from 'mongoose'
 import { config } from 'dotenv'
 
+import { objectId } from 'variables/global'
+
 config()
 
 const schema = new Schema({
 	name: { type: String, required: true },
 	image: { type: String, required: true },
+	totalSold: {
+		type: Number,
+		default: 0,
+	},
+	products: [
+		{
+			type: objectId,
+			required: true,
+		},
+	],
+	totalProducts: {
+		type: Number,
+		default: 0,
+	},
 })
 
 const mongooseOptions = {

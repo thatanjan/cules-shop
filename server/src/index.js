@@ -98,15 +98,15 @@ app.post('/validate', ({ body }, res) => {
 
 		const user = await User.findById(userID)
 
-		if (!user) return res.status(401).send("User doesn't exist")
+		if (!user) return res.status(401).send(false)
 
-		if (!sellerID) return res.status(200).send('everything is fine')
+		if (!sellerID) return res.status(200).send(true)
 
 		const seller = await Seller.findById(sellerID)
 
-		if (!seller) return res.status(401).send('Invalid seller')
+		if (!seller) return res.status(401).send(false)
 
-		return res.status(200).send('everything is fine')
+		return res.status(200).send(true)
 	})
 
 	return false
