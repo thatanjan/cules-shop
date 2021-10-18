@@ -26,7 +26,6 @@ const schema = {
 	},
 	seller: {
 		type: objectId,
-		default: '',
 	},
 }
 
