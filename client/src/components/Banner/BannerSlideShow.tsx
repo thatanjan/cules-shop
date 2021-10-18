@@ -27,7 +27,12 @@ const BannerSlideShow = () => {
 
 	return (
 		<>
-			<Box sx={{ position: 'relative' }}>
+			<Box
+				sx={{
+					position: 'relative',
+					marginTop: { xs: '56px', sm: '64px' },
+				}}
+			>
 				<Box
 					sx={{
 						position: 'absolute',
