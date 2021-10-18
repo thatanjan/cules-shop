@@ -99,13 +99,19 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 	let props = { userID: '', sellerID: '' }
 
-	if (!jwt) return { props }
+	if (!jwt)
+		return {
+			redirect: { destination: '/authentication/login', permanent: false },
+		}
 
 	const isValid = await checkValidJWT(jwt)
 
-	const { userID, sellerID } = jwtDecode<UserPayload>(jwt)
+	if (!isValid)
+		return {
+			redirect: { destination: '/authentication/login', permanent: false },
+		}
 
-	if (!isValid) return { props }
+	const { userID, sellerID } = jwtDecode<UserPayload>(jwt)
 
 	props = { userID, sellerID: sellerID || '' }
 
