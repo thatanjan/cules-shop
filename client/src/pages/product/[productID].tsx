@@ -43,14 +43,14 @@ const Product = ({ productID, ...props }: Props) => {
 	if (!data) return <CustomBackdrop />
 
 	const {
-		getProductDetails: { name, image, quantity, price, category },
+		getProductDetails: { name, image, quantity, price, category, description },
 	} = data
 
 	return (
 		<>
 			<ProductOverview {...{ name, image, quantity, price, category }} />
 
-			<ProductOverviewTabs />
+			<ProductOverviewTabs description={description} />
 
 			{/* <ProductPreviewTabs tabNames={['related products']} /> */}
 		</>
