@@ -129,6 +129,9 @@ const CreateProductForm = ({ setCreated }: Props) => {
 					const errors: Partial<Input> = {}
 					const { name, shortDescription, description, quantity, price } = values
 
+					if (!price) errors.price = 'Price can not be empty'
+					if (!quantity) errors.quantity = 'Quantity can not be empty'
+
 					const isLessThan = (value: string, toMatch: number) =>
 						value.length <= toMatch
 
