@@ -32,7 +32,12 @@ const SearchBar = () => {
 	return (
 		<Paper
 			component='form'
-			sx={{ p: '.5rem 1rem', display: 'flex', alignItems: 'center' }}
+			sx={{
+				p: '.5rem 1rem',
+				display: 'flex',
+				alignItems: 'center',
+				marginTop: { xs: '56px', sm: '64px' },
+			}}
 			square
 			onSubmit={handleSubmit}
 		>
