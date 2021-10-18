@@ -38,7 +38,7 @@ const types = gql`
 
 	type BecomeSellerResponse {
 		token: String
-		errorMessage: String!
+		errorMessage: String
 	}
 `
 
