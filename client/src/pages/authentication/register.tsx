@@ -13,6 +13,8 @@ import CheckIcon from '@material-ui/icons/Check'
 
 import Register from 'components/Forms/AuthForms/Register'
 
+import checkValidJWT from 'utils/auth/checkValidJWT'
+
 const benefits = [
 	'Speed your way through checkout',
 	'Track your orders easily',
@@ -58,7 +60,15 @@ const LoginPage = () => {
 export default LoginPage
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-	const { cookies } = req
+	const {
+		cookies: { jwt },
+	} = req
 
-	if (!cookies.jwt) return { props: {} }
+	if (!jwt) return { props: {} }
+
+	const isValid = await checkValidJWT(jwt)
+
+	if (isValid) return { redirect: { destination: '/', permanent: false } }
+
+	return { props: {} }
 }

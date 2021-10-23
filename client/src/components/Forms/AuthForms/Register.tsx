@@ -153,7 +153,7 @@ const Login = () => {
 
 						<MuiLink
 							MuiComponent={Button}
-							href='/authentication/register'
+							href='/authentication/login'
 							variant='contained'
 							color='primary'
 							disabled={isSubmitting}
