@@ -31,8 +31,8 @@ const Login = () => {
 		<Box sx={{ minHeight: '70vh' }}>
 			<Formik
 				initialValues={{
-					email: '',
-					password: '',
+					email: 'anjan@gmail.com',
+					password: '123456',
 				}}
 				validate={values => {
 					const errors: Partial<Values> = {}
